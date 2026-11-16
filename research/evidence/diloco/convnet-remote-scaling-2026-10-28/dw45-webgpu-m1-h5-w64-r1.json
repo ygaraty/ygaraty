@@ -1,0 +1,385 @@
+{
+  "config": {
+    "experiment": 45,
+    "name": "convnet_remote_scaling",
+    "replicas": 1,
+    "local_steps": 5,
+    "measured_rounds": 10,
+    "warmup_rounds": 2,
+    "batch": 8,
+    "backend": "webgpu",
+    "seed": 2026,
+    "tiny": false,
+    "model": {
+      "in_channels": 3,
+      "height": 32,
+      "width": 32,
+      "channels": [
+        32,
+        64,
+        128
+      ],
+      "classes": 10
+    },
+    "parameters": 94538,
+    "allow_shared_host": false,
+    "data": "synthetic",
+    "wire_dtype": "float64"
+  },
+  "state": "completed",
+  "error": null,
+  "members": {
+    "gpu-01": {
+      "machine": "laptop-01",
+      "backend": "webgpu",
+      "adapter": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false
+      },
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/192.0.2.9 Safari/537.36",
+      "preflight_checks": 42,
+      "preflight_passed": true
+    }
+  },
+  "history": [
+    {
+      "round": 1,
+      "warmup": true,
+      "seconds": 4.895780012000159,
+      "outer_seconds": 0.001806540999950812,
+      "images": 40,
+      "images_per_second": 8.170301750069463,
+      "losses": {
+        "gpu-01": [
+          2.272469796915547,
+          2.2622195132111607,
+          2.2887400939787907,
+          2.451577711084,
+          2.262765007904618
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5542999999523163,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 2,
+      "warmup": true,
+      "seconds": 4.819448395000109,
+      "outer_seconds": 0.001415503999851353,
+      "images": 40,
+      "images_per_second": 8.299705012195508,
+      "losses": {
+        "gpu-01": [
+          2.316172570342903,
+          2.3095255423490433,
+          2.411698392066443,
+          2.4799567085112275,
+          2.290841547730809
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5298999998569488,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 3,
+      "warmup": false,
+      "seconds": 4.77005577700038,
+      "outer_seconds": 0.0021723550003116543,
+      "images": 40,
+      "images_per_second": 8.385646178995785,
+      "losses": {
+        "gpu-01": [
+          2.1592771329251788,
+          2.37541384100505,
+          2.262756976793223,
+          2.3337759922189014,
+          2.383919397770469
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5287000000476837,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 4,
+      "warmup": false,
+      "seconds": 4.8087680089997775,
+      "outer_seconds": 0.0013207460001467553,
+      "images": 40,
+      "images_per_second": 8.318138850769802,
+      "losses": {
+        "gpu-01": [
+          2.355872569450955,
+          2.3342087418059183,
+          2.4043562485824044,
+          2.328951423521133,
+          2.27060383406853
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5238999998569489,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 5,
+      "warmup": false,
+      "seconds": 4.831563491999987,
+      "outer_seconds": 0.0013915160002397897,
+      "images": 40,
+      "images_per_second": 8.278893585116135,
+      "losses": {
+        "gpu-01": [
+          2.2860202763946385,
+          2.33929680265302,
+          2.2863935154522665,
+          2.3364573743637536,
+          2.3102550292802047
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5359000000953674,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 6,
+      "warmup": false,
+      "seconds": 4.785113476999868,
+      "outer_seconds": 0.0013895030001549458,
+      "images": 40,
+      "images_per_second": 8.35925839423956,
+      "losses": {
+        "gpu-01": [
+          2.292962530329659,
+          2.2634176426007313,
+          2.2580180665511587,
+          2.3160550838284104,
+          2.276474314571784
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5282000000476837,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 7,
+      "warmup": false,
+      "seconds": 4.852519247000146,
+      "outer_seconds": 0.0020533110000542365,
+      "images": 40,
+      "images_per_second": 8.243140926175249,
+      "losses": {
+        "gpu-01": [
+          2.3012304771015044,
+          2.296105387288904,
+          2.2937693857575447,
+          2.314417255468877,
+          2.295544248363631
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5304000000953675,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 8,
+      "warmup": false,
+      "seconds": 4.792633793000277,
+      "outer_seconds": 0.0012513450001279125,
+      "images": 40,
+      "images_per_second": 8.346141542969688,
+      "losses": {
+        "gpu-01": [
+          2.326791217565135,
+          2.3156198707044227,
+          2.339284376468138,
+          2.318898810823553,
+          2.3055270700150317
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5289000000953674,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 9,
+      "warmup": false,
+      "seconds": 4.701313796999784,
+      "outer_seconds": 0.0013726289998885477,
+      "images": 40,
+      "images_per_second": 8.508259973100841,
+      "losses": {
+        "gpu-01": [
+          2.2935388123939338,
+          2.315526860038908,
+          2.312793399117883,
+          2.3115734165098547,
+          2.297783513962273
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 0.5256999998092652,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 10,
+      "warmup": false,
+      "seconds": 7.052617836000081,
+      "outer_seconds": 0.0020962920002602914,
+      "images": 40,
+      "images_per_second": 5.671652842979813,
+      "losses": {
+        "gpu-01": [
+          2.298483053158176,
+          2.2936348093957624,
+          2.3110254050028045,
+          2.322736832173345,
+          2.3289672236161323
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 2.7117000000476836,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 11,
+      "warmup": false,
+      "seconds": 6.756671466000171,
+      "outer_seconds": 0.0013065400003142713,
+      "images": 40,
+      "images_per_second": 5.920074729292601,
+      "losses": {
+        "gpu-01": [
+          2.2889222324602203,
+          2.326562655132441,
+          2.312639367640863,
+          2.2989069396706414,
+          2.2759458995655777
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 2.3917999999523163,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 12,
+      "warmup": false,
+      "seconds": 8.200965938999616,
+      "outer_seconds": 0.001363743999718281,
+      "images": 40,
+      "images_per_second": 4.877474226515242,
+      "losses": {
+        "gpu-01": [
+          2.2722626729931656,
+          2.3507586498616297,
+          2.340675159249229,
+          2.315135351010607,
+          2.3180911086952913
+        ]
+      },
+      "workers": {
+        "gpu-01": {
+          "compute_seconds": 4.026100000143051,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    }
+  ],
+  "images_per_second": 5.987100085012002,
+  "measured_seconds": 66.81030788199996,
+  "active_round_seconds": 55.55222283300009,
+  "sent_bytes": 54019755,
+  "received_bytes": 24758425,
+  "timing": "Coordinator wall time from preparation of the first measured round through the last committed outer update; includes plan generation, serialization, network, local work, stragglers and inter-round polling gaps. Excludes initial membership and warmup. Per-round times exclude inter-round gaps. Worker compute timers include weight rebasing and host/device transfers; not GPU timestamp queries.",
+  "limitations": [
+    "Trusted workers; machine labels are self-reported, not hardware attestation.",
+    "Throughput only, no validation accuracy or time-to-quality measurement.",
+    "WebGPU kernels use float32; JS Adam and coordinator use float64.",
+    "Weights and pseudo-gradients cross the wire as float64; plan constants (images) as JSON float64.",
+    "JSON prototype transport; WebGPU sends compiled plans, PyTorch sends compact batches."
+  ],
+  "metadata": {
+    "source_sha256": {
+      "experiments/convnet_remote_scaling.py": "5a3f4e75399aeb51cd66114fc602acb7b1953589cdb7d890c5c689d341c00a9b",
+      "coordination/convnet_scaling.py": "d51b5103e9679d3108848e1a03a36a688bfbb1c12fa4d5eaca7fe9dbd39ac73f",
+      "reference/convnet.py": "9390a302bd946bf01967b82e7e51eecd1240ff614b364dd80f9f486e79ef6afe",
+      "diloco/convnet_webgpu.py": "3962a33d343bd674afdb5f953cb07215ca17ae0de6f545389a186ef38f4a3ba4"
+    },
+    "source_revision": "64b7f48990ed2e9a201fd1de41917d9472c99af1",
+    "source_dirty": false,
+    "coordinator_host": "ygaraty-dev-dw45-server",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "python": "3.12.16",
+    "numpy": "2.5.4",
+    "data_sha256": null,
+    "assets": {
+      "convnet_scaling.html": "af630a034e9328f129313092c1180a90fd1d7d0f5a55d4198df314beca0430be",
+      "convnet_scaling.mjs": "d0109b07949d8f1346c2f1e9eb06fa085e9a01d3179eaf910d20ff4eec0ee8ec",
+      "convnet_test.mjs": "b052d57b964f94305c8b3b5b0ee1317e45dbe48fb126614a9ad9f8a450958815",
+      "convolution.mjs": "4efe4dfcdb83c1854ee0c5cd205c9a36224d47b8207ba3c2a68565190e3879c5",
+      "diloco.mjs": "634c774c7deeff5945b9253571aef29a1fb7986961f165495c668b71c5bcfdb1",
+      "sdk.mjs": "5a7b16ae509b813c0615585ddfe19bc50cc773c459411f02522ea87701d7d22b"
+    }
+  }
+}

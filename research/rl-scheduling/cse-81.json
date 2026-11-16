@@ -1,0 +1,24 @@
+{
+  "corpus": "../calibration-audit/rl-scheduling/factorization-v1",
+  "workload": "tiled_1024",
+  "graph_sha256": "48c1b2ce9616c2062576043b905bc5ce84aa3c68803b4a6260820080a1178c1f",
+  "expected_tasks": 662,
+  "expected_redundancies": 81,
+  "scenarios": [
+    "lan_4",
+    "home_4",
+    "heterogeneous_8"
+  ],
+  "policies": [
+    "fifo",
+    "critical_path"
+  ],
+  "seeds": [
+    1500,
+    1501,
+    1502,
+    1503,
+    1504
+  ],
+  "cost_table_sha256": "8c1a1ee88046b979040d63a247660ede55643beb33e50e9f2e2421d50cc771cd"
+}

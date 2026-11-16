@@ -1,0 +1,625 @@
+{
+ "experiment": "DO-68",
+ "date": "2026-11-13",
+ "machine": "Vast.ai A100 SXM4 40 GB, driver 580.173.02, $0.589/h",
+ "code": "08dfae4",
+ "arms": {
+  "C": "headless Chrome 157",
+  "N": "Node 26.8.2 + webgpu 0.6.2 (Dawn)",
+  "D": "Deno 2.9.8 (wgpu)"
+ },
+ "order": "C1 [N1 failed: install] D1 D2 N2 C2, then N1r",
+ "results": {
+  "C": {
+   "base-64": {
+    "wall": 36.59999996423721,
+    "gpu": 21.94944,
+    "enc": 5.549999952316284,
+    "exp": 2.049999952316284,
+    "tokens": [
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ],
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ]
+    ]
+   },
+   "base-1024": {
+    "wall": 37.80000001192093,
+    "gpu": 24.555008,
+    "enc": 4.300000011920929,
+    "exp": 1.9999999403953552,
+    "tokens": [
+     [
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369,
+      11751,
+      13,
+      561,
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561
+     ],
+     [
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369,
+      11751,
+      13,
+      561,
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561
+     ]
+    ]
+   },
+   "base-again-64": {
+    "wall": 35.89999997615814,
+    "gpu": 21.943807999999997,
+    "enc": 4.400000035762787,
+    "exp": 1.899999976158142,
+    "tokens": [
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ],
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ]
+    ]
+   },
+   "copy": 727.1678224687934,
+   "conv-1": 28.3470384544273,
+   "conv-8": 84.79603114684059,
+   "conv-32": 107.31054189635972,
+   "checks": [
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     8,
+     8,
+     8,
+     0
+    ],
+    [
+     32,
+     32,
+     32,
+     0
+    ],
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     8,
+     8,
+     8,
+     0
+    ],
+    [
+     32,
+     32,
+     32,
+     0
+    ]
+   ],
+   "adapter": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "description": "",
+    "features": [
+     "atomic-vec2u-min-max",
+     "bgra8unorm-storage",
+     "chromium-experimental-multi-draw-indirect",
+     "chromium-experimental-sampling-resource-table",
+     "chromium-experimental-subgroup-matrix",
+     "chromium-experimental-timestamp-query-inside-passes",
+     "clip-distances",
+     "core-features-and-limits",
+     "depth-clip-control",
+     "depth32float-stencil8",
+     "dual-source-blending",
+     "float32-blendable",
+     "float32-filterable",
+     "indirect-first-instance",
+     "primitive-index",
+     "rg11b10ufloat-renderable",
+     "subgroup-size-control",
+     "subgroups",
+     "texture-component-swizzle",
+     "texture-compression-bc",
+     "texture-compression-bc-sliced-3d",
+     "texture-compression-unaligned",
+     "texture-formats-tier1",
+     "texture-formats-tier2",
+     "timestamp-query"
+    ]
+   }
+  },
+  "N": {
+   "base-64": {
+    "wall": 34.54957000000104,
+    "gpu": 21.921792,
+    "enc": 7.092560499999308,
+    "exp": 2.6355430000003253,
+    "tokens": [
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ],
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ]
+    ]
+   },
+   "base-1024": {
+    "wall": 36.35229449999679,
+    "gpu": 24.543232,
+    "enc": 6.861789500002487,
+    "exp": 2.111387000000832,
+    "tokens": [
+     [
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369,
+      11751,
+      13,
+      561,
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561
+     ],
+     [
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369,
+      11751,
+      13,
+      561,
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561
+     ]
+    ]
+   },
+   "base-again-64": {
+    "wall": 33.66953799999828,
+    "gpu": 21.921792,
+    "enc": 6.744259000002785,
+    "exp": 1.9790044999972451,
+    "tokens": [
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ],
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ]
+    ]
+   },
+   "copy": 744.7272727272727,
+   "conv-1": 29.222297526368518,
+   "conv-8": 87.54094328987489,
+   "conv-32": 108.56359387171098,
+   "checks": [
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     8,
+     8,
+     8,
+     0
+    ],
+    [
+     32,
+     32,
+     32,
+     0
+    ],
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     8,
+     8,
+     8,
+     0
+    ],
+    [
+     32,
+     32,
+     32,
+     0
+    ]
+   ],
+   "adapter": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "description": "NVIDIA: 580.173.02 580.173.2.0",
+    "features": [
+     "atomic-vec2u-min-max",
+     "bgra8unorm-storage",
+     "clip-distances",
+     "core-features-and-limits",
+     "depth-clip-control",
+     "depth32float-stencil8",
+     "dual-source-blending",
+     "float32-blendable",
+     "float32-filterable",
+     "indirect-first-instance",
+     "primitive-index",
+     "rg11b10ufloat-renderable",
+     "subgroup-size-control",
+     "subgroups",
+     "texture-component-swizzle",
+     "texture-compression-bc",
+     "texture-compression-bc-sliced-3d",
+     "texture-compression-unaligned",
+     "texture-formats-tier1",
+     "texture-formats-tier2",
+     "timestamp-query"
+    ]
+   }
+  },
+  "D": {
+   "base-64": {
+    "wall": 71.52829199999996,
+    "gpu": 25.992767999999998,
+    "enc": 6.369822999998178,
+    "exp": 2.552773000000343,
+    "tokens": [
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ],
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ]
+    ]
+   },
+   "base-1024": {
+    "wall": 74.1469434999999,
+    "gpu": 28.623808,
+    "enc": 5.474762999998347,
+    "exp": 3.0212549999960174,
+    "tokens": [
+     [
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369,
+      11751,
+      13,
+      561,
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561
+     ],
+     [
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369,
+      11751,
+      13,
+      561,
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561
+     ]
+    ]
+   },
+   "base-again-64": {
+    "wall": 70.88830899999812,
+    "gpu": 25.99032,
+    "enc": 4.897517499997775,
+    "exp": 2.4758900000015274,
+    "tokens": [
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ],
+     [
+      6511,
+      314,
+      14898,
+      369,
+      21047,
+      13,
+      561,
+      6511,
+      314,
+      17163,
+      369,
+      760,
+      6511,
+      314,
+      9338,
+      369
+     ]
+    ]
+   },
+   "copy": 1336.0317065069357,
+   "conv-1": 16.450089698764458,
+   "conv-8": 46.91191011325686,
+   "conv-32": 58.1174837845643,
+   "checks": [
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     8,
+     8,
+     8,
+     0
+    ],
+    [
+     32,
+     32,
+     32,
+     0
+    ],
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     8,
+     8,
+     8,
+     0
+    ],
+    [
+     32,
+     32,
+     32,
+     0
+    ]
+   ],
+   "adapter": {
+    "vendor": "4318",
+    "architecture": "",
+    "description": "NVIDIA A100-SXM4-40GB",
+    "features": [
+     "bgra8unorm-storage",
+     "clip-distances",
+     "depth-clip-control",
+     "depth32float-stencil8",
+     "dual-source-blending",
+     "float32-blendable",
+     "float32-filterable",
+     "immediates",
+     "indirect-first-instance",
+     "primitive-index",
+     "rg11b10ufloat-renderable",
+     "shader-f16",
+     "texture-compression-bc",
+     "texture-compression-bc-sliced-3d",
+     "timestamp-query"
+    ]
+   }
+  }
+ },
+ "cost_usd": 0.28
+}

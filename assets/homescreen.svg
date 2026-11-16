@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 510" role="img" aria-labelledby="title desc">
+<title id="title">Ygaraty contributor invitation example</title>
+<desc id="desc">A terminal example with a red box around a placeholder contributor link. Open your session link yourself or share it with contributors, then wait for their model weights to load.</desc>
+<rect width="1600" height="510" fill="#080808"/>
+<rect x="25" y="261" width="1390" height="66" fill="none" stroke="#ff3b16" stroke-width="6"/>
+<g font-family="monospace" font-size="26" fill="#c8c8c8">
+<text x="40" y="36">$ ygaraty launch --model qwen3.5-0.8b --num-workers 1 --lan</text>
+<text x="40" y="76">Checking the qwen3.5-0.8b bundle…</text>
+<text x="40" y="150">Ygaraty  qwen3.5-0.8b · 1 worker · 4,096-token context · 1 chat at a time</text>
+<text x="40" y="224">Open this link in Chrome or Edge on a computer with 1.02 GB of free GPU memory:</text>
+<text x="40" y="304" fill="#54edf0">https://coordinator.example.org/#key=EXAMPLE-CONTRIBUTOR-KEY</text>
+<text x="40" y="386">One person (or this computer) opening it is enough.</text>
+<text x="40" y="430">Share your own session link. Keep contributor tabs open while weights load.</text>
+<text x="40" y="474">Example screen — the address and key shown here are placeholders.</text>
+</g>
+</svg>

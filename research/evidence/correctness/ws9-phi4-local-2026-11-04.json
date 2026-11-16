@@ -1,0 +1,155 @@
+{
+ "plan": "WS-9",
+ "host": "omarchy",
+ "base_commit": "cbdc0b1 (+ the WS-9 code, committed with this report)",
+ "model": "tiny random Phi3ForCausalLM (Phi-4's architecture): 3 layers, hidden 64, intermediate 96, 8 query heads over 2 KV heads, vocab 97, rope theta 250000, untied head, initializer_range 0.1, seed 0",
+ "reference": "transformers 5.22.1 Phi3ForCausalLM (eager attention), torch 2.14.1 CPU",
+ "parity": {
+  "full_model_logits_max_abs": 1.73e-06,
+  "logit_scale_max_abs": 2.62,
+  "cached_decode_at_position_9_max_abs": 1.21e-06,
+  "tolerance": "rtol 1e-4, atol 1e-5 (float32 reference)",
+  "cache_vs_uncached": "chunks 1, 3, 7 then decode to position 22 within rtol 1e-10 atol 1e-12 (float64)",
+  "torch_backend_vs_numpy": "activations within 1e-12 (float64, CPU)"
+ },
+ "generation": {
+  "prompts": [
+   [
+    1,
+    5,
+    17
+   ],
+   [
+    1,
+    44,
+    9,
+    81,
+    12,
+    60,
+    7
+   ],
+   [
+    1,
+    90
+   ]
+  ],
+  "new_tokens": 16,
+  "settings": [
+   "transformers generate",
+   "our kernels",
+   "Ygaraty loop, 1 worker",
+   "Ygaraty loop, 2 workers + 1 spare",
+   "2 workers, prefill chunks of 2",
+   "2 workers, torch backend, 3 sessions in one job",
+   "2 external workers"
+  ],
+  "result": "identical token IDs in every setting; every token printed once on the last owner"
+ },
+ "transport_runs": {
+  "prompt": [
+   1,
+   5,
+   17
+  ],
+  "new_tokens": 6,
+  "owners": 2,
+  "runs": {
+   "relay, handoff": {
+    "tokens": [
+     88,
+     25,
+     95,
+     88,
+     25,
+     21
+    ],
+    "timings": {
+     "first_token": 0.4356834888458252,
+     "inter_token": [
+      0.004563093185424805,
+      0.004256486892700195,
+      0.004605293273925781,
+      0.004222869873046875,
+      0.004281044006347656
+     ]
+    },
+    "retries": 0,
+    "rejected": 0
+   },
+   "relay, emulated 50 ms 100/20 Mb/s": {
+    "tokens": [
+     88,
+     25,
+     95,
+     88,
+     25,
+     21
+    ],
+    "timings": {
+     "first_token": 1.5839738845825195,
+     "inter_token": [
+      0.21482324600219727,
+      0.21397638320922852,
+      0.21429872512817383,
+      0.21418547630310059,
+      0.2143867015838623
+     ]
+    },
+    "retries": 0,
+    "rejected": 0
+   },
+   "relay, handoff, emulated 50 ms 100/20 Mb/s": {
+    "tokens": [
+     88,
+     25,
+     95,
+     88,
+     25,
+     21
+    ],
+    "timings": {
+     "first_token": 1.5767652988433838,
+     "inter_token": [
+      0.21381616592407227,
+      0.21518397331237793,
+      0.21432089805603027,
+      0.21388530731201172,
+      0.21368169784545898
+     ]
+    },
+    "retries": 0,
+    "rejected": 0
+   },
+   "relay, handoff, float32 wire": {
+    "tokens": [
+     88,
+     25,
+     95,
+     88,
+     25,
+     21
+    ],
+    "timings": {
+     "first_token": 0.4384598731994629,
+     "inter_token": [
+      0.005065441131591797,
+      0.004399776458740234,
+      0.004351615905761719,
+      0.0046312808990478516,
+      0.004459381103515625
+     ]
+    },
+    "retries": 0,
+    "rejected": 0
+   }
+  },
+  "note": "tiny model: times are the protocol's overhead, not compute; on emulated 50 ms links each token takes about 4 round trips"
+ },
+ "tests": [
+  "tests/test_phi4_kernels.py",
+  "tests/test_phi4_checkpoint.py",
+  "tests/test_phi4_loop.py",
+  "tests/test_phi4_plan_offline.py"
+ ],
+ "raw": "runs/experiments/WS-9/omarchy-20261104-local"
+}

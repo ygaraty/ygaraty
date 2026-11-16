@@ -1,0 +1,383 @@
+{
+  "config": {
+    "experiment": 45,
+    "name": "convnet_remote_scaling",
+    "replicas": 1,
+    "local_steps": 5,
+    "measured_rounds": 10,
+    "warmup_rounds": 2,
+    "batch": 8,
+    "backend": "webgpu",
+    "seed": 2026,
+    "tiny": false,
+    "model": {
+      "in_channels": 3,
+      "height": 32,
+      "width": 32,
+      "channels": [
+        32,
+        64,
+        128
+      ],
+      "classes": 10
+    },
+    "parameters": 94538,
+    "allow_shared_host": false,
+    "data": "synthetic"
+  },
+  "state": "completed",
+  "error": null,
+  "members": {
+    "mac-m5-01": {
+      "machine": "mac-m5-01",
+      "backend": "webgpu",
+      "adapter": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false
+      },
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/192.0.2.9 Safari/537.36",
+      "preflight_checks": 42,
+      "preflight_passed": true
+    }
+  },
+  "history": [
+    {
+      "round": 1,
+      "warmup": true,
+      "seconds": 7.107227160999855,
+      "outer_seconds": 0.0019300980000025447,
+      "images": 40,
+      "images_per_second": 5.62807394415303,
+      "losses": {
+        "mac-m5-01": [
+          2.272469796915547,
+          2.2622195132111607,
+          2.2887400939787907,
+          2.451577711084,
+          2.262765007904618
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.8185,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 2,
+      "warmup": true,
+      "seconds": 7.086736878000011,
+      "outer_seconds": 0.0012939410000853968,
+      "images": 40,
+      "images_per_second": 5.644346712543479,
+      "losses": {
+        "mac-m5-01": [
+          2.316172570342903,
+          2.3095255423490433,
+          2.411698392066443,
+          2.4799567085112275,
+          2.290841547730809
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.7975,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 3,
+      "warmup": false,
+      "seconds": 6.9930483670000285,
+      "outer_seconds": 0.0013514140000552288,
+      "images": 40,
+      "images_per_second": 5.719966157928883,
+      "losses": {
+        "mac-m5-01": [
+          2.1592771329251788,
+          2.37541384100505,
+          2.262756976793223,
+          2.3337759922189014,
+          2.383919397770469
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.900799999952316,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 4,
+      "warmup": false,
+      "seconds": 6.884554894000075,
+      "outer_seconds": 0.0013190820000090753,
+      "images": 40,
+      "images_per_second": 5.810106915533523,
+      "losses": {
+        "mac-m5-01": [
+          2.355872569450955,
+          2.3342087418059183,
+          2.4043562485824044,
+          2.328951423521133,
+          2.27060383406853
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.7651000001430512,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 5,
+      "warmup": false,
+      "seconds": 7.9143676870000945,
+      "outer_seconds": 0.0013226020000729477,
+      "images": 40,
+      "images_per_second": 5.054099276396118,
+      "losses": {
+        "mac-m5-01": [
+          2.2860202763946385,
+          2.33929680265302,
+          2.2863935154522665,
+          2.3364573743637536,
+          2.3102550292802047
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.4017000000476836,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 6,
+      "warmup": false,
+      "seconds": 7.158035182000049,
+      "outer_seconds": 0.0013554529998600628,
+      "images": 40,
+      "images_per_second": 5.5881256494220635,
+      "losses": {
+        "mac-m5-01": [
+          2.292962530329659,
+          2.2634176426007313,
+          2.2580180665511587,
+          2.3160550838284104,
+          2.276474314571784
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.764300000190735,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 7,
+      "warmup": false,
+      "seconds": 7.006483201000037,
+      "outer_seconds": 0.0012354569998933584,
+      "images": 40,
+      "images_per_second": 5.708998202449239,
+      "losses": {
+        "mac-m5-01": [
+          2.3012304771015044,
+          2.296105387288904,
+          2.2937693857575447,
+          2.314417255468877,
+          2.295544248363631
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.9008999998569487,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 8,
+      "warmup": false,
+      "seconds": 7.108461757999976,
+      "outer_seconds": 0.0017596390000562678,
+      "images": 40,
+      "images_per_second": 5.627096460775549,
+      "losses": {
+        "mac-m5-01": [
+          2.326791217565135,
+          2.3156198707044227,
+          2.339284376468138,
+          2.318898810823553,
+          2.3055270700150317
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.875299999952316,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 9,
+      "warmup": false,
+      "seconds": 7.1599304579999625,
+      "outer_seconds": 0.0012835990000894526,
+      "images": 40,
+      "images_per_second": 5.586646439464651,
+      "losses": {
+        "mac-m5-01": [
+          2.2935388123939338,
+          2.315526860038908,
+          2.312793399117883,
+          2.3115734165098547,
+          2.297783513962273
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.8537000000476835,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 10,
+      "warmup": false,
+      "seconds": 7.083312158000126,
+      "outer_seconds": 0.0012835269999413867,
+      "images": 40,
+      "images_per_second": 5.6470757052296054,
+      "losses": {
+        "mac-m5-01": [
+          2.298483053158176,
+          2.2936348093957624,
+          2.3110254050028045,
+          2.322736832173345,
+          2.3289672236161323
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.987600000143051,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 11,
+      "warmup": false,
+      "seconds": 6.622735789999979,
+      "outer_seconds": 0.0012705710000773252,
+      "images": 40,
+      "images_per_second": 6.0398000567074,
+      "losses": {
+        "mac-m5-01": [
+          2.2889222324602203,
+          2.326562655132441,
+          2.312639367640863,
+          2.2989069396706414,
+          2.2759458995655777
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.515700000047684,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    },
+    {
+      "round": 12,
+      "warmup": false,
+      "seconds": 7.408204436999995,
+      "outer_seconds": 0.0012760470001467183,
+      "images": 40,
+      "images_per_second": 5.399419027939014,
+      "losses": {
+        "mac-m5-01": [
+          2.2722626729931656,
+          2.3507586498616297,
+          2.340675159249229,
+          2.315135351010607,
+          2.3180911086952913
+        ]
+      },
+      "workers": {
+        "mac-m5-01": {
+          "compute_seconds": 2.9492999999523164,
+          "cpu_tasks": 300,
+          "gpu_tasks": 100,
+          "matmul_tasks": 15
+        }
+      }
+    }
+  ],
+  "images_per_second": 4.874563415036439,
+  "measured_seconds": 82.05863088499996,
+  "active_round_seconds": 71.33913393200032,
+  "sent_bytes": 54019492,
+  "received_bytes": 24758508,
+  "timing": "Coordinator wall time from preparation of the first measured round through the last committed outer update; includes plan generation, serialization, network, local work, stragglers and inter-round polling gaps. Excludes initial membership and warmup. Per-round times exclude inter-round gaps. Worker compute timers include weight rebasing and host/device transfers; not GPU timestamp queries.",
+  "limitations": [
+    "Trusted workers; machine labels are self-reported, not hardware attestation.",
+    "Throughput only, no validation accuracy or time-to-quality measurement.",
+    "WebGPU kernels use float32; JS Adam and coordinator use float64.",
+    "JSON prototype transport; WebGPU sends compiled plans, PyTorch sends compact batches."
+  ],
+  "metadata": {
+    "source_sha256": {
+      "experiments/convnet_remote_scaling.py": "f382e6630c886df56c0786d9f7c5ad1e2f1dd23d769f7c35edd9525c8364239a",
+      "coordination/convnet_scaling.py": "e7100eb97fd565577086501b95348bad48a3a6796e58aa913103a8fb1e6a26f4",
+      "reference/convnet.py": "9390a302bd946bf01967b82e7e51eecd1240ff614b364dd80f9f486e79ef6afe",
+      "diloco/convnet_webgpu.py": "3962a33d343bd674afdb5f953cb07215ca17ae0de6f545389a186ef38f4a3ba4"
+    },
+    "source_revision": "3af9c87719b96b557f4406a87df99da35cb8e5bc",
+    "source_dirty": false,
+    "coordinator_host": "ygaraty-dev-web-server",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "python": "3.12.16",
+    "numpy": "2.5.4",
+    "data_sha256": null,
+    "assets": {
+      "convnet_scaling.html": "af630a034e9328f129313092c1180a90fd1d7d0f5a55d4198df314beca0430be",
+      "convnet_scaling.mjs": "d0109b07949d8f1346c2f1e9eb06fa085e9a01d3179eaf910d20ff4eec0ee8ec",
+      "convnet_test.mjs": "b052d57b964f94305c8b3b5b0ee1317e45dbe48fb126614a9ad9f8a450958815",
+      "convolution.mjs": "4efe4dfcdb83c1854ee0c5cd205c9a36224d47b8207ba3c2a68565190e3879c5",
+      "diloco.mjs": "230f98c1decb1ed3c15da3a5e20c4630c2eacad0624e9f206f22625a51453728",
+      "sdk.mjs": "c175a5d63c094dde948e33dd1c52d0c18fb199006fbd0c8d634985e69116ff3a"
+    }
+  }
+}

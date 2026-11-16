@@ -1,0 +1,153 @@
+{
+ "experiment": "WS-19",
+ "number": 109,
+ "date": "2026-11-09",
+ "host": "Radeon 680M (workstation), both stages on the one GPU, relay route",
+ "model": "Qwen3.5-9B Q4_K_M (unsloth 3885219), splits 0,16,32, 64 tokens",
+ "arms": {
+  "T0": "plain, today's kernels",
+  "T1": "plain, --matvec 2,4,8",
+  "S2": "--matvec 2,4,8 --draft ngram:n=3,k=8,min=2,adapt=cost"
+ },
+ "order": "three repeats; per prompt T0 T1 S2 / S2 T0 T1 / T1 S2 T0; prompts edit, summary, chat, code (held out)",
+ "prompts": "runs/experiments/DO-25/prompts/{edit,summary,chat,code}.txt",
+ "results": {
+  "edit": {
+   "T0": {
+    "ms": [
+     187.6,
+     186.4,
+     187.0
+    ],
+    "median": 187.0,
+    "tokens_per_pass": null
+   },
+   "T1": {
+    "ms": [
+     180.5,
+     179.8,
+     181.6
+    ],
+    "median": 180.5,
+    "tokens_per_pass": null
+   },
+   "S2": {
+    "ms": [
+     67.4,
+     67.3,
+     67.2
+    ],
+    "median": 67.3,
+    "tokens_per_pass": 3.9375
+   }
+  },
+  "summary": {
+   "T0": {
+    "ms": [
+     188.4,
+     187.8,
+     187.7
+    ],
+    "median": 187.8,
+    "tokens_per_pass": null
+   },
+   "T1": {
+    "ms": [
+     179.4,
+     180.1,
+     179.4
+    ],
+    "median": 179.4,
+    "tokens_per_pass": null
+   },
+   "S2": {
+    "ms": [
+     206.4,
+     211.0,
+     201.0
+    ],
+    "median": 206.4,
+    "tokens_per_pass": 1.125
+   }
+  },
+  "chat": {
+   "T0": {
+    "ms": [
+     186.6,
+     186.3,
+     185.4
+    ],
+    "median": 186.3,
+    "tokens_per_pass": null
+   },
+   "T1": {
+    "ms": [
+     178.8,
+     179.2,
+     179.3
+    ],
+    "median": 179.2,
+    "tokens_per_pass": null
+   },
+   "S2": {
+    "ms": [
+     179.9,
+     179.3,
+     179.5
+    ],
+    "median": 179.5,
+    "tokens_per_pass": 1.0
+   }
+  },
+  "code": {
+   "T0": {
+    "ms": [
+     186.8,
+     187.0,
+     186.8
+    ],
+    "median": 186.8,
+    "tokens_per_pass": null
+   },
+   "T1": {
+    "ms": [
+     180.2,
+     180.1,
+     179.1
+    ],
+    "median": 180.1,
+    "tokens_per_pass": null
+   },
+   "S2": {
+    "ms": [
+     51.3,
+     51.6,
+     51.2
+    ],
+    "median": 51.3,
+    "tokens_per_pass": 5.25
+   }
+  }
+ },
+ "gate": {
+  "edit: every run's tokens and logits digests equal T0's": true,
+  "edit: S2 <= 0.65 T0": true,
+  "edit: every contributor passed the self-test": true,
+  "summary: every run's tokens and logits digests equal T0's": true,
+  "summary: S2 <= 1.02 T1": false,
+  "summary: every contributor passed the self-test": true,
+  "chat: every run's tokens and logits digests equal T0's": true,
+  "chat: S2 <= 1.02 T1": true,
+  "chat: every contributor passed the self-test": true,
+  "code: every run's tokens and logits digests equal T0's": true,
+  "code: S2 <= 1.02 T1": true,
+  "code: every contributor passed the self-test": true
+ },
+ "passed": false,
+ "drafting_run1": {
+  "summary": "45 passes without drafts; 1 with 6 drafts (1 kept); 10 with 7 (6 kept); 11 replays",
+  "edit": "7 without drafts; 1 with 1 (kept); 8 with 7 (46 kept); 2 replays",
+  "code": "4 without; 1 with 6 (6 kept); 7 with 7 (45 kept); 1 replay"
+ },
+ "raw": "runs/experiments/WS-19/omarchy-20261109-2349"
+}

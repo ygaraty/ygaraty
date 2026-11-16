@@ -1,0 +1,401 @@
+{
+  "method": "Public manifests; Stage.load fake GPU allocator equals calculated persistent allocations. No hardware inference or measured peaks.",
+  "config": {
+    "context": 4096,
+    "slots": 1
+  },
+  "results": [
+    {
+      "model": "s5-nano",
+      "workers": 1,
+      "manifest_sha256": "d6a6169da01c9c86e2dd66ea7c183d032c413d9220cde02b2076c22e679e7815",
+      "browser_allocations": [
+        2910862000
+      ],
+      "estimates": [
+        {
+          "worker": 1,
+          "layers": [
+            0,
+            32
+          ],
+          "weights": 2700988464,
+          "state": 186908672,
+          "scratch": 22964864,
+          "snapshots": 52690944,
+          "allocated": 2910862000,
+          "estimated": 2963552944,
+          "recommended": 3824698989,
+          "context": 4096
+        }
+      ]
+    },
+    {
+      "model": "s5-nano",
+      "workers": 2,
+      "manifest_sha256": "685880345d44c9d6e7c3affa00e6e12b8ca3995932a9c191d6482da9a9917ff5",
+      "browser_allocations": [
+        1726650800,
+        1727654576
+      ],
+      "estimates": [
+        {
+          "worker": 1,
+          "layers": [
+            0,
+            16
+          ],
+          "weights": 1611225136,
+          "state": 93454336,
+          "scratch": 21971328,
+          "snapshots": 26345472,
+          "allocated": 1726650800,
+          "estimated": 1752996272,
+          "recommended": 2372030983,
+          "context": 4096
+        },
+        {
+          "worker": 2,
+          "layers": [
+            16,
+            32
+          ],
+          "weights": 1611235376,
+          "state": 93454336,
+          "scratch": 22964864,
+          "snapshots": 26345472,
+          "allocated": 1727654576,
+          "estimated": 1754000048,
+          "recommended": 2373235514,
+          "context": 4096
+        }
+      ]
+    },
+    {
+      "model": "s5-nano",
+      "workers": 3,
+      "manifest_sha256": "7b4ca5fc4afc326c55d16608f75aa8da24c78b9a52ec4205bc75e74be0db308c",
+      "browser_allocations": [
+        1212513712,
+        1032207744,
+        1231555248
+      ],
+      "estimates": [
+        {
+          "worker": 1,
+          "layers": [
+            0,
+            9
+          ],
+          "weights": 1141619760,
+          "state": 48922624,
+          "scratch": 21971328,
+          "snapshots": 15368192,
+          "allocated": 1212513712,
+          "estimated": 1227881904,
+          "recommended": 1741893741,
+          "context": 4096
+        },
+        {
+          "worker": 2,
+          "layers": [
+            9,
+            23
+          ],
+          "weights": 935754752,
+          "state": 74481664,
+          "scratch": 21971328,
+          "snapshots": 24150016,
+          "allocated": 1032207744,
+          "estimated": 1056357760,
+          "recommended": 1536064768,
+          "context": 4096
+        },
+        {
+          "worker": 3,
+          "layers": [
+            23,
+            32
+          ],
+          "weights": 1145086000,
+          "state": 63504384,
+          "scratch": 22964864,
+          "snapshots": 13172736,
+          "allocated": 1231555248,
+          "estimated": 1244727984,
+          "recommended": 1762109037,
+          "context": 4096
+        }
+      ]
+    },
+    {
+      "model": "s5-nano",
+      "workers": 4,
+      "manifest_sha256": "b8ef5573cc5f77a0203beab922c1e90722ad5245932c15edc6277557c0033a3e",
+      "browser_allocations": [
+        991813040,
+        756809088,
+        738771328,
+        1010854576
+      ],
+      "estimates": [
+        {
+          "worker": 1,
+          "layers": [
+            0,
+            6
+          ],
+          "weights": 942087216,
+          "state": 27754496,
+          "scratch": 21971328,
+          "snapshots": 10977280,
+          "allocated": 991813040,
+          "estimated": 1002790320,
+          "recommended": 1471783840,
+          "context": 4096
+        },
+        {
+          "worker": 2,
+          "layers": [
+            6,
+            16
+          ],
+          "weights": 669137920,
+          "state": 65699840,
+          "scratch": 21971328,
+          "snapshots": 15368192,
+          "allocated": 756809088,
+          "estimated": 772177280,
+          "recommended": 1195048192,
+          "context": 4096
+        },
+        {
+          "worker": 3,
+          "layers": [
+            16,
+            26
+          ],
+          "weights": 665681920,
+          "state": 51118080,
+          "scratch": 21971328,
+          "snapshots": 17563648,
+          "allocated": 738771328,
+          "estimated": 756334976,
+          "recommended": 1176037428,
+          "context": 4096
+        },
+        {
+          "worker": 4,
+          "layers": [
+            26,
+            32
+          ],
+          "weights": 945553456,
+          "state": 42336256,
+          "scratch": 22964864,
+          "snapshots": 8781824,
+          "allocated": 1010854576,
+          "estimated": 1019636400,
+          "recommended": 1491999136,
+          "context": 4096
+        }
+      ]
+    },
+    {
+      "model": "qwen3.5-9b",
+      "workers": 1,
+      "manifest_sha256": "db3624b8d3810d54e9df99b4035007260b23c70036e7414a3e508052de5182fd",
+      "browser_allocations": [
+        5884545664
+      ],
+      "estimates": [
+        {
+          "worker": 1,
+          "layers": [
+            0,
+            32
+          ],
+          "weights": 5672706048,
+          "state": 186908672,
+          "scratch": 24930944,
+          "snapshots": 52690944,
+          "allocated": 5884545664,
+          "estimated": 5937236608,
+          "recommended": 7393119386,
+          "context": 4096
+        }
+      ]
+    },
+    {
+      "model": "qwen3.5-9b",
+      "workers": 2,
+      "manifest_sha256": "6ea908583d9c28771c755128d6d797caefe7dd6a0b574116e3405ecfc3887c97",
+      "browser_allocations": [
+        2955990400,
+        2952492672
+      ],
+      "estimates": [
+        {
+          "worker": 1,
+          "layers": [
+            0,
+            17
+          ],
+          "weights": 2836403200,
+          "state": 95649792,
+          "scratch": 23937408,
+          "snapshots": 28540928,
+          "allocated": 2955990400,
+          "estimated": 2984531328,
+          "recommended": 3849873050,
+          "context": 4096
+        },
+        {
+          "worker": 2,
+          "layers": [
+            17,
+            32
+          ],
+          "weights": 2836302848,
+          "state": 91258880,
+          "scratch": 24930944,
+          "snapshots": 24150016,
+          "allocated": 2952492672,
+          "estimated": 2976642688,
+          "recommended": 3840406682,
+          "context": 4096
+        }
+      ]
+    },
+    {
+      "model": "qwen3.5-9b",
+      "workers": 3,
+      "manifest_sha256": "8a0a02d554eb7fa390c78eeb95cad55764d47c8ea19e7fd36533d5f790034578",
+      "browser_allocations": [
+        1999597952,
+        1934559616,
+        1998262912
+      ],
+      "estimates": [
+        {
+          "worker": 1,
+          "layers": [
+            0,
+            10
+          ],
+          "weights": 1924542464,
+          "state": 51118080,
+          "scratch": 23937408,
+          "snapshots": 17563648,
+          "allocated": 1999597952,
+          "estimated": 2017161600,
+          "recommended": 2689029376,
+          "context": 4096
+        },
+        {
+          "worker": 2,
+          "layers": [
+            10,
+            24
+          ],
+          "weights": 1821558784,
+          "state": 89063424,
+          "scratch": 23937408,
+          "snapshots": 21954560,
+          "allocated": 1934559616,
+          "estimated": 1956514176,
+          "recommended": 2616252468,
+          "context": 4096
+        },
+        {
+          "worker": 3,
+          "layers": [
+            24,
+            32
+          ],
+          "weights": 1926604800,
+          "state": 46727168,
+          "scratch": 24930944,
+          "snapshots": 13172736,
+          "allocated": 1998262912,
+          "estimated": 2011435648,
+          "recommended": 2682158234,
+          "context": 4096
+        }
+      ]
+    },
+    {
+      "model": "qwen3.5-9b",
+      "workers": 4,
+      "manifest_sha256": "2273607a6eb2e87384b60e97061bfbca3ba0fdc1eaaf87e95208b04ef0e47d92",
+      "browser_allocations": [
+        1442553216,
+        1537374592,
+        1535211904,
+        1441218176
+      ],
+      "estimates": [
+        {
+          "worker": 1,
+          "layers": [
+            0,
+            6
+          ],
+          "weights": 1390861312,
+          "state": 27754496,
+          "scratch": 23937408,
+          "snapshots": 10977280,
+          "allocated": 1442553216,
+          "estimated": 1453530496,
+          "recommended": 2012672052,
+          "context": 4096
+        },
+        {
+          "worker": 2,
+          "layers": [
+            6,
+            17
+          ],
+          "weights": 1445541888,
+          "state": 67895296,
+          "scratch": 23937408,
+          "snapshots": 17563648,
+          "allocated": 1537374592,
+          "estimated": 1554938240,
+          "recommended": 2134361344,
+          "context": 4096
+        },
+        {
+          "worker": 3,
+          "layers": [
+            17,
+            28
+          ],
+          "weights": 1443379200,
+          "state": 67895296,
+          "scratch": 23937408,
+          "snapshots": 17563648,
+          "allocated": 1535211904,
+          "estimated": 1552775552,
+          "recommended": 2131766119,
+          "context": 4096
+        },
+        {
+          "worker": 4,
+          "layers": [
+            28,
+            32
+          ],
+          "weights": 1392923648,
+          "state": 23363584,
+          "scratch": 24930944,
+          "snapshots": 6586368,
+          "allocated": 1441218176,
+          "estimated": 1447804544,
+          "recommended": 2005800909,
+          "context": 4096
+        }
+      ]
+    }
+  ]
+}

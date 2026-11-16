@@ -1,0 +1,301 @@
+{
+ "experiment": "DO-46",
+ "number": 103,
+ "date": "2026-11-09",
+ "code": {
+  "commit": "e0f63b4",
+  "note": "41eb181 plus a template change; cloned by every machine; nothing copied by hand"
+ },
+ "pool": {
+  "stage_A": "Vast.ai RTX 3060 12 GB, Poland, machine 20698",
+  "stage_B": "Vast.ai RTX 3060 12 GB, Poland, machine 48515 (another public IP in the same /24)",
+  "rejected": "Vast.ai RTX A4000 machine 18110: same public IP as stage A; deleted unused",
+  "coordinator": "DigitalOcean s-4vcpu-8gb ams3 (panel, coordinator, coturn)"
+ },
+ "settings": {
+  "bundle": "S5-nano Q4_K_M, two stages 0,16,32",
+  "arms": "R,W,W,R,R,W",
+  "max_tokens": [
+   128,
+   8,
+   32
+  ],
+  "cancel": true,
+  "replace": true
+ },
+ "rehearsal": [
+  {
+   "arm": "R",
+   "requests": [
+    [
+     200,
+     16
+    ],
+    [
+     200,
+     4
+    ],
+    [
+     200,
+     8
+    ]
+   ],
+   "cancel_same": true,
+   "replace_same": true
+  },
+  {
+   "arm": "W",
+   "requests": [
+    [
+     200,
+     16
+    ],
+    [
+     200,
+     4
+    ],
+    [
+     200,
+     8
+    ]
+   ],
+   "cancel_same": true,
+   "replace_same": true
+  }
+ ],
+ "gate": {
+  "every session answered both gated requests": true,
+  "request 1 identical in all sessions": true,
+  "request 2 identical in all sessions": true,
+  "request 2 at most 8 tokens": true,
+  "after cancel: request 1 unchanged": true,
+  "after replacement: request 1 unchanged": true,
+  "no disagreement; no IPv4 in route records": true,
+  "W: both links open at go": true,
+  "first token within 5 s in every session": true,
+  "W: the new stage B linked after the replacement": true,
+  "W at least 25% below R": true
+ },
+ "median_ms_per_token": {
+  "R": 298.0,
+  "W": 110.0
+ },
+ "w_vs_r_percent": -63.1,
+ "passed": true,
+ "sessions": [
+  {
+   "arm": "R",
+   "tokens": [
+    52,
+    8,
+    32
+   ],
+   "seconds": [
+    15.52,
+    2.77,
+    9.69
+   ],
+   "ms_per_token": [
+    293.0,
+    185.0,
+    290.0,
+    296.0,
+    290.0
+   ],
+   "first_token_s": [
+    0.97,
+    1.43,
+    0.73,
+    0.8,
+    0.97
+   ],
+   "links_at_go": [],
+   "links_after_replace": [],
+   "cancel_same": true,
+   "replace_same": true,
+   "replace_back_s": 22.1,
+   "disagreed": false
+  },
+  {
+   "arm": "W",
+   "tokens": [
+    52,
+    8,
+    32
+   ],
+   "seconds": [
+    6.57,
+    1.67,
+    3.93
+   ],
+   "ms_per_token": [
+    113.0,
+    115.0,
+    113.0,
+    113.0,
+    114.0
+   ],
+   "first_token_s": [
+    0.78,
+    0.89,
+    0.36,
+    0.6,
+    0.8
+   ],
+   "links_at_go": [
+    "B open srflx-srflx udp 2 ms, opened after 0.6 s",
+    "A open srflx-srflx udp 2 ms, opened after 1.6 s"
+   ],
+   "links_after_replace": [
+    "A open srflx-srflx udp 2 ms, opened after 0.6 s"
+   ],
+   "cancel_same": true,
+   "replace_same": true,
+   "replace_back_s": 20.1,
+   "disagreed": false
+  },
+  {
+   "arm": "W",
+   "tokens": [
+    52,
+    8,
+    32
+   ],
+   "seconds": [
+    6.3,
+    1.69,
+    3.76
+   ],
+   "ms_per_token": [
+    109.0,
+    109.0,
+    108.0,
+    110.0,
+    111.0
+   ],
+   "first_token_s": [
+    0.73,
+    0.93,
+    0.36,
+    0.58,
+    0.75
+   ],
+   "links_at_go": [
+    "A open srflx-srflx udp 2 ms, opened after 1.0 s",
+    "B open srflx-srflx udp 1 ms, opened after 0.5 s"
+   ],
+   "links_after_replace": [
+    "A open srflx-srflx udp 2 ms, opened after 0.6 s"
+   ],
+   "cancel_same": true,
+   "replace_same": true,
+   "replace_back_s": 20.1,
+   "disagreed": false
+  },
+  {
+   "arm": "R",
+   "tokens": [
+    52,
+    8,
+    32
+   ],
+   "seconds": [
+    16.52,
+    2.63,
+    9.49
+   ],
+   "ms_per_token": [
+    304.0,
+    191.0,
+    296.0,
+    294.0,
+    287.0
+   ],
+   "first_token_s": [
+    0.66,
+    1.24,
+    0.73,
+    0.95,
+    0.89
+   ],
+   "links_at_go": [],
+   "links_after_replace": [],
+   "cancel_same": true,
+   "replace_same": true,
+   "replace_back_s": 20.1,
+   "disagreed": false
+  },
+  {
+   "arm": "R",
+   "tokens": [
+    52,
+    8,
+    32
+   ],
+   "seconds": [
+    16.19,
+    2.64,
+    9.17
+   ],
+   "ms_per_token": [
+    298.0,
+    187.0,
+    288.0,
+    297.0,
+    291.0
+   ],
+   "first_token_s": [
+    0.77,
+    1.26,
+    0.78,
+    0.85,
+    0.95
+   ],
+   "links_at_go": [],
+   "links_after_replace": [],
+   "cancel_same": true,
+   "replace_same": true,
+   "replace_back_s": 18.1,
+   "disagreed": false
+  },
+  {
+   "arm": "W",
+   "tokens": [
+    52,
+    8,
+    32
+   ],
+   "seconds": [
+    6.26,
+    1.71,
+    3.74
+   ],
+   "ms_per_token": [
+    110.0,
+    109.0,
+    110.0,
+    113.0,
+    109.0
+   ],
+   "first_token_s": [
+    0.64,
+    0.95,
+    0.34,
+    0.59,
+    0.64
+   ],
+   "links_at_go": [
+    "B open srflx-srflx udp 2 ms, opened after 0.6 s",
+    "A open srflx-srflx udp 2 ms, opened after 1.6 s"
+   ],
+   "links_after_replace": [
+    "A open srflx-srflx udp 2 ms, opened after 0.6 s"
+   ],
+   "cancel_same": true,
+   "replace_same": true,
+   "replace_back_s": 18.1,
+   "disagreed": false
+  }
+ ],
+ "cost_usd": 0.09
+}

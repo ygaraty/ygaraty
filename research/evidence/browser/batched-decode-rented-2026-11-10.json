@@ -1,0 +1,188 @@
+{
+ "experiment": "DO-49",
+ "number": 110,
+ "date": "2026-11-10",
+ "pool": {
+  "stage_A": "Vast.ai RTX 3060 12 GB, Poland, machine 18578",
+  "stage_B": "Vast.ai RTX 3060 12 GB, Poland, machine 48515 (another public IP in the same /24)",
+  "coordinator": "DigitalOcean s-4vcpu-8gb ams3 (coordinator, STUN/TURN)"
+ },
+ "code": "e483d3c on all three machines; nothing copied by hand",
+ "arms": {
+  "B0": "--conversations 8 --batch --route webrtc",
+  "B1": "the same with --matvec 2,4,8",
+  "T0": "one conversation",
+  "T1": "one conversation, --matvec 2,4,8"
+ },
+ "order": "B0 B1 / B1 B0 / B0 B1, then T0, T1; experiment 93's 8 chat prompts, 64 tokens",
+ "median_steady_tokens_per_s": {
+  "B0": 19.451981606035204,
+  "B1": 36.217230559045625
+ },
+ "ratio": 1.862,
+ "runs": {
+  "B0": [
+   {
+    "steady": 19.28903671310165,
+    "latency": [
+     405.2133560180664,
+     405.1659107208252,
+     405.1637649536133,
+     415.96412658691406,
+     405.1644802093506,
+     405.1659107208252,
+     404.8135280609131,
+     403.89251708984375
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 49.5,
+     "stage 0 batch 2": 92.6,
+     "stage 0 batch 4": 114.9,
+     "stage 0 batch 5": 173.9,
+     "stage 0 batch 6": 177.9,
+     "stage 1 batch 2": 106,
+     "stage 1 batch 5": 204.2,
+     "stage 1 batch 6": 205.9
+    }
+   },
+   {
+    "steady": 19.451981606035204,
+    "latency": [
+     396.5778350830078,
+     396.5802192687988,
+     396.578311920166,
+     417.06228256225586,
+     396.5775966644287,
+     396.5764045715332,
+     397.06897735595703,
+     395.99132537841797
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 41.2,
+     "stage 0 batch 2": 91.0,
+     "stage 0 batch 4": 86.9,
+     "stage 0 batch 5": 164.7,
+     "stage 0 batch 6": 183.2,
+     "stage 1 batch 2": 105,
+     "stage 1 batch 5": 202.4,
+     "stage 1 batch 6": 204.7
+    }
+   },
+   {
+    "steady": 20.183346770982496,
+    "latency": [
+     382.05575942993164,
+     382.5109004974365,
+     382.5104236602783,
+     384.8717212677002,
+     382.5070858001709,
+     382.49921798706055,
+     382.49826431274414,
+     379.4541358947754
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 29.5,
+     "stage 0 batch 5": 167.2,
+     "stage 0 batch 6": 156.2,
+     "stage 0 batch 7": 157.8,
+     "stage 1 batch 1": 51.8,
+     "stage 1 batch 6": 206.0,
+     "stage 1 batch 7": 210.4
+    }
+   }
+  ],
+  "B1": [
+   {
+    "steady": 36.46436093101702,
+    "latency": [
+     217.54717826843262,
+     217.6382541656494,
+     217.64254570007324,
+     218.40381622314453,
+     217.64445304870605,
+     217.58484840393066,
+     217.58413314819336,
+     217.58294105529785
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 30.7,
+     "stage 0 batch 3": 57.2,
+     "stage 0 batch 4": 57.9,
+     "stage 0 batch 5": 72.9,
+     "stage 1 batch 3": 81.4,
+     "stage 1 batch 4": 83.2,
+     "stage 1 batch 5": 97.8
+    }
+   },
+   {
+    "steady": 36.217230559045625,
+    "latency": [
+     217.6072597503662,
+     217.6039218902588,
+     217.60201454162598,
+     219.54011917114258,
+     217.60010719299316,
+     218.03593635559082,
+     218.04046630859375,
+     218.04165840148926
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 31.7,
+     "stage 0 batch 3": 58.0,
+     "stage 0 batch 4": 58.8,
+     "stage 0 batch 5": 68.8,
+     "stage 1 batch 3": 81.5,
+     "stage 1 batch 4": 83.8,
+     "stage 1 batch 5": 93.1
+    }
+   },
+   {
+    "steady": 35.41939260373006,
+    "latency": [
+     218.7490463256836,
+     218.7492847442627,
+     218.75,
+     222.9011058807373,
+     218.7509536743164,
+     218.7507152557373,
+     218.7507152557373,
+     219.64454650878906
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 43.9,
+     "stage 0 batch 4": 65,
+     "stage 0 batch 6": 91.5,
+     "stage 0 batch 7": 99.5,
+     "stage 1 batch 1": 55.3,
+     "stage 1 batch 6": 91.3,
+     "stage 1 batch 7": 94
+    }
+   }
+  ]
+ },
+ "gate": {
+  "every run's conversations equal the first B0 run's": true,
+  "B1 steady throughput >= 1.3x B0": true,
+  "T0-1: tokens equal conversation 0's": true,
+  "T1-1: tokens equal conversation 0's": true
+ },
+ "passed": true,
+ "n1": {
+  "T0_ms_per_token": 106,
+  "T1_ms_per_token": 104
+ },
+ "links_sample": [
+  "route 6f2c0e59c3f0e9b7 (stage A): B open srflx-srflx udp 1 ms, opened after 3.1 s",
+  "route b8c83f475b4cf795 (stage B): A open srflx-srflx udp 2 ms, opened after 0.5 s",
+  "route 9a7b17fd04d0b40a (stage A): B open srflx-srflx udp 1 ms, opened after 3.7 s",
+  "route d52318d402a3a0f9 (stage B): A open srflx-srflx udp 2 ms, opened after 0.5 s",
+  "route ec82d01b9f9b8984 (stage B): A open srflx-srflx udp 2 ms, opened after 0.5 s",
+  "route 115b540db869a5b9 (stage A): B open srflx-srflx udp 1 ms, opened after 2.6 s"
+ ],
+ "incidents": [
+  "first pool try found no second RTX 3060 and deleted its machine",
+  "B0-3 first attempt: the ssh starting w0's browser timed out after 60 s; session timed out with 0 tokens (kept as B0-3-failed-launch); rerun finished"
+ ],
+ "cost_usd": 0.16,
+ "raw": "runs/experiments/DO-49/remote-20261110-0051"
+}

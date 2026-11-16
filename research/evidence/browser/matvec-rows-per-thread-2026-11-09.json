@@ -1,0 +1,290 @@
+{
+ "experiment": "WS-15",
+ "number": 104,
+ "date": "2026-11-09",
+ "host": "Radeon 680M (workstation), Chrome WebGPU",
+ "method": "qwen35_webgpu kernels --cases decode --prefill-kernel matvec [--matvec R,VT], --repeat 20, 3 runs per arm interleaved; median ms per case",
+ "gguf": "Qwen3.5-9B-Q4_K_M (unsloth 3885219)",
+ "cases": [
+  [
+   "blk.0.ffn_up.weight",
+   1
+  ],
+  [
+   "blk.0.ffn_up.weight",
+   2
+  ],
+  [
+   "blk.0.ffn_up.weight",
+   4
+  ],
+  [
+   "blk.0.ffn_up.weight",
+   5
+  ],
+  [
+   "blk.0.ffn_up.weight",
+   8
+  ],
+  [
+   "blk.0.ffn_up.weight",
+   9
+  ],
+  [
+   "blk.0.ffn_up.weight",
+   16
+  ],
+  [
+   "blk.0.ffn_down.weight",
+   1
+  ],
+  [
+   "blk.0.ffn_down.weight",
+   2
+  ],
+  [
+   "blk.0.ffn_down.weight",
+   4
+  ],
+  [
+   "blk.0.ffn_down.weight",
+   5
+  ],
+  [
+   "blk.0.ffn_down.weight",
+   8
+  ],
+  [
+   "blk.0.ffn_down.weight",
+   9
+  ],
+  [
+   "blk.0.ffn_down.weight",
+   16
+  ],
+  [
+   "blk.0.attn_qkv.weight",
+   1
+  ],
+  [
+   "blk.0.attn_qkv.weight",
+   2
+  ],
+  [
+   "blk.0.attn_qkv.weight",
+   4
+  ],
+  [
+   "blk.0.attn_qkv.weight",
+   5
+  ],
+  [
+   "blk.0.attn_qkv.weight",
+   8
+  ],
+  [
+   "blk.0.attn_qkv.weight",
+   9
+  ],
+  [
+   "blk.0.attn_qkv.weight",
+   16
+  ]
+ ],
+ "today_ms": [
+  1.145,
+  2.055,
+  2.09,
+  3.91,
+  3.975,
+  5.835,
+  7.855,
+  1.135,
+  2.255,
+  2.31,
+  4.33,
+  4.43,
+  6.41,
+  8.64,
+  0.66,
+  1.475,
+  1.505,
+  2.78,
+  2.835,
+  4.1,
+  5.47
+ ],
+ "variants": {
+  "r1x4": {
+   "bit_identical": true,
+   "ms": [
+    1.11,
+    2.035,
+    2.1,
+    3.91,
+    4.01,
+    5.82,
+    7.82,
+    1.135,
+    2.25,
+    2.47,
+    4.5,
+    4.535,
+    6.57,
+    8.85,
+    0.67,
+    1.465,
+    1.56,
+    2.79,
+    2.885,
+    4.175,
+    5.615
+   ],
+   "ratio8_to_today_1": {
+    "0": 4.37
+   },
+   "single_vs_today": {
+    "0": 1.02
+   },
+   "passed": false
+  },
+  "r2x4": {
+   "bit_identical": true,
+   "ms": [
+    0.8,
+    1.255,
+    1.3,
+    2.315,
+    2.365,
+    3.38,
+    4.545,
+    1.055,
+    1.525,
+    1.58,
+    2.785,
+    2.88,
+    4.14,
+    5.49,
+    0.605,
+    0.925,
+    0.975,
+    1.73,
+    1.73,
+    2.465,
+    3.32
+   ],
+   "ratio8_to_today_1": {
+    "0": 2.62
+   },
+   "single_vs_today": {
+    "0": 0.92
+   },
+   "passed": false
+  },
+  "r2x8": {
+   "bit_identical": true,
+   "ms": [
+    0.84,
+    2.095,
+    2.035,
+    2.06,
+    2.2,
+    4.025,
+    4.125,
+    1.075,
+    2.365,
+    2.365,
+    2.365,
+    2.535,
+    4.535,
+    4.615,
+    0.61,
+    1.475,
+    1.455,
+    1.515,
+    1.57,
+    2.835,
+    2.895
+   ],
+   "ratio8_to_today_1": {
+    "0": 2.38
+   },
+   "single_vs_today": {
+    "0": 0.92
+   },
+   "passed": false
+  },
+  "r4x4": {
+   "bit_identical": true,
+   "ms": [
+    1.065,
+    0.98,
+    0.98,
+    1.725,
+    1.78,
+    2.47,
+    3.285,
+    2.095,
+    1.275,
+    1.355,
+    2.415,
+    2.74,
+    3.58,
+    4.92,
+    1.08,
+    0.765,
+    0.765,
+    1.36,
+    1.37,
+    1.885,
+    2.47
+   ],
+   "ratio8_to_today_1": {
+    "0": 2.08
+   },
+   "single_vs_today": {
+    "0": 1.64
+   },
+   "passed": false
+  },
+  "r4x8": {
+   "bit_identical": true,
+   "ms": [
+    1.06,
+    1.47,
+    1.455,
+    1.42,
+    1.51,
+    2.735,
+    2.79,
+    2.12,
+    1.775,
+    1.83,
+    1.83,
+    1.885,
+    3.375,
+    3.48,
+    1.03,
+    1.085,
+    1.08,
+    1.135,
+    1.135,
+    1.985,
+    2.04
+   ],
+   "ratio8_to_today_1": {
+    "0": 1.72
+   },
+   "single_vs_today": {
+    "0": 1.56
+   },
+   "passed": false
+  }
+ },
+ "gate": {
+  "bit_exactness": "all variants, all 21 cases",
+  "go": "none",
+  "note": "r4x8 meets the 8-token line (1.32/1.66/1.72x) but is 1.87x/1.56x slower at 1 token on ffn_down/attn_qkv; r2x4 speeds 1 token up (0.70/0.93/0.92x)"
+ },
+ "raw": "runs/experiments/WS-15/omarchy-20261109-2206"
+}

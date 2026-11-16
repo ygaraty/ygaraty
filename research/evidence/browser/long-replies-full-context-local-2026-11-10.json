@@ -1,0 +1,564 @@
+{
+ "experiment": 149,
+ "id": "WS-22",
+ "date": "2026-11-10",
+ "host": "omarchy workstation (Radeon 680M), coordinator and two headless Chromium contributors on localhost",
+ "dir": "runs/experiments/WS-22/omarchy-20261110-1806",
+ "code": "clean export of main at 805cfa9",
+ "model": "S5-nano, 2 stages (0,16,32), route webrtc, bundle capacity 16384 / reply cap 2048",
+ "driver": "scripts/experiments/chat_cycles.py: LH sha256 8f23daf3fe78, LD and MH 685433e9d6e0 (adds submit events), per the Log; Playwright 1.65.0, Chromium; --words 1500, --timeout 900",
+ "order": [
+  "LH",
+  "LD",
+  "MH"
+ ],
+ "gate": {
+  "LH": {
+   "planned": 10,
+   "completed": 10,
+   "attempted": 10,
+   "resets_ok": true,
+   "runner_errors": 0,
+   "page_errors": 0,
+   "failures": [
+    "net::ERR_ABORTED"
+   ],
+   "at80": 10,
+   "ctx_resets_completed": 1,
+   "short_end": 0,
+   "short": 0,
+   "generated": 20358,
+   "max_s": 222.647,
+   "short_s": [],
+   "short_tokens": [],
+   "pass": true
+  },
+  "LD": {
+   "planned": 10,
+   "completed": 10,
+   "attempted": 10,
+   "resets_ok": true,
+   "runner_errors": 0,
+   "page_errors": 0,
+   "failures": [
+    "net::ERR_ABORTED"
+   ],
+   "at80": 10,
+   "ctx_resets_completed": 1,
+   "short_end": 0,
+   "short": 0,
+   "generated": 20358,
+   "max_s": 208.151,
+   "short_s": [],
+   "short_tokens": [],
+   "pass": true
+  },
+  "MH": {
+   "planned": 12,
+   "completed": 12,
+   "attempted": 12,
+   "resets_ok": true,
+   "runner_errors": 0,
+   "page_errors": 0,
+   "failures": [
+    "net::ERR_ABORTED"
+   ],
+   "at80": 8,
+   "ctx_resets_completed": 1,
+   "short_end": 4,
+   "short": 4,
+   "generated": 16322,
+   "max_s": 217.648,
+   "short_s": [
+    1.823,
+    1.621,
+    1.621,
+    2.429
+   ],
+   "short_tokens": [
+    15,
+    11,
+    11,
+    23
+   ],
+   "pass": true
+  },
+  "tested": {
+   "long": true,
+   "capacity_reset": true,
+   "early_end": true
+  },
+  "GATE": "PASS"
+ },
+ "recomputed_by": "runs/experiments/WS-22/gate22.py (identical output 2026-11-14; the gate.py in that directory is a copy of WS-21's)",
+ "long_turn_ms_per_token": {
+  "LH": 98.5,
+  "LD": 97.7,
+  "MH": 98.5
+ },
+ "rehearsal": {
+  "dir": "runs/experiments/WS-22/rehearsal-1806",
+  "turns": [
+   [
+    0,
+    0,
+    "completed",
+    1926,
+    181.246,
+    0.608,
+    "end",
+    null,
+    1963
+   ],
+   [
+    0,
+    1,
+    "completed",
+    15,
+    1.82,
+    0.404,
+    "end",
+    null,
+    2009
+   ]
+  ]
+ },
+ "runs": {
+  "LH": {
+   "manifest": {
+    "revision": "805cfa9",
+    "arm": "relay",
+    "cycles": 1,
+    "turns": 10,
+    "words": 1500,
+    "prompts": "long",
+    "timeout": 900.0,
+    "token_cap": 2048
+   },
+   "turn_fields": [
+    "cycle",
+    "turn",
+    "result",
+    "generated",
+    "elapsed_s",
+    "first_visible_s",
+    "stopped",
+    "context_reset",
+    "position"
+   ],
+   "turns": [
+    [
+     0,
+     0,
+     "completed",
+     1926,
+     182.299,
+     0.609,
+     "end",
+     null,
+     1963
+    ],
+    [
+     0,
+     1,
+     "completed",
+     2048,
+     197.594,
+     0.608,
+     "length",
+     null,
+     4057
+    ],
+    [
+     0,
+     2,
+     "completed",
+     2048,
+     198.013,
+     0.609,
+     "length",
+     null,
+     6152
+    ],
+    [
+     0,
+     3,
+     "completed",
+     2048,
+     199.765,
+     0.607,
+     "length",
+     null,
+     8247
+    ],
+    [
+     0,
+     4,
+     "completed",
+     2048,
+     208.072,
+     0.811,
+     "length",
+     null,
+     10342
+    ],
+    [
+     0,
+     5,
+     "completed",
+     2048,
+     222.647,
+     1.016,
+     "length",
+     null,
+     12437
+    ],
+    [
+     0,
+     6,
+     "completed",
+     2048,
+     207.091,
+     0.812,
+     "length",
+     null,
+     14532
+    ],
+    [
+     0,
+     7,
+     "completed",
+     2048,
+     194.013,
+     0.407,
+     "length",
+     "the conversation reached the capacity of 16384 positions",
+     2092
+    ],
+    [
+     0,
+     8,
+     "completed",
+     2048,
+     194.363,
+     0.61,
+     "length",
+     null,
+     4187
+    ],
+    [
+     0,
+     9,
+     "completed",
+     2048,
+     200.716,
+     0.607,
+     "length",
+     null,
+     6282
+    ]
+   ],
+   "resets": [
+    "completed"
+   ]
+  },
+  "LD": {
+   "manifest": {
+    "revision": "805cfa9",
+    "arm": "direct",
+    "cycles": 1,
+    "turns": 10,
+    "words": 1500,
+    "prompts": "long",
+    "timeout": 900.0,
+    "token_cap": 2048
+   },
+   "turn_fields": [
+    "cycle",
+    "turn",
+    "result",
+    "generated",
+    "elapsed_s",
+    "first_visible_s",
+    "stopped",
+    "context_reset",
+    "position"
+   ],
+   "turns": [
+    [
+     0,
+     0,
+     "completed",
+     1926,
+     184.722,
+     0.609,
+     "end",
+     null,
+     1963
+    ],
+    [
+     0,
+     1,
+     "completed",
+     2048,
+     200.152,
+     0.608,
+     "length",
+     null,
+     4057
+    ],
+    [
+     0,
+     2,
+     "completed",
+     2048,
+     198.34,
+     0.61,
+     "length",
+     null,
+     6152
+    ],
+    [
+     0,
+     3,
+     "completed",
+     2048,
+     202.827,
+     0.608,
+     "length",
+     null,
+     8247
+    ],
+    [
+     0,
+     4,
+     "completed",
+     2048,
+     201.555,
+     0.813,
+     "length",
+     null,
+     10342
+    ],
+    [
+     0,
+     5,
+     "completed",
+     2048,
+     205.214,
+     0.81,
+     "length",
+     null,
+     12437
+    ],
+    [
+     0,
+     6,
+     "completed",
+     2048,
+     208.151,
+     0.811,
+     "length",
+     null,
+     14532
+    ],
+    [
+     0,
+     7,
+     "completed",
+     2048,
+     193.394,
+     0.608,
+     "length",
+     "the conversation reached the capacity of 16384 positions",
+     2092
+    ],
+    [
+     0,
+     8,
+     "completed",
+     2048,
+     195.618,
+     0.608,
+     "length",
+     null,
+     4187
+    ],
+    [
+     0,
+     9,
+     "completed",
+     2048,
+     198.055,
+     0.609,
+     "length",
+     null,
+     6282
+    ]
+   ],
+   "resets": [
+    "completed"
+   ]
+  },
+  "MH": {
+   "manifest": {
+    "revision": "805cfa9",
+    "arm": "relay",
+    "cycles": 1,
+    "turns": 12,
+    "words": 1500,
+    "prompts": "mixed",
+    "timeout": 900.0,
+    "token_cap": 2048
+   },
+   "turn_fields": [
+    "cycle",
+    "turn",
+    "result",
+    "generated",
+    "elapsed_s",
+    "first_visible_s",
+    "stopped",
+    "context_reset",
+    "position"
+   ],
+   "turns": [
+    [
+     0,
+     0,
+     "completed",
+     1926,
+     180.877,
+     0.405,
+     "end",
+     null,
+     1963
+    ],
+    [
+     0,
+     1,
+     "completed",
+     15,
+     1.823,
+     0.406,
+     "end",
+     null,
+     2009
+    ],
+    [
+     0,
+     2,
+     "completed",
+     2048,
+     196.304,
+     0.609,
+     "length",
+     null,
+     4103
+    ],
+    [
+     0,
+     3,
+     "completed",
+     2048,
+     200.499,
+     0.607,
+     "length",
+     null,
+     6198
+    ],
+    [
+     0,
+     4,
+     "completed",
+     11,
+     1.621,
+     0.608,
+     "end",
+     null,
+     6241
+    ],
+    [
+     0,
+     5,
+     "completed",
+     2048,
+     202.953,
+     0.608,
+     "length",
+     null,
+     8335
+    ],
+    [
+     0,
+     6,
+     "completed",
+     2048,
+     217.648,
+     0.811,
+     "length",
+     null,
+     10430
+    ],
+    [
+     0,
+     7,
+     "completed",
+     11,
+     1.621,
+     0.609,
+     "end",
+     null,
+     10473
+    ],
+    [
+     0,
+     8,
+     "completed",
+     2048,
+     204.094,
+     0.811,
+     "length",
+     null,
+     12567
+    ],
+    [
+     0,
+     9,
+     "completed",
+     2048,
+     207.074,
+     0.811,
+     "length",
+     null,
+     14662
+    ],
+    [
+     0,
+     10,
+     "completed",
+     23,
+     2.429,
+     0.407,
+     "end",
+     "the conversation reached the capacity of 16384 positions",
+     52
+    ],
+    [
+     0,
+     11,
+     "completed",
+     2048,
+     192.316,
+     0.406,
+     "length",
+     null,
+     2147
+    ]
+   ],
+   "resets": [
+    "completed"
+   ]
+  }
+ }
+}

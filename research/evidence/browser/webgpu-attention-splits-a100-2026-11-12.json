@@ -1,0 +1,108 @@
+{
+ "experiment": "WS-35",
+ "date": "2026-11-12",
+ "machine": "Vast.ai A100 SXM4 80 GB, Texas, $1.358/h (contrib1, after DO-61)",
+ "code": "c44ed00 (dense_gpu.mjs 5551186a... copied to a clone of f0990f8)",
+ "model": "Kolibri-1 Q4_K, one stage, matvecC 16,4",
+ "attention_gpu_ms_per_token": {
+  "split512": {
+   "detail-64": 19.33,
+   "detail-1024": 94.36,
+   "detail-4096": 94.22
+  },
+  "split64": {
+   "detail-64": 13.15,
+   "detail-1024": 13.77,
+   "detail-4096": 19.17
+  },
+  "profile_before": {
+   "detail-64": 19.32,
+   "detail-1024": 94.12,
+   "detail-4096": 94.2
+  }
+ },
+ "resident": {
+  "split512": {
+   "B1-64": {
+    "ms": 60.799999952316284,
+    "tokens_equal": true
+   },
+   "R2-64": {
+    "ms": 36.09999996423721,
+    "tokens_equal": true
+   },
+   "R3-64": {
+    "ms": 36.09999996423721,
+    "tokens_equal": true
+   },
+   "B4-64": {
+    "ms": 62.5,
+    "tokens_equal": true
+   },
+   "B1-1024": {
+    "ms": 129.19999998807907,
+    "tokens_equal": true
+   },
+   "R2-1024": {
+    "ms": 111,
+    "tokens_equal": true
+   },
+   "R3-1024": {
+    "ms": 111.10000002384186,
+    "tokens_equal": true
+   },
+   "B4-1024": {
+    "ms": 134.5,
+    "tokens_equal": true
+   }
+  },
+  "split64": {
+   "B1-64": {
+    "ms": 55.30000001192093,
+    "tokens_equal": true
+   },
+   "R2-64": {
+    "ms": 29.899999976158142,
+    "tokens_equal": true
+   },
+   "R3-64": {
+    "ms": 29.899999976158142,
+    "tokens_equal": true
+   },
+   "B4-64": {
+    "ms": 53.59999996423721,
+    "tokens_equal": true
+   },
+   "B1-1024": {
+    "ms": 52.10000002384186,
+    "tokens_equal": true
+   },
+   "R2-1024": {
+    "ms": 30.5,
+    "tokens_equal": true
+   },
+   "R3-1024": {
+    "ms": 30.600000023841858,
+    "tokens_equal": true
+   },
+   "B4-1024": {
+    "ms": 53.5,
+    "tokens_equal": true
+   }
+  }
+ },
+ "correctness": {
+  "prompt_tokens": 1002,
+  "split64": {
+   "tokens": "30/32",
+   "logits_rel": "2.7e-2 .. 2.0e-1",
+   "step0": "4.3e-2"
+  },
+  "split512_control": {
+   "tokens": "31/32",
+   "logits_rel": "2.8e-2 .. 1.5e-1",
+   "step0": "3.3e-2"
+  },
+  "note": "both arms off by the same order from step 0 (the prompt pass): a long-prompt gap, not the split"
+ }
+}

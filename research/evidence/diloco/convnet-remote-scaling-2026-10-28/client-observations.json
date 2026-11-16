@@ -1,0 +1,151 @@
+{
+  "kind": "experiment45_client_server_reconciliation",
+  "worker": "mac-m5-01",
+  "client_source": "Browser UI captured live during execution; displayed throughput rounded to 2 decimals, final losses to 6 decimals.",
+  "server_source": "webgpu-m1-h5-r1.json",
+  "completed": true,
+  "rounds_observed": 12,
+  "warmup_rounds": 2,
+  "measured_rounds": 10,
+  "per_round_rates_losses_and_gpu_counts_match": true,
+  "rounds_detail": [
+    {
+      "version": 0,
+      "local_images_per_second": 14.19,
+      "gpu_tasks": 100,
+      "last_loss": 2.262765,
+      "coordinator_round": 1,
+      "warmup": true,
+      "recorded_compute_seconds": 2.8185,
+      "local_rate_recomputed_from_server": 14.191946070604933
+    },
+    {
+      "version": 1,
+      "local_images_per_second": 14.3,
+      "gpu_tasks": 100,
+      "last_loss": 2.290842,
+      "coordinator_round": 2,
+      "warmup": true,
+      "recorded_compute_seconds": 2.7975,
+      "local_rate_recomputed_from_server": 14.298480786416444
+    },
+    {
+      "version": 2,
+      "local_images_per_second": 13.79,
+      "gpu_tasks": 100,
+      "last_loss": 2.383919,
+      "coordinator_round": 3,
+      "warmup": false,
+      "recorded_compute_seconds": 2.900799999952316,
+      "local_rate_recomputed_from_server": 13.789299503811888
+    },
+    {
+      "version": 3,
+      "local_images_per_second": 14.47,
+      "gpu_tasks": 100,
+      "last_loss": 2.270604,
+      "coordinator_round": 4,
+      "warmup": false,
+      "recorded_compute_seconds": 2.7651000001430512,
+      "local_rate_recomputed_from_server": 14.46602292789795
+    },
+    {
+      "version": 4,
+      "local_images_per_second": 16.65,
+      "gpu_tasks": 100,
+      "last_loss": 2.310255,
+      "coordinator_round": 5,
+      "warmup": false,
+      "recorded_compute_seconds": 2.4017000000476836,
+      "local_rate_recomputed_from_server": 16.65486946712988
+    },
+    {
+      "version": 5,
+      "local_images_per_second": 14.47,
+      "gpu_tasks": 100,
+      "last_loss": 2.276474,
+      "coordinator_round": 6,
+      "warmup": false,
+      "recorded_compute_seconds": 2.764300000190735,
+      "local_rate_recomputed_from_server": 14.470209455283443
+    },
+    {
+      "version": 6,
+      "local_images_per_second": 13.79,
+      "gpu_tasks": 100,
+      "last_loss": 2.295544,
+      "coordinator_round": 7,
+      "warmup": false,
+      "recorded_compute_seconds": 2.9008999998569487,
+      "local_rate_recomputed_from_server": 13.788824158699889
+    },
+    {
+      "version": 7,
+      "local_images_per_second": 13.91,
+      "gpu_tasks": 100,
+      "last_loss": 2.305527,
+      "coordinator_round": 8,
+      "warmup": false,
+      "recorded_compute_seconds": 2.875299999952316,
+      "local_rate_recomputed_from_server": 13.911591834126304
+    },
+    {
+      "version": 8,
+      "local_images_per_second": 14.02,
+      "gpu_tasks": 100,
+      "last_loss": 2.297784,
+      "coordinator_round": 9,
+      "warmup": false,
+      "recorded_compute_seconds": 2.8537000000476835,
+      "local_rate_recomputed_from_server": 14.016890352641001
+    },
+    {
+      "version": 9,
+      "local_images_per_second": 13.39,
+      "gpu_tasks": 100,
+      "last_loss": 2.328967,
+      "coordinator_round": 10,
+      "warmup": false,
+      "recorded_compute_seconds": 2.987600000143051,
+      "local_rate_recomputed_from_server": 13.388673181846546
+    },
+    {
+      "version": 10,
+      "local_images_per_second": 15.9,
+      "gpu_tasks": 100,
+      "last_loss": 2.275946,
+      "coordinator_round": 11,
+      "warmup": false,
+      "recorded_compute_seconds": 2.515700000047684,
+      "local_rate_recomputed_from_server": 15.900147076059076
+    },
+    {
+      "version": 11,
+      "local_images_per_second": 13.56,
+      "gpu_tasks": 100,
+      "last_loss": 2.318091,
+      "coordinator_round": 12,
+      "warmup": false,
+      "recorded_compute_seconds": 2.9492999999523164,
+      "local_rate_recomputed_from_server": 13.562540264010684
+    }
+  ],
+  "measured": {
+    "images": 400,
+    "worker_compute_seconds": 27.914400000333785,
+    "worker_compute_images_per_second": 14.329521680394958,
+    "active_round_seconds": 71.33913393200032,
+    "active_round_images_per_second": 5.607020690512946,
+    "end_to_end_seconds": 82.05863088499996,
+    "end_to_end_images_per_second": 4.874563415036439,
+    "inside_round_outside_worker_timer_seconds": 43.42473393166654,
+    "between_round_seconds": 10.719496952999634,
+    "worker_compute_fraction_of_wall": 0.34017628248580056
+  },
+  "local_artifacts": "runs/exp45-remote-run2/{worker-output.txt,01-start.png,02-progress.png,03-progress.png,04-completed.png}; ignored generated files.",
+  "limitations": [
+    "The coordinator records the compute duration supplied by this worker; agreement verifies aggregation and reporting, not an independent compute timer.",
+    "Residual wall time combines compilation, serialization, transfers, parsing, coordination and scheduling; no isolated network or GPU-kernel attribution.",
+    "The client displayed all 12 rounds; end-to-end throughput excludes the first two warmups."
+  ]
+}

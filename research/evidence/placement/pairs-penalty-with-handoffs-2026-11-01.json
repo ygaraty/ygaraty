@@ -1,0 +1,346 @@
+{
+ "experiment": 63,
+ "id": "WS-2",
+ "date": "2026-11-01",
+ "machine": "workstation (Ryzen 9 PRO 6950H), loopback with latency-proxy",
+ "code_commit": "39eacf7 plus experiment 62 tools (committed in 6cd154c); relay-server rebuilt at e576e2a",
+ "settings": {
+  "recipe": "tiny 1m-seed2026-v2k, embedding 128, hidden 384, 2 layers, 4 heads, band 16",
+  "workers": 8,
+  "rtt_ms": 50,
+  "down_mbps": 100,
+  "up_mbps": 20,
+  "strong": 2,
+  "strong_up_mbps": 100,
+  "strong_cores": 8,
+  "strong_gflops": 40,
+  "worker_gflops": 10,
+  "handoff": "non-blocking",
+  "strong_uploaders": 2,
+  "placement": "capacity",
+  "steps": 12,
+  "steady": "median of updates 2-10"
+ },
+ "arms": {
+  "P2h": {
+   "pairs": "always"
+  },
+  "N2h": {
+   "pairs": "never"
+  }
+ },
+ "runs": [
+  {
+   "name": "r1-P2h",
+   "arm": "P2h",
+   "repeat": 1,
+   "seconds_per_update": {
+    "2": 2.6307,
+    "3": 2.6854,
+    "4": 2.6581,
+    "5": 2.6365,
+    "6": 2.7437,
+    "7": 2.6072,
+    "8": 2.6644,
+    "9": 2.8121,
+    "10": 2.5937,
+    "11": 1.0865,
+    "12": 6.1582
+   },
+   "steady_s": 2.6581,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r1-N2h",
+   "arm": "N2h",
+   "repeat": 1,
+   "seconds_per_update": {
+    "2": 2.885,
+    "3": 2.444,
+    "4": 2.7403,
+    "5": 2.4985,
+    "6": 2.5785,
+    "7": 2.5331,
+    "8": 2.5042,
+    "9": 2.6614,
+    "10": 2.5701,
+    "11": 1.1182,
+    "12": 4.8423
+   },
+   "steady_s": 2.5701,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r2-N2h",
+   "arm": "N2h",
+   "repeat": 2,
+   "seconds_per_update": {
+    "2": 2.5401,
+    "3": 2.5576,
+    "4": 2.5395,
+    "5": 2.5911,
+    "6": 2.722,
+    "7": 2.476,
+    "8": 2.5942,
+    "9": 2.6825,
+    "10": 2.4247,
+    "11": 1.088,
+    "12": 5.1107
+   },
+   "steady_s": 2.5576,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r2-P2h",
+   "arm": "P2h",
+   "repeat": 2,
+   "seconds_per_update": {
+    "2": 2.5562,
+    "3": 2.7542,
+    "4": 2.7002,
+    "5": 2.7099,
+    "6": 2.6811,
+    "7": 2.7641,
+    "8": 2.8891,
+    "9": 2.6498,
+    "10": 2.7047,
+    "11": 1.0818,
+    "12": 6.2932
+   },
+   "steady_s": 2.7047,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r3-P2h",
+   "arm": "P2h",
+   "repeat": 3,
+   "seconds_per_update": {
+    "2": 2.6696,
+    "3": 2.7642,
+    "4": 2.6055,
+    "5": 2.6928,
+    "6": 2.7601,
+    "7": 2.631,
+    "8": 2.705,
+    "9": 2.5623,
+    "10": 2.6498,
+    "11": 1.0892,
+    "12": 6.1786
+   },
+   "steady_s": 2.6696,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r3-N2h",
+   "arm": "N2h",
+   "repeat": 3,
+   "seconds_per_update": {
+    "2": 2.6915,
+    "3": 2.534,
+    "4": 2.6781,
+    "5": 2.4658,
+    "6": 2.6821,
+    "7": 2.8011,
+    "8": 2.5981,
+    "9": 2.5923,
+    "10": 2.6618,
+    "11": 1.0775,
+    "12": 4.8728
+   },
+   "steady_s": 2.6618,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  }
+ ],
+ "captures": {
+  "P2h": {
+   "placement": {
+    "w0": [
+     "encoder.layers.0",
+     "encoder.layers.1"
+    ],
+    "w1": [
+     "decoder.layers.0",
+     "decoder.layers.1"
+    ],
+    "w2": [
+     "vocab.0"
+    ],
+    "w6": [
+     "vocab.1"
+    ],
+    "w4": [
+     "vocab.2"
+    ],
+    "w3": [
+     "vocab.3"
+    ]
+   },
+   "chain_ms": 2537.1,
+   "chain_hops": 90,
+   "handed": 90,
+   "median_hop_ms": 164.1,
+   "median_ms": {
+    "upload": 73.22,
+    "after_upload": 66.95
+   },
+   "sum_per_update_ms": {
+    "upload": 1176.7,
+    "after_upload": 1222.7
+   },
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311
+   ]
+  },
+  "N2h": {
+   "placement": {
+    "w0": [
+     "decoder.layers.0"
+    ],
+    "w1": [
+     "decoder.layers.1"
+    ],
+    "w6": [
+     "encoder.layers.0"
+    ],
+    "w4": [
+     "encoder.layers.1"
+    ],
+    "w7": [
+     "vocab.0"
+    ],
+    "w2": [
+     "vocab.1"
+    ],
+    "w5": [
+     "vocab.2"
+    ],
+    "w3": [
+     "vocab.3"
+    ]
+   },
+   "chain_ms": 2482.8,
+   "chain_hops": 90,
+   "handed": 90,
+   "median_hop_ms": 147.7,
+   "median_ms": {
+    "upload": 91.38,
+    "after_upload": 38.5
+   },
+   "sum_per_update_ms": {
+    "upload": 1404.9,
+    "after_upload": 854.9
+   },
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311
+   ]
+  }
+ },
+ "summary": {
+  "median_steady_s": {
+   "P2h": 2.6696,
+   "N2h": 2.5701
+  },
+  "difference_s": 0.0995,
+  "penalty": 0.0387,
+  "experiment_62_difference_s": 0.3716,
+  "losses_equal_to_experiment_62": true,
+  "gates": {
+   "correctness": true,
+   "shrinks_to_half": true,
+   "handed_share_at_least_60pct": true,
+   "penalty_under_2pct": false
+  }
+ }
+}

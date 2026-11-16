@@ -1,0 +1,3311 @@
+{
+ "experiment": "DO-38",
+ "date": "2026-11-07",
+ "gate": "Frozen 2026-11-07: per arm, works if at the best N of 1,2,4,6,8 the median (3 repeats) steady throughput is >= 3x N=1's and every conversation's median time per token <= 1.5x N=1's; every conversation's tokens equal its run alone",
+ "pool": {
+  "contributors": "Vast.ai RTX 3060 12 GB x 4, Poland (one site), Chrome on Xvfb, ANGLE/Vulkan",
+  "coordinator": "DigitalOcean s-4vcpu-8gb ams3, https",
+  "cost_usd_listed": 0.62,
+  "budget_usd": 2
+ },
+ "code": "bc2ffd1",
+ "prompts": "qwen35_session.MESSAGES chat prompts (24-32 tokens), 128 generated tokens each",
+ "table": [
+  {
+   "arm": "I",
+   "n": 1,
+   "repeats": 3,
+   "steady_tokens_per_s": 1.7367040573702066,
+   "throughput_ratio": 1.0,
+   "worst_conv_median_ms": 573.2905864715576,
+   "latency_ratio": 1.0043002866440096,
+   "passes": false,
+   "mean_batch": 1.0,
+   "runs": [
+    "screen-r1-n1-I",
+    "screen-r2-n1-I",
+    "screen-r3-n1-I"
+   ]
+  },
+  {
+   "arm": "I",
+   "n": 2,
+   "repeats": 3,
+   "steady_tokens_per_s": 4.235428715729691,
+   "throughput_ratio": 2.4387740085914023,
+   "worst_conv_median_ms": 507.5390338897705,
+   "latency_ratio": 0.8891155885808512,
+   "passes": false,
+   "mean_batch": 1.0,
+   "runs": [
+    "screen-r1-n2-I",
+    "screen-r2-n2-I",
+    "screen-r3-n2-I"
+   ]
+  },
+  {
+   "arm": "I",
+   "n": 4,
+   "repeats": 3,
+   "steady_tokens_per_s": 9.149319844766277,
+   "throughput_ratio": 5.268208942069599,
+   "worst_conv_median_ms": 439.39709663391113,
+   "latency_ratio": 0.7697433736283334,
+   "passes": true,
+   "mean_batch": 1.0,
+   "runs": [
+    "screen-r1-n4-I",
+    "screen-r2-n4-I",
+    "screen-r3-n4-I"
+   ]
+  },
+  {
+   "arm": "I",
+   "n": 6,
+   "repeats": 3,
+   "steady_tokens_per_s": 9.50597860993205,
+   "throughput_ratio": 5.4735742509442975,
+   "worst_conv_median_ms": 640.9409046173096,
+   "latency_ratio": 1.1228112748036032,
+   "passes": true,
+   "mean_batch": 1.0,
+   "runs": [
+    "screen-r1-n6-I",
+    "screen-r2-n6-I",
+    "screen-r3-n6-I"
+   ]
+  },
+  {
+   "arm": "I",
+   "n": 8,
+   "repeats": 3,
+   "steady_tokens_per_s": 9.712576581728047,
+   "throughput_ratio": 5.5925340535193175,
+   "worst_conv_median_ms": 816.0400390625,
+   "latency_ratio": 1.4295529431026468,
+   "passes": true,
+   "mean_batch": 1.0,
+   "runs": [
+    "screen-r1-n8-I",
+    "screen-r2-n8-I",
+    "screen-r3-n8-I"
+   ]
+  },
+  {
+   "arm": "B",
+   "n": 1,
+   "repeats": 3,
+   "steady_tokens_per_s": 1.7420087797958554,
+   "throughput_ratio": 1.0,
+   "worst_conv_median_ms": 575.1214027404785,
+   "latency_ratio": 1.0029974740387313,
+   "passes": false,
+   "mean_batch": 1.0,
+   "runs": [
+    "screen-r1-n1-B",
+    "screen-r2-n1-B",
+    "screen-r3-n1-B"
+   ]
+  },
+  {
+   "arm": "B",
+   "n": 2,
+   "repeats": 3,
+   "steady_tokens_per_s": 4.277816796102191,
+   "throughput_ratio": 2.4556803879045344,
+   "worst_conv_median_ms": 507.2028636932373,
+   "latency_ratio": 0.8845492250600305,
+   "passes": false,
+   "mean_batch": 1.0,
+   "runs": [
+    "screen-r1-n2-B",
+    "screen-r2-n2-B",
+    "screen-r3-n2-B"
+   ]
+  },
+  {
+   "arm": "B",
+   "n": 4,
+   "repeats": 3,
+   "steady_tokens_per_s": 8.905466360592488,
+   "throughput_ratio": 5.112182248378859,
+   "worst_conv_median_ms": 621.2847232818604,
+   "latency_ratio": 1.0835051610690118,
+   "passes": true,
+   "mean_batch": 1.425,
+   "runs": [
+    "screen-r1-n4-B",
+    "screen-r2-n4-B",
+    "screen-r3-n4-B"
+   ]
+  },
+  {
+   "arm": "B",
+   "n": 6,
+   "repeats": 3,
+   "steady_tokens_per_s": 11.581794147303723,
+   "throughput_ratio": 6.648527999187802,
+   "worst_conv_median_ms": 578.6498785018921,
+   "latency_ratio": 1.009151048325901,
+   "passes": true,
+   "mean_batch": 2.0272108843537415,
+   "runs": [
+    "screen-r1-n6-B",
+    "screen-r2-n6-B",
+    "screen-r3-n6-B"
+   ]
+  },
+  {
+   "arm": "B",
+   "n": 8,
+   "repeats": 3,
+   "steady_tokens_per_s": 16.174972528942227,
+   "throughput_ratio": 9.285241679917227,
+   "worst_conv_median_ms": 609.9655628204346,
+   "latency_ratio": 1.0637648257294623,
+   "passes": true,
+   "mean_batch": 1.6898608349900597,
+   "runs": [
+    "screen-r1-n8-B",
+    "screen-r2-n8-B",
+    "screen-r3-n8-B"
+   ]
+  }
+ ],
+ "correctness": {
+  "multi_conversation_checks": 121,
+  "equal": 121,
+  "tokens_compared": 12098,
+  "references": "conversation 0: N=1 run; 1-7: single-c<k> runs, same machines"
+ },
+ "local": {
+  "first": "runs/experiments/DO-38/omarchy-20261107-005919-local (680M, relay emulated 68 ms): arm I 3.46x at N=6 (latency 1.75x), arm B 2.80x at N=4; 124/124 equal",
+  "kernels": "ffn_up on the 680M: matrix-vector 0.82/1.99/2.13/3.90 ms at 1/2/4/8 tokens; a staged batch kernel 0.82/3.65/3.65/7.20 ms (removed)"
+ },
+ "runs": {
+  "screen-r1-n1-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.8312456607818604,
+     "inter_token_ms_median": 569.13161277771,
+     "inter_token_ms_p95": 690.3507471084595,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.745895898429221,
+    "window_s": 72.742023229599,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.71643273661711,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:24:15+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.200000047683716,
+     "step_wait_ms_median": 495.60000002384186,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 67.60000002384186,
+     "step_wait_ms_median": 493.60000002384186,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.69999998807907,
+     "step_wait_ms_median": 497.5999999642372,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 88.80000007152557,
+     "step_wait_ms_median": 476.60000002384186,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "screen-r1-n1-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.644094467163086,
+     "inter_token_ms_median": 569.3891048431396,
+     "inter_token_ms_p95": 687.6609802246093,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.767488875090124,
+    "window_s": 71.85335183143616,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.741557107711911,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:21:57+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.5,
+     "step_wait_ms_median": 467.0,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 67.10000002384186,
+     "step_wait_ms_median": 476.40000009536743,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.0,
+     "step_wait_ms_median": 495.69999998807907,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 89.10000002384186,
+     "step_wait_ms_median": 476.5,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "screen-r1-n2-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.765336275100708,
+     "inter_token_ms_median": 506.35385513305664,
+     "inter_token_ms_p95": 640.595293045044,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.0033066272735596,
+     "inter_token_ms_median": 460.67655086517334,
+     "inter_token_ms_p95": 561.9844675064087,
+     "generated": 81
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 4.277816796102191,
+    "window_s": 37.40225625038147,
+    "window_tokens": 160,
+    "overall_tokens_per_s": 3.1456185354851263,
+    "total_tokens": 209,
+    "conversations": 2
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:28:17+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 59.0,
+     "step_wait_ms_median": 216.89999997615814,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 63.60000002384186,
+     "step_wait_ms_median": 210.0,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 58.39999997615814,
+     "step_wait_ms_median": 218.5,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 45.299999952316284,
+     "step_wait_ms_median": 210.60000002384186,
+     "steps": 207,
+     "batched_tokens": 207
+    }
+   ]
+  },
+  "screen-r1-n2-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.9340379238128662,
+     "inter_token_ms_median": 496.845006942749,
+     "inter_token_ms_p95": 638.4771585464478,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.2455804347991943,
+     "inter_token_ms_median": 460.5531692504883,
+     "inter_token_ms_p95": 520.3862071037291,
+     "generated": 81
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 4.28320920826298,
+    "window_s": 37.35516810417175,
+    "window_tokens": 160,
+    "overall_tokens_per_s": 3.1421711224266593,
+    "total_tokens": 209,
+    "conversations": 2
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:26:16+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 59.5,
+     "step_wait_ms_median": 231.0999999642372,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 63.800000071525574,
+     "step_wait_ms_median": 224.0,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 58.5,
+     "step_wait_ms_median": 227.89999997615814,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 45.39999997615814,
+     "step_wait_ms_median": 237.30000007152557,
+     "steps": 207,
+     "batched_tokens": 207
+    }
+   ]
+  },
+  "screen-r1-n4-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.8028733730316162,
+     "inter_token_ms_median": 567.4121379852295,
+     "inter_token_ms_p95": 693.4734106063843,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.0400009155273438,
+     "inter_token_ms_median": 621.2847232818604,
+     "inter_token_ms_p95": 703.0394315719604,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.3237531185150146,
+     "inter_token_ms_median": 572.4738836288452,
+     "inter_token_ms_p95": 695.6076622009276,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.42419695854187,
+     "inter_token_ms_median": 530.6112766265869,
+     "inter_token_ms_p95": 553.9026260375977,
+     "generated": 24
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 7.540107565873947,
+    "window_s": 12.201417446136475,
+    "window_tokens": 92,
+    "overall_tokens_per_s": 4.696603672363413,
+    "total_tokens": 346,
+    "conversations": 4
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:32:22+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 57.799999952316284,
+     "step_wait_ms_median": 222.69999998807907,
+     "steps": 241,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.10000002384186,
+     "step_wait_ms_median": 225.30000007152557,
+     "steps": 241,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 56.10000002384186,
+     "step_wait_ms_median": 222.10000002384186,
+     "steps": 241,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 62.14999997615814,
+     "step_wait_ms_median": 227.79999995231628,
+     "steps": 240,
+     "batched_tokens": 342
+    }
+   ]
+  },
+  "screen-r1-n4-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.6710498332977295,
+     "inter_token_ms_median": 423.2144355773926,
+     "inter_token_ms_p95": 604.7342538833617,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 1.9382939338684082,
+     "inter_token_ms_median": 403.3503532409668,
+     "inter_token_ms_p95": 452.96090841293335,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.0858864784240723,
+     "inter_token_ms_median": 418.71047019958496,
+     "inter_token_ms_p95": 494.5766925811767,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.2198853492736816,
+     "inter_token_ms_median": 422.6183891296387,
+     "inter_token_ms_p95": 468.96820068359375,
+     "generated": 24
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.393525065197046,
+    "window_s": 9.793980360031128,
+    "window_tokens": 92,
+    "overall_tokens_per_s": 5.979033214550779,
+    "total_tokens": 346,
+    "conversations": 4
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:30:08+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 32.90000003576279,
+     "step_wait_ms_median": 88.85000002384186,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 40.35000002384186,
+     "step_wait_ms_median": 79.05000001192093,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 33.650000005960464,
+     "step_wait_ms_median": 86.19999998807907,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 43.200000047683716,
+     "step_wait_ms_median": 79.19999992847443,
+     "steps": 342,
+     "batched_tokens": 342
+    }
+   ]
+  },
+  "screen-r1-n6-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.875164270401001,
+     "inter_token_ms_median": 556.333065032959,
+     "inter_token_ms_p95": 654.2422771453857,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.231658458709717,
+     "inter_token_ms_median": 523.4072208404541,
+     "inter_token_ms_p95": 627.6314496994019,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.3701601028442383,
+     "inter_token_ms_median": 545.2539920806885,
+     "inter_token_ms_p95": 626.7852187156677,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.5704143047332764,
+     "inter_token_ms_median": 516.6406631469727,
+     "inter_token_ms_p95": 535.1389169692993,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.6530582904815674,
+     "inter_token_ms_median": 560.7607364654541,
+     "inter_token_ms_p95": 649.065589904785,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.7563579082489014,
+     "inter_token_ms_median": 560.758113861084,
+     "inter_token_ms_p95": 639.926290512085,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 11.581794147303723,
+    "window_s": 11.742567539215088,
+    "window_tokens": 136,
+    "overall_tokens_per_s": 8.138145461212629,
+    "total_tokens": 602,
+    "conversations": 6
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:36:34+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 44.69999998807907,
+     "step_wait_ms_median": 77.60000002384186,
+     "steps": 393,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 46.799999952316284,
+     "step_wait_ms_median": 63.90000009536743,
+     "steps": 391,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 45.0,
+     "step_wait_ms_median": 64.10000002384186,
+     "steps": 391,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.94999998807907,
+     "step_wait_ms_median": 64.20000004768372,
+     "steps": 390,
+     "batched_tokens": 596
+    }
+   ]
+  },
+  "screen-r1-n6-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.7608726024627686,
+     "inter_token_ms_median": 526.6425609588623,
+     "inter_token_ms_p95": 649.2980957031249,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.0291764736175537,
+     "inter_token_ms_median": 536.5117788314819,
+     "inter_token_ms_p95": 679.0537357330322,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.177497148513794,
+     "inter_token_ms_median": 527.9967784881592,
+     "inter_token_ms_p95": 659.7538709640502,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.326802968978882,
+     "inter_token_ms_median": 621.0110187530518,
+     "inter_token_ms_p95": 688.919734954834,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.4241650104522705,
+     "inter_token_ms_median": 525.2606868743896,
+     "inter_token_ms_p95": 651.8522739410399,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.5878913402557373,
+     "inter_token_ms_median": 525.3932476043701,
+     "inter_token_ms_p95": 649.3555545806884,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.560070819815571,
+    "window_s": 14.225836038589478,
+    "window_tokens": 136,
+    "overall_tokens_per_s": 8.863258862815666,
+    "total_tokens": 602,
+    "conversations": 6
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:34:26+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 29.399999976158142,
+     "step_wait_ms_median": 72.80000001192093,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 35.34999996423721,
+     "step_wait_ms_median": 64.19999998807907,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 28.200000047683716,
+     "step_wait_ms_median": 72.09999999403954,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 42.89999997615814,
+     "step_wait_ms_median": 60.30000001192093,
+     "steps": 596,
+     "batched_tokens": 596
+    }
+   ]
+  },
+  "screen-r1-n8-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.7723157405853271,
+     "inter_token_ms_median": 495.29457092285156,
+     "inter_token_ms_p95": 617.9848670959473,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.099487781524658,
+     "inter_token_ms_median": 468.33276748657227,
+     "inter_token_ms_p95": 546.7335462570189,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.20328426361084,
+     "inter_token_ms_median": 493.07453632354736,
+     "inter_token_ms_p95": 618.6816096305847,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.3057823181152344,
+     "inter_token_ms_median": 472.8233814239502,
+     "inter_token_ms_p95": 553.8681507110596,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.424339771270752,
+     "inter_token_ms_median": 490.89646339416504,
+     "inter_token_ms_p95": 617.9023027420044,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.5610241889953613,
+     "inter_token_ms_median": 494.42148208618164,
+     "inter_token_ms_p95": 618.0156946182251,
+     "generated": 128
+    },
+    {
+     "conv": 6,
+     "prompt_tokens": 26,
+     "first_token_s": 2.6638998985290527,
+     "inter_token_ms_median": 494.48466300964355,
+     "inter_token_ms_p95": 617.8643465042114,
+     "generated": 128
+    },
+    {
+     "conv": 7,
+     "prompt_tokens": 22,
+     "first_token_s": 2.779677391052246,
+     "inter_token_ms_median": 496.3488578796387,
+     "inter_token_ms_p95": 617.9927349090576,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 16.174972528942227,
+    "window_s": 11.128303289413452,
+    "window_tokens": 180,
+    "overall_tokens_per_s": 12.790103492704402,
+    "total_tokens": 858,
+    "conversations": 8
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:41:05+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 38.95000001788139,
+     "step_wait_ms_median": 77.5499999821186,
+     "steps": 560,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 43.09999990463257,
+     "step_wait_ms_median": 64.39999997615814,
+     "steps": 555,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 41.099999994039536,
+     "step_wait_ms_median": 72.2999999821186,
+     "steps": 554,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 59.5,
+     "step_wait_ms_median": 63.0,
+     "steps": 551,
+     "batched_tokens": 850
+    }
+   ]
+  },
+  "screen-r1-n8-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.7647788524627686,
+     "inter_token_ms_median": 716.1455154418945,
+     "inter_token_ms_p95": 817.959189414978,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.020904779434204,
+     "inter_token_ms_median": 722.8809595108032,
+     "inter_token_ms_p95": 823.1833934783936,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.1899569034576416,
+     "inter_token_ms_median": 717.8354263305664,
+     "inter_token_ms_p95": 818.2600975036621,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.2735722064971924,
+     "inter_token_ms_median": 810.5225563049316,
+     "inter_token_ms_p95": 832.4565172195435,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.4131925106048584,
+     "inter_token_ms_median": 717.0631885528564,
+     "inter_token_ms_p95": 819.4390296936035,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.49387264251709,
+     "inter_token_ms_median": 717.1697616577148,
+     "inter_token_ms_p95": 819.6165323257446,
+     "generated": 128
+    },
+    {
+     "conv": 6,
+     "prompt_tokens": 26,
+     "first_token_s": 2.594217538833618,
+     "inter_token_ms_median": 717.0214653015137,
+     "inter_token_ms_p95": 818.5775756835936,
+     "generated": 128
+    },
+    {
+     "conv": 7,
+     "prompt_tokens": 22,
+     "first_token_s": 2.706371545791626,
+     "inter_token_ms_median": 716.3972854614258,
+     "inter_token_ms_p95": 818.2193040847778,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.707736305239656,
+    "window_s": 18.54191279411316,
+    "window_tokens": 180,
+    "overall_tokens_per_s": 9.45266243727964,
+    "total_tokens": 858,
+    "conversations": 8
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:38:58+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 29.30000001192093,
+     "step_wait_ms_median": 70.25000002980232,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 32.299999952316284,
+     "step_wait_ms_median": 64.20000004768372,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 28.0,
+     "step_wait_ms_median": 67.5,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 41.5,
+     "step_wait_ms_median": 60.450000047683716,
+     "steps": 850,
+     "batched_tokens": 850
+    }
+   ]
+  },
+  "screen-r2-n1-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 2.3011019229888916,
+     "inter_token_ms_median": 575.1214027404785,
+     "inter_token_ms_p95": 665.4026746749877,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.7254095450083742,
+    "window_s": 73.60571312904358,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.6862781018049404,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:43:17+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 62.0,
+     "step_wait_ms_median": 502.89999997615814,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 67.09999990463257,
+     "step_wait_ms_median": 499.0,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.0,
+     "step_wait_ms_median": 505.69999998807907,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 89.79999995231628,
+     "step_wait_ms_median": 482.89999997615814,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "screen-r2-n1-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.785090446472168,
+     "inter_token_ms_median": 570.8358287811279,
+     "inter_token_ms_p95": 685.8605146408081,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.7294093365245125,
+    "window_s": 73.4354772567749,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.7016622435631337,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:45:27+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 64.90000003576279,
+     "step_wait_ms_median": 496.5999999642372,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 66.80000007152557,
+     "step_wait_ms_median": 492.6999999284744,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.10000002384186,
+     "step_wait_ms_median": 501.2999999523163,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 89.09999990463257,
+     "step_wait_ms_median": 478.8000000715256,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "screen-r2-n2-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.8415205478668213,
+     "inter_token_ms_median": 496.5085983276367,
+     "inter_token_ms_p95": 633.9765071868896,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.1113693714141846,
+     "inter_token_ms_median": 464.0083312988281,
+     "inter_token_ms_p95": 565.6031012535095,
+     "generated": 81
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 4.306054428486849,
+    "window_s": 37.15698504447937,
+    "window_tokens": 160,
+    "overall_tokens_per_s": 3.179681367908274,
+    "total_tokens": 209,
+    "conversations": 2
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:47:29+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 59.89999997615814,
+     "step_wait_ms_median": 231.19999998807907,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 64.80000007152557,
+     "step_wait_ms_median": 218.60000002384186,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 58.799999952316284,
+     "step_wait_ms_median": 221.4000000357628,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 56.5,
+     "step_wait_ms_median": 222.69999992847443,
+     "steps": 207,
+     "batched_tokens": 207
+    }
+   ]
+  },
+  "screen-r2-n2-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.9335143566131592,
+     "inter_token_ms_median": 506.9234371185303,
+     "inter_token_ms_p95": 631.8457841873169,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.192121982574463,
+     "inter_token_ms_median": 463.0563259124756,
+     "inter_token_ms_p95": 562.7050638198851,
+     "generated": 81
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 4.235428715729691,
+    "window_s": 37.77657723426819,
+    "window_tokens": 160,
+    "overall_tokens_per_s": 3.1142779389782174,
+    "total_tokens": 209,
+    "conversations": 2
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:49:33+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 59.59999996423721,
+     "step_wait_ms_median": 212.5,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 63.799999952316284,
+     "step_wait_ms_median": 205.79999995231628,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 58.700000047683716,
+     "step_wait_ms_median": 211.9000000357628,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 54.700000047683716,
+     "step_wait_ms_median": 219.10000002384186,
+     "steps": 207,
+     "batched_tokens": 207
+    }
+   ]
+  },
+  "screen-r2-n4-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.768669605255127,
+     "inter_token_ms_median": 439.8455619812012,
+     "inter_token_ms_p95": 613.0289554595944,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.019885301589966,
+     "inter_token_ms_median": 417.95361042022705,
+     "inter_token_ms_p95": 510.3437662124634,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.235783100128174,
+     "inter_token_ms_median": 435.33408641815186,
+     "inter_token_ms_p95": 520.2141404151917,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.390756130218506,
+     "inter_token_ms_median": 438.57550621032715,
+     "inter_token_ms_p95": 514.1834259033203,
+     "generated": 24
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 8.905466360592488,
+    "window_s": 10.33073353767395,
+    "window_tokens": 92,
+    "overall_tokens_per_s": 5.7604000876236405,
+    "total_tokens": 346,
+    "conversations": 4
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:51:30+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 38.44999998807907,
+     "step_wait_ms_median": 91.75,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 41.700000047683716,
+     "step_wait_ms_median": 82.70000004768372,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 38.19999998807907,
+     "step_wait_ms_median": 89.09999999403954,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 43.799999952316284,
+     "step_wait_ms_median": 82.3500000834465,
+     "steps": 342,
+     "batched_tokens": 342
+    }
+   ]
+  },
+  "screen-r2-n4-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.7933313846588135,
+     "inter_token_ms_median": 418.1358814239502,
+     "inter_token_ms_p95": 621.1036682128906,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.103421688079834,
+     "inter_token_ms_median": 400.2121686935425,
+     "inter_token_ms_p95": 471.92987203598017,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.2871458530426025,
+     "inter_token_ms_median": 416.88573360443115,
+     "inter_token_ms_p95": 492.8982973098753,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.3748011589050293,
+     "inter_token_ms_median": 432.2648048400879,
+     "inter_token_ms_p95": 500.5415201187133,
+     "generated": 24
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.149319844766277,
+    "window_s": 10.055392265319824,
+    "window_tokens": 92,
+    "overall_tokens_per_s": 5.977375643328271,
+    "total_tokens": 346,
+    "conversations": 4
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:53:25+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 37.45000001788139,
+     "step_wait_ms_median": 87.2999999821186,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 35.89999997615814,
+     "step_wait_ms_median": 82.39999997615814,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 29.099999994039536,
+     "step_wait_ms_median": 88.0499999821186,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 44.0,
+     "step_wait_ms_median": 79.85000002384186,
+     "steps": 342,
+     "batched_tokens": 342
+    }
+   ]
+  },
+  "screen-r2-n6-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.8564093112945557,
+     "inter_token_ms_median": 574.5131969451904,
+     "inter_token_ms_p95": 653.6252021789551,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.143376111984253,
+     "inter_token_ms_median": 578.6498785018921,
+     "inter_token_ms_p95": 634.3522071838379,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.2435834407806396,
+     "inter_token_ms_median": 570.7553625106812,
+     "inter_token_ms_p95": 633.4465146064758,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.4236607551574707,
+     "inter_token_ms_median": 532.2184562683105,
+     "inter_token_ms_p95": 606.1816692352294,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.5066280364990234,
+     "inter_token_ms_median": 574.2833614349365,
+     "inter_token_ms_p95": 649.2645502090454,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.6066489219665527,
+     "inter_token_ms_median": 574.2995738983154,
+     "inter_token_ms_p95": 646.3665723800659,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 11.199417122154513,
+    "window_s": 12.143489122390747,
+    "window_tokens": 136,
+    "overall_tokens_per_s": 7.947733517864722,
+    "total_tokens": 602,
+    "conversations": 6
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:55:40+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 51.400000005960464,
+     "step_wait_ms_median": 79.65000000596046,
+     "steps": 298,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 56.450000047683716,
+     "step_wait_ms_median": 66.55000001192093,
+     "steps": 296,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 52.39999997615814,
+     "step_wait_ms_median": 63.39999997615814,
+     "steps": 296,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.89999997615814,
+     "step_wait_ms_median": 61.35000002384186,
+     "steps": 294,
+     "batched_tokens": 596
+    }
+   ]
+  },
+  "screen-r2-n6-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.769726037979126,
+     "inter_token_ms_median": 531.8286418914795,
+     "inter_token_ms_p95": 651.3609170913695,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.0894296169281006,
+     "inter_token_ms_median": 540.4239892959595,
+     "inter_token_ms_p95": 653.653883934021,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.190089464187622,
+     "inter_token_ms_median": 533.458948135376,
+     "inter_token_ms_p95": 647.6185917854309,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.2902119159698486,
+     "inter_token_ms_median": 640.9409046173096,
+     "inter_token_ms_p95": 668.967080116272,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.4533421993255615,
+     "inter_token_ms_median": 531.7418575286865,
+     "inter_token_ms_p95": 646.4175701141357,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.535447359085083,
+     "inter_token_ms_median": 531.0516357421875,
+     "inter_token_ms_p95": 646.586799621582,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.388311590800772,
+    "window_s": 14.486097812652588,
+    "window_tokens": 136,
+    "overall_tokens_per_s": 8.796110740870914,
+    "total_tokens": 602,
+    "conversations": 6
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:57:47+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 28.049999982118607,
+     "step_wait_ms_median": 75.80000001192093,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 33.60000002384186,
+     "step_wait_ms_median": 64.54999995231628,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 29.099999994039536,
+     "step_wait_ms_median": 68.59999996423721,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 42.89999997615814,
+     "step_wait_ms_median": 60.35000002384186,
+     "steps": 596,
+     "batched_tokens": 596
+    }
+   ]
+  },
+  "screen-r2-n8-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.7453644275665283,
+     "inter_token_ms_median": 521.9018459320068,
+     "inter_token_ms_p95": 626.5557050704956,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.041415214538574,
+     "inter_token_ms_median": 522.3627090454102,
+     "inter_token_ms_p95": 633.7800502777098,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.2273824214935303,
+     "inter_token_ms_median": 521.3651657104492,
+     "inter_token_ms_p95": 626.8610835075378,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.3131728172302246,
+     "inter_token_ms_median": 609.9655628204346,
+     "inter_token_ms_p95": 656.1905145645142,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.448033332824707,
+     "inter_token_ms_median": 522.0003128051758,
+     "inter_token_ms_p95": 625.1416921615601,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.5477728843688965,
+     "inter_token_ms_median": 522.5582122802734,
+     "inter_token_ms_p95": 627.4783134460449,
+     "generated": 128
+    },
+    {
+     "conv": 6,
+     "prompt_tokens": 26,
+     "first_token_s": 2.668553113937378,
+     "inter_token_ms_median": 522.1178531646729,
+     "inter_token_ms_p95": 622.9140520095825,
+     "generated": 128
+    },
+    {
+     "conv": 7,
+     "prompt_tokens": 22,
+     "first_token_s": 2.7676186561584473,
+     "inter_token_ms_median": 521.418571472168,
+     "inter_token_ms_p95": 625.9029150009155,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 13.14788196637948,
+    "window_s": 13.690418004989624,
+    "window_tokens": 180,
+    "overall_tokens_per_s": 12.000328766553205,
+    "total_tokens": 858,
+    "conversations": 8
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:59:57+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 23.0,
+     "step_wait_ms_median": 74.5,
+     "steps": 642,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 26.800000071525574,
+     "step_wait_ms_median": 60.199999928474426,
+     "steps": 640,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 23.0,
+     "step_wait_ms_median": 60.85000002384186,
+     "steps": 640,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 24.0,
+     "step_wait_ms_median": 63.39999997615814,
+     "steps": 638,
+     "batched_tokens": 850
+    }
+   ]
+  },
+  "screen-r2-n8-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.7692983150482178,
+     "inter_token_ms_median": 702.8496265411377,
+     "inter_token_ms_p95": 847.794508934021,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.0545573234558105,
+     "inter_token_ms_median": 716.5473699569702,
+     "inter_token_ms_p95": 857.3912739753723,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.1544864177703857,
+     "inter_token_ms_median": 707.2134017944336,
+     "inter_token_ms_p95": 843.3083653450012,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.340884208679199,
+     "inter_token_ms_median": 816.0400390625,
+     "inter_token_ms_p95": 877.0350217819214,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.4232985973358154,
+     "inter_token_ms_median": 702.289342880249,
+     "inter_token_ms_p95": 822.4473476409911,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.526578426361084,
+     "inter_token_ms_median": 703.2392024993896,
+     "inter_token_ms_p95": 820.6489086151123,
+     "generated": 128
+    },
+    {
+     "conv": 6,
+     "prompt_tokens": 26,
+     "first_token_s": 2.6419882774353027,
+     "inter_token_ms_median": 701.8930912017822,
+     "inter_token_ms_p95": 821.308708190918,
+     "generated": 128
+    },
+    {
+     "conv": 7,
+     "prompt_tokens": 22,
+     "first_token_s": 2.7450616359710693,
+     "inter_token_ms_median": 701.0416984558105,
+     "inter_token_ms_p95": 828.5555124282836,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.770125323588003,
+    "window_s": 18.4235098361969,
+    "window_tokens": 180,
+    "overall_tokens_per_s": 9.470822905912122,
+    "total_tokens": 858,
+    "conversations": 8
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:02:25+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 28.150000005960464,
+     "step_wait_ms_median": 70.5,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 32.199999928474426,
+     "step_wait_ms_median": 62.60000002384186,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 28.349999994039536,
+     "step_wait_ms_median": 66.59999999403954,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 40.89999997615814,
+     "step_wait_ms_median": 61.700000047683716,
+     "steps": 850,
+     "batched_tokens": 850
+    }
+   ]
+  },
+  "screen-r3-n1-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.8290150165557861,
+     "inter_token_ms_median": 573.4026432037354,
+     "inter_token_ms_p95": 687.598705291748,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.7420087797958554,
+    "window_s": 72.90433979034424,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.7127559753035728,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:06:46+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.30000001192093,
+     "step_wait_ms_median": 498.10000002384186,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 66.5,
+     "step_wait_ms_median": 494.0,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.0,
+     "step_wait_ms_median": 505.0,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 89.70000004768372,
+     "step_wait_ms_median": 480.6999999284744,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "screen-r3-n1-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.808454990386963,
+     "inter_token_ms_median": 573.2905864715576,
+     "inter_token_ms_p95": 679.9769639968871,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.7367040573702066,
+    "window_s": 73.12702441215515,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.7081361328510793,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:04:34+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 66.30000001192093,
+     "step_wait_ms_median": 497.30000001192093,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 67.5,
+     "step_wait_ms_median": 497.40000009536743,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.200000047683716,
+     "step_wait_ms_median": 505.0,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 88.69999992847443,
+     "step_wait_ms_median": 481.39999997615814,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "screen-r3-n2-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.9896645545959473,
+     "inter_token_ms_median": 507.2028636932373,
+     "inter_token_ms_p95": 632.7379941940308,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.249570846557617,
+     "inter_token_ms_median": 464.5507335662842,
+     "inter_token_ms_p95": 561.8990421295166,
+     "generated": 81
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 4.229778997838157,
+    "window_s": 37.827035427093506,
+    "window_tokens": 160,
+    "overall_tokens_per_s": 3.1476578531266544,
+    "total_tokens": 209,
+    "conversations": 2
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:13:43+00:00",
+   "stages": [
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 57.799999952316284,
+     "step_wait_ms_median": 208.5,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 63.800000071525574,
+     "step_wait_ms_median": 197.89999997615814,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 47.299999952316284,
+     "step_wait_ms_median": 201.80000001192093,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 58.5,
+     "step_wait_ms_median": 192.60000002384186,
+     "steps": 207,
+     "batched_tokens": 207
+    }
+   ]
+  },
+  "screen-r3-n2-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.7185041904449463,
+     "inter_token_ms_median": 507.5390338897705,
+     "inter_token_ms_p95": 661.2155675888058,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.042011260986328,
+     "inter_token_ms_median": 473.433256149292,
+     "inter_token_ms_p95": 563.4872913360596,
+     "generated": 81
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 4.175616472138196,
+    "window_s": 38.3176953792572,
+    "window_tokens": 160,
+    "overall_tokens_per_s": 3.0828090871178198,
+    "total_tokens": 209,
+    "conversations": 2
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:08:54+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 59.89999997615814,
+     "step_wait_ms_median": 220.0,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 64.70000004768372,
+     "step_wait_ms_median": 216.29999995231628,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 58.80000001192093,
+     "step_wait_ms_median": 217.19999998807907,
+     "steps": 207,
+     "batched_tokens": 207
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 56.89999997615814,
+     "step_wait_ms_median": 226.5,
+     "steps": 207,
+     "batched_tokens": 207
+    }
+   ]
+  },
+  "screen-r3-n4-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.690345287322998,
+     "inter_token_ms_median": 433.5618019104004,
+     "inter_token_ms_p95": 579.2342662811278,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 1.994398593902588,
+     "inter_token_ms_median": 410.6191396713257,
+     "inter_token_ms_p95": 468.146276473999,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.1392862796783447,
+     "inter_token_ms_median": 428.9659261703491,
+     "inter_token_ms_p95": 510.0635528564452,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.2744979858398438,
+     "inter_token_ms_median": 435.71996688842773,
+     "inter_token_ms_p95": 487.4479055404663,
+     "generated": 24
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.09230817987586,
+    "window_s": 10.11844277381897,
+    "window_tokens": 92,
+    "overall_tokens_per_s": 5.8911441642089635,
+    "total_tokens": 346,
+    "conversations": 4
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:17:34+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 35.70000001788139,
+     "step_wait_ms_median": 91.0,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 40.69999998807907,
+     "step_wait_ms_median": 80.0,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 31.69999998807907,
+     "step_wait_ms_median": 90.0,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 43.700000047683716,
+     "step_wait_ms_median": 80.55000001192093,
+     "steps": 342,
+     "batched_tokens": 342
+    }
+   ]
+  },
+  "screen-r3-n4-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 2.02976131439209,
+     "inter_token_ms_median": 439.39709663391113,
+     "inter_token_ms_p95": 593.7985658645629,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.3109405040740967,
+     "inter_token_ms_median": 425.43816566467285,
+     "inter_token_ms_p95": 467.4132227897644,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.4104254245758057,
+     "inter_token_ms_median": 433.0388307571411,
+     "inter_token_ms_p95": 531.1630368232726,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.5653576850891113,
+     "inter_token_ms_median": 437.99543380737305,
+     "inter_token_ms_p95": 486.9139909744262,
+     "generated": 24
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.070756921531396,
+    "window_s": 10.142483234405518,
+    "window_tokens": 92,
+    "overall_tokens_per_s": 5.751210460410806,
+    "total_tokens": 346,
+    "conversations": 4
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:15:38+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 37.95000001788139,
+     "step_wait_ms_median": 89.65000000596046,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 36.65000003576279,
+     "step_wait_ms_median": 82.59999996423721,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 40.5,
+     "step_wait_ms_median": 91.5,
+     "steps": 342,
+     "batched_tokens": 342
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 44.10000002384186,
+     "step_wait_ms_median": 82.0,
+     "steps": 342,
+     "batched_tokens": 342
+    }
+   ]
+  },
+  "screen-r3-n6-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.6846749782562256,
+     "inter_token_ms_median": 544.9512004852295,
+     "inter_token_ms_p95": 653.8681983947753,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 1.9632537364959717,
+     "inter_token_ms_median": 528.046727180481,
+     "inter_token_ms_p95": 601.4353513717651,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.1201860904693604,
+     "inter_token_ms_median": 540.5449867248535,
+     "inter_token_ms_p95": 616.6313290596008,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.2039361000061035,
+     "inter_token_ms_median": 448.9731788635254,
+     "inter_token_ms_p95": 476.9976615905762,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.346755027770996,
+     "inter_token_ms_median": 544.3878173828125,
+     "inter_token_ms_p95": 653.7120819091795,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.450864315032959,
+     "inter_token_ms_median": 542.4304008483887,
+     "inter_token_ms_p95": 653.7635803222654,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 13.359903558148224,
+    "window_s": 10.17971420288086,
+    "window_tokens": 136,
+    "overall_tokens_per_s": 8.404339387657062,
+    "total_tokens": 602,
+    "conversations": 6
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:21:54+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 44.80000001192093,
+     "step_wait_ms_median": 82.05000001192093,
+     "steps": 372,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 49.09999996423721,
+     "step_wait_ms_median": 65.19999998807907,
+     "steps": 370,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 45.150000005960464,
+     "step_wait_ms_median": 70.19999998807907,
+     "steps": 370,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 62.0,
+     "step_wait_ms_median": 63.800000071525574,
+     "steps": 368,
+     "batched_tokens": 596
+    }
+   ]
+  },
+  "screen-r3-n6-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.9026284217834473,
+     "inter_token_ms_median": 532.5338840484619,
+     "inter_token_ms_p95": 662.6375436782837,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.234865427017212,
+     "inter_token_ms_median": 549.5753288269043,
+     "inter_token_ms_p95": 680.5999875068665,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.363940954208374,
+     "inter_token_ms_median": 542.2947406768799,
+     "inter_token_ms_p95": 663.5356068611145,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.5987231731414795,
+     "inter_token_ms_median": 626.5482902526855,
+     "inter_token_ms_p95": 686.8685483932495,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.6818926334381104,
+     "inter_token_ms_median": 533.7762832641602,
+     "inter_token_ms_p95": 658.9748144149779,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.7932872772216797,
+     "inter_token_ms_median": 534.2013835906982,
+     "inter_token_ms_p95": 660.3204965591431,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.50597860993205,
+    "window_s": 14.306785821914673,
+    "window_tokens": 136,
+    "overall_tokens_per_s": 8.740158457326944,
+    "total_tokens": 602,
+    "conversations": 6
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:19:44+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 27.19999998807907,
+     "step_wait_ms_median": 74.14999997615814,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 34.300000071525574,
+     "step_wait_ms_median": 64.39999997615814,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 29.30000001192093,
+     "step_wait_ms_median": 70.90000000596046,
+     "steps": 596,
+     "batched_tokens": 596
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 42.799999952316284,
+     "step_wait_ms_median": 62.700000047683716,
+     "steps": 596,
+     "batched_tokens": 596
+    }
+   ]
+  },
+  "screen-r3-n8-B": {
+   "state": "finished",
+   "batch": true,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.9205102920532227,
+     "inter_token_ms_median": 455.83415031433105,
+     "inter_token_ms_p95": 605.6077003479003,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.2733755111694336,
+     "inter_token_ms_median": 451.80439949035645,
+     "inter_token_ms_p95": 490.35792350769043,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.4019129276275635,
+     "inter_token_ms_median": 454.4789791107178,
+     "inter_token_ms_p95": 489.6175146102905,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.6253819465637207,
+     "inter_token_ms_median": 456.73441886901855,
+     "inter_token_ms_p95": 498.7084627151489,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.704320192337036,
+     "inter_token_ms_median": 456.5415382385254,
+     "inter_token_ms_p95": 589.407205581665,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.8047823905944824,
+     "inter_token_ms_median": 456.5162658691406,
+     "inter_token_ms_p95": 589.441967010498,
+     "generated": 128
+    },
+    {
+     "conv": 6,
+     "prompt_tokens": 26,
+     "first_token_s": 2.904531240463257,
+     "inter_token_ms_median": 456.99000358581543,
+     "inter_token_ms_p95": 599.4858741760254,
+     "generated": 128
+    },
+    {
+     "conv": 7,
+     "prompt_tokens": 22,
+     "first_token_s": 3.0067763328552246,
+     "inter_token_ms_median": 456.07590675354004,
+     "inter_token_ms_p95": 600.4132032394409,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 17.357833605454267,
+    "window_s": 10.369957685470581,
+    "window_tokens": 180,
+    "overall_tokens_per_s": 13.690500487487665,
+    "total_tokens": 858,
+    "conversations": 8
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:26:26+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 26.25,
+     "step_wait_ms_median": 81.85000002384186,
+     "steps": 508,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 31.40000009536743,
+     "step_wait_ms_median": 65.20000004768372,
+     "steps": 507,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 25.100000023841858,
+     "step_wait_ms_median": 76.89999997615814,
+     "steps": 507,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 28.700000047683716,
+     "step_wait_ms_median": 61.699999928474426,
+     "steps": 503,
+     "batched_tokens": 850
+    }
+   ]
+  },
+  "screen-r3-n8-I": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 1.9217820167541504,
+     "inter_token_ms_median": 715.346097946167,
+     "inter_token_ms_p95": 853.6465167999266,
+     "generated": 128
+    },
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 2.309445381164551,
+     "inter_token_ms_median": 739.6742105484009,
+     "inter_token_ms_p95": 857.0451498031616,
+     "generated": 81
+    },
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 2.435318946838379,
+     "inter_token_ms_median": 725.5522012710571,
+     "inter_token_ms_p95": 841.6402339935302,
+     "generated": 113
+    },
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 2.656824827194214,
+     "inter_token_ms_median": 812.021017074585,
+     "inter_token_ms_p95": 887.4891519546509,
+     "generated": 24
+    },
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 2.740818738937378,
+     "inter_token_ms_median": 714.8420810699463,
+     "inter_token_ms_p95": 828.5548925399779,
+     "generated": 128
+    },
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 2.84165620803833,
+     "inter_token_ms_median": 714.2183780670166,
+     "inter_token_ms_p95": 831.5019607543945,
+     "generated": 128
+    },
+    {
+     "conv": 6,
+     "prompt_tokens": 26,
+     "first_token_s": 2.942457437515259,
+     "inter_token_ms_median": 713.6118412017822,
+     "inter_token_ms_p95": 837.1560096740723,
+     "generated": 128
+    },
+    {
+     "conv": 7,
+     "prompt_tokens": 22,
+     "first_token_s": 3.0445399284362793,
+     "inter_token_ms_median": 713.5360240936279,
+     "inter_token_ms_p95": 843.1712865829467,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 9.712576581728047,
+    "window_s": 18.53267240524292,
+    "window_tokens": 180,
+    "overall_tokens_per_s": 9.306616610745532,
+    "total_tokens": 858,
+    "conversations": 8
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:24:22+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 28.30000001192093,
+     "step_wait_ms_median": 70.2999999821186,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 33.299999952316284,
+     "step_wait_ms_median": 63.700000047683716,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 29.100000023841858,
+     "step_wait_ms_median": 65.59999999403954,
+     "steps": 850,
+     "batched_tokens": 850
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 41.60000002384186,
+     "step_wait_ms_median": 63.299999952316284,
+     "steps": 850,
+     "batched_tokens": 850
+    }
+   ]
+  },
+  "single-c1": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 1,
+     "prompt_tokens": 23,
+     "first_token_s": 1.8240830898284912,
+     "inter_token_ms_median": 566.7355060577393,
+     "inter_token_ms_p95": 696.6823101043701,
+     "generated": 81
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.7755690464398883,
+    "window_s": 45.05597805976868,
+    "window_tokens": 80,
+    "overall_tokens_per_s": 1.7278134459237158,
+    "total_tokens": 81,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:28:08+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 62.150000005960464,
+     "step_wait_ms_median": 492.5499999821186,
+     "steps": 80,
+     "batched_tokens": 80
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 64.34999996423721,
+     "step_wait_ms_median": 473.75,
+     "steps": 80,
+     "batched_tokens": 80
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.0,
+     "step_wait_ms_median": 499.7999999821186,
+     "steps": 80,
+     "batched_tokens": 80
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 88.79999995231628,
+     "step_wait_ms_median": 475.89999997615814,
+     "steps": 80,
+     "batched_tokens": 80
+    }
+   ]
+  },
+  "single-c2": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 2,
+     "prompt_tokens": 24,
+     "first_token_s": 1.6672372817993164,
+     "inter_token_ms_median": 571.1441040039062,
+     "inter_token_ms_p95": 691.7961955070496,
+     "generated": 113
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.741546854034779,
+    "window_s": 64.31064414978027,
+    "window_tokens": 112,
+    "overall_tokens_per_s": 1.7126951873588623,
+    "total_tokens": 113,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:30:15+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 62.25000002980232,
+     "step_wait_ms_median": 498.25,
+     "steps": 112,
+     "batched_tokens": 112
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 66.84999996423721,
+     "step_wait_ms_median": 497.5499999523163,
+     "steps": 112,
+     "batched_tokens": 112
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.349999994039536,
+     "step_wait_ms_median": 503.19999998807907,
+     "steps": 112,
+     "batched_tokens": 112
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 88.89999997615814,
+     "step_wait_ms_median": 478.80000001192093,
+     "steps": 112,
+     "batched_tokens": 112
+    }
+   ]
+  },
+  "single-c3": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 3,
+     "prompt_tokens": 23,
+     "first_token_s": 1.6724190711975098,
+     "inter_token_ms_median": 564.3637180328369,
+     "inter_token_ms_p95": 683.8606119155884,
+     "generated": 24
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.8816187489283271,
+    "window_s": 12.223517656326294,
+    "window_tokens": 23,
+    "overall_tokens_per_s": 1.727123580842376,
+    "total_tokens": 24,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:31:28+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.60000002384186,
+     "step_wait_ms_median": 453.19999998807907,
+     "steps": 23,
+     "batched_tokens": 23
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 63.299999952316284,
+     "step_wait_ms_median": 493.39999997615814,
+     "steps": 23,
+     "batched_tokens": 23
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 59.5,
+     "step_wait_ms_median": 450.89999997615814,
+     "steps": 23,
+     "batched_tokens": 23
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 89.0,
+     "step_wait_ms_median": 475.89999997615814,
+     "steps": 23,
+     "batched_tokens": 23
+    }
+   ]
+  },
+  "single-c4": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 4,
+     "prompt_tokens": 23,
+     "first_token_s": 1.7913894653320312,
+     "inter_token_ms_median": 581.406831741333,
+     "inter_token_ms_p95": 707.5525522232055,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.6845047105130273,
+    "window_s": 75.39308094978333,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.658364685429431,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:33:46+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 63.89999997615814,
+     "step_wait_ms_median": 504.5999999642372,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 67.5,
+     "step_wait_ms_median": 498.7999999523163,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 92.10000002384186,
+     "step_wait_ms_median": 505.2000000476837,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 89.60000002384186,
+     "step_wait_ms_median": 520.1000000238419,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "single-c5": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 5,
+     "prompt_tokens": 26,
+     "first_token_s": 1.6922683715820312,
+     "inter_token_ms_median": 571.7673301696777,
+     "inter_token_ms_p95": 683.1337928771973,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.729096251875005,
+    "window_s": 73.44877409934998,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.7034631912315596,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:36:02+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.0,
+     "step_wait_ms_median": 497.7000000476837,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 67.10000002384186,
+     "step_wait_ms_median": 490.7000000476837,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.200000047683716,
+     "step_wait_ms_median": 500.69999998807907,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 89.29999995231628,
+     "step_wait_ms_median": 479.0,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "single-c6": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 6,
+     "prompt_tokens": 26,
+     "first_token_s": 1.8220741748809814,
+     "inter_token_ms_median": 570.7459449768066,
+     "inter_token_ms_p95": 647.1702098846436,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.7531260759226512,
+    "window_s": 72.44202327728271,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.7235784772372629,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:38:16+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 62.09999996423721,
+     "step_wait_ms_median": 496.80000001192093,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 67.10000002384186,
+     "step_wait_ms_median": 496.3000000715256,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.0,
+     "step_wait_ms_median": 499.0,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 89.5,
+     "step_wait_ms_median": 479.60000002384186,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "single-c7": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 7,
+     "prompt_tokens": 22,
+     "first_token_s": 1.7862043380737305,
+     "inter_token_ms_median": 574.1324424743652,
+     "inter_token_ms_p95": 682.6088428497313,
+     "generated": 128
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.7413191664603682,
+    "window_s": 72.93321204185486,
+    "window_tokens": 127,
+    "overall_tokens_per_s": 1.7130754789244291,
+    "total_tokens": 128,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T02:40:25+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 61.39999997615814,
+     "step_wait_ms_median": 497.0,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 66.5,
+     "step_wait_ms_median": 496.1999999284744,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 60.0,
+     "step_wait_ms_median": 505.2000000476837,
+     "steps": 127,
+     "batched_tokens": 127
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 88.89999997615814,
+     "step_wait_ms_median": 481.60000002384186,
+     "steps": 127,
+     "batched_tokens": 127
+    }
+   ]
+  },
+  "warmup": {
+   "state": "finished",
+   "batch": false,
+   "conversations": [
+    {
+     "conv": 0,
+     "prompt_tokens": 24,
+     "first_token_s": 3.788904905319214,
+     "inter_token_ms_median": 593.2729244232178,
+     "inter_token_ms_p95": 664.1971349716185,
+     "generated": 8
+    }
+   ],
+   "throughput": {
+    "steady_tokens_per_s": 1.6647274037770776,
+    "window_s": 4.204892635345459,
+    "window_tokens": 7,
+    "overall_tokens_per_s": 1.0007759089849066,
+    "total_tokens": 8,
+    "conversations": 1
+   },
+   "commit": "bc2ffd1",
+   "date": "2026-11-07T01:19:35+00:00",
+   "stages": [
+    {
+     "stage": "A",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 118.69999998807907,
+     "step_wait_ms_median": 491.7000000476837,
+     "steps": 7,
+     "batched_tokens": 7
+    },
+    {
+     "stage": "B",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 117.89999997615814,
+     "step_wait_ms_median": 497.60000002384186,
+     "steps": 7,
+     "batched_tokens": 7
+    },
+    {
+     "stage": "C",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 70.69999998807907,
+     "step_wait_ms_median": 493.10000002384186,
+     "steps": 7,
+     "batched_tokens": 7
+    },
+    {
+     "stage": "D",
+     "adapter": "nvidia/ampere",
+     "worst_kernel": 5.335858221395673e-07,
+     "step_compute_ms_median": 72.19999992847443,
+     "step_wait_ms_median": 536.3999999761581,
+     "steps": 7,
+     "batched_tokens": 7
+    }
+   ]
+  }
+ }
+}

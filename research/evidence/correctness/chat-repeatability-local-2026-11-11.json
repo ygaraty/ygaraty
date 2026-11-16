@@ -1,0 +1,626 @@
+{
+ "experiment": 154,
+ "id": "WS-27",
+ "date": "2026-11-11",
+ "host": "omarchy workstation, Radeon 680M, headless Chromium",
+ "dir": "runs/experiments/WS-27/omarchy-20261111-1203",
+ "code": "working tree at bd3354a plus the graceful chat end (end_chat), chat_turn_ids / --record-turn-ids, done reports up to 4 MiB, WS-26 piece schedule; exported in src/",
+ "model": "S5-nano Q4_K_M; 1W --splits 0,32, 2W --splits 0,16,32 (stage boundary in f16); qwen35_session local --chat --capacity 4096, HTTP /api/chat, graceful end by SIGINT",
+ "part1": {
+  "order": "1W 2W 1W 2W 1W 2W",
+  "turns": "3 x 32 tokens, chat_cycles.prompt(0, t, 500), --logit-digests",
+  "gate": {
+   "1W": {
+    "runs": 3,
+    "valid": 3,
+    "invalid": [],
+    "identical_to_run1": 3,
+    "repeatable": true,
+    "per_run": {
+     "1W-1": {
+      "prompts_equal": true,
+      "token_diverges_at": null,
+      "digest_diverges_at": null,
+      "call_shapes_equal": true
+     },
+     "1W-2": {
+      "prompts_equal": true,
+      "token_diverges_at": null,
+      "digest_diverges_at": null,
+      "call_shapes_equal": true
+     },
+     "1W-3": {
+      "prompts_equal": true,
+      "token_diverges_at": null,
+      "digest_diverges_at": null,
+      "call_shapes_equal": true
+     }
+    }
+   },
+   "2W": {
+    "runs": 3,
+    "valid": 3,
+    "invalid": [],
+    "identical_to_run1": 3,
+    "repeatable": true,
+    "per_run": {
+     "2W-1": {
+      "prompts_equal": true,
+      "token_diverges_at": null,
+      "digest_diverges_at": null,
+      "call_shapes_equal": true
+     },
+     "2W-2": {
+      "prompts_equal": true,
+      "token_diverges_at": null,
+      "digest_diverges_at": null,
+      "call_shapes_equal": true
+     },
+     "2W-3": {
+      "prompts_equal": true,
+      "token_diverges_at": null,
+      "digest_diverges_at": null,
+      "call_shapes_equal": true
+     }
+    }
+   }
+  },
+  "runs": {
+   "1W-1": {
+    "state": "finished",
+    "turns": 3,
+    "prompt_tokens": [
+     37,
+     47,
+     47
+    ],
+    "generated": [
+     32,
+     32,
+     32
+    ],
+    "start_positions": [
+     0,
+     68,
+     146
+    ],
+    "prompt_ids_sha256": "4c240725b4198ec1",
+    "tokens_sha256": "35b17ddb6cd30b0f",
+    "last_stage_calls": 96,
+    "digests": 96,
+    "digests_sha256": "03ce9cf2d64b3c2d"
+   },
+   "2W-1": {
+    "state": "finished",
+    "turns": 3,
+    "prompt_tokens": [
+     37,
+     47,
+     47
+    ],
+    "generated": [
+     32,
+     32,
+     32
+    ],
+    "start_positions": [
+     0,
+     68,
+     146
+    ],
+    "prompt_ids_sha256": "4c240725b4198ec1",
+    "tokens_sha256": "35b17ddb6cd30b0f",
+    "last_stage_calls": 96,
+    "digests": 96,
+    "digests_sha256": "b822ef8da8b70a4b"
+   },
+   "1W-2": {
+    "state": "finished",
+    "turns": 3,
+    "prompt_tokens": [
+     37,
+     47,
+     47
+    ],
+    "generated": [
+     32,
+     32,
+     32
+    ],
+    "start_positions": [
+     0,
+     68,
+     146
+    ],
+    "prompt_ids_sha256": "4c240725b4198ec1",
+    "tokens_sha256": "35b17ddb6cd30b0f",
+    "last_stage_calls": 96,
+    "digests": 96,
+    "digests_sha256": "03ce9cf2d64b3c2d"
+   },
+   "2W-2": {
+    "state": "finished",
+    "turns": 3,
+    "prompt_tokens": [
+     37,
+     47,
+     47
+    ],
+    "generated": [
+     32,
+     32,
+     32
+    ],
+    "start_positions": [
+     0,
+     68,
+     146
+    ],
+    "prompt_ids_sha256": "4c240725b4198ec1",
+    "tokens_sha256": "35b17ddb6cd30b0f",
+    "last_stage_calls": 96,
+    "digests": 96,
+    "digests_sha256": "b822ef8da8b70a4b"
+   },
+   "1W-3": {
+    "state": "finished",
+    "turns": 3,
+    "prompt_tokens": [
+     37,
+     47,
+     47
+    ],
+    "generated": [
+     32,
+     32,
+     32
+    ],
+    "start_positions": [
+     0,
+     68,
+     146
+    ],
+    "prompt_ids_sha256": "4c240725b4198ec1",
+    "tokens_sha256": "35b17ddb6cd30b0f",
+    "last_stage_calls": 96,
+    "digests": 96,
+    "digests_sha256": "03ce9cf2d64b3c2d"
+   },
+   "2W-3": {
+    "state": "finished",
+    "turns": 3,
+    "prompt_tokens": [
+     37,
+     47,
+     47
+    ],
+    "generated": [
+     32,
+     32,
+     32
+    ],
+    "start_positions": [
+     0,
+     68,
+     146
+    ],
+    "prompt_ids_sha256": "4c240725b4198ec1",
+    "tokens_sha256": "35b17ddb6cd30b0f",
+    "last_stage_calls": 96,
+    "digests": 96,
+    "digests_sha256": "b822ef8da8b70a4b"
+   }
+  },
+  "note": "1W and 2W give identical prompt ids and tokens; their digests differ (not gated; consistent with the f16 stage boundary)"
+ },
+ "part2": {
+  "order": "L L L (1W)",
+  "turns": "3 cycles x 5 turns x 256 tokens, reset before each cycle, --record-turn-ids",
+  "gate": {
+   "runs": 3,
+   "valid": 3,
+   "invalid": [],
+   "identical_to_run1": 3,
+   "repeatable": true,
+   "per_run": {
+    "L-1": {
+     "identical": true,
+     "first_difference": null
+    },
+    "L-2": {
+     "identical": true,
+     "first_difference": null
+    },
+    "L-3": {
+     "identical": true,
+     "first_difference": null
+    }
+   }
+  },
+  "runs": {
+   "L-1": {
+    "state": "finished",
+    "turns": 15,
+    "prompt_tokens": [
+     37,
+     47,
+     47,
+     47,
+     47,
+     37,
+     47,
+     47,
+     47,
+     47,
+     37,
+     47,
+     47,
+     47,
+     47
+    ],
+    "generated": [
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256
+    ],
+    "start_positions": [
+     0,
+     292,
+     594,
+     896,
+     1198,
+     0,
+     292,
+     594,
+     896,
+     1198,
+     0,
+     292,
+     594,
+     896,
+     1198
+    ],
+    "prompt_ids_sha256": "a5667c943014ac51",
+    "tokens_sha256": "629c92b74e7b8b78",
+    "last_stage_calls": 3840,
+    "digests": 0,
+    "digests_sha256": null
+   },
+   "L-2": {
+    "state": "finished",
+    "turns": 15,
+    "prompt_tokens": [
+     37,
+     47,
+     47,
+     47,
+     47,
+     37,
+     47,
+     47,
+     47,
+     47,
+     37,
+     47,
+     47,
+     47,
+     47
+    ],
+    "generated": [
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256
+    ],
+    "start_positions": [
+     0,
+     292,
+     594,
+     896,
+     1198,
+     0,
+     292,
+     594,
+     896,
+     1198,
+     0,
+     292,
+     594,
+     896,
+     1198
+    ],
+    "prompt_ids_sha256": "a5667c943014ac51",
+    "tokens_sha256": "629c92b74e7b8b78",
+    "last_stage_calls": 3840,
+    "digests": 0,
+    "digests_sha256": null
+   },
+   "L-3": {
+    "state": "finished",
+    "turns": 15,
+    "prompt_tokens": [
+     37,
+     47,
+     47,
+     47,
+     47,
+     37,
+     47,
+     47,
+     47,
+     47,
+     37,
+     47,
+     47,
+     47,
+     47
+    ],
+    "generated": [
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256,
+     256
+    ],
+    "start_positions": [
+     0,
+     292,
+     594,
+     896,
+     1198,
+     0,
+     292,
+     594,
+     896,
+     1198,
+     0,
+     292,
+     594,
+     896,
+     1198
+    ],
+    "prompt_ids_sha256": "a5667c943014ac51",
+    "tokens_sha256": "629c92b74e7b8b78",
+    "last_stage_calls": 3840,
+    "digests": 0,
+    "digests_sha256": null
+   }
+  }
+ },
+ "gate_script": "runs/experiments/WS-27/gate.py (identical output 2026-11-14 for main/ and part2/)",
+ "cause_check": {
+  "source": "runs/experiments/WS-23/omarchy-20261110-1921",
+  "method": "per turn: driver hash equal vs displayed timings equal (first token to 0.1 s and ms per token, from the coordinator log lines of the same turns)",
+  "H1_vs_H2": {
+   "hash_equal": 7,
+   "timing_equal": 7,
+   "prediction_holds": "15/15"
+  },
+  "D_vs_H2": {
+   "hash_equal": 8,
+   "timing_equal": 8,
+   "prediction_holds": "15/15"
+  },
+  "timings": {
+   "H1": [
+    [
+     0.6,
+     92
+    ],
+    [
+     0.5,
+     120
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.5,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     91
+    ],
+    [
+     0.4,
+     91
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     91
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     93
+    ]
+   ],
+   "D": [
+    [
+     0.4,
+     91
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     91
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.6,
+     93
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     93
+    ]
+   ],
+   "H2": [
+    [
+     0.4,
+     91
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     93
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     94
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     92
+    ],
+    [
+     0.4,
+     93
+    ]
+   ]
+  }
+ }
+}

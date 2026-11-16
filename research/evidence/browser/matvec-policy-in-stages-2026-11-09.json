@@ -1,0 +1,136 @@
+{
+ "experiment": "WS-16",
+ "number": 105,
+ "date": "2026-11-09",
+ "host": "Radeon 680M (workstation), both stages on the one GPU, relay route",
+ "model": "Qwen3.5-9B Q4_K_M (unsloth 3885219), splits 0,16,32, 64 tokens",
+ "arms": {
+  "T0": "plain, today's kernels",
+  "T1": "plain, --matvec 2,4,8",
+  "S1": "adaptive exact drafting ngram:n=3,k=8,min=2,adapt=1 with --matvec 2,4,8",
+  "S0": "the same drafting, today's kernels"
+ },
+ "order": {
+  "edit": "T0 T1 S1 S0",
+  "summary": "S0 S1 T1 T0",
+  "chat": "T0 T1 S1 S0"
+ },
+ "prompts": "runs/experiments/DO-25/prompts/{edit,summary,chat}.txt",
+ "results": {
+  "edit": {
+   "T0": {
+    "ms": 187.0,
+    "tokens_per_pass": null,
+    "alloc": [
+     2752934272,
+     3012926080
+    ]
+   },
+   "T1": {
+    "ms": 180.3,
+    "tokens_per_pass": null,
+    "alloc": [
+     2752934272,
+     3012926080
+    ]
+   },
+   "S1": {
+    "ms": 94.1,
+    "tokens_per_pass": 3.9375,
+    "alloc": [
+     2779279744,
+     3047219840
+    ]
+   },
+   "S0": {
+    "ms": 163.4,
+    "tokens_per_pass": 3.9375,
+    "alloc": [
+     2779279744,
+     3047219840
+    ]
+   }
+  },
+  "summary": {
+   "T0": {
+    "ms": 186.9,
+    "tokens_per_pass": null,
+    "alloc": [
+     2763952512,
+     3023944320
+    ]
+   },
+   "T1": {
+    "ms": 179.4,
+    "tokens_per_pass": null,
+    "alloc": [
+     2763952512,
+     3023944320
+    ]
+   },
+   "S1": {
+    "ms": 207.6,
+    "tokens_per_pass": 1.105263157894737,
+    "alloc": [
+     2790297984,
+     3058238080
+    ]
+   },
+   "S0": {
+    "ms": 253.8,
+    "tokens_per_pass": 1.105263157894737,
+    "alloc": [
+     2790297984,
+     3058238080
+    ]
+   }
+  },
+  "chat": {
+   "T0": {
+    "ms": 185.9,
+    "tokens_per_pass": null,
+    "alloc": [
+     2751164800,
+     3011156608
+    ]
+   },
+   "T1": {
+    "ms": 178.3,
+    "tokens_per_pass": null,
+    "alloc": [
+     2751164800,
+     3011156608
+    ]
+   },
+   "S1": {
+    "ms": 179.3,
+    "tokens_per_pass": 1.0,
+    "alloc": [
+     2751164800,
+     3019104896
+    ]
+   },
+   "S0": {
+    "ms": 186.5,
+    "tokens_per_pass": 1.0,
+    "alloc": [
+     2751164800,
+     3019104896
+    ]
+   }
+  }
+ },
+ "gate": {
+  "edit: tokens and logits digests equal T0's in every arm": true,
+  "edit: T1 <= 0.95 T0": false,
+  "edit: S1 <= 0.75 T0": true,
+  "summary: tokens and logits digests equal T0's in every arm": true,
+  "summary: T1 <= 0.95 T0": false,
+  "summary: S1 <= 1.0 T0": false,
+  "chat: tokens and logits digests equal T0's in every arm": true,
+  "chat: T1 <= 0.95 T0": false,
+  "chat: S1 <= 1.0 T0": true
+ },
+ "passed": false,
+ "raw": "runs/experiments/WS-16/omarchy-20261109-2215"
+}

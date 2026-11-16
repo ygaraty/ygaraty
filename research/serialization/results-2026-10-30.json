@@ -1,0 +1,762 @@
+{
+  "schema_version": 1,
+  "scope": "Offline serialization only; no training or network",
+  "environment": {
+    "python": "3.12.2",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "numpy": "2.1.1",
+    "msgpack": "1.1.2",
+    "msgpack_module": "pip._vendor.msgpack",
+    "msgpack_packer_module": "pip._vendor.msgpack.fallback"
+  },
+  "settings": {
+    "elements": [
+      1024,
+      65536,
+      1048576
+    ],
+    "repeats": 7,
+    "seed": 20261030
+  },
+  "memory_method": "Separate tracemalloc pass per operation; input tensor and encoded input excluded. Includes traced temporary/output allocations, not total RSS; native allocations may be untracked. No memory instrumentation during timing.",
+  "results": [
+    {
+      "format": "json",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        1024
+      ],
+      "raw_bytes": 4096,
+      "wire_bytes": 20124,
+      "wire_to_raw_ratio": 4.9130859375,
+      "encode": {
+        "median_ms": 0.464292,
+        "min_ms": 0.446458,
+        "samples_ms": [
+          0.454458,
+          0.446458,
+          0.487167,
+          0.467583,
+          0.456583,
+          0.464292,
+          0.484291
+        ]
+      },
+      "decode": {
+        "median_ms": 0.248583,
+        "min_ms": 0.248208,
+        "samples_ms": [
+          0.271625,
+          0.264167,
+          0.263042,
+          0.248583,
+          0.248208,
+          0.248291,
+          0.24825
+        ]
+      },
+      "encode_peak_traced_bytes": 74022,
+      "decode_peak_traced_bytes": 55712,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "7c44fa7732fb41951398fd697b365659b65d7392fb884d5d717a04b9cd7f6eca"
+    },
+    {
+      "format": "base64",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        1024
+      ],
+      "raw_bytes": 4096,
+      "wire_bytes": 5518,
+      "wire_to_raw_ratio": 1.34716796875,
+      "encode": {
+        "median_ms": 0.02225,
+        "min_ms": 0.021917,
+        "samples_ms": [
+          0.023458,
+          0.022583,
+          0.022291,
+          0.022,
+          0.022084,
+          0.021917,
+          0.02225
+        ]
+      },
+      "decode": {
+        "median_ms": 0.021833,
+        "min_ms": 0.021625,
+        "samples_ms": [
+          0.023083,
+          0.022167,
+          0.0225,
+          0.021833,
+          0.021708,
+          0.021792,
+          0.021625
+        ]
+      },
+      "encode_peak_traced_bytes": 19425,
+      "decode_peak_traced_bytes": 16006,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "7c44fa7732fb41951398fd697b365659b65d7392fb884d5d717a04b9cd7f6eca"
+    },
+    {
+      "format": "msgpack",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        1024
+      ],
+      "raw_bytes": 4096,
+      "wire_bytes": 4135,
+      "wire_to_raw_ratio": 1.009521484375,
+      "encode": {
+        "median_ms": 0.006833,
+        "min_ms": 0.006542,
+        "samples_ms": [
+          0.008833,
+          0.00725,
+          0.006833,
+          0.00675,
+          0.007167,
+          0.006542,
+          0.006666
+        ]
+      },
+      "decode": {
+        "median_ms": 0.010792,
+        "min_ms": 0.010541,
+        "samples_ms": [
+          0.014708,
+          0.011791,
+          0.011125,
+          0.010792,
+          0.01075,
+          0.010541,
+          0.010667
+        ]
+      },
+      "encode_peak_traced_bytes": 9814,
+      "decode_peak_traced_bytes": 13714,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "7c44fa7732fb41951398fd697b365659b65d7392fb884d5d717a04b9cd7f6eca"
+    },
+    {
+      "format": "json",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        1024
+      ],
+      "raw_bytes": 8192,
+      "wire_bytes": 20101,
+      "wire_to_raw_ratio": 2.4537353515625,
+      "encode": {
+        "median_ms": 0.450417,
+        "min_ms": 0.442958,
+        "samples_ms": [
+          0.484334,
+          0.464708,
+          0.450458,
+          0.447833,
+          0.444292,
+          0.450417,
+          0.442958
+        ]
+      },
+      "decode": {
+        "median_ms": 0.249792,
+        "min_ms": 0.248417,
+        "samples_ms": [
+          0.252083,
+          0.249792,
+          0.248417,
+          0.2485,
+          0.249166,
+          0.253041,
+          0.252333
+        ]
+      },
+      "encode_peak_traced_bytes": 73976,
+      "decode_peak_traced_bytes": 55689,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "0dd0ad27965d5fb1e9ec01e3ff315490037b9d2dad7a44fda6dec5e8a60307b6"
+    },
+    {
+      "format": "base64",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        1024
+      ],
+      "raw_bytes": 8192,
+      "wire_bytes": 10978,
+      "wire_to_raw_ratio": 1.340087890625,
+      "encode": {
+        "median_ms": 0.041042,
+        "min_ms": 0.040708,
+        "samples_ms": [
+          0.042,
+          0.04125,
+          0.0415,
+          0.041042,
+          0.040833,
+          0.040917,
+          0.040708
+        ]
+      },
+      "decode": {
+        "median_ms": 0.039416,
+        "min_ms": 0.039125,
+        "samples_ms": [
+          0.040166,
+          0.039708,
+          0.039416,
+          0.039333,
+          0.039417,
+          0.039125,
+          0.039208
+        ]
+      },
+      "encode_peak_traced_bytes": 37170,
+      "decode_peak_traced_bytes": 31021,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "0dd0ad27965d5fb1e9ec01e3ff315490037b9d2dad7a44fda6dec5e8a60307b6"
+    },
+    {
+      "format": "msgpack",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        1024
+      ],
+      "raw_bytes": 8192,
+      "wire_bytes": 8231,
+      "wire_to_raw_ratio": 1.0047607421875,
+      "encode": {
+        "median_ms": 0.006875,
+        "min_ms": 0.006584,
+        "samples_ms": [
+          0.008041,
+          0.007125,
+          0.006875,
+          0.006833,
+          0.006625,
+          0.007083,
+          0.006584
+        ]
+      },
+      "decode": {
+        "median_ms": 0.011125,
+        "min_ms": 0.010708,
+        "samples_ms": [
+          0.012709,
+          0.011458,
+          0.011125,
+          0.010708,
+          0.011,
+          0.011125,
+          0.010792
+        ]
+      },
+      "encode_peak_traced_bytes": 17918,
+      "decode_peak_traced_bytes": 26002,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "0dd0ad27965d5fb1e9ec01e3ff315490037b9d2dad7a44fda6dec5e8a60307b6"
+    },
+    {
+      "format": "json",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        65536
+      ],
+      "raw_bytes": 262144,
+      "wire_bytes": 1286441,
+      "wire_to_raw_ratio": 4.907382965087891,
+      "encode": {
+        "median_ms": 28.328166,
+        "min_ms": 28.100375,
+        "samples_ms": [
+          28.487292,
+          28.559083,
+          28.405292,
+          28.328166,
+          28.245625,
+          28.100375,
+          28.196166
+        ]
+      },
+      "decode": {
+        "median_ms": 16.047833,
+        "min_ms": 15.782791,
+        "samples_ms": [
+          15.782791,
+          16.679875,
+          17.635791,
+          16.396208,
+          16.000208,
+          15.816834,
+          16.047833
+        ]
+      },
+      "encode_peak_traced_bytes": 4671040,
+      "decode_peak_traced_bytes": 3423949,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "b61d742e23b04d4a9408cb227754cbe4114051c8582d94b557e728acc69e45d3"
+    },
+    {
+      "format": "base64",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        65536
+      ],
+      "raw_bytes": 262144,
+      "wire_bytes": 349583,
+      "wire_to_raw_ratio": 1.3335533142089844,
+      "encode": {
+        "median_ms": 1.228042,
+        "min_ms": 1.191792,
+        "samples_ms": [
+          1.207667,
+          1.266,
+          1.357833,
+          1.223459,
+          1.228042,
+          1.191792,
+          1.248958
+        ]
+      },
+      "decode": {
+        "median_ms": 1.168,
+        "min_ms": 1.152084,
+        "samples_ms": [
+          1.279208,
+          1.1925,
+          1.192417,
+          1.168,
+          1.153709,
+          1.15225,
+          1.152084
+        ]
+      },
+      "encode_peak_traced_bytes": 1137634,
+      "decode_peak_traced_bytes": 962182,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "b61d742e23b04d4a9408cb227754cbe4114051c8582d94b557e728acc69e45d3"
+    },
+    {
+      "format": "msgpack",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        65536
+      ],
+      "raw_bytes": 262144,
+      "wire_bytes": 262187,
+      "wire_to_raw_ratio": 1.0001640319824219,
+      "encode": {
+        "median_ms": 0.016042,
+        "min_ms": 0.015416,
+        "samples_ms": [
+          0.017208,
+          0.016417,
+          0.015875,
+          0.01575,
+          0.017417,
+          0.016042,
+          0.015416
+        ]
+      },
+      "decode": {
+        "median_ms": 0.027583,
+        "min_ms": 0.026625,
+        "samples_ms": [
+          0.028292,
+          0.028791,
+          0.028417,
+          0.026958,
+          0.027583,
+          0.026875,
+          0.026625
+        ]
+      },
+      "encode_peak_traced_bytes": 525818,
+      "decode_peak_traced_bytes": 787862,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "b61d742e23b04d4a9408cb227754cbe4114051c8582d94b557e728acc69e45d3"
+    },
+    {
+      "format": "json",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        65536
+      ],
+      "raw_bytes": 524288,
+      "wire_bytes": 1286857,
+      "wire_to_raw_ratio": 2.4544849395751953,
+      "encode": {
+        "median_ms": 28.280208,
+        "min_ms": 28.113542,
+        "samples_ms": [
+          29.591375,
+          28.368625,
+          28.182125,
+          28.113542,
+          28.280208,
+          28.292625,
+          28.262959
+        ]
+      },
+      "decode": {
+        "median_ms": 16.167833,
+        "min_ms": 15.83775,
+        "samples_ms": [
+          16.052833,
+          16.167833,
+          16.183667,
+          15.83775,
+          16.201458,
+          16.239584,
+          16.050416
+        ]
+      },
+      "encode_peak_traced_bytes": 4671872,
+      "decode_peak_traced_bytes": 3424365,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "e5f4d9b737ba3df5533ce940b14dc16f25ce6869435c1610104a9f08a04a4bea"
+    },
+    {
+      "format": "base64",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        65536
+      ],
+      "raw_bytes": 524288,
+      "wire_bytes": 699107,
+      "wire_to_raw_ratio": 1.3334407806396484,
+      "encode": {
+        "median_ms": 2.376167,
+        "min_ms": 2.36675,
+        "samples_ms": [
+          2.36675,
+          2.372041,
+          2.434208,
+          2.436041,
+          2.376167,
+          2.378458,
+          2.372708
+        ]
+      },
+      "decode": {
+        "median_ms": 2.307583,
+        "min_ms": 2.298125,
+        "samples_ms": [
+          2.298875,
+          2.322834,
+          2.33875,
+          2.307583,
+          2.310208,
+          2.298625,
+          2.298125
+        ]
+      },
+      "encode_peak_traced_bytes": 2273587,
+      "decode_peak_traced_bytes": 1923373,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "e5f4d9b737ba3df5533ce940b14dc16f25ce6869435c1610104a9f08a04a4bea"
+    },
+    {
+      "format": "msgpack",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        65536
+      ],
+      "raw_bytes": 524288,
+      "wire_bytes": 524331,
+      "wire_to_raw_ratio": 1.000082015991211,
+      "encode": {
+        "median_ms": 0.023375,
+        "min_ms": 0.022583,
+        "samples_ms": [
+          0.026583,
+          0.023375,
+          0.022792,
+          0.025458,
+          0.023375,
+          0.022833,
+          0.022583
+        ]
+      },
+      "decode": {
+        "median_ms": 0.048042,
+        "min_ms": 0.047667,
+        "samples_ms": [
+          0.048833,
+          0.048417,
+          0.047834,
+          0.048042,
+          0.047667,
+          0.04925,
+          0.047875
+        ]
+      },
+      "encode_peak_traced_bytes": 1050106,
+      "decode_peak_traced_bytes": 1574294,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "e5f4d9b737ba3df5533ce940b14dc16f25ce6869435c1610104a9f08a04a4bea"
+    },
+    {
+      "format": "json",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        1048576
+      ],
+      "raw_bytes": 4194304,
+      "wire_bytes": 20582734,
+      "wire_to_raw_ratio": 4.90730619430542,
+      "encode": {
+        "median_ms": 459.369958,
+        "min_ms": 457.417292,
+        "samples_ms": [
+          459.369958,
+          459.562125,
+          461.524959,
+          458.333167,
+          457.417292,
+          458.287667,
+          496.995625
+        ]
+      },
+      "decode": {
+        "median_ms": 287.187084,
+        "min_ms": 260.771584,
+        "samples_ms": [
+          281.184541,
+          297.307,
+          287.71925,
+          349.093541,
+          287.187084,
+          265.272958,
+          260.771584
+        ]
+      },
+      "encode_peak_traced_bytes": 74720906,
+      "decode_peak_traced_bytes": 54199442,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "4a87aac4d094d3f13cda01c4d6c644773279956d9ba9d57ea0d00da14f12b158"
+    },
+    {
+      "format": "base64",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        1048576
+      ],
+      "raw_bytes": 4194304,
+      "wire_bytes": 5592465,
+      "wire_to_raw_ratio": 1.3333475589752197,
+      "encode": {
+        "median_ms": 21.042541,
+        "min_ms": 19.700542,
+        "samples_ms": [
+          19.700542,
+          21.042541,
+          20.684041,
+          21.150833,
+          21.169458,
+          21.037083,
+          21.30125
+        ]
+      },
+      "decode": {
+        "median_ms": 18.985,
+        "min_ms": 18.792458,
+        "samples_ms": [
+          18.792458,
+          18.985,
+          18.806667,
+          19.107584,
+          19.528833,
+          19.068667,
+          18.936709
+        ]
+      },
+      "encode_peak_traced_bytes": 18176997,
+      "decode_peak_traced_bytes": 15380102,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "4a87aac4d094d3f13cda01c4d6c644773279956d9ba9d57ea0d00da14f12b158"
+    },
+    {
+      "format": "msgpack",
+      "dtype": "<f4",
+      "shape": [
+        1,
+        1048576
+      ],
+      "raw_bytes": 4194304,
+      "wire_bytes": 4194347,
+      "wire_to_raw_ratio": 1.0000102519989014,
+      "encode": {
+        "median_ms": 0.251291,
+        "min_ms": 0.148916,
+        "samples_ms": [
+          0.148916,
+          0.164875,
+          0.2705,
+          0.250959,
+          0.251291,
+          0.27825,
+          0.274667
+        ]
+      },
+      "decode": {
+        "median_ms": 0.537667,
+        "min_ms": 0.522584,
+        "samples_ms": [
+          0.541791,
+          0.562625,
+          0.537667,
+          0.528917,
+          0.522584,
+          0.533417,
+          0.557
+        ]
+      },
+      "encode_peak_traced_bytes": 8390138,
+      "decode_peak_traced_bytes": 12584342,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "4a87aac4d094d3f13cda01c4d6c644773279956d9ba9d57ea0d00da14f12b158"
+    },
+    {
+      "format": "json",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        1048576
+      ],
+      "raw_bytes": 8388608,
+      "wire_bytes": 20583620,
+      "wire_to_raw_ratio": 2.453758716583252,
+      "encode": {
+        "median_ms": 550.373666,
+        "min_ms": 473.587,
+        "samples_ms": [
+          499.546958,
+          581.255417,
+          550.373666,
+          569.369417,
+          546.832084,
+          641.193083,
+          473.587
+        ]
+      },
+      "decode": {
+        "median_ms": 255.010958,
+        "min_ms": 253.408792,
+        "samples_ms": [
+          254.854209,
+          255.337875,
+          255.010958,
+          259.093667,
+          255.94525,
+          253.904625,
+          253.408792
+        ]
+      },
+      "encode_peak_traced_bytes": 74722678,
+      "decode_peak_traced_bytes": 54200328,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "8db31f4060e2b97e9e603f40f13894b26d62babc7127eed0c5a850542d68eeb4"
+    },
+    {
+      "format": "base64",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        1048576
+      ],
+      "raw_bytes": 8388608,
+      "wire_bytes": 11184869,
+      "wire_to_raw_ratio": 1.3333402872085571,
+      "encode": {
+        "median_ms": 41.598917,
+        "min_ms": 39.665958,
+        "samples_ms": [
+          39.665958,
+          41.240125,
+          43.223834,
+          41.993959,
+          41.921833,
+          41.545584,
+          41.598917
+        ]
+      },
+      "decode": {
+        "median_ms": 37.331292,
+        "min_ms": 37.194208,
+        "samples_ms": [
+          37.349334,
+          37.346042,
+          37.712,
+          37.233333,
+          37.331292,
+          37.203,
+          37.194208
+        ]
+      },
+      "encode_peak_traced_bytes": 36352310,
+      "decode_peak_traced_bytes": 30759213,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "8db31f4060e2b97e9e603f40f13894b26d62babc7127eed0c5a850542d68eeb4"
+    },
+    {
+      "format": "msgpack",
+      "dtype": "<f8",
+      "shape": [
+        1,
+        1048576
+      ],
+      "raw_bytes": 8388608,
+      "wire_bytes": 8388651,
+      "wire_to_raw_ratio": 1.0000051259994507,
+      "encode": {
+        "median_ms": 0.422792,
+        "min_ms": 0.392875,
+        "samples_ms": [
+          0.403792,
+          0.401334,
+          0.392875,
+          0.422792,
+          0.432958,
+          0.486375,
+          0.497834
+        ]
+      },
+      "decode": {
+        "median_ms": 1.1495,
+        "min_ms": 1.120084,
+        "samples_ms": [
+          1.120084,
+          1.1495,
+          1.125583,
+          1.147833,
+          1.151625,
+          1.353791,
+          1.181416
+        ]
+      },
+      "encode_peak_traced_bytes": 16778746,
+      "decode_peak_traced_bytes": 25167254,
+      "bitwise_round_trip": true,
+      "tensor_sha256": "8db31f4060e2b97e9e603f40f13894b26d62babc7127eed0c5a850542d68eeb4"
+    }
+  ]
+}

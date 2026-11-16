@@ -1,0 +1,15 @@
+{
+  "name": "@ygaraty/webgpu",
+  "version": "0.1.0-dev.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "check": "node tools/webgpu/check_browser.mjs",
+    "test": "npm run check && node --test tests/webgpu/browser/*.test.mjs"
+  },
+  "devDependencies": {
+    "@webgpu/types": "0.1.74",
+    "typescript": "5.9.3"
+  }
+}

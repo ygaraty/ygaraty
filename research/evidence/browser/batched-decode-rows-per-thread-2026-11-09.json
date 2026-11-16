@@ -1,0 +1,160 @@
+{
+ "experiment": "WS-18",
+ "date": "2026-11-09",
+ "host": "Radeon 680M (workstation), both stages on the one GPU, relay route, no added delay",
+ "model": "Qwen3.5-9B Q4_K_M (unsloth 3885219), splits 0,16,32; experiment 93's 8 chat prompts, 64 tokens each",
+ "arms": {
+  "B0": "--conversations 8 --batch",
+  "B1": "--conversations 8 --batch --matvec 2,4,8"
+ },
+ "order": "B0 B1 / B1 B0 / B0 B1; then N = 1 T0, T1",
+ "median_steady_tokens_per_s": {
+  "B0": 9.811841438504148,
+  "B1": 19.38030789537826
+ },
+ "ratio": 1.975,
+ "runs": {
+  "B0": [
+   {
+    "steady": 9.77258953402681,
+    "latency": [
+     809.3400001525879,
+     809.2970848083496,
+     809.290885925293,
+     816.5526390075684,
+     809.2844486236572,
+     809.2813491821289,
+     808.2332611083984,
+     808.1414699554443
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 59.6,
+     "stage 0 batch 6": 362.9,
+     "stage 0 batch 7": 367.9,
+     "stage 1 batch 1": 78.2,
+     "stage 1 batch 6": 429.9,
+     "stage 1 batch 7": 436
+    }
+   },
+   {
+    "steady": 9.817450169635615,
+    "latency": [
+     807.9352378845215,
+     807.976245880127,
+     807.9757690429688,
+     813.5743141174316,
+     807.9712390899658,
+     807.9705238342285,
+     807.9707622528076,
+     807.0418834686279
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 59.5,
+     "stage 0 batch 6": 362.7,
+     "stage 0 batch 7": 366,
+     "stage 1 batch 1": 78.3,
+     "stage 1 batch 6": 429.3,
+     "stage 1 batch 7": 434.1
+    }
+   },
+   {
+    "steady": 9.811841438504148,
+    "latency": [
+     808.5353374481201,
+     808.5289001464844,
+     808.5286617279053,
+     814.7175312042236,
+     808.5289001464844,
+     808.5293769836426,
+     808.5296154022217,
+     808.1634044647217
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 59.9,
+     "stage 0 batch 6": 363.5,
+     "stage 0 batch 7": 366.7,
+     "stage 1 batch 1": 78.1,
+     "stage 1 batch 6": 430.0,
+     "stage 1 batch 7": 434.2
+    }
+   }
+  ],
+  "B1": [
+   {
+    "steady": 19.34564979280884,
+    "latency": [
+     406.5566062927246,
+     406.5823554992676,
+     406.57615661621094,
+     414.0894412994385,
+     406.574010848999,
+     406.5718650817871,
+     406.5697193145752,
+     404.9234390258789
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 56.4,
+     "stage 0 batch 6": 188.5,
+     "stage 0 batch 7": 192.5,
+     "stage 1 batch 1": 74.5,
+     "stage 1 batch 6": 204.7,
+     "stage 1 batch 7": 208.1
+    }
+   },
+   {
+    "steady": 19.38030789537826,
+    "latency": [
+     405.8842658996582,
+     405.89332580566406,
+     405.8957099914551,
+     412.4562740325928,
+     405.8983325958252,
+     405.9014320373535,
+     405.8971405029297,
+     406.38136863708496
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 56.1,
+     "stage 0 batch 6": 188.4,
+     "stage 0 batch 7": 192.6,
+     "stage 1 batch 1": 74.4,
+     "stage 1 batch 6": 203.8,
+     "stage 1 batch 7": 207.7
+    }
+   },
+   {
+    "steady": 19.383467505224406,
+    "latency": [
+     406.22782707214355,
+     406.24022483825684,
+     406.24308586120605,
+     412.23955154418945,
+     406.24499320983887,
+     406.2466621398926,
+     406.2490463256836,
+     406.2964916229248
+    ],
+    "step_ms": {
+     "stage 0 batch 1": 56.3,
+     "stage 0 batch 6": 189.2,
+     "stage 0 batch 7": 192.9,
+     "stage 1 batch 1": 74.3,
+     "stage 1 batch 6": 203.4,
+     "stage 1 batch 7": 207.8
+    }
+   }
+  ]
+ },
+ "gate": {
+  "every B1 conversation's tokens equal B0's": true,
+  "B1 steady throughput >= 1.5x B0": true
+ },
+ "passed": true,
+ "gate_script_note": "The first gate script also required 64 tokens per conversation and reported FAILED: conversation 3 ends at end-of-sequence after 24 tokens in every run (B0 included). Tokens are identical in all 8 runs; the script now checks equality only (output of both versions in the run directory).",
+ "n1": {
+  "T0_ms_per_token": 147,
+  "T1_ms_per_token": 140
+ },
+ "raw": "runs/experiments/WS-18/omarchy-20261109-2341",
+ "number": 108
+}

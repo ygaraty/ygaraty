@@ -1,0 +1,96 @@
+{
+ "experiment": 147,
+ "id": "WS-50",
+ "date": "2026-11-14",
+ "code": "90c45ba",
+ "host": [
+  "NVIDIA A100-SXM4-40GB, 40960 MiB, 580.159.03",
+  "90c45ba",
+  "Model name:                              AMD EPYC 7532 32-Core Processor"
+ ],
+ "flags": "bench --batches 8,16,32 --batch-check --batch-kernel gemm --gemm 64,32,4,8 --matvec 2,4,8 --matvec-c 16,4 --q8-fast-up-to 8 [--repack Q4_K,Q5_K,Q6_K]",
+ "order": "B1 R1 R2 B2",
+ "runs": {
+  "B1": {
+   "8": {
+    "wall_ms": 94.9,
+    "tok_s": 84.3
+   },
+   "16": {
+    "wall_ms": 260.4,
+    "tok_s": 61.4
+   },
+   "32": {
+    "wall_ms": 314.5,
+    "tok_s": 101.7
+   }
+  },
+  "R1": {
+   "8": {
+    "wall_ms": 90.5,
+    "tok_s": 88.4
+   },
+   "16": {
+    "wall_ms": 242.8,
+    "tok_s": 65.9
+   },
+   "32": {
+    "wall_ms": 297.4,
+    "tok_s": 107.6
+   }
+  },
+  "R2": {
+   "8": {
+    "wall_ms": 86.3,
+    "tok_s": 92.7
+   },
+   "16": {
+    "wall_ms": 231.1,
+    "tok_s": 69.2
+   },
+   "32": {
+    "wall_ms": 276.7,
+    "tok_s": 115.6
+   }
+  },
+  "B2": {
+   "8": {
+    "wall_ms": 94.4,
+    "tok_s": 84.7
+   },
+   "16": {
+    "wall_ms": 258.0,
+    "tok_s": 62.0
+   },
+   "32": {
+    "wall_ms": 311.6,
+    "tok_s": 102.7
+   }
+  }
+ },
+ "tok_s_median": {
+  "8": {
+   "B": 84.5,
+   "R": 90.55000000000001,
+   "change": 0.0715976331360948
+  },
+  "16": {
+   "B": 61.7,
+   "R": 67.55000000000001,
+   "change": 0.09481361426256085
+  },
+  "32": {
+   "B": 102.2,
+   "R": 111.6,
+   "change": 0.09197651663405071
+  }
+ },
+ "batch_check": "32/32 rows equal the lone conversation's tokens in every run; last logits within 8.4e-5 (largest 22.8)",
+ "screen_680m": "runs/experiments/WS-50/omarchy-20261113-2235-try",
+ "gate": {
+  "correctness": true,
+  "change_32": 0.09197651663405071,
+  "verdict": "Rejected"
+ },
+ "cost_usd_shared": 0.35
+}

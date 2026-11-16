@@ -1,0 +1,3 @@
+include package.json package-lock.json tsconfig.json
+recursive-include tools *.py *.mjs *.in *.sh
+recursive-include tests *.py *.mjs *.json

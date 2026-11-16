@@ -1,0 +1,367 @@
+{
+ "id": "DO-33",
+ "date": "2026-11-05",
+ "model": "webAI-Official/TwIL-8B@58d49f0d9909e62f9c2fb09e99fc5c76f3f2d630 (balanced, bf16)",
+ "code": {
+  "commit": "1e490ac (machines cloned main at 13:59; the TwIL code is 1a5c96c, e7bc569)"
+ },
+ "machine": {
+  "gpu": "RTX 3090 24 GB",
+  "location": "Quebec, CA",
+  "usd_per_h": 0.227,
+  "torch": "2.14.1+cu126",
+  "minutes_up": 21
+ },
+ "settings": {
+  "owners": 1,
+  "weights": "full",
+  "dtype": "bfloat16",
+  "chunk": 512,
+  "wire": "float32",
+  "relay": true,
+  "handoff": true
+ },
+ "setup": {
+  "minutes": 12,
+  "download_gb": 17.6,
+  "download_seconds": 655
+ },
+ "correctness": {
+  "rows": [
+   {
+    "text": "What is the capital of France? Answer in one sentence.",
+    "tokens": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     279,
+     6864,
+     315,
+     9822,
+     30,
+     22559,
+     304,
+     832,
+     11914
+    ],
+    "reference": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     279,
+     6864,
+     315,
+     9822,
+     30,
+     22559,
+     304,
+     832,
+     11914
+    ],
+    "first_divergence": null,
+    "matched": 16,
+    "first_margin_below_half": 16,
+    "margin_at_divergence": null,
+    "passes": true
+   },
+   {
+    "text": "Write a Python function that returns the n-th Fibonacci number.",
+    "tokens": [
+     1687,
+     527,
+     2133,
+     311,
+     3350,
+     264,
+     734,
+     311,
+     471,
+     279,
+     308,
+     12,
+     339,
+     80783,
+     1396,
+     13
+    ],
+    "reference": [
+     1687,
+     1205,
+     311,
+     3350,
+     264,
+     13325,
+     734,
+     430,
+     4780,
+     279,
+     308,
+     12,
+     339,
+     80783,
+     1396,
+     13
+    ],
+    "first_divergence": 1,
+    "matched": 1,
+    "first_margin_below_half": 16,
+    "margin_at_divergence": 1.5,
+    "passes": false
+   },
+   {
+    "text": "What is 17 * 23? Give only the number.",
+    "tokens": [
+     1687,
+     1205,
+     311,
+     12849,
+     220,
+     1114,
+     353,
+     220,
+     1419,
+     13,
+     198,
+     198,
+     1114,
+     353,
+     220,
+     1419
+    ],
+    "reference": [
+     1687,
+     1205,
+     12849,
+     220,
+     1114,
+     9,
+     1419,
+     284,
+     220,
+     19631,
+     13,
+     40665,
+     1193,
+     279,
+     1396,
+     13
+    ],
+    "first_divergence": 2,
+    "matched": 2,
+    "first_margin_below_half": 2,
+    "margin_at_divergence": 0.125,
+    "passes": true
+   }
+  ],
+  "steps": 51,
+  "retries": 0,
+  "rejected": 0
+ },
+ "gpu_transformers_diagnostic": [
+  {
+   "text": "What is the capital of France? Answer in one sentence.",
+   "tokens": [
+    791,
+    1217,
+    17501,
+    25,
+    330,
+    3923,
+    374,
+    279,
+    6864,
+    315,
+    9822,
+    30,
+    22559,
+    304,
+    832,
+    11914
+   ],
+   "top2_margin": [
+    1.125,
+    7.5,
+    3.75,
+    1.5,
+    11.5,
+    17.125,
+    14.5,
+    12.5625,
+    11.875,
+    12.3125,
+    12.125,
+    8.875,
+    18.375,
+    15.375,
+    15.5,
+    13.75
+   ],
+   "matches_cluster": 16,
+   "matches_cpu_reference": 16
+  },
+  {
+   "text": "Write a Python function that returns the n-th Fibonacci number.",
+   "tokens": [
+    1687,
+    527,
+    2133,
+    311,
+    3350,
+    264,
+    734,
+    311,
+    471,
+    279,
+    308,
+    12,
+    339,
+    80783,
+    1396,
+    13
+   ],
+   "top2_margin": [
+    1.125,
+    0.375,
+    4.0,
+    12.375,
+    10.125,
+    10.375,
+    7.375,
+    1.625,
+    0.0,
+    24.25,
+    3.75,
+    17.875,
+    15.25,
+    17.0,
+    18.875,
+    12.375
+   ],
+   "matches_cluster": 16,
+   "matches_cpu_reference": 1
+  },
+  {
+   "text": "What is 17 * 23? Give only the number.",
+   "tokens": [
+    1687,
+    1205,
+    311,
+    12849,
+    220,
+    1114,
+    353,
+    220,
+    1419,
+    13,
+    198,
+    198,
+    1114,
+    353,
+    220,
+    1419
+   ],
+   "top2_margin": [
+    3.25,
+    3.5,
+    1.25,
+    3.375,
+    6.375,
+    12.75,
+    3.25,
+    12.8125,
+    13.5625,
+    0.625,
+    1.125,
+    1.5,
+    2.25,
+    6.125,
+    15.3125,
+    2.125
+   ],
+   "matches_cluster": 16,
+   "matches_cpu_reference": 2
+  }
+ ],
+ "reference": {
+  "file": "runs/pods-data/do31/reference.json (experiment 83's)",
+  "dtype": "bfloat16",
+  "device": "cpu"
+ },
+ "timing": {
+  "128": {
+   "warm_first_token_s": 54.84306263923645,
+   "first_token_s": [
+    0.06487321853637695,
+    0.06491565704345703,
+    0.06498217582702637
+   ],
+   "itl_median_ms": 49.58748817443848,
+   "itl_p95_ms": 50.74429512023926,
+   "new_tokens": [
+    128,
+    128,
+    128
+   ],
+   "steps": 516,
+   "retries": 0,
+   "rejected": 0,
+   "gpu_peak_mib": 16735
+  },
+  "1024": {
+   "warm_first_token_s": 39.56899404525757,
+   "first_token_s": [
+    0.3793623447418213,
+    0.3788018226623535,
+    0.3802647590637207
+   ],
+   "itl_median_ms": 49.988746643066406,
+   "itl_p95_ms": 51.1937141418457,
+   "new_tokens": [
+    128,
+    128,
+    128
+   ],
+   "steps": 520,
+   "retries": 0,
+   "rejected": 0,
+   "gpu_peak_mib": 16985
+  },
+  "8192": {
+   "warm_first_token_s": 43.676745653152466,
+   "first_token_s": [
+    4.426902532577515,
+    4.431562662124634,
+    4.435099363327026
+   ],
+   "itl_median_ms": 70.22380828857422,
+   "itl_p95_ms": 70.89567184448242,
+   "new_tokens": [
+    128,
+    128,
+    128
+   ],
+   "steps": 576,
+   "retries": 0,
+   "rejected": 0,
+   "gpu_peak_mib": 21057
+  }
+ },
+ "cost": {
+  "machine_usd": 0.08,
+  "download_estimate_usd": 0.11,
+  "total_estimate_usd": 0.19,
+  "budget_usd": 1.0
+ },
+ "compared": {
+  "experiment_83_itl_median_s": 0.951,
+  "experiment_83_setup": "4-bit on four 3.5 GB-capped GPUs over the internet"
+ }
+}

@@ -1,0 +1,218 @@
+{
+ "experiment": 89,
+ "id": "OFF-6",
+ "date": "2026-11-05",
+ "kind": "simulation replay against captures",
+ "gate": {
+  "rule": "fit only on experiment 60 captures; one opt-in mechanism; 60 h0->r and 59 h0->hn each within 3 points, experiment 71 replay settings",
+  "result": "fail",
+  "points_60": -3.072,
+  "points_59": -1.157
+ },
+ "cases": {
+  "59 h0/hn": {
+   "measured_without": 3.9326,
+   "measured_with": 3.018,
+   "measured_change_pct": -23.2587,
+   "simulated_without": 3.7009,
+   "simulated_with": 2.7973,
+   "simulated_change_pct": -24.4158,
+   "points": -1.1571,
+   "error_without_pct": -5.8924,
+   "error_with_pct": -7.3113,
+   "evaluated": true,
+   "passes": true,
+   "note": "whole reads modelled as logical bytes"
+  },
+  "60 h0/r": {
+   "measured_without": 3.9477,
+   "measured_with": 2.9953,
+   "measured_change_pct": -24.1267,
+   "simulated_without": 3.7009,
+   "simulated_with": 2.6943,
+   "simulated_change_pct": -27.1992,
+   "points": -3.0725,
+   "error_without_pct": -6.2522,
+   "error_with_pct": -10.0485,
+   "evaluated": true,
+   "passes": false,
+   "note": "region reads as blocks (OFF-6)"
+  },
+  "60 h0/r, region as before (diagnostic)": {
+   "measured_without": 3.9477,
+   "measured_with": 2.9953,
+   "measured_change_pct": -24.1267,
+   "simulated_without": 3.7009,
+   "simulated_with": 2.6505,
+   "simulated_change_pct": -28.3837,
+   "points": -4.2569,
+   "error_without_pct": -6.2522,
+   "error_with_pct": -11.512,
+   "evaluated": false,
+   "passes": null,
+   "note": "experiment 71"
+  },
+  "60 h0/f (diagnostic)": {
+   "measured_without": 3.9477,
+   "measured_with": 3.0171,
+   "measured_change_pct": -23.5728,
+   "simulated_without": 3.7009,
+   "simulated_with": 2.7973,
+   "simulated_change_pct": -24.4158,
+   "points": -0.843,
+   "error_without_pct": -6.2522,
+   "error_with_pct": -7.2862,
+   "evaluated": false,
+   "passes": null,
+   "note": "diagnostic arm, not in the gate"
+  },
+  "61 A/B": {
+   "measured_without": 5.9863,
+   "measured_with": 4.6392,
+   "measured_change_pct": -22.504,
+   "simulated_without": 6.5216,
+   "simulated_with": 4.8194,
+   "simulated_change_pct": -26.1014,
+   "points": -3.5974,
+   "error_without_pct": 8.942,
+   "error_with_pct": 3.8849,
+   "evaluated": false,
+   "passes": null,
+   "note": "gzip frames on weak workers not modelled: not evaluated by the frozen rule"
+  }
+ },
+ "tiny_sim": {
+  "plain": {
+   "value": 3.7009,
+   "seeds": [
+    3.6916,
+    3.7009,
+    3.7211
+   ]
+  },
+  "whole": {
+   "value": 2.7973,
+   "seeds": [
+    2.7181,
+    2.7973,
+    2.8278
+   ]
+  },
+  "region": {
+   "value": 2.6505,
+   "seeds": [
+    2.6505,
+    2.7042,
+    2.6504
+   ]
+  },
+  "blocks": {
+   "value": 2.6943,
+   "seeds": [
+    2.6736,
+    2.7601,
+    2.6943
+   ]
+  }
+ },
+ "measured_handed_bytes_mb_per_update": {
+  "f_whole": 19.6,
+  "r_region": 15.15,
+  "source": "worker.handoff_bytes in runs/exp60/cap-{f,r}-cap, median of updates 2-8"
+ },
+ "summed_task_medians_mb": {
+  "measured_f": 20.743,
+  "measured_r": 15.967,
+  "sim_whole": 19.42,
+  "sim_region": 13.834,
+  "sim_blocks": 15.4
+ },
+ "measured_chain": {
+  "note": "chain_trace, updates 2-7",
+  "h0": {
+   "hops": 15,
+   "chain_ms": 3964,
+   "median_hop_ms": 239
+  },
+  "f": {
+   "hops": 15,
+   "chain_ms": 2768,
+   "median_hop_ms": 170,
+   "upload_ms": 105,
+   "upload_to_kernel_ms": 41
+  },
+  "r": {
+   "hops": 15,
+   "chain_ms": 2842,
+   "median_hop_ms": 185,
+   "upload_ms": 110,
+   "upload_to_kernel_ms": 41
+  }
+ },
+ "simulated_chain_seed0": {
+  "whole": {
+   "hops": 15.0,
+   "chain_ms": 2448.4,
+   "median_hop_ms": 164.0,
+   "upload_ms": 94.0,
+   "after_upload_ms": 62.0
+  },
+  "region": {
+   "hops": 15.0,
+   "chain_ms": 2413.1,
+   "median_hop_ms": 163.4,
+   "upload_ms": 94.4,
+   "after_upload_ms": 45.9
+  }
+ },
+ "hashes": {
+  "ygaraty/simulation/engine.py": "2119a2c57cedd8a3e04b8efa3cc8f079aa620ec0933f2772f132310dcbdfd4e5",
+  "ygaraty/simulation/handoff.py": "ad9c1f548365b008b7caa3f8c6b7105ac5e62467e4c34db0991f1c51b4577879",
+  "papers/uplink-bound/scripts/l2_validate.py": "5c1467423a931b510c9a2c5067d8548ec9c95ec837a2feb82d3cbdcba97aaded",
+  "ygaraty/simulation/planning.py": "9ae673c4b5a4a6c572ef23224256fa774349b69d2c28ab322229000e94c0fe91",
+  "cost-exp54": "77a6e8d6ba2809422788b55ebd007d19bfde49bc09b111ffccd2085ef902f8b0",
+  "dataset_sqlite": "fcf16e86facbdeabcf8ccee0f9734ab212a3876cc0d8454b4fa51cd161dca57c",
+  "tiny_plans": [
+   "de30c0b56844a25f8471627e38d5a8795a8a12cf8132f197409c3dbc41cab44e",
+   "fe98ea00cc1ee09726dc6ea226ada4c6b81b52fb76949d21471d85df89e7cd40",
+   "a7dc96d2ffca8f0a6241a2db2c5abff38dc682a103efb5471a9857aa1568409b",
+   "4256ba2a694a2e2872a23511b308d9037766dac46db2e430b836a682cf9941e5",
+   "ac9502dce20d5efa7eec0f44789d0188984ba498b7686b6a2b914a408185f6c3",
+   "d80554fb189d9902120fb902d513bb0cf8ee6060eff6c8fd4797c2b323c656de",
+   "6dc3a880b9178a55f06a688694993c31463062c5ed995a61057487aff6162941",
+   "adff39db757686f4f01d6d84f05f26d183276cd189ed5de40110ac77cde58015",
+   "61b25d536d7058dd53811865e495bcef4cc8c9e0915738149111ac1c83c54122",
+   "09ab4bd8a157bdb6b57c6b73222426deb3e2ecf0986884d52ea82e6c7797df5c",
+   "deb6a0e5098c73a85847345f7074f152f861d874720b40c6475ee6f0298e7f04",
+   "a1870c5d9ad4800ecfe768d5d310f123fb8c68c31dafbf0eac7ac259688fdc66"
+  ],
+  "big_plans": [
+   "00b127c7cfc2ba7398af73de43582f1ea0abf993b4378b79f03989d21f418a1b",
+   "fe81d75da96f2e46209165ed787e7aa87c38c8b915612e386fdbd16ca20d5894",
+   "feda4c2574ac3e33146f3c1f57403c24d7aa792f7f10747e737167501c149ea6",
+   "30e382dc5e4cff771521200bc98f25819fec1cab2e55609fa5ddbdf400210980",
+   "34f2129e514d4beee9b5e1bd979a4d480c5a684ee92b1d1e5c67b8e70b256a69",
+   "354e3b0a74bf1a1a4b8cd96b0fcd2c251846ba76eb036b82417fe10aec73e831",
+   "44087bffce4b15ee0d0c6be232b709f09396cc15f5b9a2a1e49411507a50f5c4",
+   "0cfa47a5aa39df5ca4da6cd89a5b8fc410abe76d118e9c353c82501579d40aa2",
+   "93a8e836c1845cb899034a8d5e6ac3cb0d21bd8bc4e262906f2fbb3d016ec85f",
+   "06c0ba177c8d3c430f4eb65a81b8445470e6ff8d8c3fb0a9aa35f094e628c3be",
+   "c8f45ddf1d15fc7381f4d9f7e150aaee903cd5912c2e56eb1321eaebfd027551",
+   "70f1771f384bff8c6f15e3baa76a5a9e9d571f42c22a3ce049427c7a28c270ea",
+   "2cfb297a048470e7aa0211fe67708f11175bd1b20e263b76f8cae1c2fe644fab",
+   "246cf88e012b8e7aa04c15aa1b3d71e20d5e293d30dc4735656b777c1da95d98",
+   "97e5445212b2c9dd7c585d9df981856c38e02ce92f47a6f4600265d56614e1ad",
+   "a7eb3bbce8691da47b1a037837dc6472796ba8efbe6bcfb1d9ca55b94cc75c7c",
+   "6f87fd4053978bb2f76afd77487ef9441d1bdf2352b863980906fa520d444cab",
+   "1ecea3b04e98e8ce153991cfe7deb8609b853b15d26be26e758cac1be82e8fef",
+   "d462a0d7a516eec22725536897ccb6b7bc0c2bcdc56c0d76d9b825b9702d413c",
+   "d603752654a43f30b4558e5c5aa634828a8c49c45c7b8c30b28bc389218c8a50",
+   "7fee60a1b4207b734e8345f07e2018582d7ec4fe68c47d91604948379aba0476",
+   "68ea807f4f469bca69e6d1d63334477c45264559cce82d2e162a38185b7418fc"
+  ],
+  "exp61_evidence": "b5a9e50ddabd15256011e0fa65624b1d3bd7d109350961a63a18b70c811180c5",
+  "ygaraty/simulation/handoff.py (with blocks)": "ad9c1f548365b008b7caa3f8c6b7105ac5e62467e4c34db0991f1c51b4577879",
+  "replay.py": "7d70117958ea643f973e25265d650606a0ac3e835fca03235c66f159fc089441"
+ },
+ "run_dir": "runs/experiments/OFF-6/omarchy-20261105-213747"
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ygaraty · Chat</title>
+<style>
+:root{--bg:#faf9f6;--panel:#fff;--text:#202020;--muted:#6b6b6b;--line:#e3e0d8;--user:#e9eef9;--accent:#2f5bd3;--error:#b3261e;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#17171a;--panel:#212126;--text:#ececec;--muted:#9a9aa3;--line:#33333a;--user:#26324d;--accent:#8fb0ff;--error:#ff8a80}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;height:100vh;height:100dvh}
+header,main,footer{width:100%;max-width:48rem;margin:0 auto;padding:0 1rem}
+header{padding-top:1rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
+h1{font-size:1.15rem;margin:0}
+#model-name{color:var(--muted);font-size:.9rem}
+#status{margin-left:auto;font-size:.85rem;color:var(--muted)}
+#status::before{content:"";display:inline-block;width:.55rem;height:.55rem;border-radius:50%;background:var(--muted);margin-right:.4rem;vertical-align:.05rem}
+#status.ready::before{background:#2e9d5b}
+#status.error::before{background:var(--error)}
+details{width:100%;border:1px solid var(--line);border-radius:.6rem;background:var(--panel);padding:.4rem .8rem;font-size:.9rem}
+summary{cursor:pointer;color:var(--muted)}
+.field{display:flex;gap:.4rem;align-items:center;margin:.5rem 0}
+.field label{width:6.5rem;flex:none;color:var(--muted)}
+.field input{flex:1;min-width:0}
+details p{margin:.4rem 0;color:var(--muted)}
+main{flex:1;overflow-y:auto;padding-top:1rem;padding-bottom:1rem}
+#empty{color:var(--muted);text-align:center;margin-top:3rem}
+.message{margin:.75rem 0;display:flex;flex-direction:column}
+.bubble{padding:.6rem .85rem;border-radius:.8rem;white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%}
+.user{align-items:flex-end}
+.user .bubble{background:var(--user);max-width:85%}
+.assistant .bubble{background:var(--panel);border:1px solid var(--line)}
+.assistant.pending .bubble:empty::after{content:"…";color:var(--muted)}
+.error .bubble{border-color:var(--error);color:var(--error)}
+.stats{font-size:.78rem;color:var(--muted);margin:.25rem .3rem 0;font-variant-numeric:tabular-nums}
+footer{padding-bottom:1rem}
+form{display:flex;gap:.5rem;align-items:flex-end;border:1px solid var(--line);background:var(--panel);border-radius:.8rem;padding:.5rem}
+textarea{flex:1;border:0;background:transparent;color:inherit;resize:none;font:inherit;max-height:12rem;padding:.35rem;outline:none}
+input{font:inherit;padding:.35rem .5rem;border:1px solid var(--line);border-radius:.4rem;background:var(--bg);color:inherit}
+button{font:inherit;font-size:.9rem;padding:.4rem .8rem;border-radius:.5rem;border:1px solid var(--line);background:var(--panel);color:inherit;cursor:pointer}
+button:disabled{opacity:.45;cursor:default}
+#send{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){#send{color:#101014}}
+.actions{display:flex;justify-content:space-between;margin-top:.4rem;font-size:.8rem;color:var(--muted)}
+.actions button{font-size:.8rem;padding:.2rem .6rem}
+</style>
+<header>
+  <h1>Chat <span id="model-name"></span></h1>
+  <span id="status" role="status">Connecting to your server…</span>
+  <details>
+    <summary>API key and settings for other apps</summary>
+    <div class="field"><label for="key">API key</label><input id="key" type="password" autocomplete="off" placeholder="Owner key"><button type="button" id="show-key">Show</button><button type="button" id="copy-key">Copy</button></div>
+    <div class="field"><label for="api-url">Base URL</label><input id="api-url" readonly><button type="button" id="copy-url">Copy</button></div>
+    <div class="field"><label for="model">Model</label><input id="model" readonly><button type="button" id="copy-model">Copy</button></div>
+    <p>Use these in any OpenAI-compatible app. Text chat and streaming are supported. Keep the key and your private chat link private.</p>
+  </details>
+</header>
+<main id="answer" aria-live="polite"><p id="empty">Messages appear here. They are kept only in this tab.</p></main>
+<footer>
+  <form id="chat">
+    <textarea id="message" rows="1" aria-label="Message" placeholder="Message (Enter to send, Shift+Enter for a new line)" required></textarea>
+    <button type="button" id="stop" disabled>Stop</button>
+    <button id="send" disabled>Send</button>
+  </form>
+  <div class="actions"><span id="hint"></span><button type="button" id="clear">New conversation</button></div>
+</footer>
+<script type="module" src="/public_chat.mjs"></script>
+</html>

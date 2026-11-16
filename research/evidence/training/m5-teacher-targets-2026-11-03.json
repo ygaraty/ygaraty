@@ -1,0 +1,262 @@
+{
+ "plan": "M-5",
+ "gate": "T or RT at least +2 chrF over R (B), with held-out loss no more than 0.05 worse",
+ "model": "30.3M translator, 512/2048, 8 heads, 3+3 layers",
+ "recipe": "Adam 5e-4, 3,072-token batches, 32,768 pairs, held-out every 4,096 (1,024 validation pairs), greedy chrF on 1,024 deduplicated held-out pairs",
+ "seeds": [
+  2026,
+  2027
+ ],
+ "code_commit": "524853b (runs started at aadfa58+dirty with the same files)",
+ "host": "omarchy",
+ "queue_sha256": "7bf9b5e0387551068082b040efa109474e5f6e6aa09332998f0486dadf53b1e4",
+ "raw": "runs/experiments/queue-20261103-185345",
+ "runs": {
+  "B": {
+   "2026": {
+    "heldout": [
+     19.0885,
+     6.8331,
+     6.61,
+     6.3016,
+     6.1257,
+     5.9914,
+     5.8355,
+     5.741,
+     5.6259
+    ],
+    "chrf": 6.29,
+    "bleu": 0.24,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 12,
+     "removed": 0
+    },
+    "teacher": null,
+    "training_seconds": 729,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   },
+   "2027": {
+    "heldout": [
+     19.2169,
+     6.8573,
+     6.6351,
+     6.45,
+     6.2775,
+     6.1272,
+     6.0001,
+     5.9227,
+     5.8073
+    ],
+    "chrf": 5.32,
+    "bleu": 0.19,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 12,
+     "removed": 0
+    },
+    "teacher": null,
+    "training_seconds": 345,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   }
+  },
+  "M5-T": {
+   "2026": {
+    "heldout": [
+     19.0885,
+     6.9647,
+     6.7008,
+     6.4652,
+     6.3091,
+     6.1873,
+     6.1206,
+     5.9901,
+     5.8649
+    ],
+    "chrf": 5.01,
+    "bleu": 0.23,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 12,
+     "removed": 0
+    },
+    "teacher": {
+     "swapped": 32721,
+     "kept_too_long": 47,
+     "mix": 1.0
+    },
+    "training_seconds": 336,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   },
+   "2027": {
+    "heldout": [
+     19.2169,
+     6.9164,
+     6.6608,
+     6.5141,
+     6.3195,
+     6.1809,
+     6.0821,
+     5.9298,
+     5.8619
+    ],
+    "chrf": 7.07,
+    "bleu": 0.28,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 12,
+     "removed": 0
+    },
+    "teacher": {
+     "swapped": 32721,
+     "kept_too_long": 47,
+     "mix": 1.0
+    },
+    "training_seconds": 337,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   }
+  },
+  "M5-RT": {
+   "2026": {
+    "heldout": [
+     19.0885,
+     6.8464,
+     6.5912,
+     6.3232,
+     6.1453,
+     6.0014,
+     5.8886,
+     5.7798,
+     5.666
+    ],
+    "chrf": 6.32,
+    "bleu": 0.35,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 12,
+     "removed": 0
+    },
+    "teacher": {
+     "swapped": 16378,
+     "kept_too_long": 26,
+     "mix": 0.5
+    },
+    "training_seconds": 341,
+    "flags": {
+     "teacher_mix": 0.5,
+     "parallel_layers": null,
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   },
+   "2027": {
+    "heldout": [
+     19.2169,
+     6.8704,
+     6.6459,
+     6.4667,
+     6.3005,
+     6.1546,
+     6.0288,
+     5.8999,
+     5.8348
+    ],
+    "chrf": 5.22,
+    "bleu": 0.13,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 12,
+     "removed": 0
+    },
+    "teacher": {
+     "swapped": 16255,
+     "kept_too_long": 20,
+     "mix": 0.5
+    },
+    "training_seconds": 338,
+    "flags": {
+     "teacher_mix": 0.5,
+     "parallel_layers": null,
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   }
+  }
+ },
+ "summary": {
+  "B": {
+   "mean_loss": 5.7166,
+   "d_loss": 0.0,
+   "mean_chrf": 5.8,
+   "d_chrf": 0.0,
+   "hops_removed": 0.0
+  },
+  "M5-T": {
+   "mean_loss": 5.8634,
+   "d_loss": 0.1468,
+   "mean_chrf": 6.04,
+   "d_chrf": 0.24,
+   "hops_removed": 0.0
+  },
+  "M5-RT": {
+   "mean_loss": 5.7504,
+   "d_loss": 0.0338,
+   "mean_chrf": 5.77,
+   "d_chrf": -0.04,
+   "hops_removed": 0.0
+  }
+ },
+ "teacher": {
+  "model": "Helsinki-NLP/opus-mt-en-ROMANCE",
+  "prefix": ">>pt_br<<",
+  "decoding": "greedy",
+  "targets": {
+   "teacher": "Helsinki-NLP/opus-mt-en-ROMANCE",
+   "prefix": ">>pt_br<< ",
+   "decoding": "greedy",
+   "pairs": 32768,
+   "version": "1m-seed2026",
+   "seconds": 1003.1880497932434,
+   "threads": 8
+  },
+  "heldout_dedup": {
+   "pairs": 1024,
+   "chrf": 57.263233538569004,
+   "bleu": 32.996706852334825,
+   "seconds": 49.21322822570801,
+   "threads": 8
+  }
+ }
+}

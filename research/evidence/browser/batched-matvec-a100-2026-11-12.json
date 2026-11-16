@@ -1,0 +1,407 @@
+{
+ "experiment": "DO-69",
+ "date": "2026-11-12",
+ "code": "073286b",
+ "model": "Qwen3.5-9B Q4_K_M, short prompt",
+ "arms": {
+  "A": "--matvec 2,4,8 --matvec-c 16,4 (current batch path: R-rows kernel)",
+  "B": "A + --matvec-b 8 (batched coalesced kernel)"
+ },
+ "screen": {
+  "machine": "workstation Radeon 680M",
+  "runs": "A1 B1 B2 A2",
+  "aggregate_tok_s": {
+   "A": {
+    "1": 10.31466373685156,
+    "2": 8.244035691162395,
+    "4": 15.576326350596645,
+    "8": 27.79226045707012
+   },
+   "B": {
+    "1": 10.298661177840462,
+    "2": 17.474909874375196,
+    "4": 24.867910964989598,
+    "8": 30.864238877771577
+   }
+  },
+  "checks": {
+   "A": {
+    "1": [
+     {
+      "run": "A1",
+      "rows_equal": 1,
+      "rows": 1,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     },
+     {
+      "run": "A2",
+      "rows_equal": 1,
+      "rows": 1,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     }
+    ],
+    "2": [
+     {
+      "run": "A1",
+      "rows_equal": 2,
+      "rows": 2,
+      "logits_max_abs": 6.651878356933594e-05,
+      "scale": 22.768238067626953
+     },
+     {
+      "run": "A2",
+      "rows_equal": 2,
+      "rows": 2,
+      "logits_max_abs": 6.651878356933594e-05,
+      "scale": 22.768238067626953
+     }
+    ],
+    "4": [
+     {
+      "run": "A1",
+      "rows_equal": 4,
+      "rows": 4,
+      "logits_max_abs": 6.651878356933594e-05,
+      "scale": 22.768238067626953
+     },
+     {
+      "run": "A2",
+      "rows_equal": 4,
+      "rows": 4,
+      "logits_max_abs": 6.651878356933594e-05,
+      "scale": 22.768238067626953
+     }
+    ],
+    "8": [
+     {
+      "run": "A1",
+      "rows_equal": 8,
+      "rows": 8,
+      "logits_max_abs": 6.651878356933594e-05,
+      "scale": 22.768238067626953
+     },
+     {
+      "run": "A2",
+      "rows_equal": 8,
+      "rows": 8,
+      "logits_max_abs": 6.651878356933594e-05,
+      "scale": 22.768238067626953
+     }
+    ]
+   },
+   "B": {
+    "1": [
+     {
+      "run": "B1",
+      "rows_equal": 1,
+      "rows": 1,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     },
+     {
+      "run": "B2",
+      "rows_equal": 1,
+      "rows": 1,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     }
+    ],
+    "2": [
+     {
+      "run": "B1",
+      "rows_equal": 2,
+      "rows": 2,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     },
+     {
+      "run": "B2",
+      "rows_equal": 2,
+      "rows": 2,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     }
+    ],
+    "4": [
+     {
+      "run": "B1",
+      "rows_equal": 4,
+      "rows": 4,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     },
+     {
+      "run": "B2",
+      "rows_equal": 4,
+      "rows": 4,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     }
+    ],
+    "8": [
+     {
+      "run": "B1",
+      "rows_equal": 8,
+      "rows": 8,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     },
+     {
+      "run": "B2",
+      "rows_equal": 8,
+      "rows": 8,
+      "logits_max_abs": 0,
+      "scale": 22.768238067626953
+     }
+    ]
+   }
+  }
+ },
+ "a100": {
+  "machine": "Vast.ai A100 SXM4 40 GB, driver 580.173.02, $0.589/h (second host; the first refused SSH)",
+  "runs": "A1 B1 B2 A2",
+  "aggregate_tok_s": {
+   "A": {
+    "1": 29.154766802515596,
+    "2": 22.5608111263971,
+    "4": 40.75404323448382,
+    "8": 72.87721466186292,
+    "16": 93.58005267298287,
+    "32": 108.92171946103555
+   },
+   "B": {
+    "1": 28.715743012776297,
+    "2": 49.096385542168676,
+    "4": 72.34787165294445,
+    "8": 85.53924929224858,
+    "16": 100.2607029777007,
+    "32": 107.04909998352852
+   }
+  },
+  "ms_per_step": {
+   "A": {
+    "1": 34.29970840698736,
+    "2": 88.6492949564174,
+    "4": 98.14977073527324,
+    "8": 109.77367942941495,
+    "16": 170.97660818713447,
+    "32": 293.78897210163234
+   },
+   "B": {
+    "1": 34.82410326471709,
+    "2": 40.736196319018404,
+    "4": 55.28842671679625,
+    "8": 93.52431855776113,
+    "16": 159.58395986470003,
+    "32": 298.92824885892355
+   }
+  },
+  "checks": {
+   "A": {
+    "1": [
+     {
+      "run": "A1",
+      "rows_equal": 1,
+      "rows": 1,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "A2",
+      "rows_equal": 1,
+      "rows": 1,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     }
+    ],
+    "2": [
+     {
+      "run": "A1",
+      "rows_equal": 2,
+      "rows": 2,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "A2",
+      "rows_equal": 2,
+      "rows": 2,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     }
+    ],
+    "4": [
+     {
+      "run": "A1",
+      "rows_equal": 4,
+      "rows": 4,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "A2",
+      "rows_equal": 4,
+      "rows": 4,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     }
+    ],
+    "8": [
+     {
+      "run": "A1",
+      "rows_equal": 8,
+      "rows": 8,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "A2",
+      "rows_equal": 8,
+      "rows": 8,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     }
+    ],
+    "16": [
+     {
+      "run": "A1",
+      "rows_equal": 16,
+      "rows": 16,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "A2",
+      "rows_equal": 16,
+      "rows": 16,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     }
+    ],
+    "32": [
+     {
+      "run": "A1",
+      "rows_equal": 32,
+      "rows": 32,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "A2",
+      "rows_equal": 32,
+      "rows": 32,
+      "logits_max_abs": 0.00019693374633789062,
+      "scale": 22.76819610595703
+     }
+    ]
+   },
+   "B": {
+    "1": [
+     {
+      "run": "B1",
+      "rows_equal": 1,
+      "rows": 1,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "B2",
+      "rows_equal": 1,
+      "rows": 1,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     }
+    ],
+    "2": [
+     {
+      "run": "B1",
+      "rows_equal": 2,
+      "rows": 2,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "B2",
+      "rows_equal": 2,
+      "rows": 2,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     }
+    ],
+    "4": [
+     {
+      "run": "B1",
+      "rows_equal": 4,
+      "rows": 4,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "B2",
+      "rows_equal": 4,
+      "rows": 4,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     }
+    ],
+    "8": [
+     {
+      "run": "B1",
+      "rows_equal": 8,
+      "rows": 8,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "B2",
+      "rows_equal": 8,
+      "rows": 8,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     }
+    ],
+    "16": [
+     {
+      "run": "B1",
+      "rows_equal": 16,
+      "rows": 16,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "B2",
+      "rows_equal": 16,
+      "rows": 16,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     }
+    ],
+    "32": [
+     {
+      "run": "B1",
+      "rows_equal": 32,
+      "rows": 32,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     },
+     {
+      "run": "B2",
+      "rows_equal": 32,
+      "rows": 32,
+      "logits_max_abs": 0,
+      "scale": 22.76819610595703
+     }
+    ]
+   }
+  }
+ },
+ "gate": {
+  "correctness_B": true,
+  "B_above_A_2_to_32": false,
+  "B32_over_B1": 3.7278889122214216,
+  "needed": 8
+ },
+ "cost_usd": 0.51
+}

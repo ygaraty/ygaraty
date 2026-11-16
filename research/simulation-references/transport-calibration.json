@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "sources": [
+    "../050-browser-workers-on-the-relay.md",
+    "../053-two-strong-workers-pairs-or-one-each.md",
+    "../054-prune-unread-tasks-tiny-transformer.md"
+  ],
+  "records": [
+    {
+      "id": "exp50-home",
+      "experiment": 50,
+      "role": "calibration",
+      "baseline": 133.5,
+      "measured": 157.5,
+      "extra_requests": 879,
+      "rtt_seconds": 0.05
+    },
+    {
+      "id": "exp53-job0",
+      "experiment": 53,
+      "role": "calibration",
+      "variant": "pairs",
+      "base_prediction": 7.23,
+      "measured": 8.88
+    },
+    {
+      "id": "exp53-job1",
+      "experiment": 53,
+      "role": "calibration",
+      "variant": "single",
+      "base_prediction": 7.16,
+      "measured": 8.62
+    },
+    {
+      "id": "exp53-job2",
+      "experiment": 53,
+      "role": "validation",
+      "variant": "single",
+      "base_prediction": 7.16,
+      "measured": 8.58
+    },
+    {
+      "id": "exp53-job3",
+      "experiment": 53,
+      "role": "validation",
+      "variant": "pairs",
+      "base_prediction": 7.23,
+      "measured": 8.79
+    },
+    {
+      "id": "exp54-home-r1",
+      "experiment": 54,
+      "role": "calibration",
+      "baseline": 3.99,
+      "measured": 3.84
+    },
+    {
+      "id": "exp54-home-r2",
+      "experiment": 54,
+      "role": "validation",
+      "baseline": 3.98,
+      "measured": 3.83
+    },
+    {
+      "id": "exp54-loopback-r2",
+      "experiment": 54,
+      "role": "validation",
+      "baseline": 0.36,
+      "measured": 0.36
+    }
+  ]
+}

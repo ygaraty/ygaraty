@@ -1,0 +1,438 @@
+{
+ "id": "WS-5",
+ "number": 69,
+ "date": "2026-11-02",
+ "verdict": "Failed gate",
+ "settings": {
+  "embedding": 512,
+  "hidden": 2048,
+  "heads": 8,
+  "layers": 3,
+  "version": "1m-seed2026",
+  "batch": 64,
+  "length_window": 64,
+  "batch_tokens": 3072,
+  "pairs": 32768,
+  "eval_every": 4096,
+  "eval_pairs": 1024,
+  "adam_lr": 0.0005,
+  "muon_momentum": 0.95,
+  "precision": "float32",
+  "threads": 8
+ },
+ "machine": "AMD Ryzen 9 PRO 6950H workstation, PyTorch 2.14.1 CPU",
+ "commit": "6cc6eb6 (only the experiment file and index dirty)",
+ "hashes": {
+  "dataset_sqlite": "fcf16e86facbdeabcf8ccee0f9734ab212a3876cc0d8454b4fa51cd161dca57c",
+  "muon_py": "961a7cdf096b8ceaec3ef0a4fb480bf165ac6c18d70d25e1e0d2d380db897321",
+  "batch_learning_py": "1ac803ca547c825b00efc450c0d5da6d1565abeddfff0b963afcd0376aa76462"
+ },
+ "gate": {
+  "best_arm": "0.017/2",
+  "mean_time": 0.995,
+  "limit_mean": 0.7,
+  "worst_seed": 1.1223,
+  "limit_seed": 0.8,
+  "mean_chrf": 8.877,
+  "adam_chrf": 5.807,
+  "passed": false
+ },
+ "update_time_ratios_from_experiment_68": {
+  "1": 1.16,
+  "2": 1.317,
+  "5": 1.779
+ },
+ "anchor": {
+  "heldout": 5.020389031984596,
+  "chrf": 14.336730035311659,
+  "curve_equal_to_experiment_67": true,
+  "chrf_equal": true
+ },
+ "update_size": {
+  "note": "Frobenius norm at 5 steps divided by norm at k steps, real momentum, Muon 0.01 at 5 steps, seed 2026, every 10th update, 30 matrices",
+  "samples": 1020,
+  "by_steps": {
+   "1": {
+    "median": 8.001,
+    "p10": 6.245,
+    "p90": 11.792,
+    "updates_0_50": 12.168,
+    "updates_50_170": 8.243,
+    "updates_170_340": 7.049
+   },
+   "2": {
+    "median": 3.419,
+    "p10": 2.516,
+    "p90": 5.503,
+    "updates_0_50": 5.766,
+    "updates_50_170": 3.837,
+    "updates_170_340": 2.929
+   },
+   "3": {
+    "median": 1.843,
+    "p10": 1.296,
+    "p90": 3.075,
+    "updates_0_50": 3.202,
+    "updates_50_170": 2.041,
+    "updates_170_340": 1.62
+   }
+  },
+  "matched_rates": {
+   "1": 0.08,
+   "2": 0.034
+  }
+ },
+ "adam": {
+  "mean_heldout": 5.7166,
+  "final_heldout": {
+   "2026": 5.6259,
+   "2027": 5.8073
+  },
+  "mean_chrf": 5.807
+ },
+ "arms": {
+  "0.04/1": {
+   "ns_steps": 1,
+   "rate": 0.04,
+   "source": "this run",
+   "heldout": {
+    "2026": [
+     19.0885,
+     6.9346,
+     6.6977,
+     6.4231,
+     6.2341,
+     6.106,
+     6.0039,
+     5.943,
+     5.8429
+    ],
+    "2027": [
+     19.2169,
+     6.9197,
+     6.6627,
+     6.4336,
+     6.2603,
+     6.1219,
+     6.0245,
+     5.9335,
+     5.8834
+    ]
+   },
+   "chrf": {
+    "2026": 5.254,
+    "2027": 5.744
+   },
+   "update_seconds": {
+    "2026": 229.5,
+    "2027": 228.8
+   },
+   "mean_heldout": 5.8631,
+   "delta_vs_A": 0.1465,
+   "mean_chrf": 5.499,
+   "pairs_to_A_final": [
+    null,
+    null
+   ],
+   "time_to_A_final": [
+    null,
+    null
+   ],
+   "mean_time": null
+  },
+  "0.08/1": {
+   "ns_steps": 1,
+   "rate": 0.08,
+   "source": "this run",
+   "heldout": {
+    "2026": [
+     19.0885,
+     6.8589,
+     6.6496,
+     6.4427,
+     6.3211,
+     6.2411,
+     6.1507,
+     6.1006,
+     6.0414
+    ],
+    "2027": [
+     19.2169,
+     6.8655,
+     6.6064,
+     6.4228,
+     6.291,
+     6.2042,
+     6.1259,
+     6.074,
+     6.0535
+    ]
+   },
+   "chrf": {
+    "2026": 4.246,
+    "2027": 5.655
+   },
+   "update_seconds": {
+    "2026": 228.5,
+    "2027": 229.4
+   },
+   "mean_heldout": 6.0475,
+   "delta_vs_A": 0.3308,
+   "mean_chrf": 4.95,
+   "pairs_to_A_final": [
+    null,
+    null
+   ],
+   "time_to_A_final": [
+    null,
+    null
+   ],
+   "mean_time": null
+  },
+  "0.017/2": {
+   "ns_steps": 2,
+   "rate": 0.017,
+   "source": "this run",
+   "heldout": {
+    "2026": [
+     19.0885,
+     6.9445,
+     6.6073,
+     6.295,
+     6.0569,
+     5.8842,
+     5.7276,
+     5.6033,
+     5.5008
+    ],
+    "2027": [
+     19.2169,
+     6.9037,
+     6.5501,
+     6.2738,
+     6.0344,
+     5.8504,
+     5.6914,
+     5.5838,
+     5.4956
+    ]
+   },
+   "chrf": {
+    "2026": 8.302,
+    "2027": 9.451
+   },
+   "update_seconds": {
+    "2026": 262.8,
+    "2027": 260.3
+   },
+   "mean_heldout": 5.4982,
+   "delta_vs_A": -0.2185,
+   "mean_chrf": 8.877,
+   "pairs_to_A_final": [
+    27926,
+    21589
+   ],
+   "time_to_A_final": [
+    1.1223,
+    0.8676
+   ],
+   "mean_time": 0.995
+  },
+  "0.034/2": {
+   "ns_steps": 2,
+   "rate": 0.034,
+   "source": "this run",
+   "heldout": {
+    "2026": [
+     19.0885,
+     6.8453,
+     6.5618,
+     6.2462,
+     6.0644,
+     5.9151,
+     5.8094,
+     5.7477,
+     5.6532
+    ],
+    "2027": [
+     19.2169,
+     6.8086,
+     6.4918,
+     6.2556,
+     6.0698,
+     5.9278,
+     5.8059,
+     5.7303,
+     5.6638
+    ]
+   },
+   "chrf": {
+    "2026": 6.051,
+    "2027": 6.903
+   },
+   "update_seconds": {
+    "2026": 260.4,
+    "2027": 260.5
+   },
+   "mean_heldout": 5.6585,
+   "delta_vs_A": -0.0582,
+   "mean_chrf": 6.477,
+   "pairs_to_A_final": [
+    null,
+    24529
+   ],
+   "time_to_A_final": [
+    null,
+    0.9858
+   ],
+   "mean_time": null
+  },
+  "0.01/1": {
+   "ns_steps": 1,
+   "rate": 0.01,
+   "source": "experiment 68",
+   "heldout": {
+    "2026": [
+     19.0885,
+     7.1493,
+     6.788,
+     6.5922,
+     6.3659,
+     6.2247,
+     6.0062,
+     5.8621,
+     5.6967
+    ],
+    "2027": [
+     19.2169,
+     7.1425,
+     6.7955,
+     6.6299,
+     6.3848,
+     6.1723,
+     6.0039,
+     5.8667,
+     5.73
+    ]
+   },
+   "chrf": {
+    "2026": 5.397,
+    "2027": 4.941
+   },
+   "update_seconds": {
+    "2026": 229.0,
+    "2027": 229.2
+   },
+   "mean_heldout": 5.7133,
+   "delta_vs_A": -0.0033,
+   "mean_chrf": 5.169,
+   "pairs_to_A_final": [
+    null,
+    30449
+   ],
+   "time_to_A_final": [
+    null,
+    1.0784
+   ],
+   "mean_time": null
+  },
+  "0.01/2": {
+   "ns_steps": 2,
+   "rate": 0.01,
+   "source": "experiment 68",
+   "heldout": {
+    "2026": [
+     19.0885,
+     6.9956,
+     6.6744,
+     6.3992,
+     6.1097,
+     5.9028,
+     5.7045,
+     5.5797,
+     5.4294
+    ],
+    "2027": [
+     19.2169,
+     6.9724,
+     6.6457,
+     6.4112,
+     6.1105,
+     5.894,
+     5.6983,
+     5.5537,
+     5.4284
+    ]
+   },
+   "chrf": {
+    "2026": 9.409,
+    "2027": 10.443
+   },
+   "update_seconds": {
+    "2026": 259.9,
+    "2027": 260.3
+   },
+   "mean_heldout": 5.4289,
+   "delta_vs_A": -0.2877,
+   "mean_chrf": 9.926,
+   "pairs_to_A_final": [
+    27156,
+    22294
+   ],
+   "time_to_A_final": [
+    1.0914,
+    0.8959
+   ],
+   "mean_time": 0.9937
+  },
+  "0.01/5": {
+   "ns_steps": 5,
+   "rate": 0.01,
+   "source": "experiment 67",
+   "heldout": {
+    "2026": [
+     19.0885,
+     6.7412,
+     6.2396,
+     5.8403,
+     5.608,
+     5.4027,
+     5.2456,
+     5.1398,
+     5.0204
+    ],
+    "2027": [
+     19.2169,
+     6.7379,
+     6.2169,
+     5.8748,
+     5.5897,
+     5.4017,
+     5.2516,
+     5.1234,
+     5.0447
+    ]
+   },
+   "chrf": {
+    "2026": 14.337,
+    "2027": 15.834
+   },
+   "update_seconds": {
+    "2026": 351.3,
+    "2027": 351.7
+   },
+   "mean_heldout": 5.0325,
+   "delta_vs_A": -0.6841,
+   "mean_chrf": 15.085,
+   "pairs_to_A_final": [
+    16068,
+    13257
+   ],
+   "time_to_A_final": [
+    0.8725,
+    0.7198
+   ],
+   "mean_time": 0.7962
+  }
+ }
+}

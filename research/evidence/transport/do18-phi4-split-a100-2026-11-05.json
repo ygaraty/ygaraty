@@ -1,0 +1,261 @@
+{
+ "id": "DO-18",
+ "date": "2026-11-05",
+ "model": "microsoft/phi-4@2db69c1c (bf16, float32 head)",
+ "machine": {
+  "provider": "vast",
+  "gpu": "A100 PCIe 80 GB",
+  "location": "Oklahoma, US",
+  "usd_per_h": 0.933,
+  "torch": "2.15.0+cu132",
+  "minutes_up": 28
+ },
+ "code": "f7b3303 on the machine",
+ "arms": {
+  "1": "one owner, step by step",
+  "2": "two owners (20/20) on the same GPU, step by step",
+  "3": "two owners, persistent sessions"
+ },
+ "settings": {
+  "chunk": 1024,
+  "wire": "float32",
+  "relay": true,
+  "handoff": true
+ },
+ "setup": {
+  "minutes": 9,
+  "download_gb": 29.3,
+  "download_seconds": 368
+ },
+ "correctness": {
+  "identical_across_arms": true,
+  "equal_to_reference": true,
+  "per_prompt": [
+   {
+    "first_divergence": null,
+    "first_margin_below_half": 12,
+    "passes": true
+   },
+   {
+    "first_divergence": null,
+    "first_margin_below_half": 8,
+    "passes": true
+   },
+   {
+    "first_divergence": null,
+    "first_margin_below_half": 0,
+    "passes": true
+   }
+  ],
+  "reference": "public/research/evidence/correctness/ws10-phi4-real-layers-2026-11-04.json (experiment 80, float32)"
+ },
+ "timing": [
+  {
+   "job": "timing-1024-12",
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 48.89845108985901,
+   "first_token_s": [
+    0.19054746627807617,
+    0.19089055061340332,
+    0.19147300720214844,
+    0.18990540504455566,
+    0.1912224292755127
+   ],
+   "itl_median_ms": 46.578407287597656,
+   "itl_p95_ms": 48.020124435424805,
+   "gpu_peak_mib": {
+    "gpu-w0": 28371
+   },
+   "prompt_length": 1024,
+   "arm": "1"
+  },
+  {
+   "job": "timing-1024-21",
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 32.05229115486145,
+   "first_token_s": [
+    0.4705390930175781,
+    0.41211795806884766,
+    0.3947157859802246,
+    0.36400747299194336,
+    0.4581766128540039
+   ],
+   "itl_median_ms": 48.830270767211914,
+   "itl_p95_ms": 50.63343048095703,
+   "gpu_peak_mib": {
+    "gpu-w0": 29264,
+    "gpu-w1": 29264
+   },
+   "prompt_length": 1024,
+   "arm": "2"
+  },
+  {
+   "job": "timing-1024-30",
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 35.523582220077515,
+   "first_token_s": [
+    0.3318006992340088,
+    0.3178138732910156,
+    0.31052517890930176,
+    0.31591153144836426,
+    0.31641125679016113
+   ],
+   "itl_median_ms": 45.156240463256836,
+   "itl_p95_ms": 47.14798927307129,
+   "gpu_peak_mib": {
+    "gpu-w0": 29264,
+    "gpu-w1": 29264
+   },
+   "prompt_length": 1024,
+   "arm": "3"
+  },
+  {
+   "job": "timing-128-10",
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 50.18793606758118,
+   "first_token_s": [
+    0.0544278621673584,
+    0.05457139015197754,
+    0.0546109676361084,
+    0.05510902404785156,
+    0.05459094047546387
+   ],
+   "itl_median_ms": 46.93722724914551,
+   "itl_p95_ms": 48.30169677734375,
+   "gpu_peak_mib": {
+    "gpu-w0": 28075
+   },
+   "prompt_length": 128,
+   "arm": "1"
+  },
+  {
+   "job": "timing-128-21",
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 31.724583387374878,
+   "first_token_s": [
+    0.10789299011230469,
+    0.08118033409118652,
+    0.08021378517150879,
+    0.09127974510192871,
+    0.08330965042114258
+   ],
+   "itl_median_ms": 48.03204536437988,
+   "itl_p95_ms": 51.05853080749512,
+   "gpu_peak_mib": {
+    "gpu-w0": 28628,
+    "gpu-w1": 28628
+   },
+   "prompt_length": 128,
+   "arm": "2"
+  },
+  {
+   "job": "timing-128-32",
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 33.21918201446533,
+   "first_token_s": [
+    0.0734548568725586,
+    0.07025861740112305,
+    0.07284998893737793,
+    0.07713794708251953,
+    0.07137179374694824
+   ],
+   "itl_median_ms": 44.78263854980469,
+   "itl_p95_ms": 45.78518867492676,
+   "gpu_peak_mib": {
+    "gpu-w0": 28628,
+    "gpu-w1": 28628
+   },
+   "prompt_length": 128,
+   "arm": "3"
+  },
+  {
+   "job": "timing-3968-11",
+   "steps": 792,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 49.4190616607666,
+   "first_token_s": [
+    0.9448025226593018,
+    0.9432163238525391,
+    0.9448564052581787,
+    0.9456343650817871,
+    0.9480612277984619
+   ],
+   "itl_median_ms": 53.22146415710449,
+   "itl_p95_ms": 54.3520450592041,
+   "gpu_peak_mib": {
+    "gpu-w0": 29875
+   },
+   "prompt_length": 3968,
+   "arm": "1"
+  },
+  {
+   "job": "timing-3968-20",
+   "steps": 792,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 33.65902018547058,
+   "first_token_s": [
+    1.7345647811889648,
+    1.7173054218292236,
+    1.676910400390625,
+    1.660266399383545,
+    1.5810503959655762
+   ],
+   "itl_median_ms": 55.999040603637695,
+   "itl_p95_ms": 57.38329887390137,
+   "gpu_peak_mib": {
+    "gpu-w0": 31952,
+    "gpu-w1": 31952
+   },
+   "prompt_length": 3968,
+   "arm": "2"
+  },
+  {
+   "job": "timing-3968-32",
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 33.620930433273315,
+   "first_token_s": [
+    1.089285135269165,
+    1.0645020008087158,
+    1.052246332168579,
+    1.0424840450286865,
+    1.0267853736877441
+   ],
+   "itl_median_ms": 51.621198654174805,
+   "itl_p95_ms": 52.977561950683594,
+   "gpu_peak_mib": {
+    "gpu-w0": 31952,
+    "gpu-w1": 31952
+   },
+   "prompt_length": 3968,
+   "arm": "3"
+  }
+ ],
+ "identical_tokens_per_length": {
+  "1024": true,
+  "128": true,
+  "3968": true
+ },
+ "cost": {
+  "machine_usd": 0.44,
+  "download_estimate_usd": 0.19,
+  "total_estimate_usd": 0.63,
+  "budget_usd": 1.0
+ },
+ "deviation": "Vast.ai A100 80 GB instead of Vultr's (refused at the account's monthly fee limit); decided before any machine"
+}

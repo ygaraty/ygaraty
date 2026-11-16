@@ -1,0 +1,545 @@
+{
+ "experiment": 64,
+ "id": "WS-1",
+ "date": "2026-11-01",
+ "machine": "workstation (Ryzen 9 PRO 6950H), loopback with latency-proxy",
+ "code_commit": "6cd154c",
+ "watchdog": "watch.py: stall 300 s, busy stall 1200 s, max runtime 2400 s; state finished",
+ "settings": {
+  "recipe": "tiny 1m-seed2026-v2k, embedding 128, hidden 384, 2 layers, 4 heads, band 16",
+  "workers": 8,
+  "rtt_ms": 50,
+  "down_mbps": 100,
+  "up_mbps": 20,
+  "strong": 2,
+  "strong_up_mbps": 100,
+  "strong_cores": 8,
+  "strong_gflops": 40,
+  "worker_gflops": 10,
+  "handoff": false,
+  "placement": "capacity",
+  "steps": 12,
+  "steady": "median of updates 2-10"
+ },
+ "arms": {
+  "P2": {
+   "pairs": "always",
+   "strong_uploaders": 2,
+   "strong_posters": 1
+  },
+  "P4q": {
+   "pairs": "always",
+   "strong_uploaders": 4,
+   "strong_posters": 4
+  },
+  "N2": {
+   "pairs": "never",
+   "strong_uploaders": 2,
+   "strong_posters": 1
+  }
+ },
+ "rehearsal": {
+  "arm": "P4q",
+  "updates": 3,
+  "losses": [
+   9.5837,
+   9.7809,
+   7.7651
+  ]
+ },
+ "runs": [
+  {
+   "name": "r1-P2",
+   "arm": "P2",
+   "repeat": 1,
+   "seconds_per_update": {
+    "2": 4.0577,
+    "3": 3.8038,
+    "4": 3.874,
+    "5": 4.0371,
+    "6": 3.9178,
+    "7": 3.9103,
+    "8": 3.9031,
+    "9": 4.0372,
+    "10": 3.8342,
+    "11": 2.1607,
+    "12": 6.9568
+   },
+   "steady_s": 3.9103,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r1-P4q",
+   "arm": "P4q",
+   "repeat": 1,
+   "seconds_per_update": {
+    "2": 3.8913,
+    "3": 3.6565,
+    "4": 3.8253,
+    "5": 4.0258,
+    "6": 3.7312,
+    "7": 3.7549,
+    "8": 3.917,
+    "9": 3.7193,
+    "10": 3.6194,
+    "11": 1.9184,
+    "12": 5.2094
+   },
+   "steady_s": 3.7549,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r1-N2",
+   "arm": "N2",
+   "repeat": 1,
+   "seconds_per_update": {
+    "2": 3.5906,
+    "3": 3.7265,
+    "4": 3.7591,
+    "5": 3.5698,
+    "6": 3.5268,
+    "7": 3.8767,
+    "8": 3.6776,
+    "9": 3.5616,
+    "10": 3.7739,
+    "11": 1.9984,
+    "12": 6.1056
+   },
+   "steady_s": 3.6776,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r2-P4q",
+   "arm": "P4q",
+   "repeat": 2,
+   "seconds_per_update": {
+    "2": 3.9925,
+    "3": 3.7027,
+    "4": 3.9143,
+    "5": 3.7432,
+    "6": 3.9694,
+    "7": 3.8773,
+    "8": 3.6763,
+    "9": 3.9315,
+    "10": 3.8677,
+    "11": 1.9853,
+    "12": 5.413
+   },
+   "steady_s": 3.8773,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r2-N2",
+   "arm": "N2",
+   "repeat": 2,
+   "seconds_per_update": {
+    "2": 3.7123,
+    "3": 3.4949,
+    "4": 3.6238,
+    "5": 3.7673,
+    "6": 3.5374,
+    "7": 3.5643,
+    "8": 3.8153,
+    "9": 3.7192,
+    "10": 3.3905,
+    "11": 1.9975,
+    "12": 5.8642
+   },
+   "steady_s": 3.6238,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r2-P2",
+   "arm": "P2",
+   "repeat": 2,
+   "seconds_per_update": {
+    "2": 3.8089,
+    "3": 3.8655,
+    "4": 3.9849,
+    "5": 3.8344,
+    "6": 3.8519,
+    "7": 4.0344,
+    "8": 3.9635,
+    "9": 3.9783,
+    "10": 3.7495,
+    "11": 1.939,
+    "12": 6.8073
+   },
+   "steady_s": 3.8655,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r3-N2",
+   "arm": "N2",
+   "repeat": 3,
+   "seconds_per_update": {
+    "2": 3.8746,
+    "3": 3.5843,
+    "4": 3.5428,
+    "5": 3.5321,
+    "6": 3.5045,
+    "7": 3.5131,
+    "8": 3.7508,
+    "9": 3.5536,
+    "10": 3.7076,
+    "11": 2.0403,
+    "12": 5.6372
+   },
+   "steady_s": 3.5536,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r3-P2",
+   "arm": "P2",
+   "repeat": 3,
+   "seconds_per_update": {
+    "2": 4.0682,
+    "3": 3.7076,
+    "4": 3.8382,
+    "5": 4.0295,
+    "6": 4.0438,
+    "7": 3.7758,
+    "8": 4.0861,
+    "9": 4.0688,
+    "10": 3.7742,
+    "11": 2.0988,
+    "12": 7.073
+   },
+   "steady_s": 4.0295,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r3-P4q",
+   "arm": "P4q",
+   "repeat": 3,
+   "seconds_per_update": {
+    "2": 4.0488,
+    "3": 3.771,
+    "4": 3.7317,
+    "5": 4.0327,
+    "6": 3.9435,
+    "7": 3.8528,
+    "8": 3.8603,
+    "9": 3.96,
+    "10": 3.6278,
+    "11": 1.9993,
+    "12": 5.3741
+   },
+   "steady_s": 3.8603,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  }
+ ],
+ "captures": {
+  "P2": {
+   "placement": {
+    "w0": [
+     "decoder.layers.0",
+     "decoder.layers.1"
+    ],
+    "w1": [
+     "encoder.layers.0",
+     "encoder.layers.1"
+    ],
+    "w7": [
+     "vocab.0"
+    ],
+    "w5": [
+     "vocab.2"
+    ],
+    "w2": [
+     "vocab.1"
+    ],
+    "w6": [
+     "vocab.3"
+    ]
+   },
+   "chain_ms": 3956.4,
+   "chain_hops": 90,
+   "median_ms": {
+    "upload": 70.14,
+    "after_upload": 159.71,
+    "post": 58.22,
+    "post_wait": 0.2,
+    "claim": 64.52,
+    "to_kernel": 1.12
+   },
+   "sum_per_update_ms": {
+    "upload": 1198.3,
+    "after_upload": 2553.8,
+    "post": 1154.5,
+    "post_wait": 243.4,
+    "claim": 1288.8,
+    "to_kernel": 110.6
+   },
+   "pair_holders": [
+    "w0",
+    "w1"
+   ],
+   "pair_holder_chain_post_wait_ms": 0.29,
+   "claim_sent_after_post": 0.256,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311
+   ]
+  },
+  "P4q": {
+   "placement": {
+    "w1": [
+     "decoder.layers.0",
+     "decoder.layers.1"
+    ],
+    "w0": [
+     "encoder.layers.0",
+     "encoder.layers.1"
+    ],
+    "w4": [
+     "vocab.0"
+    ],
+    "w2": [
+     "vocab.1"
+    ],
+    "w7": [
+     "vocab.3"
+    ],
+    "w6": [
+     "vocab.2"
+    ]
+   },
+   "chain_ms": 3835.4,
+   "chain_hops": 90,
+   "median_ms": {
+    "upload": 74.32,
+    "after_upload": 147.99,
+    "post": 59.6,
+    "post_wait": 0.04,
+    "claim": 69.85,
+    "to_kernel": 1.15
+   },
+   "sum_per_update_ms": {
+    "upload": 1224.5,
+    "after_upload": 2482.9,
+    "post": 1043.6,
+    "post_wait": 42.7,
+    "claim": 1339.0,
+    "to_kernel": 100.3
+   },
+   "pair_holders": [
+    "w1",
+    "w0"
+   ],
+   "pair_holder_chain_post_wait_ms": 0.03,
+   "claim_sent_after_post": 0.267,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311
+   ]
+  },
+  "N2": {
+   "placement": {
+    "w1": [
+     "decoder.layers.0"
+    ],
+    "w0": [
+     "decoder.layers.1"
+    ],
+    "w4": [
+     "encoder.layers.1"
+    ],
+    "w6": [
+     "vocab.1"
+    ],
+    "w2": [
+     "vocab.0"
+    ],
+    "w5": [
+     "encoder.layers.0"
+    ],
+    "w7": [
+     "vocab.2"
+    ],
+    "w3": [
+     "vocab.3"
+    ]
+   },
+   "chain_ms": 3632.8,
+   "chain_hops": 90,
+   "median_ms": {
+    "upload": 89.73,
+    "after_upload": 126.91,
+    "post": 56.71,
+    "post_wait": 0.04,
+    "claim": 62.34,
+    "to_kernel": 0.88
+   },
+   "sum_per_update_ms": {
+    "upload": 1282.8,
+    "after_upload": 2108.6,
+    "post": 955.0,
+    "post_wait": 81.2,
+    "claim": 1062.7,
+    "to_kernel": 90.9
+   },
+   "pair_holders": [],
+   "pair_holder_chain_post_wait_ms": null,
+   "claim_sent_after_post": 0.089,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311
+   ]
+  }
+ },
+ "summary": {
+  "median_steady_s": {
+   "P2": 3.9103,
+   "P4q": 3.8603,
+   "N2": 3.6238
+  },
+  "pairs_penalty": 0.0791,
+  "p4q_recovered": 0.175,
+  "post_wait_ratio": 0.175,
+  "losses_equal_to_experiment_62": true,
+  "retries": 0,
+  "rejected": 0,
+  "gates": {
+   "correctness": true,
+   "penalty_reproduces": true,
+   "post_queue_goes": true,
+   "removes_its_share": false
+  }
+ }
+}

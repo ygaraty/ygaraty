@@ -1,0 +1,998 @@
+# Public subset; historical numbers are intentionally not renumbered.
+[[experiment]]
+number = 1
+file = "001-zeromq-cache-grouping-tiny-mlp.md"
+title = "Caching and task grouping on the tiny MLP"
+run = ["ygaraty", "experiment", "compare", "--workers", "3", "--steps", "10", "--output", "{out}/comparison"]
+
+[[experiment]]
+number = 2
+file = "002-large-mlp-tile-sweep.md"
+title = "Larger-network tile, cache and grouping sweep"
+run = ["ygaraty", "experiment", "benchmark_large", "--repeats", "3", "--output", "{out}/large-sweep"]
+requires = "Several GB of disk: every value of every step is saved."
+
+[[experiment]]
+number = 3
+file = "003-redis-memory-bounded-training.md"
+title = "Redis-backed, memory-bounded training path"
+run = ["ygaraty", "experiment", "redis_demo", "--workers", "3", "--steps", "2", "--output", "{out}/redis-demo"]
+requires = "A disposable local Redis; see the file for the docker command."
+
+[[experiment]]
+number = 4
+file = "004-streaming-capacity-mlp-128mib.md"
+title = "Streaming MLP under 128 MiB containers"
+run = ["ygaraty", "experiment", "stream_demo", "--steps", "2", "--workers", "3", "--memory-mib", "128", "--output", "{out}/stream-capacity"]
+requires = "Docker."
+
+[[experiment]]
+number = 5
+file = "005-lstm-short-window-capacity.md"
+title = "LSTM with short windows under 128 MiB"
+run = ["ygaraty", "experiment", "stream_demo", "--model", "lstm", "--steps", "2", "--workers", "3", "--memory-mib", "128", "--output", "{out}/lstm-capacity"]
+requires = "Docker."
+
+[[experiment]]
+number = 6
+file = "006-byte-language-model-adam.md"
+title = "Byte language model with Adam under 128 MiB"
+run = ["ygaraty", "experiment", "stream_demo", "--model", "language", "--steps", "3", "--workers", "3", "--memory-mib", "128", "--corpus", "../tinyad/data/shakespeare/input.txt", "--output", "{out}/language-adam"]
+requires = "Docker, and the Shakespeare corpus in the sibling tinyad checkout."
+
+[[experiment]]
+number = 7
+file = "007-storage-backend-comparison.md"
+title = "Redis versus PostgreSQL tensor storage"
+run = ["ygaraty", "experiment", "benchmark_stores", "--repeats", "2", "--steps", "3", "--workers", "3", "--corpus", "../tinyad/data/shakespeare/input.txt", "--output", "{out}/store-comparison"]
+requires = "Docker, and the Shakespeare corpus in the sibling tinyad checkout."
+
+[[experiment]]
+number = 8
+file = "008-postgres-out-of-cache-capacity.md"
+title = "PostgreSQL larger than its memory cap"
+run = ["ygaraty", "experiment", "stream_demo", "--output", "{out}/postgres-capacity", "--model", "language", "--corpus", "../tinyad/data/shakespeare/input.txt", "--storage-profile", "postgres-durable", "--database-memory-mib", "256", "--shared-buffers-mib", "32", "--memory-mib", "128", "--hidden-dim", "3072", "--tile-size", "512", "--workers", "3", "--steps", "3", "--require-out-of-cache"]
+requires = "Docker, the tinyad Shakespeare corpus, and about 20 GB of free disk; long and I/O-heavy."
+
+[[experiment]]
+number = 9
+file = "009-storage-traffic-reduction.md"
+title = "Reducing storage traffic"
+requires = "Manual: compares two source versions; see the file."
+
+[[experiment]]
+number = 10
+file = "010-sql-browser-lstm-eight-updates.md"
+title = "SQL-fed attention LSTM in two browser tabs"
+requires = "Manual: real browser tabs on the dashboard; see the file."
+
+[[experiment]]
+number = 11
+file = "011-http-browser-path-validation.md"
+title = "First HTTP and real-browser contributor runs"
+run = ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_http.py", "-v"]
+requires = "Node.js. The real-browser part is manual; see the file."
+
+[[experiment]]
+number = 12
+file = "012-transformer-one-minibatch-parity.md"
+title = "Transformer one-minibatch parity (ZeroMQ)"
+run = ["ygaraty", "experiment", "translation_demo", "--output", "{out}/translation-check", "--workers", "3", "--tile", "512"]
+requires = "pip install -e '.[translation]', and the checkpoint and tokenizer in the sibling tinyad checkout."
+
+[[experiment]]
+number = 13
+file = "013-transformer-browser-job.md"
+title = "Transformer minibatch computed by two browser tabs"
+requires = "Manual: real browser tabs; see the file."
+
+[[experiment]]
+number = 14
+file = "014-webgpu-vs-float64-precision.md"
+title = "WebGPU versus float64 precision"
+requires = "Manual: real browser tabs with WebGPU; see the file."
+
+[[experiment]]
+number = 15
+file = "015-webgpu-compensated-precision-fix.md"
+title = "Compensated WebGPU precision fix"
+requires = "Manual: real browser tabs with WebGPU; see the file."
+
+[[experiment]]
+number = 16
+file = "016-repeated-browser-precision-benchmark.md"
+title = "Repeated browser precision benchmark"
+requires = "Manual: two real browser tabs follow `ygaraty experiment benchmark_http`; see the file."
+
+[[experiment]]
+number = 17
+file = "017-attention-lstm-translation-parity.md"
+title = "Full attention-LSTM translation parity"
+run = ["ygaraty", "experiment", "translation_demo", "--architecture", "lstm", "--checkpoint", "runs/lstm-translation-pilot-input/model.pt", "--tokenizer", "../tinyad/benchmarks/translation/colab-pilot/tokenizer.model", "--pairs", "assets/data/en_ptbr_minibatch.json", "--workers", "2", "--lr", ".001", "--output", "{out}/lstm-translation"]
+requires = "pip install -e '.[translation]', the pilot checkpoint in runs/ and its tokenizer in the sibling tinyad checkout."
+
+[[experiment]]
+number = 18
+file = "018-tiny-lstm-100-updates-recovery.md"
+title = "Tiny LSTM: 100 updates with failures"
+run = ["ygaraty", "experiment", "tiny_lstm_training", "--output", "{out}/tiny-lstm"]
+requires = "pip install -e '.[translation]'."
+
+[[experiment]]
+number = 19
+file = "019-package-reorganization-check.md"
+title = "Regression check after the package reorganization"
+run = ["python", "-m", "unittest", "discover", "-s", "tests"]
+requires = "Rerun experiment 18 as well for the full check."
+
+[[experiment]]
+number = 20
+file = "020-parity-baseline-webgpu.md"
+title = "PyTorch parity across executors"
+run = ["ygaraty", "parity", "run", "--case", "all", "--executor", "local", "zmq", "--mode", "free", "anchored", "--output", "{out}/parity"]
+requires = "pip install -e '.[translation]'. The Transformer cases need the sibling tinyad checkout for their reference model. The browser executors need Node.js and Chrome: add --executor http webgpu webgpu-compensated."
+
+[[experiment]]
+number = 21
+file = "021-tile-size-sweep.md"
+title = "Tile size: kernel versus whole update"
+run = ["ygaraty", "experiment", "tile_sweep", "--hidden", "32768", "--repeats", "3", "--workers", "4", "--figure", "{out}/figure"]
+requires = "pip install -e '.[plot]', about 6 GB of free memory, and a quiet machine; about 20 minutes on an Apple M1."
+
+[[experiment]]
+number = 22
+file = "022-translation-quality-reference.md"
+title = "How much training does a useful translator need?"
+run = ["ygaraty", "experiment", "translation_quality", "--output", "{out}"]
+requires = "pip install -e '.[translation,plot]'. About 2 hours 10 minutes on an Apple M1 CPU; uses CUDA when present. Downloads OPUS-100 (~90 MB) on first run."
+
+[[experiment]]
+number = 23
+file = "023-coordinator-overhead.md"
+title = "Where does the coordinator's time go?"
+run = ["ygaraty", "experiment", "coordinator_profile", "--hidden", "32768", "--tiles", "256", "512", "--repeats", "3", "--cprofile", "--output", "{out}"]
+requires = "pip install -e '.[plot]', about 6 GB of free memory, and a quiet machine (not while experiment 22 runs); about 15 minutes on an Apple M1."
+
+[[experiment]]
+number = 24
+file = "024-distributed-translation-real-data.md"
+title = "The experiment-22 recipe, trained by Ygaraty"
+run = ["ygaraty", "experiment", "distributed_translation", "--mode", "production", "--steps", "200", "--checkpoint-every", "20", "--output", "{out}"]
+requires = "pip install -e '.[translation]'; PostgreSQL (YGARATY_STORE_URL) and the OPUS-100 dataset imported with experiment 22's tokenizer (YGARATY_DATASET_URL): `ygaraty fetch-data --train-size 1000000` then `ygaraty dataset import --dataset opus100-en-pt --version 1m-seed2026 --input <train,validation,test jsonl> --tokenizer <spm .model>`. About 13 s per update with 4 NumPy workers on a Ryzen 9 PRO 6950H: 200 updates take about 45 minutes. An interrupted run continues from its last checkpoint with `ygaraty experiment 24 --resume <run>/http-lstm-*/checkpoint-NNNNNN.zip`."
+
+[[experiment]]
+number = 25
+file = "025-long-run-churn-restart.md"
+title = "Surviving a long run: churn and a coordinator restart"
+requires = "Planned: needs HTTP restart recovery first."
+
+[[experiment]]
+number = 26
+file = "026-http-path-profile.md"
+title = "Where does the HTTP path's time go?"
+run = ["ygaraty", "experiment", "http_profile", "--hidden", "4096", "--tiles", "128", "256", "512", "--repeats", "3", "--steps", "4", "--workers-kind", "node", "python", "--output", "{out}"]
+requires = "Node.js 18 or later; about 3 minutes on a Ryzen 9 PRO 6950H."
+
+[[experiment]]
+number = 27
+file = "027-chain-steps-per-task.md"
+title = "Several LSTM steps per task: does cutting the chain's hops shorten an update?"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "lstm", "--workers-kind", "python", "--tiles", "512", "--max-tasks", "8", "--steps", "3", "--repeats", "1", "--learning-rate", "0.001", "--chain-steps", "1", "2", "4", "--output", "{out}"]
+requires = "Experiment 24's setup: PostgreSQL (YGARATY_STORE_URL) and the OPUS-100 dataset with its tokenizer (YGARATY_DATASET_URL). About 6 minutes on a Ryzen 9 PRO 6950H."
+
+[[experiment]]
+number = 28
+file = "028-block-relay.md"
+title = "A block relay: taking the coordinator out of the data path"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "lstm", "--workers-kind", "python", "--workers", "8", "--tiles", "512", "--max-tasks", "8", "--steps", "3", "--repeats", "1", "--learning-rate", "0.001", "--chain-steps", "1", "4", "--output", "{out}"]
+requires = "Experiment 24's setup, plus a running relay (relay/README.md) named by YGARATY_RELAY_URL and YGARATY_RELAY_TOKEN; run once more without them for the baseline. About 9 minutes on a Ryzen 9 PRO 6950H."
+
+[[experiment]]
+number = 29
+file = "029-round-trips.md"
+title = "Round trips on the critical path: network latency, and three changes that remove them"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "lstm", "--workers-kind", "python", "--tiles", "512", "--max-tasks", "8", "--steps", "3", "--repeats", "1", "--learning-rate", "0.001", "--chain-steps", "1", "4", "--output-task-mib", "256", "--output", "{out}"]
+requires = "Experiment 24's setup; relay-server and latency-proxy built from relay/ for the relay and --rtt-ms runs. About 5 minutes on loopback on a Ryzen 9 PRO 6950H; the latency matrix takes about 45 minutes."
+
+[[experiment]]
+number = 30
+file = "030-transformer-fused-layers.md"
+title = "A Transformer with fused layer tasks: the model built for the round-trip rule"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "transformer", "--embedding", "512", "--hidden", "2048", "--layers", "3", "--heads", "8", "--band", "8", "--workers", "8", "--workers-kind", "python", "--tiles", "512", "--max-tasks", "16", "--max-task-mib", "512", "--layer-task-mib", "512", "--output-task-mib", "1024", "--steps", "3", "--repeats", "1", "--learning-rate", "0.0005", "--output", "{out}"]
+requires = "Experiment 24's setup and a running relay (YGARATY_RELAY_URL, YGARATY_RELAY_TOKEN; fused layer results exceed the request cap). About 3 minutes per profile on a Ryzen 9 PRO 6950H; the 50-update training run about 10 minutes."
+
+[[experiment]]
+number = 31
+file = "031-owned-layers-home-links.md"
+title = "Owned layers on emulated home links: what a volunteer's connection does to an update"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "transformer", "--embedding", "512", "--hidden", "2048", "--layers", "3", "--heads", "8", "--band", "8", "--workers", "8", "--workers-kind", "python", "--tiles", "512", "--max-tasks", "16", "--max-task-mib", "512", "--layer-task-mib", "512", "--output-task-mib", "1024", "--steps", "3", "--repeats", "1", "--learning-rate", "0.0005", "--rtt-ms", "50", "--down-mbps", "100", "--up-mbps", "20", "--float32-wire", "--owned-layers", "--output", "{out}"]
+requires = "Experiment 30's setup plus latency-proxy built from relay/. About 10 minutes on a Ryzen 9 PRO 6950H; today's design (without --owned-layers) about 15."
+
+[[experiment]]
+number = 32
+file = "032-owned-vocabulary.md"
+title = "The output layer split by vocabulary: owners for the tied embedding"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "transformer", "--embedding", "512", "--hidden", "2048", "--layers", "3", "--heads", "8", "--band", "8", "--workers", "8", "--workers-kind", "python", "--tiles", "512", "--max-tasks", "16", "--max-task-mib", "512", "--layer-task-mib", "512", "--output-task-mib", "1024", "--steps", "3", "--repeats", "1", "--learning-rate", "0.0005", "--rtt-ms", "50", "--down-mbps", "100", "--up-mbps", "20", "--float32-wire", "--owned-layers", "--owned-vocab", "8", "--output", "{out}"]
+requires = "Experiment 31's setup. About 6 minutes on a Ryzen 9 PRO 6950H."
+
+[[experiment]]
+number = 33
+file = "033-update-simulator.md"
+title = "A simulator of the update: the real plan and scheduler on modeled links"
+run = ["ygaraty", "experiment", "simulate", "validate", "--seeds", "5"]
+requires = "YGARATY_DATASET_URL pointing at experiment 22's dataset (the plan needs a batch); no servers. About a minute."
+
+[[experiment]]
+number = 34
+file = "034-bf16-activations-fused-embedding.md"
+title = "bf16 activations on the wire, the embedding fused and the final norms folded: the simulator's first two predictions, built"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "transformer", "--embedding", "512", "--hidden", "2048", "--layers", "3", "--heads", "8", "--band", "8", "--workers", "8", "--workers-kind", "python", "--tiles", "512", "--max-tasks", "16", "--max-task-mib", "512", "--layer-task-mib", "512", "--output-task-mib", "1024", "--steps", "3", "--repeats", "1", "--learning-rate", "0.0005", "--rtt-ms", "50", "--down-mbps", "100", "--up-mbps", "20", "--float32-wire", "--activation-wire", "bf16", "--owned-layers", "--owned-vocab", "8", "--output", "{out}"]
+requires = "Experiment 31's setup. About 4 minutes on a Ryzen 9 PRO 6950H; the two 50-update loss curves on loopback about 10 minutes each."
+
+[[experiment]]
+number = 35
+file = "035-batch-128-equal-pairs.md"
+title = "Batch 128 against 64 at equal pairs: twice the pairs per update, little more progress per update"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "transformer", "--embedding", "512", "--hidden", "2048", "--layers", "3", "--heads", "8", "--band", "8", "--workers", "8", "--workers-kind", "python", "--tiles", "512", "--max-tasks", "16", "--max-task-mib", "512", "--layer-task-mib", "512", "--output-task-mib", "1024", "--batch", "128", "--steps", "50", "--repeats", "1", "--learning-rate", "0.0005", "--checkpoint-every", "1000", "--float32-wire", "--activation-wire", "bf16", "--owned-layers", "--owned-vocab", "8", "--pushed-inputs", "--output", "{out}"]
+requires = "A relay (relay-server on YGARATY_RELAY_URL), PostgreSQL (YGARATY_STORE_URL) and the OPUS-100 dataset; the batch-64 baseline is the same with --batch 64 --steps 100. About 18 and 21 minutes on a Ryzen 9 PRO 6950H."
+
+[[experiment]]
+number = 36
+file = "036-eager-claims-embedding-tail.md"
+title = "Eager claims and the embedding gradient at its owners: 17.6 s per update with 16 workers"
+run = ["ygaraty", "experiment", "http_profile", "--recipe", "transformer", "--embedding", "512", "--hidden", "2048", "--layers", "3", "--heads", "8", "--band", "8", "--workers", "16", "--workers-kind", "python", "--tiles", "512", "--max-tasks", "16", "--max-task-mib", "512", "--layer-task-mib", "512", "--output-task-mib", "1024", "--steps", "3", "--repeats", "1", "--learning-rate", "0.0005", "--rtt-ms", "50", "--down-mbps", "100", "--up-mbps", "20", "--float32-wire", "--activation-wire", "bf16", "--owned-layers", "--owned-vocab", "8", "--pushed-inputs", "--eager-claims", "--output", "{out}"]
+requires = "Experiment 31's setup (a relay, PostgreSQL, the dataset). About 3 minutes on a Ryzen 9 PRO 6950H."
+
+[[experiment]]
+number = 37
+file = "037-batches-by-length.md"
+title = "Batches by length, and nanochat training time as the KPI: 1.4 times faster to the same loss"
+run = ["ygaraty", "experiment", "batch_learning", "--batch", "64", "--length-window", "64", "--batch-tokens", "3072", "--pairs", "32768", "--output", "{out}"]
+requires = "The OPUS-100 dataset (YGARATY_DATASET_URL) and PyTorch; corpus order is the same without --length-window and --batch-tokens. About 5 and 13 minutes on a Ryzen 9 PRO 6950H; the throughput side is `ygaraty experiment simulate run --batches 12` (see the write-up)."
+
+[[experiment]]
+number = 38
+file = "038-what-next-changes-buy.md"
+title = "What the next changes could buy: placement on mixed pools, wider models, 8-bit activations (simulated)"
+run = ["ygaraty", "experiment", "price_changes", "placement"]
+requires = "The OPUS-100 dataset (YGARATY_DATASET_URL). About 10 minutes; `width`, `bytes` and `tiny` (with --cost-model public/research/cost-models/cost_model_tiny.json for the refit) are the other price lists."
+
+[[experiment]]
+number = 39
+file = "039-capacity-placement-mixed-pool.md"
+title = "Capacity placement on a mixed pool over DigitalOcean: 25% faster with 6 fast uplinks among 16"
+run = ["ygaraty", "experiment", "pods", "up", "exp39d", "--provider", "digitalocean", "--location", "lon1", "--server", "g-8vcpu-32gb", "--workers", "14", "--worker-size", "c-2", "--minutes", "120"]
+requires = "A DigitalOcean token (YGARATY_DIGITALOCEAN_DEV); then strong workers, scripts/remote.sh bootstrap and serve34 runs as the write-up's Reproduce section says. About an hour and $1.5."
+
+[[experiment]]
+number = 40
+file = "040-diloco-over-http.md"
+title = "DiLoCo over HTTP tracks the PyTorch reference to within 0.004"
+run = ["ygaraty", "experiment", "diloco_http", "--replicas", "2", "--local-steps", "100", "--rounds", "3", "--output", "{out}"]
+requires = "The OPUS-100 dataset with the 2,000-piece tokenizer (version 1m-seed2026-v2k) in YGARATY_DATASET_URL. About 7 minutes; the PyTorch side is diloco_learning with --steps 300 --eval-every 100."
+
+[[experiment]]
+number = 41
+file = "041-wider-models-learning.md"
+title = "Wider models learn no faster here: width 512 reaches the same loss 1.5 to 2.2 times sooner"
+run = ["ygaraty", "experiment", "batch_learning", "--embedding", "768", "--hidden", "3072", "--heads", "12", "--layers", "3", "--version", "1m-seed2026", "--batch", "64", "--length-window", "64", "--batch-tokens", "3072", "--learning-rate", "0.0005", "--pairs", "32768", "--eval-every", "4096", "--output", "{out}"]
+requires = "The OPUS-100 dataset (YGARATY_DATASET_URL) and PyTorch. About 8 minutes; widths 512 and 1,024 are the same with --embedding 512 --hidden 2048 --heads 8 and 1024/4096/16."
+
+[[experiment]]
+number = 42
+file = "042-spread-layers-over-fast-workers.md"
+title = "One layer per fast worker beats pairs on real links: 7 to 16% faster, where the simulator said pairs pay"
+run = ["ygaraty", "experiment", "pods", "up", "exp42d", "--provider", "digitalocean", "--location", "lon1", "--server", "g-8vcpu-32gb", "--workers", "10", "--worker-size", "c-2", "--minutes", "120"]
+requires = "A DigitalOcean token (YGARATY_DIGITALOCEAN_DEV); then 8 strong workers (--workers 18 --worker-size c-8 --max-hourly 2), scripts/remote.sh bootstrap and six serve34 jobs as the write-up's Reproduce section says. About 100 minutes and $5; the simulated side is `ygaraty experiment price_changes pairs`."
+
+[[experiment]]
+number = 43
+file = "043-diloco-cifar-across-machines.md"
+title = "DiLoCo across 8 machines: CIFAR-10 trained over HTTP, identical to a single host and 7.7 times sooner to its best accuracy than one machine"
+run = ["ygaraty", "experiment", "diloco_cifar_http", "--replicas", "8", "--local-steps", "50", "--rounds", "40", "--eval-every", "4", "--output", "{out}"]
+requires = "CIFAR-10's parquet files in runs/datasets/cifar10/hf/ (the write-up names the URLs), pyarrow and Pillow. About 7 minutes on one host; the DigitalOcean runs follow the write-up's Reproduce section (about 40 minutes and $0.60)."
+
+[[experiment]]
+number = 44
+file = "044-diloco-convnet-cifar-one-host.md"
+title = "The CIFAR ConvNet on full data, one host: 4 DiLoCo replicas end where plain Adam does, 8 fall short in 10 epochs"
+run = ["ygaraty", "experiment", "diloco_cifar", "--data", "runs/datasets/cifar10/cifar-pilot-hf.npz", "--algorithm", "diloco", "--replicas", "4", "--rounds", "35", "--local-steps", "50", "--batch", "64", "--execution", "threaded", "--threads", "8", "--output", "{out}"]
+requires = "PyTorch and the NPZ the write-up's Reproduce section builds from the Hugging Face parquet (experiment 43's data). About 6 minutes; plain Adam and 8 replicas are the other two lines there."
+
+[[experiment]]
+number = 45
+file = "045-convnet-remote-scaling.md"
+title = "ConvNet remote scaling: WebGPU versus native PyTorch throughput on 1, 2, 4 and 8 machines"
+run = ["ygaraty", "experiment", "convnet_remote_scaling", "serve", "--backend", "webgpu", "--synthetic", "--output", "{out}/case"]
+requires = "Measured on one Apple M5 only (gate, and H=5/20/50 with float64/float32 wire and float64/uint8 pixels, one run each). PyTorch on coordinator for the hardware preflight fixture, one hardware-WebGPU browser per physical worker, SSH tunnels or scripts/remote.sh https-proxy. The default starts a one-worker coordinator; follow the write-up for native CPU/CUDA/MPS comparisons and the 1/2/4/8-host matrix."
+
+[[experiment]]
+number = 46
+file = "046-factorization-larger-than-memory.md"
+title = "A factorization larger than any machine's memory"
+run = ["ygaraty", "experiment", "factorization_http", "--generated-x", "--rows", "30720", "--columns", "30720", "--block", "2048", "--updates", "2", "--cores", "12", "--links", "loopback", "--output", "{out}"]
+requires = "NumPy only; 14 CPUs and a few GiB (run under systemd-run -p MemoryMax=8G -p MemorySwapMax=0). This is the 30,720 rung (about 1 minute); 122,880 per side is the full case: 8 minutes per update on the workstation, 205 s on a 16-vCPU DigitalOcean c-16, and about 19 GiB in all once the workers' tile caches fill."
+
+[[experiment]]
+number = 47
+file = "047-factorization-over-http-cores-links.md"
+title = "The sharded factorization over HTTP: 1, 2 and 4 cores, loopback and home links"
+run = ["ygaraty", "experiment", "factorization_http", "--updates", "5", "--check", "--output", "{out}"]
+requires = "NumPy only; 6 free CPUs and 3 GiB. About 15 minutes (the home-link cells dominate). The DigitalOcean variant (4 c-2 workers, about 30 minutes and $0.35) is in the write-up's Reproduce section."
+
+[[experiment]]
+number = 48
+file = "048-factorization-protein-map-webgpu.md"
+title = "A protein-space factorization on WebGPU workers with a memory guarantee"
+requires = "Stages A-D measured: WebGPU gates and the 100,000-protein engineering run, followed by grouped tiles and float32 wire. Manual staged procedure in the write-up; requires hardware WebGPU, Chromium and the prepared protein embeddings. No default numbered runner."
+
+[[experiment]]
+number = 49
+file = "049-wire-gzip-transformer-digitalocean.md"
+title = "Does gzip on the wire pay for the Transformer on home links?"
+run = ["ygaraty", "experiment", "gzip_blocks", "--steps", "6", "--length-window", "16", "--batch-tokens", "3072", "--output", "{out}"]
+requires = "The local gate only (about 10 seconds; PostgreSQL database ygaraty_tiny, the 1m-seed2026-v2k dataset and a built relay-server). The DigitalOcean jobs (17 machines, about 65 minutes, $3, a DigitalOcean token and the deploy key via pods ship) are in the write-up's Reproduce section."
+
+[[experiment]]
+number = 50
+file = "050-browser-workers-on-the-relay.md"
+title = "Browser workers on the block relay"
+run = ["python", "-m", "unittest", "tests.test_browser_relay", "tests.test_factorization_webgpu.BrowserRelayTrainingTests"]
+requires = "Stages A and B as tests (about 10 seconds): Node, a built relay-server (cd relay && go build -o ../relay-server ./cmd/relay) and hardware WebGPU in headless Chromium. Stage C (100,000 proteins, 4 tabs, about 25 minutes per run, the protein sample from experiment 48) is in the write-up's Reproduce section."
+
+[[experiment]]
+number = 51
+file = "051-where-a-hop-goes-on-home-links.md"
+title = "Where does a hop go on home links?"
+requires = "PostgreSQL database ygaraty_tiny, the 1m-seed2026-v2k dataset and a built relay-server; the command is in the write-up's Reproduce section (about 1 minute per run)."
+
+[[experiment]]
+number = 52
+file = "052-diloco-float32-wire-matched-seeds.md"
+title = "Does the float32 DiLoCo wire shorten the round without costing accuracy?"
+requires = "DigitalOcean: 16 c-2 and 2 g-8vcpu-32gb machines for about 2 hours (about $3.3), a token and the deploy key via pods ship; the steps are in the write-up's Reproduce section. The local gate (8 processes per arm) needs only CIFAR-10 in runs/datasets/cifar10."
+
+[[experiment]]
+number = 53
+file = "053-two-strong-workers-pairs-or-one-each.md"
+title = "With 2 fast workers among 16, is one layer each still faster than pairs?"
+requires = "DigitalOcean: a g-8vcpu-32gb server, 14 c-2 and 2 c-8 workers for about 1.5 hours (about $3), a token and the deploy key via pods ship; the steps are in the write-up's Reproduce section."
+
+[[experiment]]
+number = 54
+file = "054-prune-unread-tasks-tiny-transformer.md"
+title = "Dropping the tasks nobody reads: 24% fewer tasks, 4% less time per update on the tiny Transformer"
+run = ["python", "-m", "unittest", "tests.test_plan_prune"]
+requires = "The unit tests (about 1 second). The eight profile runs need PostgreSQL database ygaraty_tiny, the 1m-seed2026-v2k dataset and a built relay-server; the driver is in the write-up's Reproduce section (about 10 minutes)."
+
+[[experiment]]
+number = 55
+file = "055-ngram-hints-translation.md"
+title = "N-gram hints: the translator reaches the same held-out loss with about 35% fewer pairs"
+run = ["python", "-m", "unittest", "tests.test_ngram_hints"]
+requires = "The unit tests (a few seconds). The six learning runs need the opus100-en-pt 1m-seed2026 dataset and the workstation (not the simulation-only machine), about 70 minutes; steps in the write-up's Reproduce section."
+
+[[experiment]]
+number = 56
+file = "056-batched-relay-calls-on-home-links.md"
+title = "Batched relay calls: browser workers on the relay go from 18% slower to 21% faster than direct on home links"
+run = ["python", "-m", "unittest", "tests.test_browser_relay"]
+requires = "The unit tests (Node; a few seconds) and `go test ./...` in relay/. The twelve home-link runs need the protein-sprot 100,000 sample, a WebGPU-capable Chromium and a built relay-server, about 3 hours; steps in the write-up's Reproduce section."
+
+[[experiment]]
+number = 57
+file = "057-diloco-upload-only-float32.md"
+title = "Float32 for the pseudo-gradients only: 23% less time on home links and no accuracy loss, now the default"
+run = ["python", "-m", "unittest", "tests.test_diloco_wire"]
+requires = "The unit tests (a few seconds). The local quality screen needs CIFAR-10 in runs/datasets/cifar10, about 2.5 hours on 16 cores; the timing runs need two DigitalOcean pools (about $3); steps in the write-up's Reproduce section."
+
+[[experiment]]
+number = 58
+file = "058-coordinator-off-the-hop.md"
+title = "Handoffs: with the coordinator off the hop, the tiny Transformer's update on home links is 20% shorter"
+run = ["python", "-m", "unittest", "tests.test_handoff"]
+requires = "The unit tests (a few seconds; the relay ones need a built relay-server). The twelve timed runs and two captured runs need PostgreSQL database ygaraty_tiny, the 1m-seed2026-v2k dataset, a built relay-server and latency-proxy, about 10 minutes; the command is in the write-up's Reproduce section."
+
+[[experiment]]
+number = 59
+file = "059-non-blocking-handoffs.md"
+title = "Non-blocking handoffs: late handoffs were workers stuck on an earlier one; removing that gives another 6%"
+run = ["python", "-m", "unittest", "tests.test_handoff"]
+requires = "The unit tests (a few seconds; the relay ones need a built relay-server). The nine timed runs and one captured run need experiment 58's setup (PostgreSQL ygaraty_tiny, the 1m-seed2026-v2k dataset, relay-server and latency-proxy), about 7 minutes; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 60
+file = "060-handoff-reads-by-region.md"
+title = "Handoff reads by region: the extra download is gone; the lost cache hits never cost anything"
+run = ["python", "-m", "unittest", "tests.test_handoff"]
+requires = "The unit tests (a few seconds; the relay ones need a built relay-server) and `go test ./...` in relay/. The twelve timed runs and four captured runs need experiment 58's setup (PostgreSQL ygaraty_tiny, the 1m-seed2026-v2k dataset, relay-server and latency-proxy), about 13 minutes; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 61
+file = "061-handoffs-30m-digitalocean.md"
+title = "Handoffs on the 30.3M Transformer: 22.5% shorter updates on DigitalOcean home links, now the default"
+run = ["python", "-m", "unittest", "tests.test_handoff"]
+requires = "The unit tests (a few seconds; the relay ones need a built relay-server) and `go test ./...` in relay/. The six timed jobs need a DigitalOcean pool of a g-8vcpu-32gb coordinator, 8 c-2 and 8 c-8 workers (about $2, 45 minutes with setup); steps in the write-up's Reproduce section."
+
+[[experiment]]
+number = 62
+file = "062-pair-holder-upload-slots.md"
+title = "Pairs of layers lose 10% on the tiny model, but not to upload slots: the queue is the one result post in flight, and the claim"
+run = ["python", "-m", "unittest", "tests.test_exp62_tools"]
+requires = "The unit tests (a few seconds; one needs experiment 58's capture in runs/exp58). The nine timed runs and three captured runs need experiment 58's setup (PostgreSQL ygaraty_tiny, the 1m-seed2026-v2k dataset, relay-server and latency-proxy), about 10 minutes; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 63
+file = "063-pairs-penalty-with-handoffs.md"
+title = "With handoffs on, pairs of layers lose 3.9% instead of 10.3%"
+run = ["python", "-m", "unittest", "tests.test_handoff"]
+requires = "The unit tests (a few seconds; the relay ones need a built relay-server). The six timed runs and two captured runs need experiment 62's setup with --handoff (PostgreSQL ygaraty_tiny, the 1m-seed2026-v2k dataset, relay-server and latency-proxy), about 5 minutes; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 64
+file = "064-concurrent-result-posts.md"
+title = "Removing the result-post queue recovers only 17% of the pairs penalty; the claim path is what is left"
+run = ["python", "-m", "unittest", "tests.test_exp62_tools"]
+requires = "The unit tests (a few seconds). The nine timed runs, three captured runs and a rehearsal need experiment 62's setup (PostgreSQL ygaraty_tiny, the 1m-seed2026-v2k dataset, relay-server and latency-proxy), about 10 minutes under the experiments skill's watch.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 65
+file = "065-weak-uplink-delivered-rate.md"
+title = "20 Mb/s workers get their full link rate; each upload costs one round trip more, nothing else"
+requires = "A DigitalOcean pool of three c-2 machines (about $0.10, 30 minutes with setup), a built relay-server and latency-proxy, and iperf3; the probe and driver are in the write-up's Reproduce section."
+
+[[experiment]]
+number = 66
+file = "066-progressive-convnet-growth.md"
+title = "Growing the ConvNet from the head stalls at 33%; channel-copy layers are 3x slower even at full depth"
+run = ["python", "-m", "unittest", "tests.test_growth_policy", "tests.test_convnet_growth"]
+requires = "The unit tests (a few seconds). The 12 arms need the official CIFAR-10 binary archive turned into cifar-pilot.npz by cifar_prepare (seed 2026) and about 80 minutes of a 16-core workstation, under the experiments skill's watch.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 67
+file = "067-muon-owned-layers.md"
+title = "Muon learns far more per pair, but its optimizer step makes CPU updates 1.77x slower"
+run = ["python", "-m", "unittest", "tests.test_muon"]
+requires = "The unit tests (a few seconds). The time check and learning runs need the OPUS-100 dataset, experiment 55's hint index and about 2 hours of a 16-core workstation, under the experiments skill's watch.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 68
+file = "068-cheaper-muon.md"
+title = "Cheaper Muon doesn't help: lower rates and fewer Newton-Schulz steps don't beat 80% of Adam's time"
+run = ["python", "-m", "unittest", "tests.test_muon"]
+requires = "The unit tests (a few seconds). The anchor, time check and learning runs need the OPUS-100 dataset, experiment 55's hint index, experiment 67's Adam and Muon 0.01 runs and about 2 hours of a 16-core workstation, under the experiments skill's watch.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 69
+file = "069-muon-fewer-steps-higher-rate.md"
+title = "Raising Muon's rate at 1-2 Newton-Schulz steps makes it worse: update size wasn't the problem"
+run = ["python", "-m", "unittest", "tests.test_muon"]
+requires = "The unit tests (a few seconds). The update-size measurement and learning runs need the OPUS-100 dataset, experiment 55's hint index, experiments 67 and 68's runs and about 1.5 hours of a 16-core workstation, under the experiments skill's watch.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 70
+file = "070-batch-ramp.md"
+title = "A batch ramp saves about 5% of wall time, not 25-45%: no bigger batch reaches the 3,072-token loss by 131,072 pairs"
+run = ["python", "-m", "unittest", "tests.test_batch_schedule"]
+requires = "The unit tests (a few seconds). The learning runs need the OPUS-100 dataset, experiment 55's hint index and about 3.5 hours of a 16-core workstation, under the experiments skill's watch.py; stage 2 needs the simulator and L5's constants. See the write-up's Reproduce section."
+
+[[experiment]]
+number = 71
+file = "071-handoff-timing-holdouts.md"
+title = "Corrected handoff timing gets experiment 59 right but still overstates region reads: 4.3 points off on experiment 60"
+run = ["python", "-m", "unittest", "tests.test_simulation_handoff"]
+requires = "The unit tests (a second). The replay needs the local raw runs of experiments 54, 59, 60 and 61 (runs/exp54, runs/exp59, runs/exp60, runs/pods-data/r1/main), the OPUS-100 dataset and the write-up's replay.py; a few minutes of CPU."
+
+[[experiment]]
+number = 72
+file = "072-split-backward.md"
+title = "Owners' weight gradients off the chain don't shorten the update: +1.4% at band 16, -2.1% at band 64"
+run = ["python", "-m", "unittest", "tests.test_split_backward"]
+requires = "The unit tests (a second). The timing runs need the OPUS-100 dataset, the ygaraty_tiny PostgreSQL store, the relay binary and about 15 minutes of a quiet 16-thread workstation; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 73
+file = "073-hints-timing-pool.md"
+title = "N-gram hints make the pool's updates 58% slower, which cancels their learning gain"
+requires = "A DigitalOcean token with write scope and about $2: experiment 61's pool in sfo2 (server g-8vcpu-32gb, 8 c-2, 8 c-8), the hint index built on the server, and the drivers in runs/pods-data/do5a/; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 74
+file = "074-owned-muon-step.md"
+title = "Muon's owner step adds 0.28 s to the pool's update, small enough to keep its gain"
+run = ["python", "-m", "unittest", "tests.test_owned_muon"]
+requires = "The unit tests (a second). The timing needs the write-up's bench.py and drive.sh and about 3 minutes of an idle workstation with 4 free physical cores."
+
+[[experiment]]
+number = 75
+file = "075-teacher-targets.md"
+title = "An open teacher's translations as targets don't help a student trained from scratch at 32,768 pairs"
+requires = "The OPUS-100 dataset, experiment 55's hint index (for --eval-dedup), transformers and sentencepiece with the Helsinki-NLP/opus-mt-en-ROMANCE download, and about 1.5 hours of a 16-thread workstation; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 76
+file = "076-parallel-layers.md"
+title = "Parallel layers 2-3 on both sides remove 4 of 12 hops for 0.025 of held-out loss"
+run = ["python", "-m", "unittest", "tests.test_layer_variants"]
+requires = "The unit tests (seconds). The learning runs need the OPUS-100 dataset, experiment 55's hint index and about 1.5 hours of a 16-thread workstation; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 77
+file = "077-stale-layer-weights.md"
+title = "Owners one update ahead lose 0.17 of held-out loss even with a look-ahead correction"
+run = ["python", "-m", "unittest", "tests.test_layer_variants"]
+requires = "The unit tests (seconds). The learning screen needs the OPUS-100 dataset, experiment 55's hint index and about 1.5 hours of a 16-thread workstation; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 78
+file = "078-parallel-layers-graph.md"
+title = "Parallel layers 1-2 shorten the distributed update 9.5%, just short of the gate, and learn better"
+run = ["python", "-m", "unittest", "tests.test_parallel_layers_graph"]
+requires = "The unit tests (seconds). Stage 0 needs the OPUS-100 dataset, experiment 55's hint index and about 20 minutes of a 16-thread workstation; the timing needs the relay binary, the ygaraty_tiny PostgreSQL store and about 8 quiet minutes; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 79
+file = "079-phi4-local-engine.md"
+title = "Phi-4 runs on Ygaraty locally: kernels, KV cache and the two-worker loop give the reference's tokens"
+run = ["python", "-m", "unittest", "tests.test_phi4_kernels", "tests.test_phi4_checkpoint", "tests.test_phi4_loop", "tests.test_phi4_plan_offline"]
+requires = "torch and transformers (no downloads: the tiny model is built from a local config); the relay binary for the relay and emulated-link runs."
+
+[[experiment]]
+number = 80
+file = "080-phi4-real-layers-cpu.md"
+title = "Real Phi-4 matches transformers on the workstation CPU, layer by layer and token by token"
+run = ["python", "-m", "unittest", "tests.test_phi4_layerwise"]
+requires = "The unit test needs torch and transformers only. The real run needs the microsoft/phi-4 checkpoint (29.3 GB, revision 2db69c1c) and about 25 minutes of a 16-thread CPU; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 81
+file = "081-phi4-two-h100-pipeline.md"
+title = "Phi-4 split over two H100 Droplets gives the reference's tokens at 44 ms per token"
+requires = "Two DigitalOcean GPU Droplets (gpu-h100x1-80gb, about $9/h for both) and the drivers in runs/pods-data/do14/; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 82
+file = "082-phi4-int4-vast-8gb.md"
+title = "4-bit Phi-4 runs on two 8 GB GPUs across the internet, at 1.35 s per token"
+requires = "A Vast.ai account with credit (2 one-GPU containers with 8 GB, about $0.10/h each plus per-GB download charges) and the drivers in runs/pods-data/do16/; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 83
+file = "083-twil-int4-four-capped-gpus.md"
+title = "4-bit TwIL-8B runs on four GPUs capped at 3.5 GB, at 0.95 s per token, but runs out of memory near 30k tokens"
+requires = "A Vast.ai account with credit (4 one-GPU containers with 8 GB, about $0.10/h each plus per-GB download charges), TwIL-8B downloaded to runs/models/twil-8b for the reference, and the drivers in runs/pods-data/do31/; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 84
+file = "084-persistent-phi4-sessions.md"
+title = "Persistent sessions halve Phi-4's time between tokens on emulated links, with the same tokens"
+requires = "This repository's ./relay-server and ./latency-proxy builds, torch and transformers; the driver in runs/experiments/DO-17/omarchy-20261105-132105/; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 85
+file = "085-twil-bf16-one-3090.md"
+title = "TwIL-8B in bf16 on one RTX 3090 runs at 50 ms per token, exactly as transformers on that GPU; one prompt departs from the CPU reference"
+requires = "A Vast.ai account with credit (1 one-GPU container with 24 GB, about $0.23/h plus per-GB download charges), experiment 83's reference.json, and the drivers in runs/pods-data/do33/; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 86
+file = "086-phi4-split-one-a100.md"
+title = "Splitting Phi-4 over two owners on one A100 adds 1-3 ms per token, and persistent sessions win it back"
+requires = "A Vast.ai account with credit (1 A100 80 GB container, about $0.93/h plus per-GB download charges) and runs/pods-data/vast_drive.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 87
+file = "087-persistent-sessions-internet.md"
+title = "Over close internet links, persistent sessions cut TwIL-8B's time between tokens 18%, short of the 30% bar"
+requires = "A Vast.ai account with credit (4 one-GPU containers with 8 GB, about $0.10/h each plus per-GB download charges), experiment 83's reference.json and runs/pods-data/vast_drive.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 88
+file = "088-phi4-owner-kernels.md"
+title = "Four owner-kernel changes make a Phi-4 decode step 43-50% faster on an A100, with the same tokens"
+requires = "A Vast.ai account with credit (1 A100 80 GB container, about $0.93/h plus per-GB download charges), runs/pods-data/vast_drive.py and runs/experiments/DO-19/bench_remote.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 89
+file = "089-handoff-region-reads-as-blocks.md"
+title = "Pricing region reads as the relay serves them cuts the simulator's handoff error to 3.1 points, just short of 3"
+requires = "Experiment 60's captures and runs (runs/exp59, runs/exp60), runs/pods-data/r1/main, experiment 71's replay inputs (runs/experiments/OFF-5/omarchy-20261103-103426/) and the OPUS-100 SQLite dataset; scripts in runs/experiments/OFF-6/omarchy-20261105-213747/. See the write-up's Reproduce section."
+
+[[experiment]]
+number = 90
+file = "090-parallel-layers-pool.md"
+title = "Parallel layers 1-2 shorten the 30.3M update on the pool by 5.8%, short of 10%"
+requires = "A DigitalOcean account (experiment 61's pool in sfo2: 1 g-8vcpu-32gb, 8 c-2 and 8 c-8 Droplets, about $2.88/h) and runs/pods-data/paper/ (drive_paper.py, analyze_paper.py, setup.sh); see the write-up's Reproduce section."
+
+[[experiment]]
+number = 91
+file = "091-muon-pool-time-to-loss.md"
+title = "On the pool, Muon reaches Adam's final held-out loss in 46% of Adam's training time"
+requires = "A DigitalOcean account (experiment 61's pool in sfo2: 1 g-8vcpu-32gb, 8 c-2 and 8 c-8 Droplets, about $2.88/h, about 3.5 hours) and runs/pods-data/paper/ (drive_paper.py, analyze_paper.py, setup.sh); see the write-up's Reproduce section."
+
+[[experiment]]
+number = 92
+file = "092-qwen35-webgpu-four-contributors.md"
+title = "Qwen3.5-9B Q4 runs on four rented WebGPU contributors: 580 ms per token, first token after 37 s at 8,192 tokens"
+requires = "The Qwen3.5-9B Q4_K_M GGUF (unsloth, revision 3885219) and a WebGPU browser for the local checks; for the distributed run, a Vast.ai account (4 GPU containers with 8 GB or more, about $0.08/h each) and a DigitalOcean CPU Droplet as coordinator, set up with scripts/remote.sh's qwen35-* modes; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 93
+file = "093-qwen35-interleaved-conversations.md"
+title = "Eight interleaved conversations get 9.3x the Qwen WebGPU pipeline's throughput on the same four GPUs, every token unchanged"
+requires = "The Qwen3.5-9B Q4_K_M GGUF (unsloth, revision 3885219) and a WebGPU browser for the local runs; for the distributed run, a Vast.ai account (4 GPU containers with 8 GB or more and NVIDIA EGL, about $0.075/h each) and a DigitalOcean s-4vcpu-8gb coordinator, set up with scripts/remote.sh's qwen35-* modes, then runs/experiments/DO-38/drive_remote.py and analyze.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 94
+file = "094-twil-int4-30k-fits-capped-gpus.md"
+title = "With the key/value cache preallocated, 4-bit TwIL-8B serves a 30,000-token session on four 3.5 GB-capped GPUs"
+requires = "TwIL-8B (webAI-Official/TwIL-8B, revision 58d49f0d) on the workstation for the references (runs/pods-data/do31/reference.py and fakequant.py), and a Vast.ai account for 4 containers with one 8 GB GPU each (about $0.11/h each); runs/pods-data/do32/drive.py up, kernel, correctness, long, down; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 95
+file = "095-qwen35-two-stages.md"
+title = "Two 16-layer stages cut the Qwen WebGPU pipeline's time per token 57%, from 580 to 250 ms, same tokens"
+requires = "The Qwen3.5-9B Q4_K_M GGUF (unsloth, revision 3885219) and a WebGPU browser for the local check; for the distributed run, a Vast.ai account (4 GPU containers with 8 GB or more and NVIDIA EGL, about $0.075/h each) and a DigitalOcean s-4vcpu-8gb coordinator, set up with scripts/remote.sh's qwen35-* modes, then runs/experiments/DO-39/drive_remote.py and analyze.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 96
+file = "096-qwen35-copies-on-one-coordinator.md"
+title = "Two two-stage Qwen copies on one coordinator give 1.86x one copy's throughput at the same speed per user"
+requires = "The Qwen3.5-9B Q4_K_M GGUF (unsloth, revision 3885219) for the local rehearsal; for the run, a Vast.ai account (4 RTX 3060 containers with NVIDIA EGL, about $0.08/h each) and a DigitalOcean s-4vcpu-8gb coordinator, set up with scripts/remote.sh's qwen35-* modes, coordinator-serve and qwen35-submit, then runs/experiments/DO-41/drive_remote.py and analyze.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 97
+file = "097-qwen35-webrtc-direct-links.md"
+title = "Direct WebRTC links between Qwen WebGPU stages cut time per token 61% against the coordinator relay"
+requires = "The Qwen3.5-9B Q4_K_M GGUF (unsloth, revision 3885219); a Vast.ai account (2+ RTX 3060 containers with NVIDIA EGL, about $0.08/h each) and a DigitalOcean s-4vcpu-8gb coordinator, set up with scripts/remote.sh's qwen35-* modes and turn-serve, then runs/experiments/DO-40/drive_remote.py and analyze.py; see the write-up's Reproduce section. The local check (S5-nano, --route webrtc) runs on any WebGPU workstation."
+
+[[experiment]]
+number = 98
+file = "098-user-sessions-webrtc-routes.md"
+title = "User sessions over direct and private WebRTC links keep the relay's tokens, but are only 11% faster between Poland and Sweden"
+requires = "S5-nano Q4_K_M (maritaca-ai/S5-nano-GGUF dc9153b); a Vast.ai account (two GPU containers in different countries) and a DigitalOcean s-4vcpu-8gb coordinator, set up with scripts/remote.sh's panel-coordinator-setup, turn-serve, panel-coordinator-serve and qwen35-contributor-setup, then panel-check with runs/experiments/DO-43/launch_remote.py and gate_remote.py; see the write-up's Reproduce section. The local screen (runs/experiments/DO-43/run_local.sh) runs on any WebGPU workstation."
+
+[[experiment]]
+number = 99
+file = "099-user-sessions-webrtc-close-stages.md"
+title = "With close stages, direct links cut user-session time per token 60%; one private session in eight failed to link"
+requires = "As experiment 98 (S5-nano, Vast.ai GPUs, a DigitalOcean coordinator, scripts/remote.sh's panel-* modes and turn-serve), with both GPUs in one country on different machines; runs/experiments/DO-44/launch_remote.py and gate_remote.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 100
+file = "100-fast-sessions-rollout-check.md"
+title = "Fast (direct) rollout check did not complete: the relay baseline hung on a Poland-Germany pair, while Fast answered 7 of 8 sessions"
+requires = "As experiment 99, with scripts/remote.sh qwen35-browser-stop between sessions, runs/experiments/DO-45/launch_remote.py and gate_remote.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 101
+file = "101-twil-8b-dense-webgpu-family.md"
+title = "TwIL-8B runs on the new dense WebGPU family with reference parity and serves a user-panel chat"
+requires = "A WebGPU workstation (Chrome) and the TwIL-8B Q4_K_M GGUF (ygaraty model inspect/fetch pin and verify it, about 5 GB); then the qwen35_webgpu kernels/stage/pipeline checks, ygaraty model prepare and scripts/user_session_check.py with a local coordinator; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 102
+file = "102-three-four-worker-plans.md"
+title = "The 3- and 4-contributor plans for TwIL-8B and Qwen3.5-9B keep parity, fit their memory and serve"
+requires = "A WebGPU workstation with the TwIL-8B and Qwen3.5-9B Q4_K_M GGUFs (ygaraty model fetch from deploy/models/*.json); ygaraty model prepare --workers 2,3,4, then runs/experiments/WS-13/pipelines.sh and serving.sh; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 103
+file = "103-fast-sessions-rollout-rerun.md"
+title = "Fast (direct) passes the rollout gate: same answers, links open at go, 63% less time per token than the relay"
+requires = "Rented machines: a DigitalOcean coordinator (panel, coordinator, coturn) and two Vast.ai GPU hosts on different machines and public IPs; remote.sh panel-coordinator-setup/turn-serve/panel-coordinator-serve and qwen35-contributor-setup, then panel-check with runs/experiments/DO-46/launch_remote.py and gate_remote.py; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 104
+file = "104-matvec-rows-per-thread.md"
+title = "Rows per thread make 8 decode rows cost 1.3–1.7× one, bit for bit, but no single variant passes: R = 4 slows single tokens"
+requires = "A WebGPU workstation and the Qwen3.5-9B Q4_K_M GGUF (ygaraty model fetch deploy/models/qwen3.5-9b.json); qwen35_webgpu kernels --cases decode --prefill-kernel matvec with and without --matvec R,VT, 3 runs each, then runs/experiments/WS-15/analyze.py; see the write-up's Protocol."
+
+[[experiment]]
+number = 105
+file = "105-matvec-policy-in-stages.md"
+title = "Rows per thread by token count halve edit time with speculative decoding, bit for bit, but plain decode gains only 4% and summaries lose 11%"
+requires = "A WebGPU workstation and the Qwen3.5-9B Q4_K_M GGUF (ygaraty model fetch deploy/models/qwen3.5-9b.json); qwen35_session local with and without --matvec 2,4,8 and --draft ngram:n=3,k=8,min=2,adapt=1, prompts in runs/experiments/DO-25/prompts/, then runs/experiments/WS-16/gate.py; see the write-up's Protocol."
+
+[[experiment]]
+number = 106
+file = "106-phi4-dense-webgpu-family.md"
+title = "Phi-4 runs on the dense WebGPU family with reference parity and serves a panel chat"
+requires = "A WebGPU GPU host (one Vast.ai RTX 3090 here) with the Phi-4 Q4_K_M GGUF (ygaraty model fetch deploy/models/phi-4.json); the qwen35_webgpu kernels/stage/pipeline checks, ygaraty model prepare --workers 2,3,4, then a local coordinator and scripts/user_session_check.py as runs/experiments/WS-14/ws14_remote.sh; see the write-up's Reproduce section."
+
+[[experiment]]
+number = 107
+file = "107-speculative-backoff-rerun.md"
+title = "A faster draft back-off brings summaries to +4.6% but costs edits a third of their gain; every logit identical in 27 runs"
+requires = "A WebGPU workstation and the Qwen3.5-9B Q4_K_M GGUF (ygaraty model fetch deploy/models/qwen3.5-9b.json); runs/experiments/WS-17/run.sh OUT PYTHON PROFILES (27 qwen35_session local runs), then runs/experiments/WS-17/gate.py OUT; see the write-up."
+
+[[experiment]]
+number = 108
+file = "108-batched-decode-rows-per-thread.md"
+title = "The rows-per-thread kernel doubles batched throughput: eight conversations at 19.4 tokens/s against 9.8, tokens unchanged"
+requires = "A WebGPU workstation and the Qwen3.5-9B Q4_K_M GGUF (ygaraty model fetch deploy/models/qwen3.5-9b.json); runs/experiments/WS-18/run.sh OUT PYTHON PROFILES, then runs/experiments/WS-18/gate.py OUT."
+
+[[experiment]]
+number = 109
+file = "109-cost-aware-drafting.md"
+title = "Cost-aware drafting cuts edits 64% and a held-out code edit 73%, bit for bit, but still loses 15% on a summary"
+requires = "A WebGPU workstation and the Qwen3.5-9B Q4_K_M GGUF; runs/experiments/WS-19/run.sh OUT PYTHON PROFILES (36 qwen35_session local runs, prompts in runs/experiments/DO-25/prompts/), then runs/experiments/WS-19/gate.py OUT."
+
+[[experiment]]
+number = 110
+file = "110-batched-decode-rented.md"
+title = "On two RTX 3060s with direct links, the rows-per-thread kernel raises eight-conversation throughput 1.86x, tokens unchanged"
+requires = "Rented machines: a DigitalOcean coordinator (remote.sh qwen35-coordinator-setup, turn-serve) and two Vast.ai RTX 3060 hosts (qwen35-contributor-setup), from e483d3c or later; runs/experiments/DO-49/drive_remote.py OUT, then runs/experiments/DO-49/gate.py OUT."
+
+[[experiment]]
+number = 111
+file = "111-cautious-cost-aware-drafting.md"
+title = "Cautious cost-aware drafting keeps edits 61% and code 69% faster, bit for bit, and stops losing on summaries"
+requires = "A WebGPU workstation and the Qwen3.5-9B Q4_K_M GGUF; runs/experiments/WS-20/run.sh OUT PYTHON PROFILES (36 qwen35_session local runs, prompts in runs/experiments/DO-25/prompts/), then runs/experiments/WS-20/gate.py OUT."
+
+[[experiment]]
+number = 112
+file = "112-speculative-decoding-rented.md"
+title = "On rented GPUs, exactly checked speculative decoding cuts edits 65% and code 73%, bit for bit; a summary ran 4% slower without drafting"
+requires = "Rented machines: a DigitalOcean coordinator (remote.sh qwen35-coordinator-setup, turn-serve) and two Vast.ai GPU hosts with different public IPs (qwen35-contributor-setup), from e346637 or later; runs/experiments/DO-25/drive_remote.py OUT --hosts POOL_A:HOST POOL_B:HOST, then runs/experiments/DO-25/gate.py OUT."
+
+[[experiment]]
+number = 113
+file = "113-kolibri-single-a100-contributor.md"
+title = "One rented A100 80 GB serves all of Kolibri-1 as a single WebGPU contributor, reference-exact, at 125-174 ms per token"
+requires = "A rented 80 GB GPU (contributor_fleet up --gpu any-80gb --min-ram 64 --disk 200) from fa8d44b or later, the converted Kolibri-1 GGUF (SHA-256 510f8b5f...aec8c) fetched to it; contributor_fleet probe --gb 60, runs/pods-data/do55/gate2.sh, then runs/pods-data/do55/serve55.py OUT under xvfb-run."
+
+[[experiment]]
+number = 114
+file = "114-kolibri-a100-decode-profile.md"
+title = "On one A100, a Kolibri-1 token's GPU work is 28-38 ms of about 100 ms; merging expert chunks saves 9.5 ms, bitwise identical"
+requires = "A rented 80 GB GPU (contributor_fleet up --gpu any-80gb --min-ram 64 --disk 200, setup, fetch of the Kolibri-1 GGUF, SHA-256 510f8b5f...aec8c) from 430c583 or later; runs/pods-data/do63/runs.sh on the machine (C M M C), gate by comparing the four reports and logits."
+
+[[experiment]]
+number = 115
+file = "115-kolibri-a100-operation-bench.md"
+title = "Per operation on one A100, Kolibri-1's GPU time is Q6_K matvecs 29%, attention 24%, norms 13%; variant timings confounded by context growth"
+requires = "A rented 80 GB GPU (contributor_fleet up --gpu any-80gb --min-ram 64 --disk 200, setup, fetch of the Kolibri-1 GGUF, SHA-256 510f8b5f...aec8c) from 430c583 or later; runs/pods-data/do64/bench.sh on the machine (qwen35_webgpu bench)."
+
+[[experiment]]
+number = 116
+file = "116-webgpu-host-caches.md"
+title = "Caching plan checks and bind groups halves a Kolibri-1 token on one A100, 101 to 52 ms, bitwise identical"
+requires = "A rented 80 GB GPU (contributor_fleet up --gpu any-80gb --min-ram 64 --disk 200, setup, fetch of the Kolibri-1 GGUF, SHA-256 510f8b5f...aec8c) from 430c583 or later; runs/pods-data/do65/runs.sh on the machine (H N N H, --no-host-cache)."
+
+[[experiment]]
+number = 117
+file = "117-webgpu-fused-norms.md"
+title = "Fusing sandwich norms with their residual adds and the QK-norm pair cuts a Kolibri-1 token 52 to 47 ms on one A100, bitwise identical"
+requires = "A rented 80 GB GPU (contributor_fleet up --gpu any-80gb --min-ram 64 --disk 200, setup, fetch of the Kolibri-1 GGUF, SHA-256 510f8b5f...aec8c) from 430c583 or later; runs/pods-data/do66/runs.sh on the machine (F U U F, --no-fuse)."
+
+[[experiment]]
+number = 118
+file = "118-webgpu-gap-webllm-llamacpp-680m.md"
+title = "On the Radeon 680M our Qwen3.5-9B decode runs at 65% of native llama.cpp and WebLLM at 72%; per byte of weights the two browsers tie"
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF; llama.cpp b12318 Vulkan (llama-bench), WebLLM 0.2.88 with Qwen3.5-9B-q4f16_1-MLC served locally (runs/ws30/fetch_mlc.py, webllm_bench.py), and runs/ws30/ours.sh."
+
+[[experiment]]
+number = 119
+file = "119-webgpu-roofline-680m.md"
+title = "On the 680M, matrix-vector products are 94% of decode GPU time and run at 71% of the copy roof; attention stays under 3 ms at 4k"
+run = ["python", "-m", "ygaraty.experiments.qwen35_webgpu", "bench", "--gguf", "runs/models/qwen3.5-9b/Qwen3.5-9B-Q4_K_M.gguf", "--config", "runs/models/qwen3.5-9b/config.json", "--tokenizer", "runs/models/qwen3.5-9b/tokenizer.json", "--contexts", "64,1024,4096", "--out", "runs/experiments/WS-31/out"]
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF."
+
+[[experiment]]
+number = 120
+file = "120-webgpu-resident-decode-a100.md"
+title = "Keeping the token on the GPU halves a Kolibri-1 decode step on an A100 at short context, 73 to 35 ms, same tokens"
+requires = "A rented 80 GB GPU (contributor_fleet up --gpu any-80gb --min-ram 64 --disk 200, setup, fetch of the Kolibri-1 GGUF) from 58a6258 or later; runs/pods-data/ws32/runs.sh on the machine (bench --contexts 64,1024 --resident)."
+
+[[experiment]]
+number = 121
+file = "121-coalesced-matvec-kernel.md"
+title = "A coalesced one-token matrix-vector kernel reads K-quants at 81-99% of the 680M's copy roof; Qwen3.5-9B decode 23% faster, reference-exact"
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF, from 9cd1359 or later: runs/experiments/WS-34/kernels.sh and decode.sh (the reference check needs about 40 GB of host memory)."
+
+[[experiment]]
+number = 122
+file = "122-attention-decode-splits-a100.md"
+title = "Smaller attention splits make Kolibri-1 decode 3.6x faster at 1k context on an A100, but the long-prompt reference check fails in both arms"
+requires = "A rented 80 GB GPU with the Kolibri-1 GGUF, from c44ed00 or later; runs/pods-data/contrib1/ws35.sh on the machine, then the same pipeline with --attention-split 512."
+
+[[experiment]]
+number = 123
+file = "123-four-engines-a100.md"
+title = "A100 WebGPU and WebLLM results (public projection)"
+requires = "Historical A100 WebGPU measurement at ee2aef1; see the public projection and its limits."
+
+[[experiment]]
+number = 124
+file = "124-kolibri-long-prompt-drift.md"
+title = "Kolibri-1's long-prompt gap is f16 cache rounding flipping near-tied experts, not a window or chunking bug"
+requires = "A WebGPU workstation with the Kolibri-1 Q4_K GGUF (44.8 GB) and about 64 GB of host memory, from ee2aef1 or later: runs/experiments/WS-41/sweep.sh (tiny model) and stages.sh."
+
+[[experiment]]
+number = 125
+file = "125-batched-matvec-a100.md"
+title = "A batched matvec kernel doubles two to four conversations, exactly, but both batch paths stall near 107 tokens per second"
+requires = "A WebGPU workstation and a rented A100 with the Qwen3.5-9B Q4_K_M GGUF, from 073286b or later: runs/experiments/DO-69/screen.sh, then runs/pods-data/do69/do69.sh on the machine after contributor_fleet setup."
+
+[[experiment]]
+number = 126
+file = "126-batch-step-profile-680m.md"
+title = "A 32-conversation decode step is arithmetic-bound in the matrix products, not in per-conversation work"
+run = ["python", "-m", "ygaraty.experiments.qwen35_webgpu", "bench", "--gguf", "runs/models/qwen3.5-9b/Qwen3.5-9B-Q4_K_M.gguf", "--config", "runs/models/qwen3.5-9b/config.json", "--tokenizer", "runs/models/qwen3.5-9b/tokenizer.json", "--batches", "1,8,32", "--batch-profile", "--matvec", "2,4,8", "--matvec-c", "16,4", "--matvec-b", "8", "--out", "runs/experiments/WS-44/out"]
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF, from the commit adding --batch-profile."
+
+[[experiment]]
+number = 127
+file = "127-batch-kernels-680m.md"
+title = "The prefill GEMM decodes 32 conversations 1.34x faster than the batched matvec, but loses at 8 and 16"
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF, from 6801b82 or later: runs/experiments/WS-45/screen.sh."
+
+[[experiment]]
+number = 128
+file = "128-native-webgpu-a100.md"
+title = "Paid contributors can run our engine without a browser: Node with Dawn is exact and 6% faster than Chrome; wgpu offers f16 but is 2x slower today"
+requires = "A WebGPU workstation and a rented A100 with the Qwen3.5-9B Q4_K_M GGUF, Node 26 with npm ci (webgpu 0.6.2) and Deno 2.9.8, from 08dfae4 or later: runs/experiments/DO-68/screen.sh, then runs/pods-data/do68/do68.sh on the machine."
+
+[[experiment]]
+number = 129
+file = "129-resident-decode-qwen35.md"
+title = "Keeping the token on the GPU now works for Qwen3.5's recurrent layers: 6.5% faster on the 680M, tokens identical"
+run = ["python", "-m", "ygaraty.experiments.qwen35_webgpu", "bench", "--gguf", "runs/models/qwen3.5-9b/Qwen3.5-9B-Q4_K_M.gguf", "--config", "runs/models/qwen3.5-9b/config.json", "--tokenizer", "runs/models/qwen3.5-9b/tokenizer.json", "--contexts", "64,1024", "--resident", "--matvec", "2,4,8", "--matvec-c", "16,4", "--out", "runs/experiments/WS-43/out"]
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF."
+
+[[experiment]]
+number = 130
+file = "130-q8-decoder-680m.md"
+title = "A vectorized Q8_0 decoder makes Qwen3.5's small Q8_0 products 2.3x faster on the 680M, short of the 3x gate"
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF: runs/experiments/WS-46/run.sh (arm G default, arm F --q8-fast)."
+
+[[experiment]]
+number = 131
+file = "131-wgpu-overhead-a100.md"
+title = "Deno with wgpu loses its 37 ms per step waiting for completions: about 11 ms per mapAsync and per wait, a polling delay"
+requires = "A rented A100 with the Qwen3.5-9B Q4_K_M GGUF, Node 26 (npm ci) and Deno 2.9.8, from a9e7ecd or later: runs/pods-data/do73/do73.sh after contributor_fleet setup."
+
+[[experiment]]
+number = 132
+file = "132-q8-decode-only-680m.md"
+title = "Used for decode-sized calls only, the Q8_0 decoder is 1.2-2.8x faster and never slower: now the default"
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF: runs/experiments/WS-47/run.sh."
+
+[[experiment]]
+number = 133
+file = "133-resident-recovery.md"
+title = "Chat sessions recover from a cancelled turn and a lost contributor with the resident loop on, with the same tokens"
+requires = "A WebGPU workstation with the S5-nano Q4_K_M model in runs/models/s5-nano: runs/experiments/WS-48/go.sh on a clean export, then gate.py."
+
+[[experiment]]
+number = 134
+file = "134-matvec-retune-a100.md"
+title = "Shapes picked by a single-matrix sweep make A100 decode 18.5% slower: the microbenchmark measured L2-cached reads"
+requires = "A rented A100 after contributor_fleet setup with the Qwen3.5-9B Q4_K_M GGUF and tokenizers installed: runs/pods-data/do74/do74.sh with pick.py."
+
+[[experiment]]
+number = 135
+file = "135-matvec-group-680m.md"
+title = "Products that read the same input now share one dispatch: 29% fewer launches per token, tokens identical, no loss on the 680M"
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF: the bench command in the report's Reproduce, with and without --group-matmul."
+
+[[experiment]]
+number = 136
+file = "136-matvec-group-a100.md"
+title = "Grouped one-token products shorten Qwen3.5-9B's A100 decode step 11.5%, tokens identical: now the default"
+requires = "A rented A100 after contributor_fleet setup: runs/pods-data/do75/do75.sh (installs tokenizers, fetches Qwen3.5-9B)."
+
+[[experiment]]
+number = 137
+file = "137-norm-fold.md"
+title = "Folding the RMS norm into the grouped product is exact but slower: +6.5% on an A100, +17% on the 680M"
+requires = "A WebGPU workstation with the Qwen3.5-9B Q4_K_M GGUF (runs/experiments/WS-49/omarchy-20261113-124118/drive.sh), and a rented A100 for runs/pods-data/do76/do76.sh."
+
+[[experiment]]
+number = 138
+file = "138-matvec-rows-a100.md"
+title = "Several rows per thread make the one-token products slower on an A100 (+17% with 2, +65% with 4), tokens identical"
+requires = "A rented A100 after contributor_fleet setup: runs/pods-data/do76/do76.sh (arms G, R2_*, R4_*)."
+
+[[experiment]]
+number = 139
+file = "139-matvec-group-kolibri-a100.md"
+title = "Grouped one-token products shorten Kolibri-1's A100 step 4.2%, tokens identical: kept opt-in"
+requires = "A rented A100 80 GB after contributor_fleet setup and the Kolibri-1 GGUF fetch (presigned URL): runs/pods-data/do77/do77.sh."
+
+[[experiment]]
+number = 140
+file = "140-decode-roof-a100.md"
+title = "On an A100 the one-token products are decoding-bound: the same reads without decoding run 1.71x faster"
+requires = "A rented A100 after contributor_fleet setup: runs/pods-data/do78/do78.sh (kernels --roof-mb 64)."
+
+[[experiment]]
+number = 141
+file = "141-q4k-repack-a100.md"
+title = "Unpacking Q4_K's scales at load cuts the A100 decode step 16.7% despite a third more bytes, tokens identical"
+requires = "A rented A100 after contributor_fleet setup: runs/pods-data/do79/do79.sh."
+
+[[experiment]]
+number = 142
+file = "142-k-repack-a100.md"
+title = "Repacking Q5_K and Q6_K as well cuts the A100 step another 7.8% (73 tokens per second), tokens identical"
+requires = "A rented A100 after contributor_fleet setup: runs/pods-data/do81/do81.sh."
+
+[[experiment]]
+number = 143
+file = "143-kolibri-repack-a100.md"
+title = "The exact repack does not speed up Kolibri-1 on an A100 (-0.7%): its step is not bound by the dense products"
+requires = "A rented A100 80 GB after setup and the Kolibri-1 GGUF fetch: the K* steps of runs/pods-data/do82/do82.sh."
+
+[[experiment]]
+number = 144
+file = "144-repack-calibration.md"
+title = "Measuring the repack at load picks it correctly on the 680M but not reliably on an A100: the measurement is too short there"
+requires = "A WebGPU host: qwen35_webgpu kernels --calibrate-repack (680M on the workstation; an A100 rented)."
+
+[[experiment]]
+number = 145
+file = "145-wgsl-memo.md"
+title = "Caching shader sources cuts host encoding only 10% on Kolibri (24-30% on Qwen3-Coder and Qwen3.5): JavaScript is not most of the host time"
+requires = "A WebGPU workstation with the Kolibri-1, Qwen3-Coder and Qwen3.5-9B GGUFs: the driver in the report's Reproduce."
+
+[[experiment]]
+number = 146
+file = "146-kolibri-host-breakdown-a100.md"
+title = "On an A100 host Kolibri-1's resident decode step is GPU-bound (33.1 ms against 32.5 of GPU work): host time is already hidden"
+requires = "A rented A100 80 GB (not driver 615) after setup and the Kolibri-1 GGUF fetch: runs/pods-data/do84/do84.sh."
+
+[[experiment]]
+number = 147
+file = "147-batch-gemm.md"
+title = "Neither vec4 staging, larger register tiles nor repacked weights lift the batch GEMM much: +9% at 32 conversations on an A100"
+requires = "A rented A100 after contributor_fleet setup: the B*/R* steps of runs/pods-data/do85/do85.sh; the 680M screen with the Qwen3.5-9B GGUF."
+
+[[experiment]]
+number = 148
+file = "148-chat-turns-local-screen.md"
+title = "Many and long chat turns run without a stall on the workstation once a second-turn stall is fixed: 135 of 135 turns"
+requires = "A WebGPU workstation with the S5-nano model, the panel environment and Playwright: runs/experiments/WS-21/run.sh (see the report's Reproduce)."
+
+[[experiment]]
+number = 149
+file = "149-long-replies-full-context-local.md"
+title = "2048-token replies and a full 16,384-position conversation run without a stall on the workstation: 32 of 32 turns, capacity reset completes"
+requires = "A WebGPU workstation with the S5-nano model, the panel environment and Playwright: experiment 148's harness with runs/experiments/WS-22/omarchy-20261110-1806/runs.json."
+
+[[experiment]]
+number = 150
+file = "150-one-worker-chat-local.md"
+title = "One S5-nano contributor serves both relay and direct chat on the workstation: 60 of 60 turns, 2.91 GB allocated"
+requires = "A WebGPU workstation with the S5-nano model, the panel environment and Playwright: runs/experiments/WS-23/omarchy-20261110-1921/go.sh (experiment 148's harness with WORKERS=1)."
+
+[[experiment]]
+number = 151
+file = "151-turn-rtt-decode-local.md"
+title = "Each chat decode step costs two stage-link round trips, not one: 91 ms + 2.03 × RTT per token, which explains DO-50 round 2"
+requires = "A WebGPU workstation with the S5-nano model, the panel environment, Playwright and Go (local pion/turn): runs/experiments/WS-24/go.sh and gate.py."
+
+[[experiment]]
+number = 152
+file = "152-decode-repeatability-local.md"
+title = "Greedy WebGPU decode is bitwise repeatable run to run: 5 of 5 runs identical in tokens and logits, with either matvec kernel"
+requires = "A WebGPU workstation with the S5-nano model and the panel environment: runs/experiments/WS-25/go.sh and gate.py."
+
+[[experiment]]
+number = 153
+file = "153-link-pieces-local.md"
+title = "Sending the start of each link message in small pieces removes the extra round trip per decode step: 583 to 341 ms per token at 243 ms, tokens identical"
+requires = "A WebGPU workstation with the S5-nano model, the panel environment and Go (WS-24's local pion/turn): runs/experiments/WS-26/go.sh and gate.py; the bench in runs/experiments/WS-26/bench."
+
+[[experiment]]
+number = 154
+file = "154-chat-repeatability-local.md"
+title = "Chat turns are bitwise repeatable; WS-23's mismatches were the test driver hashing the page's timing line"
+requires = "A WebGPU workstation with the S5-nano model and the panel environment: runs/experiments/WS-27/go.sh (drive.py) and gate.py."
+
+[[experiment]]
+number = 155
+file = "155-chat-recovery-local.md"
+title = "A chat session recovers from a cancelled turn, a killed contributor and a broken direct link, with turns identical to an undisturbed session"
+requires = "A WebGPU workstation with the S5-nano model, the panel environment, Playwright and Go (WS-24's local pion/turn): runs/experiments/WS-28/go.sh, go2.sh and gate.py."

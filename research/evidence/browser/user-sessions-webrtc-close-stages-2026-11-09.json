@@ -1,0 +1,349 @@
+{
+ "experiment": "DO-44",
+ "date": "2026-11-09",
+ "rerun_of": "experiment 98 (DO-43)",
+ "model": "S5-nano Q4_K_M, two-stage bundle 0,16,32",
+ "code": "3e80cd9 (negotiation fixes), 8280605; nothing copied by hand",
+ "pool": {
+  "stage_A": "Vast.ai RTX 3060 12 GB, Poland",
+  "stage_B": "Vast.ai RTX A2000 12 GB, Poland (another machine)",
+  "coordinator": "DigitalOcean s-4vcpu-8gb ams3 (coordinator, SQLite panel DB, coturn)",
+  "rtt_to_coordinator_ms": 30
+ },
+ "order": "R W P P W R W R P",
+ "gate": {
+  "frozen": "2026-11-09 12:46 CET",
+  "checks": {
+   "every session answered both gated requests": true,
+   "request 1 text identical in all sessions": true,
+   "request 2 text identical in all sessions": true,
+   "request 2 at most 8 tokens": true,
+   "no disagreement": true,
+   "W at least 25% below R": true,
+   "P at most R": true,
+   "every W and P link open (P relay-relay), both stages": false,
+   "first token within 5 s in every session": false,
+   "no IPv4 in route lines": true
+  },
+  "passed": false
+ },
+ "median_ms_per_token_first_request": {
+  "R": 287.0,
+  "W": 115.0,
+  "P": 284.0
+ },
+ "per_session_first_request_ms": {
+  "R": [
+   283.0,
+   287.0,
+   297.0
+  ],
+  "W": [
+   114.0,
+   115.0,
+   115.0
+  ],
+  "P": [
+   279.0,
+   284.0,
+   323.0
+  ]
+ },
+ "sessions": [
+  {
+   "order": 1,
+   "arm": "R",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    14.99,
+    2.65,
+    8.69
+   ],
+   "ms_per_token": [
+    283.0,
+    179.0,
+    272.0
+   ],
+   "first_token_s": [
+    0.98,
+    1.33,
+    0.79
+   ],
+   "links": [],
+   "link_fell_back_to_relay": false
+  },
+  {
+   "order": 2,
+   "arm": "W",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    6.65,
+    1.81,
+    4.05
+   ],
+   "ms_per_token": [
+    114.0,
+    113.0,
+    115.0
+   ],
+   "first_token_s": [
+    0.83,
+    1.01,
+    0.45
+   ],
+   "links": [
+    "B open srflx-srflx udp 18 ms",
+    "A open srflx-srflx udp 18 ms"
+   ],
+   "link_fell_back_to_relay": false
+  },
+  {
+   "order": 3,
+   "arm": "P",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    15.57,
+    2.59,
+    9.17
+   ],
+   "ms_per_token": [
+    279.0,
+    177.0,
+    278.0
+   ],
+   "first_token_s": [
+    1.49,
+    1.28,
+    0.77
+   ],
+   "links": [
+    "B open relay-relay udp 60 ms",
+    "A open relay-relay udp 61 ms"
+   ],
+   "link_fell_back_to_relay": false
+  },
+  {
+   "order": 4,
+   "arm": "P",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    15.32,
+    2.5,
+    9.13
+   ],
+   "ms_per_token": [
+    284.0,
+    173.0,
+    285.0
+   ],
+   "first_token_s": [
+    1.14,
+    1.27,
+    0.82
+   ],
+   "links": [
+    "B open relay-relay udp 63 ms",
+    "A open relay-relay udp 62 ms"
+   ],
+   "link_fell_back_to_relay": false
+  },
+  {
+   "order": 5,
+   "arm": "W",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    6.94,
+    1.9,
+    3.97
+   ],
+   "ms_per_token": [
+    115.0,
+    119.0,
+    114.0
+   ],
+   "first_token_s": [
+    1.01,
+    1.07,
+    0.42
+   ],
+   "links": [
+    "B open srflx-srflx udp 14 ms",
+    "A open srflx-srflx udp 15 ms"
+   ],
+   "link_fell_back_to_relay": false
+  },
+  {
+   "order": 6,
+   "arm": "R",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    15.79,
+    2.7,
+    9.25
+   ],
+   "ms_per_token": [
+    287.0,
+    185.0,
+    285.0
+   ],
+   "first_token_s": [
+    0.93,
+    1.27,
+    0.81
+   ],
+   "links": [],
+   "link_fell_back_to_relay": false
+  },
+  {
+   "order": 7,
+   "arm": "W",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    7.63,
+    1.72,
+    3.78
+   ],
+   "ms_per_token": [
+    115.0,
+    107.0,
+    109.0
+   ],
+   "first_token_s": [
+    0.96,
+    0.97,
+    0.43
+   ],
+   "links": [
+    "B open srflx-srflx udp 17 ms",
+    "A open srflx-srflx udp 18 ms"
+   ],
+   "link_fell_back_to_relay": false
+  },
+  {
+   "order": 8,
+   "arm": "R",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    16.57,
+    3.87,
+    9.99
+   ],
+   "ms_per_token": [
+    297.0,
+    303.0,
+    290.0
+   ],
+   "first_token_s": [
+    0.94,
+    1.44,
+    0.89
+   ],
+   "links": [],
+   "link_fell_back_to_relay": false
+  },
+  {
+   "order": 9,
+   "arm": "P",
+   "completion_tokens": [
+    52,
+    8,
+    32
+   ],
+   "request_seconds": [
+    225.54,
+    2.76,
+    10.15
+   ],
+   "ms_per_token": [
+    323.0,
+    204.0,
+    313.0
+   ],
+   "first_token_s": [
+    69.57,
+    1.26,
+    0.74
+   ],
+   "links": [
+    "A closed ?-?",
+    "B closed ?-?"
+   ],
+   "link_fell_back_to_relay": true
+  }
+ ],
+ "diagnostic_outside_gate": {
+  "what": "three more P sessions after the matrix, verbose coturn",
+  "sessions": [
+   {
+    "tokens": [
+     32,
+     8,
+     8
+    ],
+    "seconds": [
+     9.54,
+     2.67,
+     2.2
+    ]
+   },
+   {
+    "tokens": [
+     32,
+     8,
+     8
+    ],
+    "seconds": [
+     9.17,
+     2.52,
+     2.02
+    ]
+   },
+   {
+    "tokens": [
+     32,
+     8,
+     8
+    ],
+    "seconds": [
+     9.73,
+     2.69,
+     2.12
+    ]
+   }
+  ],
+  "links": "all relay-relay, open at go (59-64 ms); first token 1.1-1.7 s"
+ },
+ "cost_usd": 0.15
+}

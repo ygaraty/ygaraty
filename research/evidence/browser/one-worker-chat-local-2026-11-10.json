@@ -1,0 +1,899 @@
+{
+ "experiment": 150,
+ "id": "WS-23",
+ "date": "2026-11-10",
+ "host": "omarchy workstation (Radeon 680M, shared memory), coordinator and one headless Chromium contributor on localhost",
+ "dir": "runs/experiments/WS-23/omarchy-20261110-1921",
+ "code": "clean export of main at 377a646",
+ "model": "S5-nano Q4_K_M, one worker owning layers [0, 32), plan 8 GB; bundle capacity 4096 / cap 256",
+ "sessions": {
+  "relay": [
+   "R"
+  ],
+  "webrtc": [
+   "H1",
+   "D",
+   "H2"
+  ]
+ },
+ "driver": "scripts/experiments/chat_cycles.py from the working tree, --words 500, 150 s bound",
+ "gate": {
+  "R": {
+   "planned": 15,
+   "attempted": 15,
+   "completed": 15,
+   "resets_ok": true,
+   "runner_errors": 0,
+   "page_errors": 0,
+   "failures": [
+    "net::ERR_ABORTED"
+   ],
+   "at80": 15,
+   "generated": 3840,
+   "max_s": 25.497,
+   "first_visible_median": 0.6066627129912376,
+   "errors": [],
+   "pass": true
+  },
+  "H1": {
+   "planned": 15,
+   "attempted": 15,
+   "completed": 15,
+   "resets_ok": true,
+   "runner_errors": 0,
+   "page_errors": 0,
+   "failures": [
+    "net::ERR_ABORTED"
+   ],
+   "at80": 15,
+   "generated": 3840,
+   "max_s": 30.961,
+   "first_visible_median": 0.6065112790092826,
+   "errors": [],
+   "pass": true
+  },
+  "D": {
+   "planned": 15,
+   "attempted": 15,
+   "completed": 15,
+   "resets_ok": true,
+   "runner_errors": 0,
+   "page_errors": 0,
+   "failures": [
+    "net::ERR_ABORTED"
+   ],
+   "at80": 15,
+   "generated": 3840,
+   "max_s": 24.482,
+   "first_visible_median": 0.6077037419890985,
+   "errors": [],
+   "pass": true
+  },
+  "H2": {
+   "planned": 15,
+   "attempted": 15,
+   "completed": 15,
+   "resets_ok": true,
+   "runner_errors": 0,
+   "page_errors": 0,
+   "failures": [
+    "net::ERR_ABORTED"
+   ],
+   "at80": 15,
+   "generated": 3840,
+   "max_s": 26.296,
+   "first_visible_median": 0.6077368449768983,
+   "errors": [],
+   "pass": true
+  },
+  "parity": {
+   "H1=H2": [
+    7,
+    15
+   ],
+   "D=H1": [
+    5,
+    15
+   ],
+   "R=H1": [
+    1,
+    15
+   ]
+  },
+  "GATE": "PASS"
+ },
+ "recomputed_by": "runs/experiments/WS-23/gate23.py (identical output 2026-11-14)",
+ "parity_note": "hashes covered reply plus the page timing line (WS-27): parity numbers measure timing equality, not text parity",
+ "load": {
+  "relay_cold": "load 14.2 s, downloaded 2.70 GB, allocated 2.91 GB",
+  "webrtc_cached": "load 5.4 s, cached 2.70 GB, allocated 2.91 GB"
+ },
+ "memory_peak_bytes": {
+  "rss.total": 1956085760,
+  "pss.total": 905051136,
+  "drm.drm-total-vram": 2982096896,
+  "device.card1.mem_info_gtt_used": 2131312640
+ },
+ "runs": {
+  "R": {
+   "manifest": {
+    "revision": "377a646",
+    "arm": "relay",
+    "cycles": 3,
+    "turns": 5,
+    "words": 500,
+    "prompts": "long",
+    "timeout": 150,
+    "token_cap": 256
+   },
+   "turn_fields": [
+    "cycle",
+    "turn",
+    "result",
+    "generated",
+    "elapsed_s",
+    "first_visible_s",
+    "stopped",
+    "context_reset",
+    "position"
+   ],
+   "turns": [
+    [
+     0,
+     0,
+     "completed",
+     256,
+     24.505,
+     0.609,
+     "length",
+     null,
+     292
+    ],
+    [
+     0,
+     1,
+     "completed",
+     256,
+     24.48,
+     0.405,
+     "length",
+     null,
+     594
+    ],
+    [
+     0,
+     2,
+     "completed",
+     256,
+     24.484,
+     0.404,
+     "length",
+     null,
+     896
+    ],
+    [
+     0,
+     3,
+     "completed",
+     256,
+     24.48,
+     0.609,
+     "length",
+     null,
+     1198
+    ],
+    [
+     0,
+     4,
+     "completed",
+     256,
+     24.674,
+     0.607,
+     "length",
+     null,
+     1500
+    ],
+    [
+     1,
+     0,
+     "completed",
+     256,
+     24.27,
+     0.404,
+     "length",
+     null,
+     292
+    ],
+    [
+     1,
+     1,
+     "completed",
+     256,
+     24.468,
+     0.607,
+     "length",
+     null,
+     594
+    ],
+    [
+     1,
+     2,
+     "completed",
+     256,
+     24.48,
+     0.406,
+     "length",
+     null,
+     896
+    ],
+    [
+     1,
+     3,
+     "completed",
+     256,
+     25.091,
+     0.607,
+     "length",
+     null,
+     1198
+    ],
+    [
+     1,
+     4,
+     "completed",
+     256,
+     24.89,
+     0.61,
+     "length",
+     null,
+     1500
+    ],
+    [
+     2,
+     0,
+     "completed",
+     256,
+     24.678,
+     0.405,
+     "length",
+     null,
+     292
+    ],
+    [
+     2,
+     1,
+     "completed",
+     256,
+     25.497,
+     0.405,
+     "length",
+     null,
+     594
+    ],
+    [
+     2,
+     2,
+     "completed",
+     256,
+     24.892,
+     0.607,
+     "length",
+     null,
+     896
+    ],
+    [
+     2,
+     3,
+     "completed",
+     256,
+     24.478,
+     0.406,
+     "length",
+     null,
+     1198
+    ],
+    [
+     2,
+     4,
+     "completed",
+     256,
+     24.678,
+     0.607,
+     "length",
+     null,
+     1500
+    ]
+   ],
+   "resets": [
+    "completed",
+    "completed",
+    "completed"
+   ]
+  },
+  "H1": {
+   "manifest": {
+    "revision": "377a646",
+    "arm": "relay",
+    "cycles": 3,
+    "turns": 5,
+    "words": 500,
+    "prompts": "long",
+    "timeout": 150,
+    "token_cap": 256
+   },
+   "turn_fields": [
+    "cycle",
+    "turn",
+    "result",
+    "generated",
+    "elapsed_s",
+    "first_visible_s",
+    "stopped",
+    "context_reset",
+    "position"
+   ],
+   "turns": [
+    [
+     0,
+     0,
+     "completed",
+     256,
+     24.502,
+     0.608,
+     "length",
+     null,
+     292
+    ],
+    [
+     0,
+     1,
+     "completed",
+     256,
+     30.961,
+     0.608,
+     "length",
+     null,
+     594
+    ],
+    [
+     0,
+     2,
+     "completed",
+     256,
+     25.886,
+     0.406,
+     "length",
+     null,
+     896
+    ],
+    [
+     0,
+     3,
+     "completed",
+     256,
+     24.676,
+     0.61,
+     "length",
+     null,
+     1198
+    ],
+    [
+     0,
+     4,
+     "completed",
+     256,
+     24.076,
+     0.609,
+     "length",
+     null,
+     1500
+    ],
+    [
+     1,
+     0,
+     "completed",
+     256,
+     23.865,
+     0.406,
+     "length",
+     null,
+     292
+    ],
+    [
+     1,
+     1,
+     "completed",
+     256,
+     24.067,
+     0.405,
+     "length",
+     null,
+     594
+    ],
+    [
+     1,
+     2,
+     "completed",
+     256,
+     24.074,
+     0.406,
+     "length",
+     null,
+     896
+    ],
+    [
+     1,
+     3,
+     "completed",
+     256,
+     24.276,
+     0.405,
+     "length",
+     null,
+     1198
+    ],
+    [
+     1,
+     4,
+     "completed",
+     256,
+     24.276,
+     0.607,
+     "length",
+     null,
+     1500
+    ],
+    [
+     2,
+     0,
+     "completed",
+     256,
+     24.065,
+     0.405,
+     "length",
+     null,
+     292
+    ],
+    [
+     2,
+     1,
+     "completed",
+     256,
+     24.287,
+     0.607,
+     "length",
+     null,
+     594
+    ],
+    [
+     2,
+     2,
+     "completed",
+     256,
+     24.281,
+     0.607,
+     "length",
+     null,
+     896
+    ],
+    [
+     2,
+     3,
+     "completed",
+     256,
+     24.277,
+     0.606,
+     "length",
+     null,
+     1198
+    ],
+    [
+     2,
+     4,
+     "completed",
+     256,
+     24.285,
+     0.608,
+     "length",
+     null,
+     1500
+    ]
+   ],
+   "resets": [
+    "completed",
+    "completed",
+    "completed"
+   ]
+  },
+  "D": {
+   "manifest": {
+    "revision": "377a646",
+    "arm": "direct",
+    "cycles": 3,
+    "turns": 5,
+    "words": 500,
+    "prompts": "long",
+    "timeout": 150,
+    "token_cap": 256
+   },
+   "turn_fields": [
+    "cycle",
+    "turn",
+    "result",
+    "generated",
+    "elapsed_s",
+    "first_visible_s",
+    "stopped",
+    "context_reset",
+    "position"
+   ],
+   "turns": [
+    [
+     0,
+     0,
+     "completed",
+     256,
+     24.094,
+     0.405,
+     "length",
+     null,
+     292
+    ],
+    [
+     0,
+     1,
+     "completed",
+     256,
+     24.288,
+     0.609,
+     "length",
+     null,
+     594
+    ],
+    [
+     0,
+     2,
+     "completed",
+     256,
+     24.277,
+     0.608,
+     "length",
+     null,
+     896
+    ],
+    [
+     0,
+     3,
+     "completed",
+     256,
+     24.469,
+     0.607,
+     "length",
+     null,
+     1198
+    ],
+    [
+     0,
+     4,
+     "completed",
+     256,
+     24.275,
+     0.609,
+     "length",
+     null,
+     1500
+    ],
+    [
+     1,
+     0,
+     "completed",
+     256,
+     24.071,
+     0.405,
+     "length",
+     null,
+     292
+    ],
+    [
+     1,
+     1,
+     "completed",
+     256,
+     24.272,
+     0.404,
+     "length",
+     null,
+     594
+    ],
+    [
+     1,
+     2,
+     "completed",
+     256,
+     24.275,
+     0.61,
+     "length",
+     null,
+     896
+    ],
+    [
+     1,
+     3,
+     "completed",
+     256,
+     24.482,
+     0.608,
+     "length",
+     null,
+     1198
+    ],
+    [
+     1,
+     4,
+     "completed",
+     256,
+     24.473,
+     0.609,
+     "length",
+     null,
+     1500
+    ],
+    [
+     2,
+     0,
+     "completed",
+     256,
+     24.07,
+     0.405,
+     "length",
+     null,
+     292
+    ],
+    [
+     2,
+     1,
+     "completed",
+     256,
+     24.475,
+     0.608,
+     "length",
+     null,
+     594
+    ],
+    [
+     2,
+     2,
+     "completed",
+     256,
+     24.475,
+     0.608,
+     "length",
+     null,
+     896
+    ],
+    [
+     2,
+     3,
+     "completed",
+     256,
+     24.278,
+     0.61,
+     "length",
+     null,
+     1198
+    ],
+    [
+     2,
+     4,
+     "completed",
+     256,
+     24.273,
+     0.608,
+     "length",
+     null,
+     1500
+    ]
+   ],
+   "resets": [
+    "completed",
+    "completed",
+    "completed"
+   ]
+  },
+  "H2": {
+   "manifest": {
+    "revision": "377a646",
+    "arm": "relay",
+    "cycles": 3,
+    "turns": 5,
+    "words": 500,
+    "prompts": "long",
+    "timeout": 150,
+    "token_cap": 256
+   },
+   "turn_fields": [
+    "cycle",
+    "turn",
+    "result",
+    "generated",
+    "elapsed_s",
+    "first_visible_s",
+    "stopped",
+    "context_reset",
+    "position"
+   ],
+   "turns": [
+    [
+     0,
+     0,
+     "completed",
+     256,
+     24.101,
+     0.406,
+     "length",
+     null,
+     292
+    ],
+    [
+     0,
+     1,
+     "completed",
+     256,
+     24.286,
+     0.405,
+     "length",
+     null,
+     594
+    ],
+    [
+     0,
+     2,
+     "completed",
+     256,
+     24.276,
+     0.406,
+     "length",
+     null,
+     896
+    ],
+    [
+     0,
+     3,
+     "completed",
+     256,
+     24.474,
+     0.608,
+     "length",
+     null,
+     1198
+    ],
+    [
+     0,
+     4,
+     "completed",
+     256,
+     24.267,
+     0.609,
+     "length",
+     null,
+     1500
+    ],
+    [
+     1,
+     0,
+     "completed",
+     256,
+     24.073,
+     0.405,
+     "length",
+     null,
+     292
+    ],
+    [
+     1,
+     1,
+     "completed",
+     256,
+     24.276,
+     0.608,
+     "length",
+     null,
+     594
+    ],
+    [
+     1,
+     2,
+     "completed",
+     256,
+     24.272,
+     0.608,
+     "length",
+     null,
+     896
+    ],
+    [
+     1,
+     3,
+     "completed",
+     256,
+     24.276,
+     0.609,
+     "length",
+     null,
+     1198
+    ],
+    [
+     1,
+     4,
+     "completed",
+     256,
+     26.296,
+     0.608,
+     "length",
+     null,
+     1500
+    ],
+    [
+     2,
+     0,
+     "completed",
+     256,
+     24.073,
+     0.405,
+     "length",
+     null,
+     292
+    ],
+    [
+     2,
+     1,
+     "completed",
+     256,
+     24.277,
+     0.608,
+     "length",
+     null,
+     594
+    ],
+    [
+     2,
+     2,
+     "completed",
+     256,
+     24.274,
+     0.406,
+     "length",
+     null,
+     896
+    ],
+    [
+     2,
+     3,
+     "completed",
+     256,
+     24.276,
+     0.608,
+     "length",
+     null,
+     1198
+    ],
+    [
+     2,
+     4,
+     "completed",
+     256,
+     24.48,
+     0.609,
+     "length",
+     null,
+     1500
+    ]
+   ],
+   "resets": [
+    "completed",
+    "completed",
+    "completed"
+   ]
+  }
+ }
+}

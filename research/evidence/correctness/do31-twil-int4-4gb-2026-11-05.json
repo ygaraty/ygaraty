@@ -1,0 +1,852 @@
+{
+ "id": "DO-31",
+ "date": "2026-11-05",
+ "model": "webAI-Official/TwIL-8B@58d49f0d9909e62f9c2fb09e99fc5c76f3f2d630 (balanced, bf16 checkpoint)",
+ "code": {
+  "commits": [
+   "1a5c96c",
+   "72a5fc7",
+   "e7bc569"
+  ],
+  "hand_copied": {
+   "ygaraty/inference/phi4_owner.py": "e0b0c7488d95e547 (sha256 prefix; = e7bc569)"
+  }
+ },
+ "settings": {
+  "owners": 4,
+  "layers_per_owner": 10,
+  "weights": "int4 (RTN, groups of 128)",
+  "head_weights": "int4",
+  "dtype": "auto",
+  "gpu_memory_cap_mib": 3584,
+  "chunk": 64,
+  "wire": "float32",
+  "relay": true,
+  "handoff": true,
+  "fused_kernel_rows_max": 16
+ },
+ "pool": [
+  {
+   "machine": 0,
+   "role": "coordinator, relay, w0",
+   "gpu": "RTX 4060 8 GB",
+   "dtype": "bfloat16",
+   "location": "British Columbia, CA",
+   "usd_per_h": 0.1006
+  },
+  {
+   "machine": 1,
+   "role": "w1",
+   "gpu": "RTX 2070 8 GB",
+   "dtype": "float16",
+   "location": "Ontario, CA",
+   "usd_per_h": 0.1022
+  },
+  {
+   "machine": 2,
+   "role": "w2",
+   "gpu": "RTX 3070 8 GB",
+   "dtype": "bfloat16",
+   "location": "Nevada, US",
+   "usd_per_h": 0.1096
+  },
+  {
+   "machine": 3,
+   "role": "w3",
+   "gpu": "RTX 3070 8 GB",
+   "dtype": "bfloat16",
+   "location": "Quebec, CA",
+   "usd_per_h": 0.1148
+  }
+ ],
+ "setup": {
+  "minutes": 5,
+  "per_machine_download_gb": [
+   4.5,
+   3.8,
+   3.8,
+   4.5
+  ],
+  "download_seconds": [
+   87,
+   19,
+   69,
+   51
+  ]
+ },
+ "rtt_to_machine0_ms": [
+  {
+   "machine": 0,
+   "location": "British Columbia, CA",
+   "connect_ms": [
+    0.0
+   ]
+  },
+  {
+   "machine": 1,
+   "location": "Ontario, CA",
+   "connect_ms": [
+    70.535,
+    70.83200000000001,
+    71.77,
+    72.321,
+    72.535,
+    72.865,
+    72.899,
+    75.77799999999999,
+    75.899,
+    78.164
+   ]
+  },
+  {
+   "machine": 2,
+   "location": "Nevada, US",
+   "connect_ms": [
+    47.082,
+    49.982,
+    51.401,
+    51.942,
+    54.732,
+    57.17,
+    57.19,
+    57.835,
+    64.701,
+    75.41499999999999
+   ]
+  },
+  {
+   "machine": 3,
+   "location": "Quebec, CA",
+   "connect_ms": [
+    86.60600000000001,
+    87.211,
+    87.949,
+    87.987,
+    88.292,
+    88.38799999999999,
+    88.55399999999999,
+    89.073,
+    89.443,
+    91.83099999999999
+   ]
+  }
+ ],
+ "kernel": [
+  {
+   "gpu": "NVIDIA GeForce RTX 4060",
+   "capability": [
+    8,
+    9
+   ],
+   "dtype": "torch.bfloat16",
+   "torch": "2.14.1+cu126",
+   "matrices": {
+    "qkv": {
+     "fused_ok": true,
+     "rel_err": 0.0030955178663134575,
+     "fused_ms": 0.09196996688842773,
+     "unpacked_ms": 2.032744884490967
+    },
+    "o": {
+     "fused_ok": true,
+     "rel_err": 0.0029976246878504753,
+     "fused_ms": 0.09067058563232422,
+     "unpacked_ms": 1.2528061866760254
+    },
+    "gate_up": {
+     "fused_ok": true,
+     "rel_err": 0.0031118132174015045,
+     "fused_ms": 0.22486448287963867,
+     "unpacked_ms": 8.356153964996338
+    },
+    "down": {
+     "fused_ok": true,
+     "rel_err": 0.0019029838731512427,
+     "fused_ms": 0.14661550521850586,
+     "unpacked_ms": 4.105746746063232
+    },
+    "head": {
+     "fused_ok": true,
+     "rel_err": 0.0025118158664554358,
+     "fused_ms": 0.9206414222717285,
+     "unpacked_ms": 32.86092281341553
+    }
+   },
+   "machine": 0
+  },
+  {
+   "gpu": "NVIDIA GeForce RTX 2070",
+   "capability": [
+    7,
+    5
+   ],
+   "dtype": "torch.float16",
+   "torch": "2.15.0+cu132",
+   "matrices": {
+    "qkv": {
+     "fused_ok": true,
+     "rel_err": 0.00038805161602795124,
+     "fused_ms": 0.09014606475830078,
+     "unpacked_ms": 2.2396445274353027
+    },
+    "o": {
+     "fused_ok": true,
+     "rel_err": 0.0004264905583113432,
+     "fused_ms": 0.08029937744140625,
+     "unpacked_ms": 1.4908552169799805
+    },
+    "gate_up": {
+     "fused_ok": true,
+     "rel_err": 0.000397444557165727,
+     "fused_ms": 0.29810667037963867,
+     "unpacked_ms": 8.582353591918945
+    },
+    "down": {
+     "fused_ok": true,
+     "rel_err": 0.00023813000007066876,
+     "fused_ms": 0.21976232528686523,
+     "unpacked_ms": 4.13891077041626
+    },
+    "head": {
+     "fused_ok": true,
+     "rel_err": 0.00031700279214419425,
+     "fused_ms": 0.8273482322692871,
+     "unpacked_ms": 34.037840366363525
+    }
+   },
+   "machine": 1
+  },
+  {
+   "gpu": "NVIDIA GeForce RTX 3070",
+   "capability": [
+    8,
+    6
+   ],
+   "dtype": "torch.bfloat16",
+   "torch": "2.15.0+cu132",
+   "matrices": {
+    "qkv": {
+     "fused_ok": true,
+     "rel_err": 0.0020676394924521446,
+     "fused_ms": 0.06871223449707031,
+     "unpacked_ms": 1.4161944389343262
+    },
+    "o": {
+     "fused_ok": true,
+     "rel_err": 0.0031931886915117502,
+     "fused_ms": 0.05278587341308594,
+     "unpacked_ms": 0.9676337242126465
+    },
+    "gate_up": {
+     "fused_ok": true,
+     "rel_err": 0.003154441248625517,
+     "fused_ms": 0.2198934555053711,
+     "unpacked_ms": 5.986118316650391
+    },
+    "down": {
+     "fused_ok": true,
+     "rel_err": 0.0019252238562330604,
+     "fused_ms": 0.1580357551574707,
+     "unpacked_ms": 2.934873104095459
+    },
+    "head": {
+     "fused_ok": true,
+     "rel_err": 0.002928114729002118,
+     "fused_ms": 0.8060336112976074,
+     "unpacked_ms": 23.8364577293396
+    }
+   },
+   "machine": 2
+  },
+  {
+   "gpu": "NVIDIA GeForce RTX 3070",
+   "capability": [
+    8,
+    6
+   ],
+   "dtype": "torch.bfloat16",
+   "torch": "2.15.0+cu132",
+   "matrices": {
+    "qkv": {
+     "fused_ok": true,
+     "rel_err": 0.0020676394924521446,
+     "fused_ms": 0.09131431579589844,
+     "unpacked_ms": 1.2907028198242188
+    },
+    "o": {
+     "fused_ok": true,
+     "rel_err": 0.0031931886915117502,
+     "fused_ms": 0.08004903793334961,
+     "unpacked_ms": 0.8743524551391602
+    },
+    "gate_up": {
+     "fused_ok": true,
+     "rel_err": 0.003154441248625517,
+     "fused_ms": 0.1904606819152832,
+     "unpacked_ms": 5.4268479347229
+    },
+    "down": {
+     "fused_ok": true,
+     "rel_err": 0.0019252238562330604,
+     "fused_ms": 0.1323699951171875,
+     "unpacked_ms": 2.6500582695007324
+    },
+    "head": {
+     "fused_ok": true,
+     "rel_err": 0.002928114729002118,
+     "fused_ms": 0.7121682167053223,
+     "unpacked_ms": 21.649563312530518
+    }
+   },
+   "machine": 3
+  }
+ ],
+ "kernel_diagnostic_machine0": {
+  "qkv": {
+   "fused_float32": 1.8832081460295108e-07,
+   "fused_bf16": 0.0030955719932867086,
+   "exact_rounded_to_bf16": 0.0030955719932867086
+  },
+  "gate_up": {
+   "fused_float32": 2.1599619204961602e-07,
+   "fused_bf16": 0.00302902180407733,
+   "exact_rounded_to_bf16": 0.00302902180407733
+  },
+  "down": {
+   "fused_float32": 2.827684376387704e-07,
+   "fused_bf16": 0.0018114840100572226,
+   "exact_rounded_to_bf16": 0.0018114840100572226
+  }
+ },
+ "correctness": {
+  "rows": [
+   {
+    "text": "What is the capital of France? Answer in one sentence.",
+    "tokens": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     279,
+     6864,
+     315,
+     9822,
+     30,
+     22559,
+     304,
+     832,
+     11914
+    ],
+    "reference": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     279,
+     6864,
+     315,
+     9822,
+     30,
+     22559,
+     304,
+     832,
+     11914
+    ],
+    "first_divergence": null,
+    "matched": 16,
+    "margin_at_divergence": null,
+    "first_token_equal": true
+   },
+   {
+    "text": "Write a Python function that returns the n-th Fibonacci number.",
+    "tokens": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     8144,
+     264,
+     13325,
+     734,
+     430,
+     4780,
+     279,
+     308,
+     12,
+     339,
+     80783
+    ],
+    "reference": [
+     1687,
+     1205,
+     311,
+     3350,
+     264,
+     13325,
+     734,
+     430,
+     4780,
+     279,
+     308,
+     12,
+     339,
+     80783,
+     1396,
+     13
+    ],
+    "first_divergence": 0,
+    "matched": 0,
+    "margin_at_divergence": 0.875,
+    "first_token_equal": false
+   },
+   {
+    "text": "What is 17 * 23? Give only the number.",
+    "tokens": [
+     791,
+     1217,
+     17501,
+     330,
+     3923,
+     374,
+     220,
+     1114,
+     353,
+     220,
+     1419,
+     30,
+     21335,
+     1193,
+     279,
+     1396
+    ],
+    "reference": [
+     1687,
+     1205,
+     12849,
+     220,
+     1114,
+     9,
+     1419,
+     284,
+     220,
+     19631,
+     13,
+     40665,
+     1193,
+     279,
+     1396,
+     13
+    ],
+    "first_divergence": 0,
+    "matched": 0,
+    "margin_at_divergence": 1.625,
+    "first_token_equal": false
+   }
+  ],
+  "steps": 51,
+  "retries": 0,
+  "rejected": 0
+ },
+ "fakequant_diagnostic": [
+  {
+   "text": "What is the capital of France? Answer in one sentence.",
+   "fakequant_tokens": [
+    791,
+    1217,
+    17501,
+    25,
+    330,
+    3923,
+    374,
+    279,
+    6864,
+    315,
+    9822,
+    30,
+    22559,
+    304,
+    832,
+    11914
+   ],
+   "fakequant_top2_margin": [
+    0.875,
+    9.75,
+    5.25,
+    1.875,
+    14.375,
+    15.125,
+    13.75,
+    12.0,
+    11.125,
+    11.75,
+    11.375,
+    9.5,
+    15.0,
+    14.1875,
+    14.0625,
+    13.5625
+   ],
+   "cluster_tokens": [
+    791,
+    1217,
+    17501,
+    25,
+    330,
+    3923,
+    374,
+    279,
+    6864,
+    315,
+    9822,
+    30,
+    22559,
+    304,
+    832,
+    11914
+   ],
+   "matches_cluster_until": 16
+  },
+  {
+   "text": "Write a Python function that returns the n-th Fibonacci number.",
+   "fakequant_tokens": [
+    791,
+    1217,
+    17501,
+    25,
+    330,
+    8144,
+    264,
+    13325,
+    734,
+    430,
+    4780,
+    279,
+    308,
+    12,
+    339,
+    80783
+   ],
+   "fakequant_top2_margin": [
+    0.75,
+    3.5,
+    1.5,
+    3.125,
+    8.375,
+    12.75,
+    12.875,
+    12.0,
+    13.125,
+    14.375,
+    13.375,
+    12.875,
+    4.375,
+    10.25,
+    14.5,
+    11.5
+   ],
+   "cluster_tokens": [
+    791,
+    1217,
+    17501,
+    25,
+    330,
+    8144,
+    264,
+    13325,
+    734,
+    430,
+    4780,
+    279,
+    308,
+    12,
+    339,
+    80783
+   ],
+   "matches_cluster_until": 16
+  },
+  {
+   "text": "What is 17 * 23? Give only the number.",
+   "fakequant_tokens": [
+    791,
+    1217,
+    17501,
+    25,
+    330,
+    3923,
+    374,
+    220,
+    1114,
+    353,
+    220,
+    1419,
+    30,
+    21335,
+    1193,
+    279
+   ],
+   "fakequant_top2_margin": [
+    0.0,
+    8.125,
+    3.5,
+    0.0,
+    7.125,
+    11.125,
+    14.0,
+    11.75,
+    13.0625,
+    10.75,
+    11.8125,
+    11.8125,
+    9.375,
+    13.375,
+    12.4375,
+    12.9375
+   ],
+   "cluster_tokens": [
+    791,
+    1217,
+    17501,
+    330,
+    3923,
+    374,
+    220,
+    1114,
+    353,
+    220,
+    1419,
+    30,
+    21335,
+    1193,
+    279,
+    1396
+   ],
+   "matches_cluster_until": 3
+  }
+ ],
+ "reference": {
+  "file": "runs/pods-data/do31/reference.json",
+  "model": "webAI-Official/TwIL-8B@58d49f0d",
+  "dtype": "bfloat16",
+  "device": "cpu",
+  "transformers": "5.22.1",
+  "sessions": [
+   {
+    "text": "What is the capital of France? Answer in one sentence.",
+    "ref_tokens": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     279,
+     6864,
+     315,
+     9822,
+     30,
+     22559,
+     304,
+     832,
+     11914
+    ],
+    "ref_top2_margin": [
+     1.5,
+     7.375,
+     5.5,
+     2.375,
+     13.75,
+     13.875,
+     14.1875,
+     11.9375,
+     11.375,
+     12.25,
+     11.8125,
+     8.5,
+     17.75,
+     14.6875,
+     15.0,
+     13.4375
+    ],
+    "decoded": "The user asks: \"What is the capital of France? Answer in one sentence",
+    "seconds": 10.142679452896118
+   },
+   {
+    "text": "Write a Python function that returns the n-th Fibonacci number.",
+    "ref_tokens": [
+     1687,
+     1205,
+     311,
+     3350,
+     264,
+     13325,
+     734,
+     430,
+     4780,
+     279,
+     308,
+     12,
+     339,
+     80783,
+     1396,
+     13
+    ],
+    "ref_top2_margin": [
+     0.875,
+     1.5,
+     7.125,
+     1.25,
+     4.5,
+     6.875,
+     12.375,
+     5.875,
+     8.125,
+     6.25,
+     1.125,
+     7.625,
+     8.875,
+     10.875,
+     11.125,
+     3.5
+    ],
+    "decoded": "We need to write a Python function that returns the n-th Fibonacci number.",
+    "seconds": 10.101570844650269
+   },
+   {
+    "text": "What is 17 * 23? Give only the number.",
+    "ref_tokens": [
+     1687,
+     1205,
+     12849,
+     220,
+     1114,
+     9,
+     1419,
+     284,
+     220,
+     19631,
+     13,
+     40665,
+     1193,
+     279,
+     1396,
+     13
+    ],
+    "ref_top2_margin": [
+     1.625,
+     5.0,
+     0.125,
+     8.625,
+     11.875,
+     0.75,
+     12.3125,
+     1.875,
+     2.75,
+     3.0,
+     0.5,
+     3.25,
+     4.75,
+     0.375,
+     11.25,
+     6.625
+    ],
+    "decoded": "We need compute 17*23 = 391. Provide only the number.",
+    "seconds": 10.05147123336792
+   }
+  ]
+ },
+ "timing_128": {
+  "fused": {
+   "sessions_measured": 3,
+   "warm_first_token_s": 59.06564545631409,
+   "first_token_s": [
+    10.097889184951782,
+    19.17500591278076,
+    11.945054054260254
+   ],
+   "itl_median_s": 0.9510645866394043,
+   "itl_p95_s": 1.1371099948883057,
+   "itl_mean_s": 0.9735604390071759,
+   "new_tokens": [
+    128,
+    128,
+    128
+   ],
+   "same_tokens_all_sessions": true,
+   "steps": 520,
+   "retries": 0,
+   "rejected": 0,
+   "gpu_peak_mib": {
+    "w0": 1921,
+    "w1": 2011,
+    "w2": 1983,
+    "w3": 2695
+   }
+  },
+  "unpacked": {
+   "sessions_measured": 3,
+   "warm_first_token_s": 54.1316773891449,
+   "first_token_s": [
+    11.671248435974121,
+    18.218501329421997,
+    10.166118860244751
+   ],
+   "itl_median_s": 1.4111392498016357,
+   "itl_p95_s": 1.6941752433776855,
+   "itl_mean_s": 1.5082445595208116,
+   "new_tokens": [
+    128,
+    128,
+    128
+   ],
+   "same_tokens_all_sessions": true,
+   "steps": 520,
+   "retries": 0,
+   "rejected": 0,
+   "gpu_peak_mib": {
+    "w0": 1921,
+    "w1": 2011,
+    "w2": 1983,
+    "w3": 2695
+   }
+  }
+ },
+ "long_30000": {
+  "result": "failed: w3 CUDA out of memory in attention at about 29,950 of 30,000 cached tokens (11:32), 234 MiB request with 2.57 GiB allocated and 753 MiB reserved but unallocated under the 3.50 GiB cap; the job then waited to its 5,400 s timeout",
+  "chunks_per_5min": [
+   39,
+   80,
+   68,
+   60,
+   51,
+   57
+  ],
+  "gpu_peak_mib": {
+   "w0": 3687,
+   "w1": 3735,
+   "w2": 3707,
+   "w3": 3789
+  },
+  "earlier_attempts": [
+   "10:13 every load failed: cap_gpu_memory passed 'cuda' without an index (fixed e7bc569)",
+   "10:16-10:22 stopped after 25 chunks to reschedule (about 13 s per chunk then)"
+  ]
+ },
+ "not_run": [
+  "timing at 1,024 and 8,192-token prompts (did not fit the 3 h window)"
+ ],
+ "cost": {
+  "machine_hours_usd": 0.91,
+  "download_estimate_usd": 0.12,
+  "total_estimate_usd": 1.03,
+  "minutes_up": 136,
+  "budget_usd": 2.0
+ }
+}

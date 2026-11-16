@@ -1,0 +1,80 @@
+{
+  "rows": [
+    {
+      "replicas": 1,
+      "algorithm": "adam",
+      "train_loss": 2.0829341262578964,
+      "train_accuracy": 0.20859375,
+      "validation_loss": 2.1135462820529938,
+      "validation_accuracy": 0.18359375,
+      "training_seconds": 2.1266902091447264,
+      "elapsed_seconds_including_validation": 2.369763999944553,
+      "rounds": 1,
+      "local_steps_per_replica": 80,
+      "threads_per_process": 8,
+      "run_label": "cifar-local-real-pilot-8replicas/adam"
+    },
+    {
+      "replicas": 2,
+      "algorithm": "diloco",
+      "train_loss": 2.1211693048477174,
+      "train_accuracy": 0.20859375,
+      "validation_loss": 2.1269196420907974,
+      "validation_accuracy": 0.23828125,
+      "training_seconds": 1.0463859168812633,
+      "elapsed_seconds_including_validation": 1.5200105840340257,
+      "rounds": 4,
+      "local_steps_per_replica": 40,
+      "threads_per_process": 1,
+      "run_label": "cifar-local-real-pilot/diloco"
+    },
+    {
+      "replicas": 4,
+      "algorithm": "diloco",
+      "train_loss": 2.211918753385544,
+      "train_accuracy": 0.196875,
+      "validation_loss": 2.1410065591335297,
+      "validation_accuracy": 0.2109375,
+      "training_seconds": 0.6378965419717133,
+      "elapsed_seconds_including_validation": 0.9180529590230435,
+      "rounds": 2,
+      "local_steps_per_replica": 20,
+      "threads_per_process": 1,
+      "run_label": "cifar-local-real-pilot-4replicas/diloco"
+    },
+    {
+      "replicas": 8,
+      "algorithm": "diloco",
+      "train_loss": 2.272839379310608,
+      "train_accuracy": 0.17734375,
+      "validation_loss": 2.2595579624176025,
+      "validation_accuracy": 0.203125,
+      "training_seconds": 0.5675952499732375,
+      "elapsed_seconds_including_validation": 0.7551879589445889,
+      "rounds": 1,
+      "local_steps_per_replica": 10,
+      "threads_per_process": 1,
+      "run_label": "cifar-local-real-pilot-8replicas/diloco"
+    }
+  ],
+  "examples": 2560,
+  "train_images": 1280,
+  "validation_images": 256,
+  "initial_weights_sha256": "a80b924c9a1d051dc25014c680e026b197985770a72006017c05b44311e820e2",
+  "subset_sha256": "bf9f78bed1b3e158e9a845e002f9b22a7635d18049997d479cdc0ee0808c4bd0",
+  "notes": [
+    "One seed; tiny subset, not full CIFAR epochs.",
+    "Replica 1 is plain Adam with eight CPU threads; 2/4/8 are threaded DiLoCo with one intra-op thread per replica.",
+    "H=10 for DiLoCo; fixed total examples imply fewer local steps and rounds with more replicas.",
+    "Training loss/accuracy are post-training evaluations of final global weights, not averaged local-step metrics.",
+    "Timing is single-host and excludes this post-hoc evaluation; no network synchronization is measured."
+  ],
+  "date": "2026-10-28",
+  "evidence_kind": "measured single-host CPU pilot; not a distributed speedup benchmark",
+  "hardware": {
+    "architecture": "arm64",
+    "logical_cpus": 8,
+    "os": "macOS 27.0.1"
+  },
+  "raw_artifacts": "Retained locally outside Git; this file is the compact result summary."
+}

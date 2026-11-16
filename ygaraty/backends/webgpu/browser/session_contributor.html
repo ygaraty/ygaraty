@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Ygaraty · Contribute</title>
+<style>body{font:17px system-ui;max-width:48rem;margin:4rem auto;padding:1rem;background:#faf9f6;color:#202020}button,input{font:inherit;padding:.6rem}section{border-top:1px solid #ccc;padding-top:1rem}progress{width:100%}</style>
+<h1>Contribute your GPU</h1><p>Keep this tab open to help run the model. Click “Accept and contribute” to share your GPU; model loading may take a few minutes.</p>
+<p id="network-policy"><!-- NETWORK_POLICY --></p>
+<form id="credentials"><input id="credential" type="password" autocomplete="off" aria-label="Contributor key" placeholder="Contributor key" required><button>Use key</button></form>
+<section><button id="accept">Accept and contribute</button><p id="contributor-presence">Not contributing</p><h2 id="status">Waiting for you</h2><p id="detail"></p><p id="assignment"></p><p id="serving-status"></p><progress id="weight-progress" max="100" value="0"></progress><p id="weight-progress-label"></p><section id="contributor-network" class="contributor-network" aria-label="Live contributor connections" hidden><strong>Live connections</strong><div data-network-links></div></section></section>
+<script>if(new URLSearchParams(location.hash.slice(1)).get('key'))document.getElementById('credentials').hidden=true;document.getElementById('credentials').onsubmit=e=>{e.preventDefault();location.hash=new URLSearchParams({key:document.getElementById('credential').value});location.reload();};</script>
+<script type="module" src="/qwen35_contributor.mjs"></script></html>

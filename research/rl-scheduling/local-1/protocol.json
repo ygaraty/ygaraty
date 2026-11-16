@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "written_utc": "2026-10-30T10:09:09Z",
+  "corpora": {
+    "train": {
+      "path": "/home/felipecruz/Projects/ygaraty/runs/local-1/factorization-v1",
+      "split": "train",
+      "manifest_sha256": "1cb8900cf2f467427ba5d22f5b1fad79aba5c62e686dc5b9fbd492144d0c2d25",
+      "families": [
+        "dense_sgd_factorization"
+      ],
+      "workloads": {
+        "tiled_1024": {
+          "graph_sha256": "48c1b2ce9616c2062576043b905bc5ce84aa3c68803b4a6260820080a1178c1f",
+          "tasks": 662
+        },
+        "fused_1024": {
+          "graph_sha256": "f2d9fe4652b029ed7f7f992df272382292d53c0f3979ec851105f3debbca75d2",
+          "tasks": 98
+        },
+        "fused_4096": {
+          "graph_sha256": "6fa3f32db7eadf10756f556ff9503c51b49660bf7ed9f51a820013d9f343ccc0",
+          "tasks": 358
+        }
+      },
+      "scenarios": [
+        "loopback_1",
+        "lan_4",
+        "home_4",
+        "home_16",
+        "congested_16",
+        "heterogeneous_8",
+        "late_join_8"
+      ]
+    },
+    "validation": {
+      "path": "/home/felipecruz/Projects/ygaraty/runs/local-1/mlp-validation-v1",
+      "split": "validation",
+      "manifest_sha256": "bbffc74c835308e59921c508b094a07dfed20936bbfaf36ab72b239356fa15c1",
+      "families": [
+        "legacy_mlp_forward_backward"
+      ],
+      "workloads": {
+        "mlp_76": {
+          "graph_sha256": "4f3ef99cb52a49603eb32356e44b12b89352ba99afc627179979f987e5e64794",
+          "tasks": 76
+        },
+        "mlp_77": {
+          "graph_sha256": "af2bd85a7d30a5d774dcf43fe2c014434a2b3f3dd13f2b86938256447bb01058",
+          "tasks": 77
+        },
+        "mlp_340": {
+          "graph_sha256": "e796d9458d0a9c3063b297aea5b80170705d660b4899ad7a2c9903ec2a08b8de",
+          "tasks": 340
+        }
+      },
+      "scenarios": [
+        "loopback_1",
+        "lan_4",
+        "home_4",
+        "home_16",
+        "congested_16",
+        "heterogeneous_8",
+        "late_join_8"
+      ]
+    },
+    "test": {
+      "path": "/home/felipecruz/Projects/ygaraty/runs/local-1/transformer-test-v1",
+      "split": "test",
+      "manifest_sha256": "7c0a9f1b1182047f26dd33fbc186b815ce761f3b4e0235797467f9ff7f75df59",
+      "families": [
+        "transformer_translator"
+      ],
+      "workloads": {
+        "transformer_tiny": {
+          "graph_sha256": "c9fb5f8e9ca9cd06321cd2ec7f7f1e42fa0d22bd4e57046176e9506f1b9741d5",
+          "tasks": 899
+        },
+        "transformer_tiny_b8": {
+          "graph_sha256": "6cab17d086c995062e40667ffcc5a0417bfd5832d7e524c4d0d1e56adb0b4ed6",
+          "tasks": 963
+        },
+        "transformer_30m": {
+          "graph_sha256": "dbcf0ce61ecc0b66e5adeb7d233d8a9d56236276133c6fa60063b3e144b5ecb6",
+          "tasks": 1344
+        }
+      },
+      "scenarios": [
+        "loopback_1",
+        "lan_4",
+        "home_4",
+        "home_16",
+        "congested_16",
+        "heterogeneous_8",
+        "late_join_8"
+      ]
+    }
+  },
+  "rerun_checkpoint": {
+    "path": "/home/felipecruz/Projects/ygaraty/runs/local-1/gnn-residual-v1/selected.pt",
+    "sha256": "33ef5c5a514f2ef042fee3e53c29f6abaf6be0db3612b91abdc77e96710b3b6f",
+    "note": "rl-residual re-run on this host from the re-run gnn-v2; same recipe as gnn-residual-v1, not its frozen checkpoint (gnn-v2 did not reproduce bitwise across hosts)"
+  },
+  "training": {
+    "initialization_seeds": [
+      3000,
+      3001,
+      3002,
+      3003,
+      3004
+    ],
+    "epochs": 24,
+    "learning_rate": 0.001,
+    "entropy_coefficient": 0.0001,
+    "order_seed_base": 4000,
+    "environment_seed_base": 5000000,
+    "policy_seed_base": 6000000,
+    "initialization": "fresh random GNN body per seed (torch.manual_seed), residual head zeroed: epoch 0 is critical path",
+    "objective": "rl-residual: self-critical REINFORCE normalized by same-seed critical-path makespan",
+    "rollout_budget": "24 epochs x 21 training cases, identical for every seed"
+  },
+  "selection": {
+    "family": "validation",
+    "seeds": [
+      900,
+      901,
+      902,
+      903,
+      904
+    ],
+    "charge": "zero",
+    "score": "equal-case mean ratio to paired critical path on the validation family; epoch 0 (= critical path) is a candidate"
+  },
+  "final": {
+    "seeds": [
+      1000,
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      1011,
+      1012,
+      1013,
+      1014,
+      1015,
+      1016,
+      1017,
+      1018,
+      1019
+    ],
+    "arms": [
+      "critical_path",
+      "fifo",
+      "zero_residual",
+      "residual_rerun",
+      "residual_seed0",
+      "residual_seed1",
+      "residual_seed2",
+      "residual_seed3",
+      "residual_seed4"
+    ],
+    "charge_modes": {
+      "zero": 0.0,
+      "measured": 1.0,
+      "slow_coordinator": 4.0
+    },
+    "primary": "residual_seed0..4 on the test family, measured charge"
+  },
+  "latency": {
+    "threads": 1,
+    "warmup": 50,
+    "repeats": 21,
+    "model": "median per sampled decision; least squares a + b * ready-queue length; per-graph precomputation (embedding / ranks) median of 21"
+  },
+  "acceptance": {
+    "rule": "Accept the residual GNN over critical path on the test family iff, under the measured charge, the lower bound of the 95% paired bootstrap interval of the mean improvement (over 5 training seeds x 21 cases, resampling training seeds and environment seeds) is > 0, and no scenario's mean regression (over workloads and seeds) exceeds 2%.",
+    "bootstrap_resamples": 4000,
+    "bootstrap_seed": 7,
+    "improvement": "1 - mean makespan / mean critical-path makespan, per case",
+    "scope": "One test family (Transformer translator): conclusions are restricted to it."
+  },
+  "references": "FIFO is descriptive only. The rerun checkpoint and the zero-residual ablation are secondary arms."
+}

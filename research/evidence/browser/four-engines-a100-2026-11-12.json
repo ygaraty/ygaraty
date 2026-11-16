@@ -1,0 +1,162 @@
+{
+  "experiment": "DO-67",
+  "date": "2026-11-12",
+  "machine": "Vast.ai A100 SXM4 80 GB, Texas, $1.512/h, driver 610.57.04, 256 CPUs",
+  "code": "ee2aef1",
+  "model": "Qwen3.5-9B, 4-bit in each engine's format",
+  "cost_usd": 1.8,
+  "rented_h": 1.19,
+  "adapter_features": [
+    "atomic-vec2u-min-max",
+    "bgra8unorm-storage",
+    "chromium-experimental-multi-draw-indirect",
+    "chromium-experimental-sampling-resource-table",
+    "chromium-experimental-subgroup-matrix",
+    "chromium-experimental-timestamp-query-inside-passes",
+    "clip-distances",
+    "core-features-and-limits",
+    "depth-clip-control",
+    "depth32float-stencil8",
+    "dual-source-blending",
+    "float32-blendable",
+    "float32-filterable",
+    "indirect-first-instance",
+    "primitive-index",
+    "rg11b10ufloat-renderable",
+    "subgroup-size-control",
+    "subgroups",
+    "texture-component-swizzle",
+    "texture-compression-bc",
+    "texture-compression-bc-sliced-3d",
+    "texture-compression-unaligned",
+    "texture-formats-tier1",
+    "texture-formats-tier2",
+    "timestamp-query"
+  ],
+  "ours_best": {
+    "commit": "ee2aef1",
+    "copy_gb_s": 725.1562932226833,
+    "variants": [
+      {
+        "name": "base-64",
+        "batch": 1,
+        "wall_ms": 34.200000047683716,
+        "tok_s": 29.23976604110349
+      },
+      {
+        "name": "detail-64",
+        "batch": 1,
+        "wall_ms": 46.60000002384186,
+        "tok_s": 21.45922745683202
+      },
+      {
+        "name": "base-1024",
+        "batch": 1,
+        "wall_ms": 32.700000047683716,
+        "tok_s": 30.58103971075787
+      },
+      {
+        "name": "detail-1024",
+        "batch": 1,
+        "wall_ms": 46.300000071525574,
+        "tok_s": 21.59827210486331
+      },
+      {
+        "name": "base-again-64",
+        "batch": 1,
+        "wall_ms": 32.200000047683716,
+        "tok_s": 31.055900575128547
+      }
+    ]
+  },
+  "ours_default": {
+    "commit": "ee2aef1",
+    "copy_gb_s": 726.1606648199446,
+    "variants": [
+      {
+        "name": "base-64",
+        "batch": 1,
+        "wall_ms": 41.700000047683716,
+        "tok_s": 23.980815320299897
+      },
+      {
+        "name": "detail-64",
+        "batch": 1,
+        "wall_ms": 46.5,
+        "tok_s": 21.50537634408602
+      },
+      {
+        "name": "base-1024",
+        "batch": 1,
+        "wall_ms": 40.60000002384186,
+        "tok_s": 24.630541857457196
+      },
+      {
+        "name": "detail-1024",
+        "batch": 1,
+        "wall_ms": 53.799999952316284,
+        "tok_s": 18.587360611269784
+      },
+      {
+        "name": "base-again-64",
+        "batch": 1,
+        "wall_ms": 38.700000047683716,
+        "tok_s": 25.83979324981557
+      }
+    ]
+  },
+  "ours_many": {
+    "commit": "ee2aef1",
+    "copy_gb_s": null,
+    "variants": [
+      {
+        "name": "conv-1",
+        "batch": 1,
+        "wall_ms": 33.5,
+        "tok_s": 29.850746268656717
+      },
+      {
+        "name": "conv-2",
+        "batch": 2,
+        "wall_ms": 86.39999997615814,
+        "tok_s": 23.14814815453582
+      },
+      {
+        "name": "conv-4",
+        "batch": 4,
+        "wall_ms": 94.80000007152557,
+        "tok_s": 42.19409279516923
+      },
+      {
+        "name": "conv-8",
+        "batch": 8,
+        "wall_ms": 104.20000004768372,
+        "tok_s": 76.77543182667046
+      }
+    ]
+  },
+  "webllm": {
+    "version": "0.2.88",
+    "model": "Qwen3.5-9B-q4f32_1-MLC (q4f16_1 failed: no shader-f16)",
+    "lib": "v0_2_87 cs1k",
+    "short": {
+      "decode_tok_s_runs": [
+        22.867256505021498,
+        23.184297258452805,
+        23.861348105343048
+      ],
+      "median": 23.184297258452805,
+      "prompt_tokens": 36
+    },
+    "long": {
+      "decode_tok_s_runs": [
+        20.215699871347134,
+        21.0765489952354,
+        20.82853543384888
+      ],
+      "median": 20.82853543384888,
+      "prompt_tokens": 1038
+    }
+  },
+  "scope": "Public WebGPU projection; original comparison retained privately"
+}

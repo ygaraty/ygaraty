@@ -1,0 +1,450 @@
+{
+ "experiment": 155,
+ "id": "WS-28",
+ "date": "2026-11-11",
+ "host": "omarchy workstation, Radeon 680M, headless Chromium",
+ "part1": {
+  "dir": "runs/experiments/WS-28/omarchy-20261111-1432/main",
+  "code": "clean export of main at b1bcc5b",
+  "model": "S5-nano Q4_K_M, --splits 0,16,32, qwen35_session local --chat --record-turn-ids --capacity 4096 --generate 64 --turn-timeout 120",
+  "order": "K C R K C R",
+  "gate": {
+   "control_repeatable": true,
+   "C": {
+    "recovers": true,
+    "post_fault_identical_between_repeats": true,
+    "vs_control": [
+     {
+      "turn": 1,
+      "prompts_equal": false,
+      "token_diverges_at": null
+     },
+     {
+      "turn": 2,
+      "prompts_equal": true,
+      "token_diverges_at": null
+     }
+    ],
+    "recovered_s": null,
+    "faulted_turn": [
+     [],
+     []
+    ]
+   },
+   "R": {
+    "recovers": true,
+    "post_fault_identical_between_repeats": true,
+    "vs_control": [
+     {
+      "turn": 1,
+      "prompts_equal": false,
+      "token_diverges_at": null
+     },
+     {
+      "turn": 2,
+      "prompts_equal": true,
+      "token_diverges_at": null
+     }
+    ],
+    "recovered_s": [
+     16.0,
+     17.0
+    ],
+    "faulted_turn": [
+     [
+      "stage B left; the conversation resumes when a browser takes its place"
+     ],
+     [
+      "stage B left; the conversation resumes when a browser takes its place"
+     ]
+    ]
+   },
+   "verdict": "Works"
+  },
+  "gate_script": "runs/experiments/WS-28/gate.py (identical output 2026-11-14)",
+  "events": {
+   "K-1": [
+    {
+     "turn": 0,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.66
+    },
+    {
+     "turn": 1,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.53
+    },
+    {
+     "turn": 2,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.51
+    }
+   ],
+   "C-1": [
+    {
+     "turn": 0,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.62
+    },
+    {
+     "turn": 1,
+     "fault": "drop",
+     "generated": null,
+     "errors": [],
+     "elapsed_s": 2.05
+    },
+    {
+     "turn": 1,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 7.21
+    },
+    {
+     "turn": 2,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.54
+    }
+   ],
+   "R-1": [
+    {
+     "turn": 0,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.58
+    },
+    {
+     "event": "killed-browser1",
+     "at": 34.7
+    },
+    {
+     "turn": 1,
+     "fault": "kill_stage",
+     "generated": null,
+     "errors": [
+      "stage B left; the conversation resumes when a browser takes its place"
+     ],
+     "elapsed_s": 93.77
+    },
+    {
+     "event": "replacement-started",
+     "at": 129.4
+    },
+    {
+     "event": "recovered",
+     "at": 145.43
+    },
+    {
+     "turn": 1,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 7.16
+    },
+    {
+     "turn": 2,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.56
+    }
+   ],
+   "K-2": [
+    {
+     "turn": 0,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.56
+    },
+    {
+     "turn": 1,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.53
+    },
+    {
+     "turn": 2,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.51
+    }
+   ],
+   "C-2": [
+    {
+     "turn": 0,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.68
+    },
+    {
+     "turn": 1,
+     "fault": "drop",
+     "generated": null,
+     "errors": [],
+     "elapsed_s": 2.08
+    },
+    {
+     "turn": 1,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 7.21
+    },
+    {
+     "turn": 2,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.55
+    }
+   ],
+   "R-2": [
+    {
+     "turn": 0,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.66
+    },
+    {
+     "event": "killed-browser1",
+     "at": 34.8
+    },
+    {
+     "turn": 1,
+     "fault": "kill_stage",
+     "generated": null,
+     "errors": [
+      "stage B left; the conversation resumes when a browser takes its place"
+     ],
+     "elapsed_s": 93.84
+    },
+    {
+     "event": "replacement-started",
+     "at": 129.55
+    },
+    {
+     "event": "recovered",
+     "at": 146.59
+    },
+    {
+     "turn": 1,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 7.18
+    },
+    {
+     "turn": 2,
+     "fault": null,
+     "generated": 64,
+     "errors": [],
+     "elapsed_s": 6.52
+    }
+   ]
+  },
+  "rehearsal": {
+   "dir": "runs/experiments/WS-28/omarchy-20261111-1432/rehearsal",
+   "kill_to_turn_end_s": 91.7
+  }
+ },
+ "part2": {
+  "model": "S5-nano one-worker panel bundle s5-nano-1w (capacity 4096, generate 256), route private, WS-24 TURN without delay",
+  "driver": "chat_cycles.py --arm direct --cycles 1 --turns 3 --words 500 --token-cap 256 --timeout 600; reply-only hash (WS-27)",
+  "order": "X C X; X = TURN killed 3 s after turn 1 submit",
+  "first_run": {
+   "X-1": {
+    "turns": [
+     {
+      "turn": 0,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "f1208d6757400551",
+      "meta": null,
+      "transport": null
+     },
+     {
+      "turn": 1,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "c9d973dcd2984079",
+      "meta": null,
+      "transport": null
+     },
+     {
+      "turn": 2,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "743d9f4494079864",
+      "meta": null,
+      "transport": null
+     }
+    ],
+    "fault": "14:46:31.349313478 TURN killed"
+   },
+   "C-1": {
+    "turns": [
+     {
+      "turn": 0,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "f1208d6757400551",
+      "meta": null,
+      "transport": null
+     },
+     {
+      "turn": 1,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "c9d973dcd2984079",
+      "meta": null,
+      "transport": null
+     },
+     {
+      "turn": 2,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "743d9f4494079864",
+      "meta": null,
+      "transport": null
+     }
+    ],
+    "fault": null
+   },
+   "X-2": {
+    "turns": [
+     {
+      "turn": 0,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "f1208d6757400551",
+      "meta": null,
+      "transport": null
+     },
+     {
+      "turn": 1,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "c9d973dcd2984079",
+      "meta": null,
+      "transport": null
+     },
+     {
+      "turn": 2,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "743d9f4494079864",
+      "meta": null,
+      "transport": null
+     }
+    ],
+    "fault": "14:49:46.841402320 TURN killed"
+   }
+  },
+  "confirmation": {
+   "X-1": {
+    "turns": [
+     {
+      "turn": 0,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "f1208d6757400551",
+      "meta": "\u224810.8 tok/s \u00b7 256 tokens \u00b7 first token 0.42s \u00b7 total 23.9s \u00b7 WebRTC: prompt + 256/256 tokens \u00b7 Output limit reached (256 tokens)",
+      "transport": "WebRTC chat connected \u00b7 You can send messages now. Coordinator fallback remains available (TURN may be used)."
+     },
+     {
+      "turn": 1,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "c9d973dcd2984079",
+      "meta": "\u224810.8 tok/s \u00b7 256 tokens \u00b7 first token 0.41s \u00b7 total 24.1s \u00b7 WebRTC: prompt + 31/256 tokens \u00b7 Output limit reached (256 tokens)",
+      "transport": "Using coordinator fallback \u00b7 The first contributor link failed: peer connection disconnected (remote SDP received). ICE "
+     },
+     {
+      "turn": 2,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "743d9f4494079864",
+      "meta": "\u224810.8 tok/s \u00b7 256 tokens \u00b7 first token 0.41s \u00b7 total 24.1s \u00b7 WebRTC: 0/256 tokens \u00b7 prompt via coordinator \u00b7 Output limit reached (256 tokens)",
+      "transport": "Using coordinator fallback \u00b7 The first contributor link failed: peer connection disconnected (remote SDP received). ICE "
+     }
+    ],
+    "fault": "14:52:35.645205565 TURN killed"
+   },
+   "C-1": {
+    "turns": [
+     {
+      "turn": 0,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "f1208d6757400551",
+      "meta": "\u224810.8 tok/s \u00b7 256 tokens \u00b7 first token 0.43s \u00b7 total 24.0s \u00b7 WebRTC: prompt + 256/256 tokens \u00b7 Output limit reached (256 tokens)",
+      "transport": "WebRTC chat connected \u00b7 You can send messages now. Coordinator fallback remains available (TURN may be used)."
+     },
+     {
+      "turn": 1,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "c9d973dcd2984079",
+      "meta": "\u224810.7 tok/s \u00b7 256 tokens \u00b7 first token 0.41s \u00b7 total 24.1s \u00b7 WebRTC: prompt + 256/256 tokens \u00b7 Output limit reached (256 tokens)",
+      "transport": "WebRTC chat connected \u00b7 You can send messages now. Coordinator fallback remains available (TURN may be used)."
+     },
+     {
+      "turn": 2,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "743d9f4494079864",
+      "meta": "\u224810.7 tok/s \u00b7 256 tokens \u00b7 first token 0.42s \u00b7 total 24.2s \u00b7 WebRTC: prompt + 256/256 tokens \u00b7 Output limit reached (256 tokens)",
+      "transport": "WebRTC chat connected \u00b7 You can send messages now. Coordinator fallback remains available (TURN may be used)."
+     }
+    ],
+    "fault": null
+   },
+   "X-2": {
+    "turns": [
+     {
+      "turn": 0,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "f1208d6757400551",
+      "meta": "\u224810.8 tok/s \u00b7 256 tokens \u00b7 first token 0.43s \u00b7 total 24.1s \u00b7 WebRTC: prompt + 256/256 tokens \u00b7 Output limit reached (256 tokens)",
+      "transport": "WebRTC chat connected \u00b7 You can send messages now. Coordinator fallback remains available (TURN may be used)."
+     },
+     {
+      "turn": 1,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "c9d973dcd2984079",
+      "meta": "\u224810.7 tok/s \u00b7 256 tokens \u00b7 first token 0.41s \u00b7 total 24.1s \u00b7 WebRTC: prompt + 34/256 tokens \u00b7 Output limit reached (256 tokens)",
+      "transport": "Using coordinator fallback \u00b7 The first contributor link failed: peer connection disconnected (remote SDP received). ICE "
+     },
+     {
+      "turn": 2,
+      "result": "completed",
+      "generated": 256,
+      "reply_sha256": "743d9f4494079864",
+      "meta": "\u224810.8 tok/s \u00b7 256 tokens \u00b7 first token 0.40s \u00b7 total 24.1s \u00b7 WebRTC: 0/256 tokens \u00b7 prompt via coordinator \u00b7 Output limit reached (256 tokens)",
+      "transport": "Using coordinator fallback \u00b7 The first contributor link failed: peer connection disconnected (remote SDP received). ICE "
+     }
+    ],
+    "fault": "14:55:52.998029545 TURN killed"
+   }
+  },
+  "note": "first run passes the frozen criteria but records no transport; the confirmation (part2b) records the reply metadata and page transport status"
+ }
+}

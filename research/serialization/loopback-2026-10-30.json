@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "scope": "Measured loopback HTTP tensor uploads; no training",
+  "environment": {
+    "python": "3.12.2",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "numpy": "2.1.1"
+  },
+  "method": "Actual webapp handler and TensorUploads, ephemeral disk files, 256 KiB chunks; fresh TCP connection per request for both modes; no TLS/compression. Includes create, encode, HTTP, hashes, finite checks, file writes and finalize. Excludes input generation and read-back verification. Alternating order after warmups. Memory is a separate tracemalloc pass across client and server, including read-back, not total RSS. Request body bytes exclude HTTP headers, responses and TCP overhead.",
+  "repeats": 5,
+  "results": [
+    {
+      "mode": "base64",
+      "tensor_bytes": 262144,
+      "dtype": "<f8",
+      "median_seconds": 0.004924707813188434,
+      "payload_mib_per_second": 50.76443303509228,
+      "peak_traced_bytes": 2038779,
+      "samples": [
+        {
+          "seconds": 0.005012208828702569,
+          "request_body_bytes": 349709,
+          "requests": 3,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.005094707943499088,
+          "request_body_bytes": 349709,
+          "requests": 3,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.0049047081265598536,
+          "request_body_bytes": 349709,
+          "requests": 3,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.004863042151555419,
+          "request_body_bytes": 349709,
+          "requests": 3,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.004924707813188434,
+          "request_body_bytes": 349709,
+          "requests": 3,
+          "bitwise_round_trip": true
+        }
+      ]
+    },
+    {
+      "mode": "raw",
+      "tensor_bytes": 262144,
+      "dtype": "<f8",
+      "median_seconds": 0.0022370838560163975,
+      "payload_mib_per_second": 111.75262801510625,
+      "peak_traced_bytes": 325408,
+      "samples": [
+        {
+          "seconds": 0.0022370838560163975,
+          "request_body_bytes": 262238,
+          "requests": 3,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.0021713750902563334,
+          "request_body_bytes": 262238,
+          "requests": 3,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.002270124852657318,
+          "request_body_bytes": 262238,
+          "requests": 3,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.002355417003855109,
+          "request_body_bytes": 262238,
+          "requests": 3,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.0019996250048279762,
+          "request_body_bytes": 262238,
+          "requests": 3,
+          "bitwise_round_trip": true
+        }
+      ]
+    },
+    {
+      "mode": "base64",
+      "tensor_bytes": 8388608,
+      "dtype": "<f8",
+      "median_seconds": 0.14604095905087888,
+      "payload_mib_per_second": 54.77915272531796,
+      "peak_traced_bytes": 8414949,
+      "samples": [
+        {
+          "seconds": 0.15835504187271,
+          "request_body_bytes": 11187775,
+          "requests": 34,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.14604095905087888,
+          "request_body_bytes": 11187775,
+          "requests": 34,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.12674479209817946,
+          "request_body_bytes": 11187775,
+          "requests": 34,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.27482237480580807,
+          "request_body_bytes": 11187775,
+          "requests": 34,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.12952395901083946,
+          "request_body_bytes": 11187775,
+          "requests": 34,
+          "bitwise_round_trip": true
+        }
+      ]
+    },
+    {
+      "mode": "raw",
+      "tensor_bytes": 8388608,
+      "dtype": "<f8",
+      "median_seconds": 0.04707779083400965,
+      "payload_mib_per_second": 169.93150821811057,
+      "peak_traced_bytes": 8413953,
+      "samples": [
+        {
+          "seconds": 0.04781658388674259,
+          "request_body_bytes": 8388703,
+          "requests": 34,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.04707779083400965,
+          "request_body_bytes": 8388703,
+          "requests": 34,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.05081399995833635,
+          "request_body_bytes": 8388703,
+          "requests": 34,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.041033499874174595,
+          "request_body_bytes": 8388703,
+          "requests": 34,
+          "bitwise_round_trip": true
+        },
+        {
+          "seconds": 0.03867145790718496,
+          "request_body_bytes": 8388703,
+          "requests": 34,
+          "bitwise_round_trip": true
+        }
+      ]
+    }
+  ]
+}

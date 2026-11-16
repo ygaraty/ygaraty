@@ -1,0 +1,134 @@
+
+######## hop l5: 84 cases
+
+#3 guards (gain over compute/none, tuned depth; vs hindsight-best fixed)
+  fused_1024/heterogeneous_8/16            v1   -0.93  transfer   -0.93  | hindsight v1   -1.19 transfer   -1.19  | same depth v1  -0.13 transfer  +0.00
+  fused_1024/heterogeneous_8/64            v1  -10.67  transfer  +22.86  | hindsight v1  -28.29 transfer  +10.60  | same depth v1 -57.47 transfer +19.78
+  fused_1024/home_4/64                     v1   -5.77  transfer   -1.86  | hindsight v1   -5.77 transfer   -1.86  | same depth v1  -8.21 transfer -11.53
+  fused_1024/late_join_8/64                v1   -5.89  transfer   -1.94  | hindsight v1   -5.89 transfer   -1.94  | same depth v1  -8.22 transfer -11.57
+  mlp_340/heterogeneous_8/16               v1   +0.00  transfer   +0.00  | hindsight v1   -0.16 transfer   -0.16  | same depth v1  +0.00 transfer  +0.00
+  mlp_340/heterogeneous_8/64               v1   +0.00  transfer   +0.00  | hindsight v1   -0.16 transfer   -0.16  | same depth v1  +0.00 transfer  +0.00
+  mlp_76/heterogeneous_8/16                v1   +0.00  transfer   +0.00  | hindsight v1   -7.21 transfer   -7.21  | same depth v1  +0.00 transfer  +0.00
+  mlp_76/heterogeneous_8/64                v1   +0.00  transfer   +0.00  | hindsight v1   -7.21 transfer   -7.21  | same depth v1  +0.00 transfer  +0.00
+  mlp_77/heterogeneous_8/16                v1   +0.00  transfer  +14.99  | hindsight v1   -0.98 transfer  +14.06  | same depth v1  +0.00 transfer +15.60
+  mlp_77/heterogeneous_8/64                v1   +0.00  transfer  +14.99  | hindsight v1   -0.98 transfer  +14.06  | same depth v1  +0.00 transfer +15.60
+  tiled_1024/heterogeneous_8/64            v1   -0.37  transfer   +0.59  | hindsight v1   -5.06 transfer   -4.07  | same depth v1  -0.39 transfer  +0.59
+  tiled_1024/home_16/64                    v1   +3.51  transfer  +11.15  | hindsight v1   +0.25 transfer   +8.11  | same depth v1  +0.03 transfer  +0.03
+  tiled_1024/late_join_8/64                v1   -0.00  transfer   +6.19  | hindsight v1   -0.45 transfer   +5.78  | same depth v1  -0.00 transfer  -0.86
+  transformer_30m/congested_16/nocap       v1  +33.35  transfer  +34.00  | hindsight v1  +32.41 transfer  +33.08  | same depth v1 +30.20 transfer +29.47
+  transformer_30m/heterogeneous_8/nocap    v1   +9.22  transfer   +7.29  | hindsight v1   +9.09 transfer   +7.19  | same depth v1  +9.09 transfer  +7.19
+  transformer_30m/home_16/nocap            v1  +43.36  transfer  +43.80  | hindsight v1  +40.86 transfer  +41.31  | same depth v1 +42.24 transfer +38.89
+  transformer_30m/home_4/nocap             v1  +15.41  transfer  +14.87  | hindsight v1  +14.17 transfer  +13.62  | same depth v1 +15.17 transfer +14.62
+  transformer_30m/lan_4/nocap              v1   +2.28  transfer   -0.06  | hindsight v1   +2.28 transfer   -0.06  | same depth v1  +1.34 transfer  -0.06
+  transformer_30m/late_join_8/nocap        v1  +38.49  transfer  +37.87  | hindsight v1  +36.17 transfer  +35.53  | same depth v1 +30.50 transfer +26.48
+  transformer_tiny/congested_16/nocap      v1   +8.57  transfer  +10.68  | hindsight v1   +5.98 transfer   +8.15  | same depth v1  +8.57 transfer +10.68
+  transformer_tiny/heterogeneous_8/nocap   v1   +5.08  transfer  -33.87  | hindsight v1   +4.74 transfer  -34.85  | same depth v1  +4.79 transfer -22.54
+  transformer_tiny/lan_4/nocap             v1   -4.95  transfer   +0.00  | hindsight v1  -10.24 transfer   -4.72  | same depth v1  -0.04 transfer  +0.00
+  transformer_tiny_b8/congested_16/nocap   v1   +7.43  transfer   +8.42  | hindsight v1   +7.38 transfer   +8.37  | same depth v1  +6.06 transfer  +8.37
+  transformer_tiny_b8/heterogeneous_8/nocap v1  +31.70  transfer  +32.19  | hindsight v1  +31.00 transfer  +31.58  | same depth v1 +11.71 transfer -24.49
+  transformer_tiny_b8/home_4/nocap         v1   +3.06  transfer   +3.27  | hindsight v1   +2.97 transfer   +3.20  | same depth v1  +3.02 transfer  +3.24
+  criteria: beats v1 on het. factorization True; het. MLP >= -1% True; no case < -2% False (worst transformer_tiny/heterogeneous_8/nocap -33.87)  mean transfer +2.68, mean v1 +2.07
+
+#4 comm vs compute priority, per scenario (mean over workloads); compute vs fifo
+  congested_16     comm vs compute mean  +0.71 [ -2.53, +10.39]   compute vs fifo mean  -2.75 worst -21.75
+  heterogeneous_8  comm vs compute mean  +0.05 [-10.15, +11.69]   compute vs fifo mean  +6.21 worst  -8.72
+  home_16          comm vs compute mean  +1.18 [ -0.06,  +9.04]   compute vs fifo mean  -1.79 worst -34.43
+  home_4           comm vs compute mean  +1.11 [ -0.82, +14.01]   compute vs fifo mean  +2.61 worst  -1.23
+  lan_4            comm vs compute mean  -0.23 [ -1.55,  +3.10]   compute vs fifo mean  +0.90 worst  -9.91
+  late_join_8      comm vs compute mean  +1.82 [ -0.34, +17.91]   compute vs fifo mean  +0.32 worst -17.67
+  loopback_1       comm vs compute mean  +0.50 [ -0.92,  +8.53]   compute vs fifo mean  +0.49 worst  -1.68
+  overall mean +0.74; worst scenario mean -0.23; worst case -10.15
+  target (worst compute vs fifo): transformer_30m/home_16/nocap compute vs fifo -34.43; comm vs compute there +4.96; comm vs fifo there -27.76
+
+#5 depth and placement apart (compute priority): mean over cases [min, max]
+  compute/none depth gain         +5.13 [  -3.32,  +25.96]
+  compute/v1 same depth           +1.00 [ -57.47,  +42.24]
+  compute/transfer same depth     +1.43 [ -24.49,  +38.89]
+  compute joint vs depth 1        +8.24 [  -4.95,  +47.54]
+  congested_16     depth  +0.39  v1 same depth  +3.76  transfer same depth  +4.12  joint  +4.84
+  heterogeneous_8  depth  +4.01  v1 same depth  -2.70  transfer same depth  +0.98  joint +12.07
+  home_16          depth  +0.87  v1 same depth  +3.52  transfer same depth  +3.22  joint  +5.21
+  home_4           depth  +7.28  v1 same depth  +0.90  transfer same depth  +0.53  joint  +8.88
+  lan_4            depth  +4.70  v1 same depth  -0.36  transfer same depth  -0.00  joint  +4.46
+  late_join_8      depth  +4.76  v1 same depth  +1.86  transfer same depth  +1.16  joint  +8.33
+  loopback_1       depth +13.87  v1 same depth  +0.00  transfer same depth  +0.00  joint +13.87
+
+#6 selectors vs fifo at its tuned depth (test seeds)
+  seed0          mean gain  +3.35  worst per-seed  -80.99  cases with worst < -2%: 20/84  kept fifo: 19
+  conservative   mean gain  +5.05  worst per-seed -122.48  cases with worst < -2%: 3/84  kept fifo: 28
+  critical path  mean gain  +0.78  worst per-seed  -56.94  cases with worst < -2%: 29/84  kept fifo: 0
+    conservative worst tiled_1024/heterogeneous_8/64            {'config': 'comm/none@4', 'mean_gain': -18.509695145307397, 'worst_gain': -122.48211517006365}  seed0 {'config': 'comm/transfer@4', 'mean_gain': -10.028853971477997, 'worst_gain': -44.600680367624435}
+    conservative worst mlp_340/heterogeneous_8/16               {'config': 'comm/none@4', 'mean_gain': 2.8627630483343967, 'worst_gain': -3.8052801189580654}  seed0 {'config': 'compute/none@4', 'mean_gain': 3.2098285448764527, 'worst_gain': -2.236296085520828}
+    conservative worst mlp_340/heterogeneous_8/64               {'config': 'comm/none@4', 'mean_gain': 2.8627630483343967, 'worst_gain': -3.8052801189580654}  seed0 {'config': 'compute/none@4', 'mean_gain': 3.2098285448764527, 'worst_gain': -2.236296085520828}
+    conservative worst mlp_76/loopback_1/16                     {'config': 'compute/none@8', 'mean_gain': 1.9788547313593918, 'worst_gain': -1.9438585943138964}  seed0 {'config': 'compute/none@8', 'mean_gain': 1.9788547313593918, 'worst_gain': -1.9438585943138964}
+    conservative worst mlp_76/loopback_1/64                     {'config': 'compute/none@8', 'mean_gain': 1.9788547313593918, 'worst_gain': -1.9438585943138964}  seed0 {'config': 'compute/none@8', 'mean_gain': 1.9788547313593918, 'worst_gain': -1.9438585943138964}
+    conservative worst mlp_76/lan_4/16                          {'config': 'compute/none@2', 'mean_gain': 2.978765597611295, 'worst_gain': -1.4757864206931481}  seed0 {'config': 'fifo/none@4', 'mean_gain': -11.761302012158826, 'worst_gain': -16.616495211574467}
+
+######## hop published: 84 cases
+
+#3 guards (gain over compute/none, tuned depth; vs hindsight-best fixed)
+  fused_1024/heterogeneous_8/16            v1   +0.10  transfer   +0.00  | hindsight v1   -0.29 transfer   -0.39  | same depth v1  +0.10 transfer  +0.00
+  fused_1024/heterogeneous_8/64            v1  +23.71  transfer  +19.74  | hindsight v1   +8.64 transfer   +4.08  | same depth v1 +19.25 transfer +17.73
+  fused_1024/home_4/64                     v1   -3.14  transfer   -2.77  | hindsight v1   -3.45 transfer   -3.08  | same depth v1  -3.17 transfer  -2.80
+  fused_1024/late_join_8/64                v1   -3.34  transfer   -2.84  | hindsight v1   -3.63 transfer   -3.14  | same depth v1  -3.37 transfer  -2.88
+  mlp_340/heterogeneous_8/16               v1   +0.00  transfer   +0.00  | hindsight v1   -0.55 transfer   -0.55  | same depth v1  +0.00 transfer  +0.00
+  mlp_340/heterogeneous_8/64               v1   +0.00  transfer   +0.00  | hindsight v1   -0.55 transfer   -0.55  | same depth v1  +0.00 transfer  +0.00
+  mlp_76/heterogeneous_8/16                v1   +0.00  transfer   +0.00  | hindsight v1   -0.19 transfer   -0.19  | same depth v1  +0.00 transfer  +0.00
+  mlp_76/heterogeneous_8/64                v1   +0.00  transfer   +0.00  | hindsight v1   -0.19 transfer   -0.19  | same depth v1  +0.00 transfer  +0.00
+  mlp_77/heterogeneous_8/16                v1   +0.00  transfer  +16.66  | hindsight v1   -0.16 transfer  +16.52  | same depth v1  +0.00 transfer +13.63
+  mlp_77/heterogeneous_8/64                v1   +0.00  transfer  +16.66  | hindsight v1   -0.16 transfer  +16.52  | same depth v1  +0.00 transfer +13.63
+  tiled_1024/heterogeneous_8/64            v1   +1.34  transfer   +5.64  | hindsight v1   -1.98 transfer   +2.62  | same depth v1  +1.31 transfer  -0.11
+  tiled_1024/home_16/64                    v1   -1.13  transfer   +5.47  | hindsight v1   -1.51 transfer   +5.15  | same depth v1  -1.19 transfer  +1.82
+  tiled_1024/home_4/64                     v1   +1.77  transfer   +7.32  | hindsight v1   -0.09 transfer   +5.57  | same depth v1  +0.00 transfer  +5.62
+  tiled_1024/late_join_8/64                v1   +0.00  transfer   +6.99  | hindsight v1   -2.06 transfer   +5.04  | same depth v1  +0.00 transfer  +6.89
+  transformer_30m/congested_16/nocap       v1  +33.74  transfer  +35.00  | hindsight v1  +33.71 transfer  +34.97  | same depth v1 +34.23 transfer +34.86
+  transformer_30m/heterogeneous_8/nocap    v1  +42.21  transfer  +41.70  | hindsight v1  +41.94 transfer  +41.41  | same depth v1 +41.94 transfer +41.41
+  transformer_30m/home_16/nocap            v1  +58.29  transfer  +58.15  | hindsight v1  +57.36 transfer  +57.26  | same depth v1 +58.21 transfer +58.11
+  transformer_30m/home_4/nocap             v1  +39.85  transfer  +39.52  | hindsight v1  +37.95 transfer  +37.61  | same depth v1 +38.57 transfer +38.21
+  transformer_30m/late_join_8/nocap        v1  +54.59  transfer  +55.07  | hindsight v1  +52.90 transfer  +53.42  | same depth v1 +54.48 transfer +54.98
+  transformer_tiny/congested_16/nocap      v1  +16.67  transfer  +17.72  | hindsight v1  +16.55 transfer  +17.58  | same depth v1 +16.55 transfer +17.58
+  transformer_tiny/heterogeneous_8/nocap   v1  +58.95  transfer  +18.53  | hindsight v1  +41.20 transfer  -16.73  | same depth v1 +43.55 transfer  -5.20
+  transformer_tiny/home_16/nocap           v1   +1.76  transfer   +2.25  | hindsight v1   +1.72 transfer   +2.22  | same depth v1  +1.72 transfer  +2.22
+  transformer_tiny/home_4/nocap            v1   +4.21  transfer   +4.91  | hindsight v1   +3.95 transfer   +4.67  | same depth v1  +4.11 transfer  +4.83
+  transformer_tiny/late_join_8/nocap       v1   +2.66  transfer   +0.76  | hindsight v1   +2.65 transfer   +0.74  | same depth v1  +2.65 transfer  +0.74
+  transformer_tiny_b8/congested_16/nocap   v1  +10.56  transfer  +13.18  | hindsight v1   +9.72 transfer  +12.33  | same depth v1 +10.39 transfer +12.97
+  transformer_tiny_b8/heterogeneous_8/nocap v1  +51.32  transfer  +13.84  | hindsight v1  +51.10 transfer  +13.49  | same depth v1 +44.07 transfer +13.53
+  transformer_tiny_b8/home_16/nocap        v1   +3.22  transfer   +3.42  | hindsight v1   +3.19 transfer   +3.39  | same depth v1  +3.19 transfer  +3.39
+  transformer_tiny_b8/home_4/nocap         v1   +3.93  transfer   +5.28  | hindsight v1   +3.88 transfer   +5.23  | same depth v1  +3.90 transfer  +5.25
+  transformer_tiny_b8/late_join_8/nocap    v1   +6.39  transfer   +7.13  | hindsight v1   +5.00 transfer   +5.79  | same depth v1  +6.21 transfer  +6.98
+  criteria: beats v1 on het. factorization True; het. MLP >= -1% True; no case < -2% False (worst fused_1024/late_join_8/64 -2.84)  mean transfer +4.64, mean v1 +4.87
+
+#4 comm vs compute priority, per scenario (mean over workloads); compute vs fifo
+  congested_16     comm vs compute mean  +0.81 [ -1.97, +10.01]   compute vs fifo mean  -3.87 worst -32.27
+  heterogeneous_8  comm vs compute mean  -1.37 [-37.11, +10.27]   compute vs fifo mean  +6.82 worst  -7.03
+  home_16          comm vs compute mean  +0.53 [ -0.97,  +6.36]   compute vs fifo mean  +0.08 worst -24.80
+  home_4           comm vs compute mean  +1.87 [ -1.47, +17.43]   compute vs fifo mean  -0.03 worst -23.05
+  lan_4            comm vs compute mean  -0.49 [ -4.35,  +0.51]   compute vs fifo mean  +2.26 worst  -0.89
+  late_join_8      comm vs compute mean  +1.13 [ -2.84, +14.58]   compute vs fifo mean  -1.72 worst -47.34
+  loopback_1       comm vs compute mean  +0.00 [ +0.00,  +0.00]   compute vs fifo mean  +0.51 worst  -0.59
+  overall mean +0.35; worst scenario mean -1.37; worst case -37.11
+  target (worst compute vs fifo): transformer_30m/late_join_8/nocap compute vs fifo -47.34; comm vs compute there -0.94; comm vs fifo there -48.72
+
+#5 depth and placement apart (compute priority): mean over cases [min, max]
+  compute/none depth gain         +8.55 [ -13.51,  +45.85]
+  compute/v1 same depth           +4.47 [  -4.35,  +58.21]
+  compute/transfer same depth     +4.10 [  -5.20,  +58.11]
+  compute joint vs depth 1       +14.14 [  -1.51,  +58.29]
+  congested_16     depth  +1.34  v1 same depth  +5.07  transfer same depth  +5.54  joint  +6.51
+  heterogeneous_8  depth  +9.27  v1 same depth +12.52  transfer same depth  +7.89  joint +26.93
+  home_16          depth  +0.96  v1 same depth  +5.10  transfer same depth  +5.46  joint  +6.68
+  home_4           depth  +6.57  v1 same depth  +3.60  transfer same depth  +4.15  joint +11.15
+  lan_4            depth +15.27  v1 same depth  +0.04  transfer same depth  +0.09  joint +15.44
+  late_join_8      depth  +4.53  v1 same depth  +4.99  transfer same depth  +5.56  joint +10.41
+  loopback_1       depth +21.88  v1 same depth  +0.00  transfer same depth  +0.00  joint +21.88
+
+#6 selectors vs fifo at its tuned depth (test seeds)
+  seed0          mean gain  +7.16  worst per-seed   -8.56  cases with worst < -2%: 11/84  kept fifo: 13
+  conservative   mean gain  +7.22  worst per-seed   -3.01  cases with worst < -2%: 1/84  kept fifo: 34
+  critical path  mean gain  +0.47  worst per-seed  -70.30  cases with worst < -2%: 29/84  kept fifo: 0
+    conservative worst tiled_1024/heterogeneous_8/64            {'config': 'comm/transfer@8', 'mean_gain': 5.303929353541098, 'worst_gain': -3.010088690126622}  seed0 {'config': 'comm/transfer@8', 'mean_gain': 5.303929353541098, 'worst_gain': -3.010088690126622}
+    conservative worst fused_1024/home_4/16                     {'config': 'compute/none@1', 'mean_gain': 2.543478141146339, 'worst_gain': -1.5205117037758287}  seed0 {'config': 'comm/none@1', 'mean_gain': 3.153907330386655, 'worst_gain': 0.6476792070008508}
+    conservative worst fused_1024/late_join_8/16                {'config': 'compute/none@1', 'mean_gain': 2.827433896954817, 'worst_gain': -1.2760266810939003}  seed0 {'config': 'comm/none@1', 'mean_gain': 3.3895449623925455, 'worst_gain': 0.9077527771125027}
+    conservative worst fused_1024/home_4/64                     {'config': 'comm/v1@4', 'mean_gain': 1.974536427373954, 'worst_gain': -1.0881157082574866}  seed0 {'config': 'comm/v1@4', 'mean_gain': 1.974536427373954, 'worst_gain': -1.0881157082574866}
+    conservative worst fused_1024/late_join_8/64                {'config': 'comm/v1@4', 'mean_gain': 2.150214380522937, 'worst_gain': -0.8111855535945844}  seed0 {'config': 'comm/v1@4', 'mean_gain': 2.150214380522937, 'worst_gain': -0.8111855535945844}
+    conservative worst fused_1024/congested_16/16               {'config': 'compute/v1@1', 'mean_gain': 0.9760781594295798, 'worst_gain': -0.782793919710878}  seed0 {'config': 'compute/none@1', 'mean_gain': 1.109680048059355, 'worst_gain': 0.6315985611530239}

@@ -1,0 +1,307 @@
+{
+ "experiment": "WS-48",
+ "date": "2026-11-13",
+ "machine": "workstation Radeon 680M",
+ "code": "7aa4df8 (clean export)",
+ "model": "S5-nano Q4_K_M, one stage",
+ "order": "O K C R K C R O",
+ "gate": {
+  "resident_same_tokens_as_off": true,
+  "C": {
+   "recovers": true,
+   "post_fault_identical_between_repeats": true,
+   "post_fault_equal_control": [
+    true,
+    true
+   ],
+   "fault_mid_turn": [
+    true,
+    true
+   ],
+   "faulted_turn": [
+    {
+     "at": 49.84,
+     "event": "turn",
+     "turn": 1,
+     "fault": "drop",
+     "generated": null,
+     "errors": [],
+     "resets": [],
+     "elapsed_s": 1.52
+    },
+    {
+     "at": 49.33,
+     "event": "turn",
+     "turn": 1,
+     "fault": "drop",
+     "generated": null,
+     "errors": [],
+     "resets": [],
+     "elapsed_s": 1.53
+    }
+   ],
+   "recovered_s": null
+  },
+  "R": {
+   "recovers": true,
+   "post_fault_identical_between_repeats": true,
+   "post_fault_equal_control": [
+    true,
+    true
+   ],
+   "fault_mid_turn": [
+    true,
+    true
+   ],
+   "faulted_turn": [
+    {
+     "at": 169.48,
+     "event": "turn",
+     "turn": 1,
+     "fault": "kill_stage",
+     "generated": null,
+     "errors": [
+      "no token for 120.0 s"
+     ],
+     "resets": [],
+     "elapsed_s": 121.7
+    },
+    {
+     "at": 254.66,
+     "event": "turn",
+     "turn": 1,
+     "fault": "kill_stage",
+     "generated": null,
+     "errors": [
+      "no token for 120.0 s"
+     ],
+     "resets": [],
+     "elapsed_s": 121.66
+    }
+   ],
+   "recovered_s": [
+    27.1,
+    28.1
+   ]
+  },
+  "verdict": "Works"
+ },
+ "turns": {
+  "O-1": [
+   {
+    "turn": 0,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.22
+   },
+   {
+    "turn": 1,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.31
+   },
+   {
+    "turn": 2,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.55
+   }
+  ],
+  "O-2": [
+   {
+    "turn": 0,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.3
+   },
+   {
+    "turn": 1,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.29
+   },
+   {
+    "turn": 2,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.48
+   }
+  ],
+  "K-1": [
+   {
+    "turn": 0,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.77
+   },
+   {
+    "turn": 1,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.85
+   },
+   {
+    "turn": 2,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.97
+   }
+  ],
+  "K-2": [
+   {
+    "turn": 0,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.73
+   },
+   {
+    "turn": 1,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.85
+   },
+   {
+    "turn": 2,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.95
+   }
+  ],
+  "C-1": [
+   {
+    "turn": 0,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.76
+   },
+   {
+    "turn": 1,
+    "fault": "drop",
+    "generated": null,
+    "errors": [],
+    "elapsed_s": 1.52
+   },
+   {
+    "turn": 1,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.68
+   },
+   {
+    "turn": 2,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.96
+   }
+  ],
+  "C-2": [
+   {
+    "turn": 0,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.74
+   },
+   {
+    "turn": 1,
+    "fault": "drop",
+    "generated": null,
+    "errors": [],
+    "elapsed_s": 1.53
+   },
+   {
+    "turn": 1,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.74
+   },
+   {
+    "turn": 2,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.98
+   }
+  ],
+  "R-1": [
+   {
+    "turn": 0,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.72
+   },
+   {
+    "turn": 1,
+    "fault": "kill_stage",
+    "generated": null,
+    "errors": [
+     "no token for 120.0 s"
+    ],
+    "elapsed_s": 121.7
+   },
+   {
+    "turn": 1,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.82
+   },
+   {
+    "turn": 2,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.91
+   }
+  ],
+  "R-2": [
+   {
+    "turn": 0,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.73
+   },
+   {
+    "turn": 1,
+    "fault": "kill_stage",
+    "generated": null,
+    "errors": [
+     "no token for 120.0 s"
+    ],
+    "elapsed_s": 121.66
+   },
+   {
+    "turn": 1,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 15.8
+   },
+   {
+    "turn": 2,
+    "fault": null,
+    "generated": 256,
+    "errors": [],
+    "elapsed_s": 13.94
+   }
+  ]
+ }
+}

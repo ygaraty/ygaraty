@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "name": "exp42-4-strong-paired",
+      "role": "diagnostic",
+      "measured_seconds": 7.96,
+      "archived_prediction_seconds": 6.2,
+      "evidence": "../042-spread-layers-over-fast-workers.md",
+      "window": "mean updates 2-21; one run per setting",
+      "measured_rule": "always"
+    },
+    {
+      "name": "exp42-4-strong-spread",
+      "role": "diagnostic",
+      "measured_seconds": 7.44,
+      "archived_prediction_seconds": 6.5,
+      "evidence": "../042-spread-layers-over-fast-workers.md",
+      "window": "mean updates 2-21; one run per setting",
+      "measured_rule": "never"
+    },
+    {
+      "name": "exp42-6-strong-paired",
+      "role": "diagnostic",
+      "measured_seconds": 7.18,
+      "archived_prediction_seconds": 5.82,
+      "evidence": "../042-spread-layers-over-fast-workers.md",
+      "window": "mean updates 2-21; one run per setting",
+      "measured_rule": "always"
+    },
+    {
+      "name": "exp42-6-strong-spread",
+      "role": "diagnostic",
+      "measured_seconds": 6.7,
+      "archived_prediction_seconds": 5.76,
+      "evidence": "../042-spread-layers-over-fast-workers.md",
+      "window": "mean updates 2-21; one run per setting",
+      "measured_rule": "never"
+    },
+    {
+      "name": "exp42-8-strong-paired",
+      "role": "diagnostic",
+      "measured_seconds": 7.35,
+      "archived_prediction_seconds": 5.73,
+      "evidence": "../042-spread-layers-over-fast-workers.md",
+      "window": "mean updates 2-21; one run per setting",
+      "measured_rule": "always"
+    },
+    {
+      "name": "exp42-8-strong-spread",
+      "role": "diagnostic",
+      "measured_seconds": 6.18,
+      "archived_prediction_seconds": 5.29,
+      "evidence": "../042-spread-layers-over-fast-workers.md",
+      "window": "mean updates 2-21; one run per setting",
+      "measured_rule": "short"
+    },
+    {
+      "name": "exp37-A",
+      "role": "validation",
+      "measured_seconds": 14.4,
+      "archived_prediction_seconds": 13.0396,
+      "evidence": "../037-batches-by-length.md",
+      "window": "measured updates 2-21",
+      "prediction_provenance": "Local matched-window residual audit summarized in workspace SIMULATIONS.md; reconstructed batches, not exact captured measured plans"
+    },
+    {
+      "name": "exp37-B",
+      "role": "validation",
+      "measured_seconds": 10.1,
+      "archived_prediction_seconds": 9.2489,
+      "evidence": "../037-batches-by-length.md",
+      "window": "measured updates 2-21",
+      "prediction_provenance": "Local matched-window residual audit summarized in workspace SIMULATIONS.md; reconstructed batches, not exact captured measured plans"
+    },
+    {
+      "name": "exp37-C",
+      "role": "validation",
+      "measured_seconds": 14.7,
+      "archived_prediction_seconds": 13.215,
+      "evidence": "../037-batches-by-length.md",
+      "window": "measured updates 2-21",
+      "prediction_provenance": "Local matched-window residual audit summarized in workspace SIMULATIONS.md; reconstructed batches, not exact captured measured plans"
+    }
+  ],
+  "comparisons": [
+    {
+      "baseline": "exp42-4-strong-paired",
+      "candidate": "exp42-4-strong-spread",
+      "tie_seconds": 0.1
+    },
+    {
+      "baseline": "exp42-6-strong-paired",
+      "candidate": "exp42-6-strong-spread",
+      "tie_seconds": 0.1
+    },
+    {
+      "baseline": "exp42-8-strong-paired",
+      "candidate": "exp42-8-strong-spread",
+      "tie_seconds": 0.1
+    },
+    {
+      "baseline": "exp37-A",
+      "candidate": "exp37-B",
+      "tie_seconds": 0.1
+    },
+    {
+      "baseline": "exp37-C",
+      "candidate": "exp37-B",
+      "tie_seconds": 0.1
+    }
+  ]
+}

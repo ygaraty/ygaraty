@@ -1,0 +1,363 @@
+{
+ "plan": "M-7",
+ "gate": "mean held-out loss within 0.05 of dense (B) and at least 1 hop removed per update",
+ "model": "30.3M translator, 512/2048, 8 heads, 3+3 layers",
+ "recipe": "Adam 5e-4, 3,072-token batches, 32,768 pairs, held-out every 4,096 (1,024 validation pairs), greedy chrF on 1,024 deduplicated held-out pairs",
+ "seeds": [
+  2026,
+  2027
+ ],
+ "code_commit": "524853b (runs started at aadfa58+dirty with the same files)",
+ "host": "omarchy",
+ "queue_sha256": "7bf9b5e0387551068082b040efa109474e5f6e6aa09332998f0486dadf53b1e4",
+ "raw": "runs/experiments/queue-20261103-185345",
+ "runs": {
+  "B": {
+   "2026": {
+    "heldout": [
+     19.0885,
+     6.8331,
+     6.61,
+     6.3016,
+     6.1257,
+     5.9914,
+     5.8355,
+     5.741,
+     5.6259
+    ],
+    "chrf": 6.29,
+    "bleu": 0.24,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 12,
+     "removed": 0
+    },
+    "teacher": null,
+    "training_seconds": 729,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   },
+   "2027": {
+    "heldout": [
+     19.2169,
+     6.8573,
+     6.6351,
+     6.45,
+     6.2775,
+     6.1272,
+     6.0001,
+     5.9227,
+     5.8073
+    ],
+    "chrf": 5.32,
+    "bleu": 0.19,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 12,
+     "removed": 0
+    },
+    "teacher": null,
+    "training_seconds": 345,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   }
+  },
+  "M7-Pd": {
+   "2026": {
+    "heldout": [
+     19.1084,
+     6.8366,
+     6.6121,
+     6.3163,
+     6.1444,
+     6.0143,
+     5.8494,
+     5.7555,
+     5.6476
+    ],
+    "chrf": 5.47,
+    "bleu": 0.16,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 10.0,
+     "removed": 2.0
+    },
+    "teacher": null,
+    "training_seconds": 345,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": "dec:2-3",
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   },
+   "2027": {
+    "heldout": [
+     19.2581,
+     6.8624,
+     6.6466,
+     6.4967,
+     6.3187,
+     6.1695,
+     6.0353,
+     5.949,
+     5.851
+    ],
+    "chrf": 5.72,
+    "bleu": 0.08,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 10.0,
+     "removed": 2.0
+    },
+    "teacher": null,
+    "training_seconds": 345,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": "dec:2-3",
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   }
+  },
+  "M7-Ped": {
+   "2026": {
+    "heldout": [
+     19.1296,
+     6.834,
+     6.6104,
+     6.311,
+     6.1333,
+     5.9973,
+     5.8396,
+     5.739,
+     5.6302
+    ],
+    "chrf": 6.54,
+    "bleu": 0.25,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 8.0,
+     "removed": 4.0
+    },
+    "teacher": null,
+    "training_seconds": 346,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": "enc:2-3,dec:2-3",
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   },
+   "2027": {
+    "heldout": [
+     19.2617,
+     6.8635,
+     6.6471,
+     6.4783,
+     6.3073,
+     6.1593,
+     6.0246,
+     5.9584,
+     5.853
+    ],
+    "chrf": 6.91,
+    "bleu": 0.17,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 8.0,
+     "removed": 4.0
+    },
+    "teacher": null,
+    "training_seconds": 348,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": "enc:2-3,dec:2-3",
+     "layer_drop": 0.0,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   }
+  },
+  "M7-LD02": {
+   "2026": {
+    "heldout": [
+     19.0885,
+     6.9077,
+     6.682,
+     6.4957,
+     6.3366,
+     6.2147,
+     6.0666,
+     5.9757,
+     5.8627
+    ],
+    "chrf": 3.85,
+    "bleu": 0.11,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 10.564564564564565,
+     "removed": 1.4354354354354353
+    },
+    "teacher": null,
+    "training_seconds": 326,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.2,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   },
+   "2027": {
+    "heldout": [
+     19.2169,
+     6.8958,
+     6.727,
+     6.5377,
+     6.3741,
+     6.2472,
+     6.1183,
+     5.9933,
+     5.9256
+    ],
+    "chrf": 3.92,
+    "bleu": 0.09,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 10.54054054054054,
+     "removed": 1.4594594594594597
+    },
+    "teacher": null,
+    "training_seconds": 329,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.2,
+     "layer_drop_schedule": "constant",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   }
+  },
+  "M7-PLD": {
+   "2026": {
+    "heldout": [
+     19.0885,
+     6.834,
+     6.5903,
+     6.3312,
+     6.1643,
+     6.0215,
+     5.8971,
+     5.8146,
+     5.7181
+    ],
+    "chrf": 5.01,
+    "bleu": 0.11,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 11.11111111111111,
+     "removed": 0.8888888888888893
+    },
+    "teacher": null,
+    "training_seconds": 330,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.25,
+     "layer_drop_schedule": "progressive",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   },
+   "2027": {
+    "heldout": [
+     19.2169,
+     6.857,
+     6.6464,
+     6.5389,
+     6.3272,
+     6.1947,
+     6.069,
+     5.9529,
+     5.8937
+    ],
+    "chrf": 4.06,
+    "bleu": 0.06,
+    "layer_hops": {
+     "dense": 12,
+     "mean": 10.942942942942944,
+     "removed": 1.0570570570570563
+    },
+    "teacher": null,
+    "training_seconds": 332,
+    "flags": {
+     "teacher_mix": 1.0,
+     "parallel_layers": null,
+     "layer_drop": 0.25,
+     "layer_drop_schedule": "progressive",
+     "stale_layers": 0,
+     "delay_correction": "none"
+    }
+   }
+  }
+ },
+ "summary": {
+  "B": {
+   "mean_loss": 5.7166,
+   "d_loss": 0.0,
+   "mean_chrf": 5.8,
+   "d_chrf": 0.0,
+   "hops_removed": 0.0
+  },
+  "M7-Pd": {
+   "mean_loss": 5.7493,
+   "d_loss": 0.0327,
+   "mean_chrf": 5.59,
+   "d_chrf": -0.21,
+   "hops_removed": 2.0
+  },
+  "M7-Ped": {
+   "mean_loss": 5.7416,
+   "d_loss": 0.025,
+   "mean_chrf": 6.72,
+   "d_chrf": 0.92,
+   "hops_removed": 4.0
+  },
+  "M7-LD02": {
+   "mean_loss": 5.8941,
+   "d_loss": 0.1776,
+   "mean_chrf": 3.88,
+   "d_chrf": -1.92,
+   "hops_removed": 1.447
+  },
+  "M7-PLD": {
+   "mean_loss": 5.8059,
+   "d_loss": 0.0893,
+   "mean_chrf": 4.54,
+   "d_chrf": -1.27,
+   "hops_removed": 0.973
+  }
+ }
+}

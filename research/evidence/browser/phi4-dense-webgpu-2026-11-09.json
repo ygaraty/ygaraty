@@ -1,0 +1,533 @@
+{
+ "experiment": "WS-14 (106)",
+ "date": "2026-11-09",
+ "checkpoint": {
+  "repo": "microsoft/phi-4-gguf",
+  "revision": "6edc2ef6664b739a8e11e62f2672ff6afe0c15ac",
+  "file": "phi-4-Q4_K.gguf",
+  "sha256": "5652b9be0ea4ae2842130d04fe31bc869fcb99a2b7106c53b4e754a343fd688f",
+  "size": 9053114560,
+  "architecture": "phi3",
+  "tensor_types": {
+   "F32": 81,
+   "Q4_K": 101,
+   "Q5_K": 40,
+   "Q6_K": 21
+  },
+  "config_repo": "microsoft/phi-4",
+  "config_revision": "2db69c1c3e91a05d2c64a3185acfbaf36f744e25"
+ },
+ "family": {
+  "name": "dense",
+  "rope_pairs": "halves",
+  "fused": [
+   "attn_qkv -> attn_q/attn_k/attn_v",
+   "ffn_up -> ffn_gate/ffn_up"
+  ],
+  "chat": {
+   "first": "",
+   "generation": "<|im_start|>assistant<|im_sep|>",
+   "thinking": false,
+   "sep": "<|im_sep|>",
+   "end": ""
+  }
+ },
+ "code": {
+  "commit": "3ba4ce0",
+  "deployment_commit": "cac6ecf",
+  "driver": "runs/experiments/WS-14/ws14_remote.sh (not in git), copied to the host"
+ },
+ "pool": {
+  "provider": "vast",
+  "gpu": "RTX 3090 24 GB",
+  "country": "ID",
+  "dollars_per_hour": 0.236,
+  "rented": "22:06 CET",
+  "deleted": "22:24 CET",
+  "cost_dollars": 0.08,
+  "budget_dollars": 1.0,
+  "chrome": "157.0.8103.50",
+  "driver": "595.99.02",
+  "adapter": {
+   "vendor": "nvidia",
+   "architecture": "ampere",
+   "description": ""
+  }
+ },
+ "layout_check": {
+  "note": "CPU, layer 0, dequantized GGUF rows vs microsoft/phi-4 bf16 (relative Frobenius difference)",
+  "attn_q": {
+   "unpermuted": 0.04,
+   "llama_permuted": 1.392
+  },
+  "attn_k": {
+   "unpermuted": 0.0442,
+   "llama_permuted": 1.39
+  },
+  "attn_v": 0.0369,
+  "ffn_gate": {
+   "in_order": 0.0715,
+   "swapped": 1.434
+  },
+  "ffn_up": {
+   "in_order": 0.0715,
+   "swapped": 1.391
+  },
+  "layer0_vs_transformers_phi3": {
+   "max_abs": 4.77e-07,
+   "output_scale": 4.06
+  }
+ },
+ "chat_check": {
+  "passed": true,
+  "cases": [
+   "system+user (chat_prompt)",
+   "first turn (chat_tokens)",
+   "second turn after a finished answer",
+   "second turn after a cut answer"
+  ],
+  "reference": "transformers apply_chat_template, add_generation_prompt=True"
+ },
+ "kernels": [
+  {
+   "tensor": "blk.0.attn_q.weight",
+   "kind": "Q5_K",
+   "tokens": 1,
+   "max_rel": 1.81e-07
+  },
+  {
+   "tensor": "blk.0.attn_q.weight",
+   "kind": "Q5_K",
+   "tokens": 21,
+   "max_rel": 5.52e-07
+  },
+  {
+   "tensor": "blk.0.attn_k.weight",
+   "kind": "Q5_K",
+   "tokens": 3,
+   "max_rel": 2.31e-07
+  },
+  {
+   "tensor": "blk.0.ffn_up.weight",
+   "kind": "Q4_K",
+   "tokens": 1,
+   "max_rel": 1.45e-07
+  },
+  {
+   "tensor": "blk.0.ffn_down.weight",
+   "kind": "Q6_K",
+   "tokens": 1,
+   "max_rel": 4.25e-07
+  },
+  {
+   "tensor": "blk.0.ffn_down.weight",
+   "kind": "Q6_K",
+   "tokens": 37,
+   "max_rel": 3.63e-07
+  },
+  {
+   "tensor": "blk.1.ffn_down.weight",
+   "kind": "Q6_K",
+   "tokens": 9,
+   "max_rel": 5.97e-07
+  },
+  {
+   "tensor": "blk.0.ffn_up.weight",
+   "kind": "Q4_K",
+   "tokens": 64,
+   "max_rel": 3.81e-07
+  },
+  {
+   "tensor": "blk.0.attn_v.weight",
+   "kind": "Q5_K",
+   "tokens": 64,
+   "max_rel": 2.64e-07
+  },
+  {
+   "tensor": "blk.1.attn_v.weight",
+   "kind": "Q5_K",
+   "tokens": 5,
+   "max_rel": 2.57e-07
+  },
+  {
+   "tensor": "output.weight",
+   "kind": "Q6_K",
+   "tokens": 5,
+   "max_rel": 3.37e-07
+  },
+  {
+   "tensor": "blk.0.ffn_up.weight",
+   "kind": "Q4_K",
+   "tokens": 4,
+   "max_rel": 1.52e-07
+  }
+ ],
+ "stage": {
+  "layers": [
+   0,
+   4
+  ],
+  "kv": "f32",
+  "chunks": [
+   9,
+   1,
+   1,
+   1
+  ],
+  "allocated": 1173025904,
+  "calls": [
+   {
+    "tokens": 9,
+    "max_rel_row": 9.26e-07,
+    "min_cosine": 0.9999997615814209
+   },
+   {
+    "tokens": 1,
+    "max_rel_row": 4.93e-07,
+    "min_cosine": 1.0000001192092896
+   },
+   {
+    "tokens": 1,
+    "max_rel_row": 2.85e-07,
+    "min_cosine": 1.0
+   },
+   {
+    "tokens": 1,
+    "max_rel_row": 2.99e-07,
+    "min_cosine": 1.0
+   }
+  ]
+ },
+ "pipeline": {
+  "splits": [
+   0,
+   20,
+   40
+  ],
+  "kv": "f16",
+  "wire": "f16",
+  "prompt": "The capital of France is Paris. The capital of Italy is Rome. The capital of Spain is",
+  "generated": [
+   25048,
+   13,
+   578,
+   6864,
+   315,
+   10057,
+   374,
+   20437,
+   13,
+   578,
+   6864,
+   315,
+   279,
+   3723,
+   15422,
+   374,
+   7295,
+   13,
+   578,
+   6864,
+   315,
+   7008,
+   374,
+   33266,
+   13,
+   578,
+   6864,
+   315,
+   8494,
+   374,
+   69890,
+   13
+  ],
+  "text": " Madrid. The capital of Germany is Berlin. The capital of the United Kingdom is London. The capital of Canada is Ottawa. The capital of Australia is Canberra.",
+  "all_match": true,
+  "min_reference_margin": 0.0678,
+  "worst_logit_rel": 0.000193,
+  "load_ms": 46207,
+  "prefill_ms": 888,
+  "median_decode_ms": 92.10000002384186,
+  "allocated": 9070146336,
+  "steps": [
+   {
+    "token": 25048,
+    "match": true,
+    "margin": 7.88,
+    "max_rel": 8.43e-05
+   },
+   {
+    "token": 13,
+    "match": true,
+    "margin": 2.34,
+    "max_rel": 9.24e-05
+   },
+   {
+    "token": 578,
+    "match": true,
+    "margin": 0.538,
+    "max_rel": 9.61e-05
+   },
+   {
+    "token": 6864,
+    "match": true,
+    "margin": 5.42,
+    "max_rel": 7.56e-05
+   },
+   {
+    "token": 315,
+    "match": true,
+    "margin": 8.47,
+    "max_rel": 0.000115
+   },
+   {
+    "token": 10057,
+    "match": true,
+    "margin": 4.64,
+    "max_rel": 0.000103
+   },
+   {
+    "token": 374,
+    "match": true,
+    "margin": 9.47,
+    "max_rel": 6.67e-05
+   },
+   {
+    "token": 20437,
+    "match": true,
+    "margin": 8.9,
+    "max_rel": 6.78e-05
+   },
+   {
+    "token": 13,
+    "match": true,
+    "margin": 2.96,
+    "max_rel": 9.95e-05
+   },
+   {
+    "token": 578,
+    "match": true,
+    "margin": 1.39,
+    "max_rel": 0.000112
+   },
+   {
+    "token": 6864,
+    "match": true,
+    "margin": 6.32,
+    "max_rel": 9.41e-05
+   },
+   {
+    "token": 315,
+    "match": true,
+    "margin": 9.24,
+    "max_rel": 0.000145
+   },
+   {
+    "token": 279,
+    "match": true,
+    "margin": 1.84,
+    "max_rel": 0.000133
+   },
+   {
+    "token": 3723,
+    "match": true,
+    "margin": 1.16,
+    "max_rel": 0.000102
+   },
+   {
+    "token": 15422,
+    "match": true,
+    "margin": 3.91,
+    "max_rel": 8.79e-05
+   },
+   {
+    "token": 374,
+    "match": true,
+    "margin": 6.96,
+    "max_rel": 9.31e-05
+   },
+   {
+    "token": 7295,
+    "match": true,
+    "margin": 7.36,
+    "max_rel": 8.02e-05
+   },
+   {
+    "token": 13,
+    "match": true,
+    "margin": 2.13,
+    "max_rel": 0.000109
+   },
+   {
+    "token": 578,
+    "match": true,
+    "margin": 0.0678,
+    "max_rel": 0.000117
+   },
+   {
+    "token": 6864,
+    "match": true,
+    "margin": 5.54,
+    "max_rel": 0.000101
+   },
+   {
+    "token": 315,
+    "match": true,
+    "margin": 8.36,
+    "max_rel": 0.000126
+   },
+   {
+    "token": 7008,
+    "match": true,
+    "margin": 0.778,
+    "max_rel": 0.000141
+   },
+   {
+    "token": 374,
+    "match": true,
+    "margin": 9.68,
+    "max_rel": 6.87e-05
+   },
+   {
+    "token": 33266,
+    "match": true,
+    "margin": 9.72,
+    "max_rel": 9.12e-05
+   },
+   {
+    "token": 13,
+    "match": true,
+    "margin": 2.92,
+    "max_rel": 9.13e-05
+   },
+   {
+    "token": 578,
+    "match": true,
+    "margin": 1.11,
+    "max_rel": 0.000134
+   },
+   {
+    "token": 6864,
+    "match": true,
+    "margin": 5.66,
+    "max_rel": 0.000102
+   },
+   {
+    "token": 315,
+    "match": true,
+    "margin": 9.1,
+    "max_rel": 0.000145
+   },
+   {
+    "token": 8494,
+    "match": true,
+    "margin": 2.34,
+    "max_rel": 0.000193
+   },
+   {
+    "token": 374,
+    "match": true,
+    "margin": 10.5,
+    "max_rel": 7.64e-05
+   },
+   {
+    "token": 69890,
+    "match": true,
+    "margin": 9.97,
+    "max_rel": 7.63e-05
+   },
+   {
+    "token": 13,
+    "match": true,
+    "margin": 3.31,
+    "max_rel": 8.33e-05
+   }
+  ]
+ },
+ "serving": {
+  "bundle": {
+   "path": "phi-4/v1/2-workers/bundle.json",
+   "splits": [
+    0,
+    20,
+    40
+   ],
+   "capacity": 4096,
+   "generate": 256,
+   "memory_gb": 6
+  },
+  "note": "coordinator and both headless Chrome contributors on the one host; W's TURN host has nothing listening",
+  "sessions": [
+   {
+    "arm": "R",
+    "route": "relay",
+    "ready_s": 64.0,
+    "requests": [
+     {
+      "max_tokens": 32,
+      "seconds": 5.24,
+      "completion_tokens": 32,
+      "prompt_tokens": 18,
+      "finish": "length",
+      "text": "The sky appears blue due to a phenomenon called Rayleigh scattering, where molecules and small particles in the Earth's atmosphere scatter sunlight in all directions. Blue light is"
+     },
+     {
+      "max_tokens": 6,
+      "seconds": 1.16,
+      "completion_tokens": 6,
+      "prompt_tokens": 66,
+      "finish": "length",
+      "text": "The sky is blue because shorter"
+     },
+     {
+      "max_tokens": 32,
+      "seconds": 4.82,
+      "completion_tokens": 32,
+      "prompt_tokens": 13,
+      "finish": "length",
+      "text": "Copper is a versatile metal with a wide range of applications due to its excellent electrical and thermal conductivity, corrosion resistance, and malleability. Here are three"
+     }
+    ]
+   },
+   {
+    "arm": "W",
+    "route": "webrtc",
+    "ready_s": 26.0,
+    "requests": [
+     {
+      "max_tokens": 32,
+      "seconds": 3.57,
+      "completion_tokens": 32,
+      "prompt_tokens": 18,
+      "finish": "length",
+      "text": "The sky appears blue due to a phenomenon called Rayleigh scattering, where molecules and small particles in the Earth's atmosphere scatter sunlight in all directions. Blue light is"
+     },
+     {
+      "max_tokens": 6,
+      "seconds": 1.02,
+      "completion_tokens": 6,
+      "prompt_tokens": 66,
+      "finish": "length",
+      "text": "The sky is blue because shorter"
+     },
+     {
+      "max_tokens": 32,
+      "seconds": 3.22,
+      "completion_tokens": 32,
+      "prompt_tokens": 13,
+      "finish": "length",
+      "text": "Copper is a versatile metal with a wide range of applications due to its excellent electrical and thermal conductivity, corrosion resistance, and malleability. Here are three"
+     }
+    ]
+   }
+  ]
+ },
+ "gate": {
+  "kernels": true,
+  "stage": true,
+  "pipeline": true,
+  "chat_format": true,
+  "serving": true,
+  "coherent_english": "yes, read by Claude; answers above"
+ }
+}

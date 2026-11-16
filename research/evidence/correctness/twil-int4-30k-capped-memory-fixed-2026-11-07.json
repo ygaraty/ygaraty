@@ -1,0 +1,742 @@
+{
+ "experiment": 94,
+ "plan_id": "DO-32",
+ "date": "2026-11-07",
+ "code_commits": {
+  "memory_fix": "676d6c3",
+  "pods_no_such_ask": "8a28b74"
+ },
+ "pool": {
+  "provider": "vast",
+  "setup": "4x 4 GB GPU (8 GB cards capped at 3.5 GB), 4-bit",
+  "machines": [
+   {
+    "owner": "w0",
+    "gpu": "RTX 3070 8 GB",
+    "where": "Nevada, US",
+    "usd_per_h": 0.11,
+    "torch": "2.15.0+cu132"
+   },
+   {
+    "owner": "w1",
+    "gpu": "RTX 3060 Ti 8 GB",
+    "where": "Quebec, CA",
+    "usd_per_h": 0.089,
+    "torch": "2.15.0+cu132"
+   },
+   {
+    "owner": "w2",
+    "gpu": "RTX 5060 8 GB",
+    "where": "Ontario, CA",
+    "usd_per_h": 0.116,
+    "torch": "2.15.0+cu132"
+   },
+   {
+    "owner": "w3",
+    "gpu": "RTX 3070 8 GB",
+    "where": "Virginia, US",
+    "usd_per_h": 0.117,
+    "torch": "2.14.1+cu130"
+   }
+  ],
+  "created": "2026-11-07 12:53 CET",
+  "deleted": "2026-11-07 13:57 CET"
+ },
+ "settings": {
+  "model": "TwIL-8B rev 58d49f0d",
+  "weights": "int4",
+  "head_weights": "int4",
+  "dtype": "bfloat16 on every owner (all Ampere or newer)",
+  "layers_per_owner": 10,
+  "chunk": 64,
+  "cap_mib": 3584,
+  "alloc_conf": "expandable_segments:True",
+  "kv_cache": "preallocated at prompt + new tokens",
+  "wire": "float32",
+  "relay": true
+ },
+ "kernel": [
+  {
+   "machine": 0,
+   "gpu": "NVIDIA GeForce RTX 3070",
+   "cap_enforced": true,
+   "rel_err": {
+    "qkv": 2.8918425592881766e-07,
+    "o": 2.8300030266520135e-07,
+    "gate_up": 3.401870835347821e-07,
+    "down": 5.022735669552754e-07,
+    "head": 3.882425356899446e-07
+   }
+  },
+  {
+   "machine": 1,
+   "gpu": "NVIDIA GeForce RTX 3060 Ti",
+   "cap_enforced": true,
+   "rel_err": {
+    "qkv": 2.989169879362003e-07,
+    "o": 1.9977022990593546e-07,
+    "gate_up": 2.860632010568573e-07,
+    "down": 4.2545353172921737e-07,
+    "head": 2.9088850861452e-07
+   }
+  },
+  {
+   "machine": 2,
+   "gpu": "NVIDIA GeForce RTX 5060",
+   "cap_enforced": true,
+   "rel_err": {
+    "qkv": 3.9967313689364467e-07,
+    "o": 2.316510115156336e-07,
+    "gate_up": 3.1474951318371416e-07,
+    "down": 3.0594634215639153e-07,
+    "head": 2.720515960831952e-07
+   }
+  },
+  {
+   "machine": 3,
+   "gpu": "NVIDIA GeForce RTX 3070",
+   "cap_enforced": true,
+   "rel_err": {
+    "qkv": 2.8918425592881766e-07,
+    "o": 2.8300030266520135e-07,
+    "gate_up": 3.401870835347821e-07,
+    "down": 5.022735669552754e-07,
+    "head": 3.882425356899446e-07
+   }
+  }
+ ],
+ "correctness": {
+  "steps": 51,
+  "retries": 0,
+  "rejected": 0,
+  "prompts": [
+   {
+    "text": "What is the capital of France? Answer in one sentence.",
+    "tokens": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     279,
+     6864,
+     315,
+     9822,
+     30,
+     22559,
+     304,
+     832,
+     11914
+    ],
+    "fakequant": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     279,
+     6864,
+     315,
+     9822,
+     30,
+     22559,
+     304,
+     832,
+     11914
+    ],
+    "first_divergence": null,
+    "first_margin_below_half": 16,
+    "passes": true,
+    "equal_to_do31_cluster": true
+   },
+   {
+    "text": "Write a Python function that returns the n-th Fibonacci number.",
+    "tokens": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     8144,
+     264,
+     13325,
+     734,
+     430,
+     4780,
+     279,
+     308,
+     12,
+     339,
+     80783
+    ],
+    "fakequant": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     8144,
+     264,
+     13325,
+     734,
+     430,
+     4780,
+     279,
+     308,
+     12,
+     339,
+     80783
+    ],
+    "first_divergence": null,
+    "first_margin_below_half": 16,
+    "passes": true,
+    "equal_to_do31_cluster": true
+   },
+   {
+    "text": "What is 17 * 23? Give only the number.",
+    "tokens": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     220,
+     1114,
+     353,
+     220,
+     1419,
+     30,
+     21335,
+     1193,
+     279
+    ],
+    "fakequant": [
+     791,
+     1217,
+     17501,
+     25,
+     330,
+     3923,
+     374,
+     220,
+     1114,
+     353,
+     220,
+     1419,
+     30,
+     21335,
+     1193,
+     279
+    ],
+    "first_divergence": null,
+    "first_margin_below_half": 0,
+    "passes": true,
+    "equal_to_do31_cluster": false
+   }
+  ],
+  "first_token_s": [
+   46.35,
+   4.89,
+   5.31
+  ],
+  "inter_token_median_s": [
+   1.71,
+   1.727,
+   1.717
+  ],
+  "peak_memory": [
+   {
+    "owner": "w0",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-0",
+    "layers": [
+     0,
+     10
+    ],
+    "peak_allocated_mb": 1589.2,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w0",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-1",
+    "layers": [
+     0,
+     10
+    ],
+    "peak_allocated_mb": 1534.0,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w0",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-2",
+    "layers": [
+     0,
+     10
+    ],
+    "peak_allocated_mb": 1534.0,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w1",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-0",
+    "layers": [
+     10,
+     20
+    ],
+    "peak_allocated_mb": 1589.2,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w1",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-1",
+    "layers": [
+     10,
+     20
+    ],
+    "peak_allocated_mb": 1534.0,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w1",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-2",
+    "layers": [
+     10,
+     20
+    ],
+    "peak_allocated_mb": 1534.0,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w2",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-0",
+    "layers": [
+     20,
+     30
+    ],
+    "peak_allocated_mb": 1589.2,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w2",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-1",
+    "layers": [
+     20,
+     30
+    ],
+    "peak_allocated_mb": 1534.0,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w2",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-2",
+    "layers": [
+     20,
+     30
+    ],
+    "peak_allocated_mb": 1534.0,
+    "peak_reserved_mb": 1676.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w3",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-0",
+    "layers": [
+     30,
+     40
+    ],
+    "peak_allocated_mb": 1826.5,
+    "peak_reserved_mb": 2036.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w3",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-1",
+    "layers": [
+     30,
+     40
+    ],
+    "peak_allocated_mb": 1826.5,
+    "peak_reserved_mb": 2036.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w3",
+    "session": "92cd932f58434ed7a75c0e86bd963adc-2",
+    "layers": [
+     30,
+     40
+    ],
+    "peak_allocated_mb": 1826.5,
+    "peak_reserved_mb": 2036.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   }
+  ]
+ },
+ "long_30000": {
+  "prompt_tokens": 30000,
+  "new_tokens": 128,
+  "seed": 2026,
+  "steps": 597,
+  "retries": 0,
+  "rejected": 0,
+  "first_token_s": 2949.6,
+  "inter_token_s": [
+   8.1987,
+   1.7408,
+   1.7635,
+   1.6865,
+   1.6733,
+   1.733,
+   1.7168,
+   1.6933,
+   1.705,
+   1.7217,
+   1.7382,
+   1.7043,
+   1.7175,
+   1.7724,
+   1.7955,
+   1.8094,
+   1.7175,
+   1.735,
+   1.649,
+   1.7273,
+   1.7112,
+   1.676,
+   1.709,
+   1.7626,
+   1.9356,
+   2.1161,
+   2.064,
+   2.0959,
+   2.1076,
+   1.9893,
+   2.1644,
+   2.0758,
+   2.0354,
+   2.1823,
+   1.9561,
+   2.1583,
+   2.2298,
+   2.1038,
+   2.1722,
+   2.1404,
+   2.1947,
+   1.9683,
+   2.1225,
+   2.0909,
+   1.9693,
+   2.1942,
+   1.944,
+   2.117,
+   2.0578,
+   2.1559,
+   2.0772,
+   2.0486,
+   1.9516,
+   2.0497,
+   2.0152,
+   2.1584,
+   1.9576,
+   2.0473,
+   1.9199,
+   1.9399,
+   1.9337,
+   2.618,
+   1.881,
+   1.698,
+   1.6956,
+   1.7076,
+   1.6698,
+   1.7048,
+   1.713,
+   1.7197,
+   1.6909,
+   1.679,
+   1.6916,
+   1.7554,
+   1.6569,
+   1.7552,
+   1.7319,
+   1.7243,
+   1.692,
+   1.7383,
+   1.6605,
+   1.7241,
+   1.682,
+   1.7008,
+   1.6959,
+   1.7249,
+   1.6651,
+   1.7767,
+   1.74,
+   1.7531,
+   1.7462,
+   1.7036,
+   1.6805,
+   1.7805,
+   1.8639,
+   1.7104,
+   1.676,
+   1.7721,
+   1.7199,
+   1.6913,
+   1.7013,
+   1.7437,
+   2.8244,
+   2.0725,
+   2.1216,
+   2.1386,
+   1.8171,
+   1.8124,
+   1.6627,
+   1.7349,
+   1.7024,
+   1.6857,
+   1.6776,
+   1.7107,
+   1.7042,
+   1.6923,
+   1.6967,
+   1.7078,
+   1.6834,
+   1.7287,
+   1.6598,
+   1.7145,
+   1.7004,
+   1.7125,
+   1.7443,
+   1.7678,
+   1.6636
+  ],
+  "inter_token_median_s": 1.74,
+  "inter_token_p95_s": 2.182,
+  "peak_torch_memory": [
+   {
+    "owner": "w0",
+    "session": "c331696289eb4639a14ee7d3c6c20ad0-0",
+    "layers": [
+     0,
+     10
+    ],
+    "peak_allocated_mb": 2706.0,
+    "peak_reserved_mb": 2878.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w1",
+    "session": "c331696289eb4639a14ee7d3c6c20ad0-0",
+    "layers": [
+     10,
+     20
+    ],
+    "peak_allocated_mb": 2706.0,
+    "peak_reserved_mb": 2878.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w2",
+    "session": "c331696289eb4639a14ee7d3c6c20ad0-0",
+    "layers": [
+     20,
+     30
+    ],
+    "peak_allocated_mb": 2706.0,
+    "peak_reserved_mb": 2878.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   },
+   {
+    "owner": "w3",
+    "session": "c331696289eb4639a14ee7d3c6c20ad0-0",
+    "layers": [
+     30,
+     40
+    ],
+    "peak_allocated_mb": 2997.5,
+    "peak_reserved_mb": 3124.0,
+    "cap_mb": 3584.0,
+    "alloc_conf": "expandable_segments:True"
+   }
+  ],
+  "peak_nvidia_smi_mib": {
+   "w0": 3083,
+   "w1": 3057,
+   "w2": 3087,
+   "w3": 3329
+  },
+  "tokens": [
+   13,
+   271,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198,
+   198
+  ]
+ },
+ "failed_attempts": [
+  {
+   "when": "12:47 CET",
+   "provider": "vultr",
+   "what": "2 of 4 A16s made, 3rd refused at the account's monthly fee limit; both deleted within seconds"
+  },
+  {
+   "when": "12:51 CET",
+   "provider": "vast",
+   "what": "offer 59417327 listed but 'no_such_ask' on renting, twice; the one machine made each time deleted within seconds; fixed in pods (8a28b74)"
+  }
+ ],
+ "cost_usd": {
+  "vast_pool": 0.46,
+  "note": "Vultr's two A16s and Vast's two single servers existed for seconds each"
+ }
+}

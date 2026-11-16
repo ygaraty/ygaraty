@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ygaraty-webgpu-research"
+version = "0.1.0.dev0"
+description = "WebGPU research with public numerical and browser components"
+readme = "src/ygaraty_webgpu_research/README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["numpy>=1.24,<3", "ygaraty==0.1.0.dev0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["README.md"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 79
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+# Historical harness extraction: preserve source until the adapters are split.
+[tool.ruff.lint.per-file-ignores]
+"src/ygaraty_webgpu_research/*.py" = ["E501", "E402", "E741", "I001", "UP", "F401"]

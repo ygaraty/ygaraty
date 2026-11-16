@@ -1,0 +1,160 @@
+{
+ "id": "DO-35",
+ "date": "2026-11-05",
+ "model": "webAI-Official/TwIL-8B@58d49f0d (4-bit layers and head)",
+ "pool": [
+  {
+   "machine": 0,
+   "gpu": "RTX 3060 Ti 8 GB",
+   "location": "Quebec, CA",
+   "usd_per_h": 0.096,
+   "role": "coordinator, relay, w0"
+  },
+  {
+   "machine": 1,
+   "gpu": "RTX 3060 Ti 8 GB",
+   "location": "Ontario, CA",
+   "usd_per_h": 0.097,
+   "role": "w1"
+  },
+  {
+   "machine": 2,
+   "gpu": "RTX 3070 8 GB",
+   "location": "Quebec, CA",
+   "usd_per_h": 0.1,
+   "role": "w2"
+  },
+  {
+   "machine": 3,
+   "gpu": "RTX 2060 SUPER 8 GB",
+   "location": "Quebec, CA",
+   "usd_per_h": 0.104,
+   "role": "w3 (float16)"
+  }
+ ],
+ "code": "f7b3303 on the machines",
+ "settings": {
+  "owners": 4,
+  "gpu_memory_cap_mib": 3584,
+  "dtype": "auto",
+  "chunk": 64,
+  "wire": "float32"
+ },
+ "correctness": {
+  "identical_across_arms": true
+ },
+ "timing": [
+  {
+   "job": "timing-128-A0",
+   "steps": 520,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 35.41739892959595,
+   "first_token_s": [
+    2.5560576915740967,
+    3.4065918922424316,
+    2.785238027572632
+   ],
+   "itl_median_ms": 368.2706356048584,
+   "itl_p95_ms": 397.7830410003662,
+   "gpu_peak_mib": {
+    "gpu-w0": 1957,
+    "gpu-w1": 1972,
+    "gpu-w2": 2123,
+    "gpu-w3": 2611
+   },
+   "arm": "A"
+  },
+  {
+   "job": "timing-128-A3",
+   "steps": 520,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 35.94002342224121,
+   "first_token_s": [
+    2.5515644550323486,
+    2.5854651927948,
+    2.5998709201812744
+   ],
+   "itl_median_ms": 350.7504463195801,
+   "itl_p95_ms": 386.25621795654297,
+   "gpu_peak_mib": {
+    "gpu-w0": 1957,
+    "gpu-w1": 1972,
+    "gpu-w2": 2145,
+    "gpu-w3": 2611
+   },
+   "arm": "A"
+  },
+  {
+   "job": "timing-128-B1",
+   "steps": 5,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 37.01953721046448,
+   "first_token_s": [
+    2.4412529468536377,
+    2.6338765621185303,
+    2.4977731704711914
+   ],
+   "itl_median_ms": 313.4949207305908,
+   "itl_p95_ms": 328.48668098449707,
+   "gpu_peak_mib": {
+    "gpu-w0": 1957,
+    "gpu-w1": 1972,
+    "gpu-w2": 2107,
+    "gpu-w3": 2611
+   },
+   "arm": "B"
+  },
+  {
+   "job": "timing-128-B2",
+   "steps": 5,
+   "retries": 0,
+   "rejected": 0,
+   "warm_first_token_s": 37.18452024459839,
+   "first_token_s": [
+    2.642458438873291,
+    2.939673662185669,
+    2.564868211746216
+   ],
+   "itl_median_ms": 281.5072536468506,
+   "itl_p95_ms": 321.3322162628174,
+   "gpu_peak_mib": {
+    "gpu-w0": 1957,
+    "gpu-w1": 1972,
+    "gpu-w2": 1983,
+    "gpu-w3": 2611
+   },
+   "arm": "B"
+  }
+ ],
+ "identical_tokens_all_sessions": true,
+ "pooled": {
+  "A": {
+   "median_ms": 360.90874671936035,
+   "p95_ms": 394.439697265625
+  },
+  "B": {
+   "median_ms": 308.0859184265137,
+   "p95_ms": 324.2344856262207
+  },
+  "p95_reduction": 0.17798718568665373,
+  "median_reduction": 0.1463606209963132
+ },
+ "gate": {
+  "decision_p95_30pct": false,
+  "correctness": true
+ },
+ "compared": {
+  "experiment_83_itl_median_s": 0.951,
+  "note": "experiment 83's hosts were in BC, Ontario, Nevada and Quebec; this pool was 3 in Quebec and 1 in Ontario"
+ },
+ "cost": {
+  "machine_usd": 0.22,
+  "download_estimate_usd": 0.11,
+  "total_estimate_usd": 0.33,
+  "budget_usd": 0.5,
+  "minutes_up": 34
+ }
+}

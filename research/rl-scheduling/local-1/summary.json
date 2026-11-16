@@ -1,0 +1,738 @@
+{
+  "decision": {
+    "lower_bound": -0.004146632053955938,
+    "worst_scenario_regression": 0.012872972887960854,
+    "accepted": false
+  },
+  "summary": {
+    "test/zero": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.0118122307721686,
+          "wins": 3,
+          "cases": 21,
+          "worst_case_ratio": 1.2100341487737902
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.0028951113730822,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0149218335869379
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 1.0009635511790125,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0098795008935948
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 1.0002998795971765,
+          "wins": 8,
+          "cases": 21,
+          "worst_case_ratio": 1.0102882950840657
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 1.0009179443038392,
+          "wins": 9,
+          "cases": 21,
+          "worst_case_ratio": 1.0115011420301057
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.0007311701306623,
+          "wins": 10,
+          "cases": 21,
+          "worst_case_ratio": 1.0083898529134085
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 1.0006880543529684,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0104118732053369
+        }
+      },
+      "retrained": {
+        "mean_improvement": -0.0007201199127316786,
+        "ci95": [
+          -0.0021467678654134353,
+          0.00042593610387938786
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": -0.0009635511790124308,
+          "residual_seed1": -0.0002998795971763985,
+          "residual_seed2": -0.0009179443038391323,
+          "residual_seed3": -0.0007311701306623254,
+          "residual_seed4": -0.0006880543529681059
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": -0.0005388977000911899,
+          "heterogeneous_8": 0.0010066929329120011,
+          "home_16": 0.00034178676645391093,
+          "home_4": 0.0007439213991029536,
+          "lan_4": 0.0005997501138521599,
+          "late_join_8": 0.0029257019939370466,
+          "loopback_1": -3.811611704496176e-05
+        }
+      }
+    },
+    "test/measured": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.0078626345504684,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.2108898224226956
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.0028888806451188,
+          "wins": 8,
+          "cases": 21,
+          "worst_case_ratio": 1.0195257339988173
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.00519917551737,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.0245721222851105
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 1.0037284048944515,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.0176471334651147
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 1.0028032858661653,
+          "wins": 9,
+          "cases": 21,
+          "worst_case_ratio": 1.0183759678959041
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 1.002913434413305,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.0167393494206354
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.0032649966804943,
+          "wins": 8,
+          "cases": 21,
+          "worst_case_ratio": 1.0161474906271166
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 1.0036973844788317,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.017731060874628
+        }
+      },
+      "retrained": {
+        "mean_improvement": -0.0032815012666496724,
+        "ci95": [
+          -0.004146632053955938,
+          -0.0023795829910870027
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": -0.0037284048944515287,
+          "residual_seed1": -0.0028032858661655854,
+          "residual_seed2": -0.002913434413304933,
+          "residual_seed3": -0.0032649966804945037,
+          "residual_seed4": -0.003697384478831812
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": -0.0027632753340391947,
+          "heterogeneous_8": -0.00405117690319412,
+          "home_16": -0.00028772612001626285,
+          "home_4": 0.0014093144807505453,
+          "lan_4": 0.012872972887960854,
+          "late_join_8": 0.00359406701874021,
+          "loopback_1": 0.012196332836345913
+        }
+      }
+    },
+    "test/slow_coordinator": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.0073295016695536,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.2105734368948975
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.0158017361336458,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0837606759389702
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.017371591220267,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0819968851783848
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 1.0160316262637736,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0739550400005824
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 1.0154624363394928,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.0844156347044063
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 1.0152412843074927,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.0758446969760234
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.016372607177704,
+          "wins": 4,
+          "cases": 21,
+          "worst_case_ratio": 1.0814398515213737
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 1.015560610275813,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0809468508045954
+        }
+      },
+      "retrained": {
+        "mean_improvement": -0.01573371287285527,
+        "ci95": [
+          -0.01662821447709552,
+          -0.014844637767431638
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": -0.016031626263773694,
+          "residual_seed1": -0.015462436339492862,
+          "residual_seed2": -0.01524128430749275,
+          "residual_seed3": -0.016372607177703974,
+          "residual_seed4": -0.015560610275813078
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": -0.005743877176007217,
+          "heterogeneous_8": -0.00151090188933789,
+          "home_16": 0.0005963470475909283,
+          "home_4": 0.003916884189715697,
+          "lan_4": 0.057975003063101216,
+          "late_join_8": 0.006237702240713183,
+          "loopback_1": 0.0486648326342114
+        }
+      }
+    },
+    "validation/zero": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.0141686122531255,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0553963030142879
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.0005571552139865,
+          "wins": 8,
+          "cases": 21,
+          "worst_case_ratio": 1.0057444596516834
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 1.0001857838082118,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.005388053049557
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 1.0000271905111735,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.0091410580519082
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 0.999935456406275,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0000019256897061
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.0000028319616336,
+          "wins": 4,
+          "cases": 21,
+          "worst_case_ratio": 1.0012659728094664
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 1.0000000183714142,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0000003315321653
+        }
+      },
+      "retrained": {
+        "mean_improvement": -3.0256211741560198e-05,
+        "ci95": [
+          -0.00014789688559583116,
+          7.045142062440135e-05
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": -0.00018578380821170147,
+          "residual_seed1": -2.7190511173370514e-05,
+          "residual_seed2": 6.454359372500194e-05,
+          "residual_seed3": -2.8319616335420725e-06,
+          "residual_seed4": -1.8371414188864252e-08
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": 0.00047090042693076484,
+          "heterogeneous_8": -0.00030693755625399444,
+          "home_16": -7.519248766973963e-05,
+          "home_4": -0.0001614696210818778,
+          "lan_4": 0.0004547574870528148,
+          "late_join_8": -0.0001700257629885238,
+          "loopback_1": -2.390037985300353e-07
+        }
+      }
+    },
+    "validation/measured": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.0052356984113338,
+          "wins": 9,
+          "cases": 21,
+          "worst_case_ratio": 1.0542595897284146
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.002069025502299,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0192920068374265
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.0026103836162885,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0192920068374265
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 1.002116948503025,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.0192920068374265
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 1.0015457034197748,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.022267178904819
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 1.0020324883934046,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.0192920068374265
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.0021093537510704,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.0192920068374265
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 1.0021135457613723,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0206380527914714
+        }
+      },
+      "retrained": {
+        "mean_improvement": -0.001983607965729377,
+        "ci95": [
+          -0.003191367917815459,
+          -0.0007904031700264291
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": -0.0021169485030247907,
+          "residual_seed1": -0.0015457034197746318,
+          "residual_seed2": -0.0020324883934046147,
+          "residual_seed3": -0.0021093537510703795,
+          "residual_seed4": -0.00211354576137247
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": -0.0007347219577653608,
+          "heterogeneous_8": 0.006388827603318825,
+          "home_16": -0.0013282683690560848,
+          "home_4": 0.00036013283737657,
+          "lan_4": 0.004597381637907905,
+          "late_join_8": 0.00026266049734746666,
+          "loopback_1": 0.004339243510976143
+        }
+      }
+    },
+    "validation/slow_coordinator": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.0050701056774736,
+          "wins": 9,
+          "cases": 21,
+          "worst_case_ratio": 1.0542500562201331
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.0055930602873726,
+          "wins": 3,
+          "cases": 21,
+          "worst_case_ratio": 1.0234865359618446
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.006195019252036,
+          "wins": 3,
+          "cases": 21,
+          "worst_case_ratio": 1.0235320789837867
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 1.0057706362011551,
+          "wins": 3,
+          "cases": 21,
+          "worst_case_ratio": 1.0243615682038285
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 1.0053491899780773,
+          "wins": 4,
+          "cases": 21,
+          "worst_case_ratio": 1.0266950199868266
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 1.0055975956144987,
+          "wins": 3,
+          "cases": 21,
+          "worst_case_ratio": 1.023100311131286
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.0056706165492777,
+          "wins": 3,
+          "cases": 21,
+          "worst_case_ratio": 1.023560679610578
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 1.0054840475814568,
+          "wins": 3,
+          "cases": 21,
+          "worst_case_ratio": 1.0242444872638765
+        }
+      },
+      "retrained": {
+        "mean_improvement": -0.005574417184893117,
+        "ci95": [
+          -0.007222314728962255,
+          -0.0038764105932306515
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": -0.0057706362011551065,
+          "residual_seed1": -0.005349189978077196,
+          "residual_seed2": -0.005597595614498722,
+          "residual_seed3": -0.005670616549277754,
+          "residual_seed4": -0.005484047581456809
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": -0.0016654723811458938,
+          "heterogeneous_8": 0.002079815160088261,
+          "home_16": -0.0003832661659129988,
+          "home_4": 0.00216773296834627,
+          "lan_4": 0.017513824037722392,
+          "late_join_8": 0.001933881202181853,
+          "loopback_1": 0.0173744054729712
+        }
+      }
+    },
+    "train/zero": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.025424059656797,
+          "wins": 9,
+          "cases": 21,
+          "worst_case_ratio": 1.346733689082315
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.000986001267716,
+          "wins": 12,
+          "cases": 21,
+          "worst_case_ratio": 1.040019229085767
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 0.9873495351055895,
+          "wins": 12,
+          "cases": 21,
+          "worst_case_ratio": 1.0081206373112936
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 0.9953921081308523,
+          "wins": 13,
+          "cases": 21,
+          "worst_case_ratio": 1.0486552510581906
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 0.99913063434365,
+          "wins": 9,
+          "cases": 21,
+          "worst_case_ratio": 1.0081206373112936
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.0003638527129606,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.0070343800828077
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 0.9932097673082827,
+          "wins": 11,
+          "cases": 21,
+          "worst_case_ratio": 1.0395435162470104
+        }
+      },
+      "retrained": {
+        "mean_improvement": 0.004910820479732948,
+        "ci95": [
+          -0.0027312366045023477,
+          0.011892298534048273
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": 0.012650464894410383,
+          "residual_seed1": 0.004607891869147837,
+          "residual_seed2": 0.0008693656563497738,
+          "residual_seed3": -0.00036385271296064605,
+          "residual_seed4": 0.006790232691717392
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": -0.002021224051523829,
+          "heterogeneous_8": -0.02921567076110787,
+          "home_16": -0.0030244955487118697,
+          "home_4": -0.00027228050692984507,
+          "lan_4": 0.0012982648390458262,
+          "late_join_8": -0.0011384767148340247,
+          "loopback_1": -1.8606140695931472e-06
+        }
+      }
+    },
+    "train/measured": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.0237898834002555,
+          "wins": 11,
+          "cases": 21,
+          "worst_case_ratio": 1.3439885165029368
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.010658579799856,
+          "wins": 4,
+          "cases": 21,
+          "worst_case_ratio": 1.0972340975457144
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.0007860692581678,
+          "wins": 9,
+          "cases": 21,
+          "worst_case_ratio": 1.0546517327591722
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 0.9976369533525923,
+          "wins": 9,
+          "cases": 21,
+          "worst_case_ratio": 1.0545983480834509
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 1.0054831722468451,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0545622562573604
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 1.00443817197226,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.0545983480834509
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.0106239290691847,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0972214218453884
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 1.0044286684350285,
+          "wins": 6,
+          "cases": 21,
+          "worst_case_ratio": 1.0545622407113604
+        }
+      },
+      "retrained": {
+        "mean_improvement": -0.00452217901518211,
+        "ci95": [
+          -0.01510484989665558,
+          0.005213044685107975
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": 0.002363046647407644,
+          "residual_seed1": -0.005483172246844988,
+          "residual_seed2": -0.004438171972260067,
+          "residual_seed3": -0.010623929069184645,
+          "residual_seed4": -0.004428668435028495
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": -0.003233239679822031,
+          "heterogeneous_8": 0.027163030096310603,
+          "home_16": -0.0031920498304304212,
+          "home_4": -0.0008988751493340663,
+          "lan_4": 0.005385885284170389,
+          "late_join_8": 8.471731753134648e-05,
+          "loopback_1": 0.006345785067849219
+        }
+      }
+    },
+    "train/slow_coordinator": {
+      "arms": {
+        "critical_path": {
+          "mean_ratio_to_critical_path": 1.0,
+          "wins": 0,
+          "cases": 21,
+          "worst_case_ratio": 1.0
+        },
+        "fifo": {
+          "mean_ratio_to_critical_path": 1.018639510921965,
+          "wins": 13,
+          "cases": 21,
+          "worst_case_ratio": 1.3447562310134071
+        },
+        "zero_residual": {
+          "mean_ratio_to_critical_path": 1.006483381508717,
+          "wins": 4,
+          "cases": 21,
+          "worst_case_ratio": 1.127744167956994
+        },
+        "residual_rerun": {
+          "mean_ratio_to_critical_path": 1.0022667263539837,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.0847445187653655
+        },
+        "residual_seed0": {
+          "mean_ratio_to_critical_path": 0.991640800005415,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.0457440974516985
+        },
+        "residual_seed1": {
+          "mean_ratio_to_critical_path": 1.0016436814540493,
+          "wins": 4,
+          "cases": 21,
+          "worst_case_ratio": 1.0460037903869417
+        },
+        "residual_seed2": {
+          "mean_ratio_to_critical_path": 0.9988590317787951,
+          "wins": 5,
+          "cases": 21,
+          "worst_case_ratio": 1.0467552204020347
+        },
+        "residual_seed3": {
+          "mean_ratio_to_critical_path": 1.0061907986396939,
+          "wins": 4,
+          "cases": 21,
+          "worst_case_ratio": 1.127787362745315
+        },
+        "residual_seed4": {
+          "mean_ratio_to_critical_path": 0.9952640627229085,
+          "wins": 7,
+          "cases": 21,
+          "worst_case_ratio": 1.047223331345543
+        }
+      },
+      "retrained": {
+        "mean_improvement": 0.0012803250798276108,
+        "ci95": [
+          -0.01027937368064656,
+          0.012594083894714041
+        ],
+        "per_seed_improvement": {
+          "residual_seed0": 0.00835919999458502,
+          "residual_seed1": -0.0016436814540492135,
+          "residual_seed2": 0.0011409682212047596,
+          "residual_seed3": -0.006190798639693919,
+          "residual_seed4": 0.004735937277091408
+        },
+        "per_scenario_mean_regression": {
+          "congested_16": -0.0032607659324360716,
+          "heterogeneous_8": -0.05260188074915839,
+          "home_16": -0.0029334880096664184,
+          "home_4": 0.001908752599886876,
+          "lan_4": 0.02170745202688118,
+          "late_join_8": 0.0008838625340612527,
+          "loopback_1": 0.025333791971638542
+        }
+      }
+    }
+  }
+}

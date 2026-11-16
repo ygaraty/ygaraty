@@ -1,0 +1,817 @@
+[
+  {
+    "name": "plain product",
+    "op": "matmul",
+    "call": [
+      {
+        "$": "matrix",
+        "name": "w"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "buffer",
+        "name": "y"
+      },
+      1
+    ],
+    "layer": 0,
+    "valid": true,
+    "contract": {
+      "schema": 1,
+      "arguments": [
+        "weight",
+        "input",
+        "output",
+        "tokens"
+      ],
+      "effects": [
+        {
+          "argument": "weight",
+          "binding": {
+            "$": "matrix",
+            "name": "w"
+          },
+          "access": "read",
+          "precision": "weight",
+          "lifetime": "checkpoint",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "input",
+          "binding": {
+            "$": "buffer",
+            "name": "x"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "output",
+          "binding": {
+            "$": "buffer",
+            "name": "y"
+          },
+          "access": "write",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        }
+      ]
+    }
+  },
+  {
+    "name": "residual accumulation",
+    "op": "matmul",
+    "call": [
+      {
+        "$": "matrix",
+        "name": "w"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "var",
+        "name": "tokens"
+      },
+      {
+        "accumulate": true
+      }
+    ],
+    "layer": 0,
+    "valid": true,
+    "contract": {
+      "schema": 1,
+      "arguments": [
+        "weight",
+        "input",
+        "output",
+        "tokens",
+        "options"
+      ],
+      "effects": [
+        {
+          "argument": "weight",
+          "binding": {
+            "$": "matrix",
+            "name": "w"
+          },
+          "access": "read",
+          "precision": "weight",
+          "lifetime": "checkpoint",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "input",
+          "binding": {
+            "$": "buffer",
+            "name": "x"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "output",
+          "binding": {
+            "$": "buffer",
+            "name": "x"
+          },
+          "access": "read_write",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        }
+      ]
+    }
+  },
+  {
+    "name": "dynamic accumulation",
+    "op": "matmul",
+    "call": [
+      {
+        "$": "matrix",
+        "name": "w"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      1,
+      {
+        "$": "choose",
+        "condition": "batch",
+        "yes": {
+          "accumulate": true
+        },
+        "no": {}
+      }
+    ],
+    "layer": 0,
+    "valid": true,
+    "contract": {
+      "schema": 1,
+      "arguments": [
+        "weight",
+        "input",
+        "output",
+        "tokens",
+        "options"
+      ],
+      "effects": [
+        {
+          "argument": "weight",
+          "binding": {
+            "$": "matrix",
+            "name": "w"
+          },
+          "access": "read",
+          "precision": "weight",
+          "lifetime": "checkpoint",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "input",
+          "binding": {
+            "$": "buffer",
+            "name": "x"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "output",
+          "binding": {
+            "$": "buffer",
+            "name": "x"
+          },
+          "access": "read_write",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        }
+      ]
+    }
+  },
+  {
+    "name": "norm gate reads",
+    "op": "rms_norm",
+    "call": [
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "vector",
+        "name": "norm"
+      },
+      {
+        "$": "buffer",
+        "name": "y"
+      },
+      1,
+      {
+        "size": 128,
+        "gate": {
+          "$": "buffer",
+          "name": "gate"
+        }
+      }
+    ],
+    "layer": 0,
+    "valid": true,
+    "contract": {
+      "schema": 1,
+      "arguments": [
+        "input",
+        "weight",
+        "output",
+        "tokens",
+        "options"
+      ],
+      "effects": [
+        {
+          "argument": "input",
+          "binding": {
+            "$": "buffer",
+            "name": "x"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "weight",
+          "binding": {
+            "$": "vector",
+            "name": "norm"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "checkpoint",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "output",
+          "binding": {
+            "$": "buffer",
+            "name": "y"
+          },
+          "access": "write",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "options.gate",
+          "binding": {
+            "$": "buffer",
+            "name": "gate"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        }
+      ]
+    }
+  },
+  {
+    "name": "cache append",
+    "op": "cache_store",
+    "call": [
+      {
+        "$": "buffer",
+        "name": "k"
+      },
+      {
+        "$": "state",
+        "name": "Ks"
+      },
+      {
+        "$": "var",
+        "name": "count"
+      },
+      {
+        "$": "var",
+        "name": "position"
+      },
+      {
+        "$": "var",
+        "name": "capacity"
+      },
+      {
+        "$": "var",
+        "name": "kv"
+      }
+    ],
+    "layer": 0,
+    "valid": true,
+    "contract": {
+      "schema": 1,
+      "arguments": [
+        "input",
+        "cache",
+        "tokens",
+        "position",
+        "capacity",
+        "cache_precision"
+      ],
+      "effects": [
+        {
+          "argument": "input",
+          "binding": {
+            "$": "buffer",
+            "name": "k"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "cache",
+          "binding": {
+            "$": "state",
+            "name": "Ks"
+          },
+          "access": "write",
+          "precision": "kv",
+          "lifetime": "session",
+          "scope": "layer_sequence",
+          "transition": "append"
+        }
+      ]
+    }
+  },
+  {
+    "name": "recurrence update",
+    "op": "gated_delta",
+    "call": [
+      {
+        "$": "buffer",
+        "name": "qkv"
+      },
+      {
+        "$": "buffer",
+        "name": "ab"
+      },
+      {
+        "$": "layer_buffer",
+        "name": "head"
+      },
+      {
+        "$": "state",
+        "name": "Ss"
+      },
+      {
+        "$": "buffer",
+        "name": "out"
+      },
+      1
+    ],
+    "layer": 0,
+    "valid": true,
+    "contract": {
+      "schema": 1,
+      "arguments": [
+        "input",
+        "gates",
+        "weight",
+        "recurrence",
+        "output",
+        "tokens"
+      ],
+      "effects": [
+        {
+          "argument": "input",
+          "binding": {
+            "$": "buffer",
+            "name": "qkv"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "gates",
+          "binding": {
+            "$": "buffer",
+            "name": "ab"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "weight",
+          "binding": {
+            "$": "layer_buffer",
+            "name": "head"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "checkpoint",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "recurrence",
+          "binding": {
+            "$": "state",
+            "name": "Ss"
+          },
+          "access": "read_write",
+          "precision": "f32",
+          "lifetime": "session",
+          "scope": "layer_sequence",
+          "transition": "update"
+        },
+        {
+          "argument": "output",
+          "binding": {
+            "$": "buffer",
+            "name": "out"
+          },
+          "access": "write",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        }
+      ]
+    }
+  },
+  {
+    "name": "attention scratch and history",
+    "op": "grouped_attention",
+    "call": [
+      {
+        "$": "buffer",
+        "name": "q"
+      },
+      {
+        "$": "state",
+        "name": "Ks"
+      },
+      {
+        "$": "state",
+        "name": "Vs"
+      },
+      {
+        "$": "buffer",
+        "name": "out"
+      },
+      1,
+      0,
+      128,
+      "f16",
+      8,
+      2,
+      64,
+      0.125,
+      {
+        "$": "buffer",
+        "name": "part"
+      },
+      {
+        "$": "buffer",
+        "name": "ml"
+      }
+    ],
+    "layer": 0,
+    "valid": true,
+    "contract": {
+      "schema": 1,
+      "arguments": [
+        "query",
+        "keys",
+        "values",
+        "output",
+        "tokens",
+        "position",
+        "capacity",
+        "cache_precision",
+        "heads",
+        "kv_heads",
+        "head_dim",
+        "scale",
+        "partials",
+        "statistics"
+      ],
+      "effects": [
+        {
+          "argument": "query",
+          "binding": {
+            "$": "buffer",
+            "name": "q"
+          },
+          "access": "read",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "keys",
+          "binding": {
+            "$": "state",
+            "name": "Ks"
+          },
+          "access": "read",
+          "precision": "kv",
+          "lifetime": "session",
+          "scope": "layer_sequence",
+          "transition": "read"
+        },
+        {
+          "argument": "values",
+          "binding": {
+            "$": "state",
+            "name": "Vs"
+          },
+          "access": "read",
+          "precision": "kv",
+          "lifetime": "session",
+          "scope": "layer_sequence",
+          "transition": "read"
+        },
+        {
+          "argument": "output",
+          "binding": {
+            "$": "buffer",
+            "name": "out"
+          },
+          "access": "write",
+          "precision": "f32",
+          "lifetime": "invocation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "partials",
+          "binding": {
+            "$": "buffer",
+            "name": "part"
+          },
+          "access": "scratch",
+          "precision": "f32",
+          "lifetime": "operation",
+          "scope": "stage",
+          "transition": "none"
+        },
+        {
+          "argument": "statistics",
+          "binding": {
+            "$": "buffer",
+            "name": "ml"
+          },
+          "access": "scratch",
+          "precision": "f32",
+          "lifetime": "operation",
+          "scope": "stage",
+          "transition": "none"
+        }
+      ]
+    }
+  },
+  {
+    "name": "readonly output rejected",
+    "op": "matmul",
+    "call": [
+      {
+        "$": "matrix",
+        "name": "w"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "vector",
+        "name": "weights"
+      },
+      1
+    ],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "cache cannot be scratch",
+    "op": "cache_store",
+    "call": [
+      {
+        "$": "buffer",
+        "name": "k"
+      },
+      {
+        "$": "buffer",
+        "name": "Ks"
+      },
+      1,
+      0,
+      128,
+      "f16"
+    ],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "bad runtime variable type",
+    "op": "matmul",
+    "call": [
+      {
+        "$": "matrix",
+        "name": "w"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "buffer",
+        "name": "y"
+      },
+      {
+        "$": "var",
+        "name": "kv"
+      }
+    ],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "bad boolean",
+    "op": "matmul",
+    "call": [
+      {
+        "$": "matrix",
+        "name": "w"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "buffer",
+        "name": "y"
+      },
+      1,
+      {
+        "accumulate": 1
+      }
+    ],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "unknown option",
+    "op": "matmul",
+    "call": [
+      {
+        "$": "matrix",
+        "name": "w"
+      },
+      {
+        "$": "buffer",
+        "name": "x"
+      },
+      {
+        "$": "buffer",
+        "name": "y"
+      },
+      1,
+      {
+        "accummulate": true
+      }
+    ],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "negative stride",
+    "op": "silu_mul",
+    "call": [
+      {
+        "$": "buffer",
+        "name": "x",
+        "stride": -1,
+        "view": "always"
+      },
+      {
+        "$": "buffer",
+        "name": "y"
+      },
+      4
+    ],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "unknown view",
+    "op": "silu_mul",
+    "call": [
+      {
+        "$": "buffer",
+        "name": "x",
+        "stride": 4,
+        "view": "surprise"
+      },
+      {
+        "$": "buffer",
+        "name": "y"
+      },
+      4
+    ],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "missing layer",
+    "op": "gated_delta",
+    "call": [
+      {
+        "$": "buffer",
+        "name": "qkv"
+      },
+      {
+        "$": "buffer",
+        "name": "ab"
+      },
+      {
+        "$": "layer_buffer",
+        "name": "head"
+      },
+      {
+        "$": "state",
+        "name": "Ss"
+      },
+      {
+        "$": "buffer",
+        "name": "out"
+      },
+      1
+    ],
+    "layer": null,
+    "valid": false
+  },
+  {
+    "name": "unknown primitive",
+    "op": "opaque_layer",
+    "call": [],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "bad arity",
+    "op": "matmul",
+    "call": [],
+    "layer": 0,
+    "valid": false
+  },
+  {
+    "name": "loop arguments",
+    "op": "for_each_sequence",
+    "call": [
+      1
+    ],
+    "layer": 0,
+    "valid": false
+  }
+]

@@ -1,0 +1,1060 @@
+{
+ "experiment": 95,
+ "id": "DO-39",
+ "date": "2026-11-07",
+ "gate": "Frozen 2026-11-07 before any machine (the user's yes): same machines and coordinator, arms A (4 stages of 8 layers) and B (2 stages of 16), ABBAAB, 24- and 8,192-token prompts with 128 tokens; tokens identical across arms; works if the median time per token falls by at least 15%, every contributor's application GPU memory under 4,000,000,000 bytes.",
+ "gate_result": {
+  "works": true,
+  "max_peak_bytes": 3162954368,
+  "lengths": {
+   "p24": {
+    "median_ms": {
+     "A": 577.1,
+     "B": 246.3
+    },
+    "first_token_s": {
+     "A": 1.8,
+     "B": 1.1
+    },
+    "cut": 0.5732,
+    "tokens_identical": true,
+    "complete": true
+   },
+   "p8192": {
+    "median_ms": {
+     "A": 589.5,
+     "B": 255.1
+    },
+    "first_token_s": {
+     "A": 23.6,
+     "B": 29.24
+    },
+    "cut": 0.5672,
+    "tokens_identical": true,
+    "complete": true
+   }
+  }
+ },
+ "pool": {
+  "gpus": "4 Vast.ai RTX 3060 12 GB, Poland (server, w0, w2 at one address, w1 at a neighbouring one); a first w0 at 270 ms from the coordinator was replaced before any measured run",
+  "coordinator": "DigitalOcean s-4vcpu-8gb, ams3",
+  "hourly_usd": 0.37,
+  "minutes": 63,
+  "cost_usd": 0.4,
+  "budget_usd": 1.5
+ },
+ "code_commit": "64cefcc",
+ "driver": "runs/experiments/DO-39/drive_remote.py",
+ "analysis": "runs/experiments/DO-39/analyze.py",
+ "local_check": {
+  "device": "Radeon 680M",
+  "splits": [
+   0,
+   16,
+   32
+  ],
+  "generated": 16,
+  "first_token_s": 0.66,
+  "ms_per_token": 143,
+  "peak_bytes": [
+   2750394752,
+   3010386560
+  ]
+ },
+ "tokens": {
+  "p24": [
+   8160,
+   725,
+   264,
+   4145,
+   321,
+   10727,
+   83876,
+   7873,
+   303,
+   12654,
+   25,
+   271,
+   71093,
+   12305,
+   198,
+   727,
+   73111,
+   1393,
+   25,
+   514,
+   8,
+   1411,
+   514,
+   25,
+   198,
+   262,
+   4071,
+   198,
+   262,
+   3301,
+   279,
+   307,
+   7324,
+   76938,
+   1324,
+   318,
+   15,
+   20834,
+   290,
+   1590,
+   198,
+   262,
+   426,
+   7,
+   15,
+   8,
+   283,
+   220,
+   15,
+   11,
+   426,
+   7,
+   16,
+   8,
+   283,
+   220,
+   16,
+   11,
+   426,
+   1393,
+   8,
+   283,
+   426,
+   1393,
+   12,
+   16,
+   8,
+   478,
+   426,
+   1393,
+   12,
+   17,
+   8,
+   364,
+   307,
+   2518,
+   220,
+   17,
+   13,
+   198,
+   262,
+   4071,
+   198,
+   262,
+   413,
+   307,
+   361,
+   220,
+   15,
+   25,
+   198,
+   285,
+   4673,
+   14953,
+   437,
+   77,
+   1902,
+   381,
+   264,
+   2397,
+   58883,
+   7308,
+   871,
+   198,
+   262,
+   413,
+   307,
+   606,
+   220,
+   15,
+   25,
+   198,
+   285,
+   460,
+   220,
+   15,
+   198,
+   262,
+   413,
+   307,
+   606,
+   220,
+   16,
+   25,
+   198,
+   285,
+   460,
+   220
+  ],
+  "p8192": [
+   321,
+   21966,
+   430,
+   6228,
+   414,
+   26,
+   17157,
+   2785,
+   220,
+   16,
+   68,
+   12,
+   22,
+   314,
+   279,
+   2153,
+   21,
+   19,
+   5604,
+   11,
+   10921,
+   4191,
+   33702,
+   310,
+   4590,
+   17955,
+   1590,
+   271,
+   91,
+   14745,
+   1283,
+   11,
+   21700,
+   735,
+   69149,
+   791,
+   2560,
+   735,
+   20114,
+   8806,
+   791,
+   2560,
+   735,
+   6087,
+   593,
+   685,
+   791,
+   9727,
+   735,
+   6087,
+   593,
+   685,
+   791,
+   5474,
+   791,
+   2560,
+   735,
+   58930,
+   791,
+   2560,
+   735,
+   198,
+   91,
+   4277,
+   91,
+   4277,
+   25,
+   91,
+   4277,
+   25,
+   91,
+   4277,
+   91,
+   4277,
+   91,
+   4277,
+   25,
+   91,
+   198,
+   91,
+   220,
+   23,
+   11,
+   16,
+   24,
+   17,
+   11,
+   220,
+   17,
+   11,
+   3074,
+   19868,
+   735,
+   220,
+   16,
+   21,
+   735,
+   220,
+   16,
+   21,
+   735,
+   220,
+   16,
+   13,
+   23,
+   19,
+   593,
+   220,
+   16,
+   13,
+   22,
+   15,
+   12954,
+   735,
+   220,
+   16,
+   19,
+   13,
+   23,
+   593,
+   220,
+   16,
+   18,
+   13,
+   21,
+   12954,
+   735,
+   220
+  ]
+ },
+ "runs": [
+  {
+   "run": "p24-1A",
+   "prompt": "p24",
+   "arm": "A",
+   "order": 1,
+   "splits": [
+    0,
+    8,
+    16,
+    24,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 24,
+   "generated": 128,
+   "first_token_s": 1.711,
+   "inter_token_ms_median": 577.1,
+   "inter_token_ms_p95": 681.6,
+   "hop_bytes": [
+    1236992,
+    1236992,
+    1236992
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      8
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 68.2,
+     "step_wait_ms_median": 497.9,
+     "prefill_compute_ms": 297.2,
+     "peak_bytes": 1683425664
+    },
+    {
+     "stage": "B",
+     "layers": [
+      8,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 59.9,
+     "step_wait_ms_median": 488.6,
+     "prefill_compute_ms": 256.8,
+     "peak_bytes": 1085344128
+    },
+    {
+     "stage": "C",
+     "layers": [
+      16,
+      24
+     ],
+     "host": "192.0.2.8",
+     "step_compute_ms_median": 60.3,
+     "step_wait_ms_median": 508.0,
+     "prefill_compute_ms": 330.6,
+     "peak_bytes": 1070205312
+    },
+    {
+     "stage": "D",
+     "layers": [
+      24,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 95.2,
+     "step_wait_ms_median": 480.1,
+     "prefill_compute_ms": 110.6,
+     "peak_bytes": 1958556288
+    }
+   ]
+  },
+  {
+   "run": "p24-2B",
+   "prompt": "p24",
+   "arm": "B",
+   "order": 2,
+   "splits": [
+    0,
+    16,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 24,
+   "generated": 128,
+   "first_token_s": 1.202,
+   "inter_token_ms_median": 246.3,
+   "inter_token_ms_p95": 330.4,
+   "hop_bytes": [
+    1236992
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 63.5,
+     "step_wait_ms_median": 178.7,
+     "prefill_compute_ms": 486.5,
+     "peak_bytes": 2752229760
+    },
+    {
+     "stage": "B",
+     "layers": [
+      16,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 77.5,
+     "step_wait_ms_median": 165.7,
+     "prefill_compute_ms": 432.1,
+     "peak_bytes": 3012221568
+    }
+   ]
+  },
+  {
+   "run": "p24-3B",
+   "prompt": "p24",
+   "arm": "B",
+   "order": 3,
+   "splits": [
+    0,
+    16,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 24,
+   "generated": 128,
+   "first_token_s": 1.041,
+   "inter_token_ms_median": 245.9,
+   "inter_token_ms_p95": 331.2,
+   "hop_bytes": [
+    1236992
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 62.4,
+     "step_wait_ms_median": 179.1,
+     "prefill_compute_ms": 470.4,
+     "peak_bytes": 2752229760
+    },
+    {
+     "stage": "B",
+     "layers": [
+      16,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 77.0,
+     "step_wait_ms_median": 165.0,
+     "prefill_compute_ms": 308.1,
+     "peak_bytes": 3012221568
+    }
+   ]
+  },
+  {
+   "run": "p24-4A",
+   "prompt": "p24",
+   "arm": "A",
+   "order": 4,
+   "splits": [
+    0,
+    8,
+    16,
+    24,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 24,
+   "generated": 128,
+   "first_token_s": 1.824,
+   "inter_token_ms_median": 581.6,
+   "inter_token_ms_p95": 703.4,
+   "hop_bytes": [
+    1236992,
+    1236992,
+    1236992
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      8
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 67.6,
+     "step_wait_ms_median": 501.1,
+     "prefill_compute_ms": 300.5,
+     "peak_bytes": 1683425664
+    },
+    {
+     "stage": "B",
+     "layers": [
+      8,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 63.2,
+     "step_wait_ms_median": 506.7,
+     "prefill_compute_ms": 267.9,
+     "peak_bytes": 1085344128
+    },
+    {
+     "stage": "C",
+     "layers": [
+      16,
+      24
+     ],
+     "host": "192.0.2.8",
+     "step_compute_ms_median": 60.8,
+     "step_wait_ms_median": 510.0,
+     "prefill_compute_ms": 322.9,
+     "peak_bytes": 1070205312
+    },
+    {
+     "stage": "D",
+     "layers": [
+      24,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 95.5,
+     "step_wait_ms_median": 486.7,
+     "prefill_compute_ms": 215.4,
+     "peak_bytes": 1958556288
+    }
+   ]
+  },
+  {
+   "run": "p24-5A",
+   "prompt": "p24",
+   "arm": "A",
+   "order": 5,
+   "splits": [
+    0,
+    8,
+    16,
+    24,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 24,
+   "generated": 128,
+   "first_token_s": 1.8,
+   "inter_token_ms_median": 575.4,
+   "inter_token_ms_p95": 697.4,
+   "hop_bytes": [
+    1236992,
+    1236992,
+    1236992
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      8
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 68.0,
+     "step_wait_ms_median": 497.8,
+     "prefill_compute_ms": 358.8,
+     "peak_bytes": 1683425664
+    },
+    {
+     "stage": "B",
+     "layers": [
+      8,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 59.9,
+     "step_wait_ms_median": 508.2,
+     "prefill_compute_ms": 273.1,
+     "peak_bytes": 1085344128
+    },
+    {
+     "stage": "C",
+     "layers": [
+      16,
+      24
+     ],
+     "host": "192.0.2.8",
+     "step_compute_ms_median": 60.2,
+     "step_wait_ms_median": 506.9,
+     "prefill_compute_ms": 330.5,
+     "peak_bytes": 1070205312
+    },
+    {
+     "stage": "D",
+     "layers": [
+      24,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 95.8,
+     "step_wait_ms_median": 476.5,
+     "prefill_compute_ms": 122.5,
+     "peak_bytes": 1958556288
+    }
+   ]
+  },
+  {
+   "run": "p24-6B",
+   "prompt": "p24",
+   "arm": "B",
+   "order": 6,
+   "splits": [
+    0,
+    16,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 24,
+   "generated": 128,
+   "first_token_s": 1.105,
+   "inter_token_ms_median": 249.1,
+   "inter_token_ms_p95": 329.4,
+   "hop_bytes": [
+    1236992
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 63.1,
+     "step_wait_ms_median": 180.7,
+     "prefill_compute_ms": 402.9,
+     "peak_bytes": 2752229760
+    },
+    {
+     "stage": "B",
+     "layers": [
+      16,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 79.1,
+     "step_wait_ms_median": 165.1,
+     "prefill_compute_ms": 442.6,
+     "peak_bytes": 3012221568
+    }
+   ]
+  },
+  {
+   "run": "p8192-1A",
+   "prompt": "p8192",
+   "arm": "A",
+   "order": 1,
+   "splits": [
+    0,
+    8,
+    16,
+    24,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 8192,
+   "generated": 128,
+   "first_token_s": 23.598,
+   "inter_token_ms_median": 589.1,
+   "inter_token_ms_p95": 714.2,
+   "hop_bytes": [
+    68149248,
+    68149248,
+    68149248
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      8
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 71.0,
+     "step_wait_ms_median": 509.9,
+     "prefill_compute_ms": 11367.3,
+     "peak_bytes": 1767246208
+    },
+    {
+     "stage": "B",
+     "layers": [
+      8,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 62.4,
+     "step_wait_ms_median": 513.3,
+     "prefill_compute_ms": 10505.0,
+     "peak_bytes": 1169164672
+    },
+    {
+     "stage": "C",
+     "layers": [
+      16,
+      24
+     ],
+     "host": "192.0.2.8",
+     "step_compute_ms_median": 63.8,
+     "step_wait_ms_median": 514.7,
+     "prefill_compute_ms": 10800.8,
+     "peak_bytes": 1154025856
+    },
+    {
+     "stage": "D",
+     "layers": [
+      24,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 97.3,
+     "step_wait_ms_median": 497.3,
+     "prefill_compute_ms": 12023.8,
+     "peak_bytes": 2042376832
+    }
+   ]
+  },
+  {
+   "run": "p8192-2B",
+   "prompt": "p8192",
+   "arm": "B",
+   "order": 2,
+   "splits": [
+    0,
+    16,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 8192,
+   "generated": 128,
+   "first_token_s": 28.935,
+   "inter_token_ms_median": 255.1,
+   "inter_token_ms_p95": 325.7,
+   "hop_bytes": [
+    68149248
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 61.7,
+     "step_wait_ms_median": 183.5,
+     "prefill_compute_ms": 22940.8,
+     "peak_bytes": 2902962560
+    },
+    {
+     "stage": "B",
+     "layers": [
+      16,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 85.2,
+     "step_wait_ms_median": 167.0,
+     "prefill_compute_ms": 21124.2,
+     "peak_bytes": 3162954368
+    }
+   ]
+  },
+  {
+   "run": "p8192-3B",
+   "prompt": "p8192",
+   "arm": "B",
+   "order": 3,
+   "splits": [
+    0,
+    16,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 8192,
+   "generated": 128,
+   "first_token_s": 29.343,
+   "inter_token_ms_median": 253.1,
+   "inter_token_ms_p95": 329.3,
+   "hop_bytes": [
+    68149248
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 64.2,
+     "step_wait_ms_median": 186.1,
+     "prefill_compute_ms": 22962.8,
+     "peak_bytes": 2902962560
+    },
+    {
+     "stage": "B",
+     "layers": [
+      16,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 85.9,
+     "step_wait_ms_median": 168.2,
+     "prefill_compute_ms": 21341.4,
+     "peak_bytes": 3162954368
+    }
+   ]
+  },
+  {
+   "run": "p8192-4A",
+   "prompt": "p8192",
+   "arm": "A",
+   "order": 4,
+   "splits": [
+    0,
+    8,
+    16,
+    24,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 8192,
+   "generated": 128,
+   "first_token_s": 30.617,
+   "inter_token_ms_median": 596.7,
+   "inter_token_ms_p95": 750.0,
+   "hop_bytes": [
+    68149248,
+    68149248,
+    68149248
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      8
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 71.5,
+     "step_wait_ms_median": 505.7,
+     "prefill_compute_ms": 11524.1,
+     "peak_bytes": 1767246208
+    },
+    {
+     "stage": "B",
+     "layers": [
+      8,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 62.9,
+     "step_wait_ms_median": 519.3,
+     "prefill_compute_ms": 10446.9,
+     "peak_bytes": 1169164672
+    },
+    {
+     "stage": "C",
+     "layers": [
+      16,
+      24
+     ],
+     "host": "192.0.2.8",
+     "step_compute_ms_median": 63.6,
+     "step_wait_ms_median": 519.1,
+     "prefill_compute_ms": 10922.9,
+     "peak_bytes": 1154025856
+    },
+    {
+     "stage": "D",
+     "layers": [
+      24,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 98.4,
+     "step_wait_ms_median": 498.1,
+     "prefill_compute_ms": 12981.7,
+     "peak_bytes": 2042376832
+    }
+   ]
+  },
+  {
+   "run": "p8192-5A",
+   "prompt": "p8192",
+   "arm": "A",
+   "order": 5,
+   "splits": [
+    0,
+    8,
+    16,
+    24,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 8192,
+   "generated": 128,
+   "first_token_s": 21.857,
+   "inter_token_ms_median": 589.5,
+   "inter_token_ms_p95": 709.8,
+   "hop_bytes": [
+    68149248,
+    68149248,
+    68149248
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      8
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 70.8,
+     "step_wait_ms_median": 507.7,
+     "prefill_compute_ms": 11889.5,
+     "peak_bytes": 1767246208
+    },
+    {
+     "stage": "B",
+     "layers": [
+      8,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 63.2,
+     "step_wait_ms_median": 499.0,
+     "prefill_compute_ms": 10472.5,
+     "peak_bytes": 1169164672
+    },
+    {
+     "stage": "C",
+     "layers": [
+      16,
+      24
+     ],
+     "host": "192.0.2.8",
+     "step_compute_ms_median": 65.1,
+     "step_wait_ms_median": 515.8,
+     "prefill_compute_ms": 10960.2,
+     "peak_bytes": 1154025856
+    },
+    {
+     "stage": "D",
+     "layers": [
+      24,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 96.9,
+     "step_wait_ms_median": 490.8,
+     "prefill_compute_ms": 12232.3,
+     "peak_bytes": 2042376832
+    }
+   ]
+  },
+  {
+   "run": "p8192-6B",
+   "prompt": "p8192",
+   "arm": "B",
+   "order": 6,
+   "splits": [
+    0,
+    16,
+    32
+   ],
+   "state": "finished",
+   "prompt_tokens": 8192,
+   "generated": 128,
+   "first_token_s": 29.244,
+   "inter_token_ms_median": 259.6,
+   "inter_token_ms_p95": 330.7,
+   "hop_bytes": [
+    68149248
+   ],
+   "commit": "64cefcc",
+   "stages": [
+    {
+     "stage": "A",
+     "layers": [
+      0,
+      16
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 69.3,
+     "step_wait_ms_median": 181.9,
+     "prefill_compute_ms": 22957.6,
+     "peak_bytes": 2902962560
+    },
+    {
+     "stage": "B",
+     "layers": [
+      16,
+      32
+     ],
+     "host": "192.0.2.3",
+     "step_compute_ms_median": 83.3,
+     "step_wait_ms_median": 173.3,
+     "prefill_compute_ms": 21206.1,
+     "peak_bytes": 3162954368
+    }
+   ]
+  }
+ ]
+}

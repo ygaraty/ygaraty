@@ -1,0 +1,310 @@
+{
+ "experiment": 152,
+ "id": "WS-25",
+ "date": "2026-11-11",
+ "host": "omarchy workstation, Radeon 680M, headless Chromium",
+ "dir": "runs/experiments/WS-25/omarchy-20261111-0030/main",
+ "code": "unpatched clean export of main at 64f73f3 (runs/experiments/WS-24/omarchy-20261110-2316/src)",
+ "model": "S5-nano Q4_K_M, 2 stages (0,16,32), qwen35_session local (relay route, no chat page)",
+ "command": "python -m ygaraty.experiments.qwen35_session local --gguf S5-nano-Q4_K_M.gguf --config config.json --tokenizer tokenizer.json --splits 0,16,32 --generate 128 --logit-digests --prompt <fixed> [--matvec off]",
+ "prompt": "Explain in detail how a bicycle stays upright while it is moving, then describe how to teach a child to ride one.",
+ "arms": {
+  "K": "default matvec",
+  "O": "--matvec off"
+ },
+ "order": "K O K O K O K O K O",
+ "amendment": "--generate 128 instead of 256: stage B done report with 256 digests refused (413, metadata over 32 KiB) in rehearsal-256",
+ "K1_tokens": [
+  271,
+  332,
+  4199,
+  264,
+  75660,
+  769,
+  912,
+  533,
+  631,
+  481,
+  5788,
+  36381,
+  332,
+  271,
+  32,
+  33828,
+  25710,
+  46966,
+  1345,
+  6992,
+  4016,
+  310,
+  264,
+  10286,
+  314,
+  20665,
+  15694,
+  11,
+  15048,
+  64610,
+  55488,
+  19150,
+  11,
+  279,
+  8582,
+  318,
+  269,
+  16547,
+  681,
+  321,
+  279,
+  35896,
+  579,
+  4393,
+  7915,
+  48684,
+  13,
+  5514,
+  725,
+  264,
+  11346,
+  29006,
+  25,
+  271,
+  4277,
+  271,
+  13962,
+  220,
+  16,
+  13,
+  53069,
+  298,
+  55488,
+  77375,
+  271,
+  4350,
+  279,
+  3929,
+  12899,
+  369,
+  36609,
+  11,
+  279,
+  12899,
+  13653,
+  430,
+  264,
+  27685,
+  86688,
+  13,
+  357,
+  27685,
+  86688,
+  577,
+  1612,
+  4203,
+  310,
+  1141,
+  7772,
+  314,
+  12331,
+  13,
+  1061,
+  3254,
+  279,
+  36609,
+  3929,
+  12899,
+  26358,
+  310,
+  10000,
+  1141,
+  11795,
+  16234,
+  13,
+  271,
+  12,
+  2972,
+  9930,
+  424,
+  8346,
+  64700,
+  1368,
+  488,
+  1380,
+  310,
+  11220,
+  279,
+  3929,
+  12899,
+  71222,
+  1345,
+  424,
+  725,
+  36609,
+  11,
+  424,
+  668
+ ],
+ "K1_digests_first4": [
+  "79b25f892a1762bc6eec22f426da432153170ed630962d43941dc308d2f328c5",
+  "89e187f1c4058ec2cf295f01e09d2a66352cb1e6eaf5290d6be95f25a19ebe14",
+  "f0c6b811edcbbcf73941353c510de3adb06079db71414477c17e78249b582d6f",
+  "445a3aaf2a11480e85067f72187a78c5bdd1a954be469df3075c8dca326ff690"
+ ],
+ "gate": {
+  "K": {
+   "runs": 5,
+   "valid": 5,
+   "invalid": [],
+   "identical_to_run1": 5,
+   "repeatable": true,
+   "per_run": {
+    "K1": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    },
+    "K2": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    },
+    "K3": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    },
+    "K4": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    },
+    "K5": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    }
+   }
+  },
+  "O": {
+   "runs": 5,
+   "valid": 5,
+   "invalid": [],
+   "identical_to_run1": 5,
+   "repeatable": true,
+   "per_run": {
+    "O1": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    },
+    "O2": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    },
+    "O3": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    },
+    "O4": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    },
+    "O5": {
+     "token_diverges_at": null,
+     "digest_diverges_at": null
+    }
+   }
+  },
+  "K1_vs_O1": {
+   "token_diverges_at": null,
+   "digest_diverges_at": null
+  }
+ },
+ "gate_script": "runs/experiments/WS-25/gate.py (identical output 2026-11-14)",
+ "runs": {
+  "K1": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.417,
+   "inter_token_ms_median": 137.28022575378418
+  },
+  "O1": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.45,
+   "inter_token_ms_median": 133.7754726409912
+  },
+  "K2": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.455,
+   "inter_token_ms_median": 137.18843460083008
+  },
+  "O2": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.415,
+   "inter_token_ms_median": 133.93402099609375
+  },
+  "K3": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.467,
+   "inter_token_ms_median": 136.4583969116211
+  },
+  "O3": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.413,
+   "inter_token_ms_median": 134.0346336364746
+  },
+  "K4": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.422,
+   "inter_token_ms_median": 136.704683303833
+  },
+  "O4": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.419,
+   "inter_token_ms_median": 133.53967666625977
+  },
+  "K5": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.453,
+   "inter_token_ms_median": 137.17293739318848
+  },
+  "O5": {
+   "state": "finished",
+   "tokens": 128,
+   "digests": 128,
+   "tokens_sha256": "22f70f6da2d607ba",
+   "digests_sha256": "e8039038b0eed415",
+   "ttft_s": 0.425,
+   "inter_token_ms_median": 133.38279724121094
+  }
+ }
+}

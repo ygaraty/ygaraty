@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "cost_model": "cost_model.json",
+  "policies": [
+    "fifo",
+    "shortest",
+    "random",
+    "critical_path",
+    "cache"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "workloads": [
+    {
+      "name": "tiled_1024",
+      "family": "dense_sgd_factorization",
+      "split": "train",
+      "plan": "plans/tiled_1024.json"
+    },
+    {
+      "name": "fused_1024",
+      "family": "dense_sgd_factorization",
+      "split": "train",
+      "plan": "plans/fused_1024.json"
+    },
+    {
+      "name": "fused_4096",
+      "family": "dense_sgd_factorization",
+      "split": "train",
+      "plan": "plans/fused_4096.json"
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "loopback_1",
+      "settings": {
+        "updates": 1,
+        "max_tasks": 1,
+        "cache_mib": 512,
+        "coordinator_ms": 2,
+        "claim_unit_ms": 0.5,
+        "relay_gbps": 10,
+        "noise": 0.1,
+        "jitter_ms": 5,
+        "float32_wire": false,
+        "push_inputs": false,
+        "eager_claims": false,
+        "workers": 1,
+        "rtt_ms": 0,
+        "down_mbps": 0,
+        "up_mbps": 0
+      }
+    },
+    {
+      "name": "lan_4",
+      "settings": {
+        "updates": 1,
+        "max_tasks": 1,
+        "cache_mib": 512,
+        "coordinator_ms": 2,
+        "claim_unit_ms": 0.5,
+        "relay_gbps": 10,
+        "noise": 0.1,
+        "jitter_ms": 5,
+        "float32_wire": false,
+        "push_inputs": false,
+        "eager_claims": false,
+        "workers": 4,
+        "rtt_ms": 1,
+        "down_mbps": 1000,
+        "up_mbps": 1000
+      }
+    },
+    {
+      "name": "home_4",
+      "settings": {
+        "updates": 1,
+        "max_tasks": 1,
+        "cache_mib": 512,
+        "coordinator_ms": 2,
+        "claim_unit_ms": 0.5,
+        "relay_gbps": 10,
+        "noise": 0.1,
+        "jitter_ms": 5,
+        "float32_wire": false,
+        "push_inputs": false,
+        "eager_claims": false,
+        "workers": 4,
+        "rtt_ms": 50,
+        "down_mbps": 100,
+        "up_mbps": 20
+      }
+    },
+    {
+      "name": "home_16",
+      "settings": {
+        "updates": 1,
+        "max_tasks": 1,
+        "cache_mib": 512,
+        "coordinator_ms": 2,
+        "claim_unit_ms": 0.5,
+        "relay_gbps": 10,
+        "noise": 0.1,
+        "jitter_ms": 5,
+        "float32_wire": false,
+        "push_inputs": false,
+        "eager_claims": false,
+        "workers": 16,
+        "rtt_ms": 50,
+        "down_mbps": 100,
+        "up_mbps": 20
+      }
+    },
+    {
+      "name": "congested_16",
+      "settings": {
+        "updates": 1,
+        "max_tasks": 1,
+        "cache_mib": 32,
+        "coordinator_ms": 2,
+        "claim_unit_ms": 0.5,
+        "relay_gbps": 0.1,
+        "noise": 0.1,
+        "jitter_ms": 5,
+        "float32_wire": false,
+        "push_inputs": false,
+        "eager_claims": false,
+        "workers": 16,
+        "rtt_ms": 100,
+        "down_mbps": 50,
+        "up_mbps": 5
+      }
+    },
+    {
+      "name": "heterogeneous_8",
+      "settings": {
+        "updates": 1,
+        "max_tasks": 1,
+        "cache_mib": 512,
+        "coordinator_ms": 2,
+        "claim_unit_ms": 0.5,
+        "relay_gbps": 10,
+        "noise": 0.1,
+        "jitter_ms": 5,
+        "float32_wire": false,
+        "push_inputs": false,
+        "eager_claims": false,
+        "workers": 8,
+        "rtt_ms": 50,
+        "down_mbps": 100,
+        "up_mbps": 20,
+        "profiles": {
+          "w0": {
+            "gflops": 90,
+            "rtt_ms": 10,
+            "down_mbps": 500,
+            "up_mbps": 100
+          },
+          "w1": {
+            "gflops": 90,
+            "rtt_ms": 10,
+            "down_mbps": 500,
+            "up_mbps": 100
+          },
+          "w2": {
+            "gflops": 90,
+            "rtt_ms": 10,
+            "down_mbps": 500,
+            "up_mbps": 100
+          },
+          "w3": {
+            "gflops": 90,
+            "rtt_ms": 10,
+            "down_mbps": 500,
+            "up_mbps": 100
+          },
+          "w4": {
+            "gflops": 22.5,
+            "rtt_ms": 80,
+            "down_mbps": 50,
+            "up_mbps": 10
+          },
+          "w5": {
+            "gflops": 22.5,
+            "rtt_ms": 80,
+            "down_mbps": 50,
+            "up_mbps": 10
+          },
+          "w6": {
+            "gflops": 22.5,
+            "rtt_ms": 80,
+            "down_mbps": 50,
+            "up_mbps": 10
+          },
+          "w7": {
+            "gflops": 22.5,
+            "rtt_ms": 80,
+            "down_mbps": 50,
+            "up_mbps": 10
+          }
+        }
+      }
+    },
+    {
+      "name": "late_join_8",
+      "settings": {
+        "updates": 1,
+        "max_tasks": 1,
+        "cache_mib": 512,
+        "coordinator_ms": 2,
+        "claim_unit_ms": 0.5,
+        "relay_gbps": 10,
+        "noise": 0.1,
+        "jitter_ms": 5,
+        "float32_wire": false,
+        "push_inputs": false,
+        "eager_claims": false,
+        "workers": 8,
+        "rtt_ms": 50,
+        "down_mbps": 100,
+        "up_mbps": 20,
+        "profiles": {
+          "w4": {
+            "join_s": 2
+          },
+          "w5": {
+            "join_s": 2
+          },
+          "w6": {
+            "join_s": 2
+          },
+          "w7": {
+            "join_s": 2
+          }
+        }
+      }
+    }
+  ]
+}

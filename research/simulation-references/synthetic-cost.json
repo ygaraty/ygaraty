@@ -1,0 +1,9 @@
+{
+  "scale": {
+    "a": 0.01,
+    "b": 0.001,
+    "samples": 0,
+    "work_min": 1,
+    "work_max": 10
+  }
+}

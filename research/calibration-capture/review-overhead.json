@@ -1,0 +1,770 @@
+{
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.2",
+  "repeats": 5,
+  "scope": "Synthetic instrumentation only: no kernels/network; not DO overhead.",
+  "results": {
+    "before": {
+      "bare_call/off": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 0.050959000000000004,
+            "including_drain_us_per_call": 0.051084000000000004,
+            "initialization_ms": 0.00025,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.048625,
+            "including_drain_us_per_call": 0.04875,
+            "initialization_ms": 0.000166,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.048042,
+            "including_drain_us_per_call": 0.048167,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.050832999999999996,
+            "including_drain_us_per_call": 0.050957999999999996,
+            "initialization_ms": 4.1e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.04925,
+            "including_drain_us_per_call": 0.049292,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 0.04925,
+        "median_including_drain_us": 0.049292
+      },
+      "decorated_call/off": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 0.476792,
+            "including_drain_us_per_call": 0.476834,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.470041,
+            "including_drain_us_per_call": 0.470041,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.46525,
+            "including_drain_us_per_call": 0.46533300000000005,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.464292,
+            "including_drain_us_per_call": 0.464292,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.485333,
+            "including_drain_us_per_call": 0.485416,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 0.470041,
+        "median_including_drain_us": 0.470041
+      },
+      "span/off": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 1.414333,
+            "including_drain_us_per_call": 1.414458,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 1.4009580000000001,
+            "including_drain_us_per_call": 1.401,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 1.443209,
+            "including_drain_us_per_call": 1.443292,
+            "initialization_ms": 0.000167,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 1.361583,
+            "including_drain_us_per_call": 1.361667,
+            "initialization_ms": 0.000125,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 1.397875,
+            "including_drain_us_per_call": 1.398042,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 1.4009580000000001,
+        "median_including_drain_us": 1.401
+      },
+      "fake_http/off": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 0.750375,
+            "including_drain_us_per_call": 0.750458,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.735792,
+            "including_drain_us_per_call": 0.735875,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.7413339999999999,
+            "including_drain_us_per_call": 0.741417,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.734792,
+            "including_drain_us_per_call": 0.734792,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.747792,
+            "including_drain_us_per_call": 0.747875,
+            "initialization_ms": 0.000125,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 0.7413339999999999,
+        "median_including_drain_us": 0.741417
+      },
+      "plan_1000_tasks/off": {
+        "calls_per_repeat": 3,
+        "samples": [
+          {
+            "caller_us_per_call": 0.9026666666666666,
+            "including_drain_us_per_call": 0.9166666666666666,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.5,
+            "including_drain_us_per_call": 0.514,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.5136666666666666,
+            "including_drain_us_per_call": 0.5416666666666666,
+            "initialization_ms": 0.000125,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.5136666666666666,
+            "including_drain_us_per_call": 0.5416666666666666,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.5276666666666666,
+            "including_drain_us_per_call": 0.5556666666666666,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 0.5136666666666666,
+        "median_including_drain_us": 0.5416666666666666
+      },
+      "decorated_call/on": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 6.089625,
+            "including_drain_us_per_call": 10.127042,
+            "initialization_ms": 39.151875,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 6.030625,
+            "including_drain_us_per_call": 10.11725,
+            "initialization_ms": 11.436417,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 6.0827089999999995,
+            "including_drain_us_per_call": 10.001709,
+            "initialization_ms": 10.415333,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 5.961375,
+            "including_drain_us_per_call": 9.950625,
+            "initialization_ms": 10.303166,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 6.001333,
+            "including_drain_us_per_call": 10.002375,
+            "initialization_ms": 12.269417,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 6.030625,
+        "median_including_drain_us": 10.002375
+      },
+      "span/on": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 4.802125,
+            "including_drain_us_per_call": 9.349542,
+            "initialization_ms": 10.601083,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 4.647125,
+            "including_drain_us_per_call": 9.056625,
+            "initialization_ms": 10.218667,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 4.557917000000001,
+            "including_drain_us_per_call": 8.80575,
+            "initialization_ms": 10.806583,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 4.4904589999999995,
+            "including_drain_us_per_call": 8.772791999999999,
+            "initialization_ms": 10.490959,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 4.513209,
+            "including_drain_us_per_call": 9.09175,
+            "initialization_ms": 11.000792,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 4.557917000000001,
+        "median_including_drain_us": 9.056625
+      },
+      "fake_http/on": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 41.744584,
+            "including_drain_us_per_call": 43.529334000000006,
+            "initialization_ms": 10.326834,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 41.921208,
+            "including_drain_us_per_call": 42.214332999999996,
+            "initialization_ms": 17.077042,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 41.475375,
+            "including_drain_us_per_call": 41.881709,
+            "initialization_ms": 10.631292,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 43.579209000000006,
+            "including_drain_us_per_call": 44.254084000000006,
+            "initialization_ms": 10.286458,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 41.328375,
+            "including_drain_us_per_call": 42.143708,
+            "initialization_ms": 10.916375,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 41.744584,
+        "median_including_drain_us": 42.214332999999996
+      },
+      "plan_1000_tasks/on": {
+        "calls_per_repeat": 3,
+        "samples": [
+          {
+            "caller_us_per_call": 9569.027666666667,
+            "including_drain_us_per_call": 9955.208333333334,
+            "initialization_ms": 11.061292,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 10566.403,
+            "including_drain_us_per_call": 10945.097333333333,
+            "initialization_ms": 10.308375,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 10011.097,
+            "including_drain_us_per_call": 10434.805333333334,
+            "initialization_ms": 12.134792,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 9435.222333333333,
+            "including_drain_us_per_call": 9821.069666666666,
+            "initialization_ms": 11.167625,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 9378.166666666666,
+            "including_drain_us_per_call": 9768.527666666667,
+            "initialization_ms": 10.469042,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 9569.027666666667,
+        "median_including_drain_us": 9955.208333333334
+      }
+    },
+    "reviewed": {
+      "bare_call/off": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 0.048333,
+            "including_drain_us_per_call": 0.048375,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.048042,
+            "including_drain_us_per_call": 0.048125,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.048292,
+            "including_drain_us_per_call": 0.048334,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.048292,
+            "including_drain_us_per_call": 0.048375,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.048540999999999994,
+            "including_drain_us_per_call": 0.048583,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 0.048292,
+        "median_including_drain_us": 0.048375
+      },
+      "decorated_call/off": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 0.43175,
+            "including_drain_us_per_call": 0.43175,
+            "initialization_ms": 4.1e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.433375,
+            "including_drain_us_per_call": 0.433417,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.42908300000000005,
+            "including_drain_us_per_call": 0.42908300000000005,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.430291,
+            "including_drain_us_per_call": 0.430333,
+            "initialization_ms": 4.1e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.430125,
+            "including_drain_us_per_call": 0.43020800000000003,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 0.430291,
+        "median_including_drain_us": 0.430333
+      },
+      "span/off": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 1.38275,
+            "including_drain_us_per_call": 1.382833,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 1.378167,
+            "including_drain_us_per_call": 1.37825,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 1.373083,
+            "including_drain_us_per_call": 1.373083,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 1.3762919999999998,
+            "including_drain_us_per_call": 1.3763340000000002,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 1.369167,
+            "including_drain_us_per_call": 1.3692090000000001,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 1.3762919999999998,
+        "median_including_drain_us": 1.3763340000000002
+      },
+      "fake_http/off": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 0.7649579999999999,
+            "including_drain_us_per_call": 0.765042,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.7855,
+            "including_drain_us_per_call": 0.785625,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.7545,
+            "including_drain_us_per_call": 0.754625,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.748458,
+            "including_drain_us_per_call": 0.748458,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.7422920000000001,
+            "including_drain_us_per_call": 0.742375,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 0.7545,
+        "median_including_drain_us": 0.754625
+      },
+      "plan_1000_tasks/off": {
+        "calls_per_repeat": 3,
+        "samples": [
+          {
+            "caller_us_per_call": 0.9443333333333334,
+            "including_drain_us_per_call": 0.9583333333333334,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.5833333333333334,
+            "including_drain_us_per_call": 0.611,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.514,
+            "including_drain_us_per_call": 0.5276666666666666,
+            "initialization_ms": 8.3e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.486,
+            "including_drain_us_per_call": 0.5,
+            "initialization_ms": 8.4e-05,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 0.5,
+            "including_drain_us_per_call": 0.514,
+            "initialization_ms": 4.2e-05,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 0.514,
+        "median_including_drain_us": 0.5276666666666666
+      },
+      "decorated_call/on": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 6.020292,
+            "including_drain_us_per_call": 9.966125,
+            "initialization_ms": 11.138209,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 6.030875,
+            "including_drain_us_per_call": 10.139375,
+            "initialization_ms": 10.62825,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 6.175416,
+            "including_drain_us_per_call": 10.170708000000001,
+            "initialization_ms": 10.485542,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 9.18825,
+            "including_drain_us_per_call": 9.763625,
+            "initialization_ms": 10.932208,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 6.205958,
+            "including_drain_us_per_call": 10.324541,
+            "initialization_ms": 22.843208,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 6.175416,
+        "median_including_drain_us": 10.139375
+      },
+      "span/on": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 4.5465420000000005,
+            "including_drain_us_per_call": 9.112875,
+            "initialization_ms": 10.849458,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 4.592833,
+            "including_drain_us_per_call": 8.912917,
+            "initialization_ms": 10.277333,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 4.671375,
+            "including_drain_us_per_call": 9.010665999999999,
+            "initialization_ms": 10.345375,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 4.6024579999999995,
+            "including_drain_us_per_call": 8.970375,
+            "initialization_ms": 10.164125,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 4.575708,
+            "including_drain_us_per_call": 8.966583,
+            "initialization_ms": 11.235208,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 4.592833,
+        "median_including_drain_us": 8.970375
+      },
+      "fake_http/on": {
+        "calls_per_repeat": 1000,
+        "samples": [
+          {
+            "caller_us_per_call": 45.870042,
+            "including_drain_us_per_call": 46.824375,
+            "initialization_ms": 10.861041,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 44.248584,
+            "including_drain_us_per_call": 46.426667,
+            "initialization_ms": 11.082292,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 45.227666,
+            "including_drain_us_per_call": 45.529790999999996,
+            "initialization_ms": 18.476959,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 44.78175,
+            "including_drain_us_per_call": 45.253415999999994,
+            "initialization_ms": 11.749416,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 43.502291,
+            "including_drain_us_per_call": 45.508083,
+            "initialization_ms": 11.376209,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 44.78175,
+        "median_including_drain_us": 45.529790999999996
+      },
+      "plan_1000_tasks/on": {
+        "calls_per_repeat": 3,
+        "samples": [
+          {
+            "caller_us_per_call": 3907.2916666666665,
+            "including_drain_us_per_call": 5713.528,
+            "initialization_ms": 10.957083,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 5415.041666666667,
+            "including_drain_us_per_call": 6907.916666666667,
+            "initialization_ms": 11.4475,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 3865.722,
+            "including_drain_us_per_call": 5670.0,
+            "initialization_ms": 10.295,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 3782.639,
+            "including_drain_us_per_call": 5512.069666666667,
+            "initialization_ms": 10.285959,
+            "dropped": 0,
+            "failed": false
+          },
+          {
+            "caller_us_per_call": 3811.0416666666665,
+            "including_drain_us_per_call": 5602.736,
+            "initialization_ms": 10.702375,
+            "dropped": 0,
+            "failed": false
+          }
+        ],
+        "median_caller_us": 3865.722,
+        "median_including_drain_us": 5670.0
+      }
+    }
+  },
+  "reviewed_sha256": "47b5ef71cd0608327ab645a2e9cb3254917f6ae9e54f63034d1d3d5c2fe0d6d3",
+  "baseline_sha256": "20870461706ecc63dcf2364bdbae2ea10547948e804f7c495acc7c1ece55d8b8"
+}

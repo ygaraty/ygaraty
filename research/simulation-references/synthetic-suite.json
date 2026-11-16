@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "name": "synthetic single-task replay",
+      "kind": "synthetic",
+      "plan": "synthetic-plan.json",
+      "cost_model": "synthetic-cost.json",
+      "simulation": {
+        "workers": 1,
+        "updates": 2,
+        "noise": 0,
+        "jitter_ms": 0
+      },
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "measured": {
+        "tasks": 1
+      },
+      "reference": {
+        "plan_sha256": "3d2fb862276c24725512c46ef693864b82971c569cfb558d7f5830fc500b030a",
+        "evidence": "Task count known by construction; no measured timing evidence"
+      }
+    }
+  ]
+}

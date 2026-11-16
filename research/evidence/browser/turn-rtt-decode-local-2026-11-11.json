@@ -1,0 +1,169 @@
+{
+ "experiment": 151,
+ "id": "WS-24",
+ "date": "2026-11-10 to 11",
+ "host": "omarchy workstation (Radeon 680M), coordinator, two headless Chromium contributors and a local pion/turn server on localhost",
+ "dir": "runs/experiments/WS-24/omarchy-20261110-2316",
+ "code": "clean export of main at 64f73f3 (main run and probe; the probe from an instrumented copy)",
+ "model": "S5-nano Q4_K_M, 2 stages (0,16,32), route private (both links through TURN), bundle s5-nano-256: capacity 16384, generate 256",
+ "turn_server": {
+  "path": "runs/experiments/WS-24/turn/main.go (not in git)",
+  "sha256": "0da7884b846c",
+  "delay": "D ms per packet on the client-facing socket, both directions",
+  "auth": "LongTermTURNRESTAuthHandler"
+ },
+ "order": "D = 0, 60, 30, 30, 60, 0 ms; 1 cycle x 3 turns of 256 tokens per session, --words 1500, --timeout 900",
+ "gate": {
+  "sessions": [
+   {
+    "session": "m-s1-d0",
+    "D": 0,
+    "kinds": [
+     "relay-relay"
+    ],
+    "rtt": 1.0,
+    "turns": 3,
+    "ms": 93.0,
+    "first": 0.42,
+    "per_turn_ms": [
+     92.0,
+     93.0,
+     93.0
+    ],
+    "not_completed": 0,
+    "valid": true
+   },
+   {
+    "session": "m-s2-d60",
+    "D": 60,
+    "kinds": [
+     "relay-relay"
+    ],
+    "rtt": 242.0,
+    "turns": 3,
+    "ms": 584.0,
+    "first": 2.24,
+    "per_turn_ms": [
+     582.0,
+     584.0,
+     584.0
+    ],
+    "not_completed": 0,
+    "valid": true
+   },
+   {
+    "session": "m-s3-d30",
+    "D": 30,
+    "kinds": [
+     "relay-relay"
+    ],
+    "rtt": 122.5,
+    "turns": 3,
+    "ms": 341.0,
+    "first": 0.84,
+    "per_turn_ms": [
+     340.0,
+     341.0,
+     341.0
+    ],
+    "not_completed": 0,
+    "valid": true
+   },
+   {
+    "session": "m-s4-d30",
+    "D": 30,
+    "kinds": [
+     "relay-relay"
+    ],
+    "rtt": 123.5,
+    "turns": 3,
+    "ms": 340.0,
+    "first": 0.96,
+    "per_turn_ms": [
+     339.0,
+     340.0,
+     340.0
+    ],
+    "not_completed": 0,
+    "valid": true
+   },
+   {
+    "session": "m-s5-d60",
+    "D": 60,
+    "kinds": [
+     "relay-relay"
+    ],
+    "rtt": 243.0,
+    "turns": 3,
+    "ms": 584.0,
+    "first": 2.22,
+    "per_turn_ms": [
+     583.0,
+     584.0,
+     584.0
+    ],
+    "not_completed": 0,
+    "valid": true
+   },
+   {
+    "session": "m-s6-d0",
+    "D": 0,
+    "kinds": [
+     "relay-relay"
+    ],
+    "rtt": 1.0,
+    "turns": 3,
+    "ms": 93.0,
+    "first": 0.41,
+    "per_turn_ms": [
+     93.0,
+     93.0,
+     93.0
+    ],
+    "not_completed": 0,
+    "valid": true
+   }
+  ],
+  "valid": 6,
+  "ms_per_token_fit": {
+   "slope": 2.033,
+   "intercept": 90.8
+  },
+  "first_token_fit": {
+   "slope": 0.008,
+   "intercept": 0.3
+  },
+  "verdict": "more than one round trip per token (k > 1.3)",
+  "stall": false
+ },
+ "gate_script": {
+  "path": "runs/experiments/WS-24/gate.py",
+  "sha256": "92b05e478f4d",
+  "recomputed": "identical output 2026-11-14"
+ },
+ "probe": {
+  "dir": "runs/experiments/WS-24/probe-20261111/p-s1-d60",
+  "D": 60,
+  "script_sha256": "082e041b5a90",
+  "output": "762 steps; medians (ms): {'A_compute': 41.3, 'link_AB': 364.1, 'B_queue': 0.1, 'B_compute': 55.7, 'link_BA': 121.8, 'A_queue': 0.1, 'step': 583.3}",
+  "coordinator_ms_per_token": [
+   582,
+   584,
+   584
+  ],
+  "note": "not a gate arm; instrumented contributor and peer logging per-step receive and send times"
+ },
+ "rehearsal": {
+  "dir": "runs/experiments/WS-24/omarchy-20261110-2316/rh-s1-d60",
+  "D": 60,
+  "bundle": "generate 2048",
+  "rtt_ms": 243,
+  "turn0": {
+   "result": "blocked",
+   "elapsed_s": 900.063,
+   "first_visible_s": 2.022,
+   "last_change_s": 899.863,
+   "partial_chars": 7844
+  }
+ }
+}

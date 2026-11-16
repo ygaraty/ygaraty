@@ -1,0 +1,433 @@
+{
+ "experiment": "WS-12",
+ "date": "2026-11-09",
+ "checkpoint": {
+  "repo": "webAI-Official/TwIL-8B",
+  "revision": "9563ba7dfb70eeca4a26654b195011cbf818e7d9",
+  "file": "TwIL-8B-Q4_K_M-balanced.gguf",
+  "sha256": "17bda82d2608ca61b6aca48394f212349ef1515d0d9a2e6edee06619152faa0e",
+  "size": 5347917568,
+  "architecture": "granite",
+  "tensor_types": {
+   "F32": 81,
+   "Q4_K": 241,
+   "Q6_K": 41
+  }
+ },
+ "family": "dense",
+ "device": {
+  "vendor": "amd",
+  "architecture": "rdna-2",
+  "description": ""
+ },
+ "commit": "75584e8+dirty",
+ "layout_check": {
+  "note": "dequantized GGUF rows vs the bf16 safetensors, layer 0",
+  "attn_q_vs_permuted": 0.0807,
+  "attn_q_vs_unpermuted": 1.4057,
+  "attn_k_vs_permuted": 0.081,
+  "attn_k_vs_unpermuted": 1.3967,
+  "attn_v": 0.0207
+ },
+ "kernels": [
+  {
+   "tensor": "blk.0.attn_q.weight",
+   "kind": "Q4_K",
+   "tokens": 1,
+   "max_rel": 1.04027829459283e-07
+  },
+  {
+   "tensor": "blk.0.attn_q.weight",
+   "kind": "Q4_K",
+   "tokens": 21,
+   "max_rel": 3.268285169156645e-07
+  },
+  {
+   "tensor": "blk.0.attn_k.weight",
+   "kind": "Q4_K",
+   "tokens": 3,
+   "max_rel": 1.7022359374558766e-07
+  },
+  {
+   "tensor": "blk.0.ffn_up.weight",
+   "kind": "Q4_K",
+   "tokens": 1,
+   "max_rel": 2.0433323676929765e-07
+  },
+  {
+   "tensor": "blk.0.ffn_down.weight",
+   "kind": "Q6_K",
+   "tokens": 1,
+   "max_rel": 2.497815525591478e-07
+  },
+  {
+   "tensor": "blk.0.ffn_down.weight",
+   "kind": "Q6_K",
+   "tokens": 37,
+   "max_rel": 3.7466237977041447e-07
+  },
+  {
+   "tensor": "blk.1.ffn_down.weight",
+   "kind": "Q6_K",
+   "tokens": 9,
+   "max_rel": 5.086078786174068e-07
+  },
+  {
+   "tensor": "blk.0.ffn_up.weight",
+   "kind": "Q4_K",
+   "tokens": 64,
+   "max_rel": 2.82591896149208e-07
+  },
+  {
+   "tensor": "blk.0.attn_v.weight",
+   "kind": "Q6_K",
+   "tokens": 64,
+   "max_rel": 2.46025351415589e-07
+  },
+  {
+   "tensor": "blk.1.attn_v.weight",
+   "kind": "Q6_K",
+   "tokens": 5,
+   "max_rel": 2.761020831516312e-07
+  },
+  {
+   "tensor": "output.weight",
+   "kind": "Q6_K",
+   "tokens": 5,
+   "max_rel": 2.7776357595817274e-07
+  },
+  {
+   "tensor": "blk.0.ffn_up.weight",
+   "kind": "Q4_K",
+   "tokens": 4,
+   "max_rel": 1.4264534264359614e-07
+  }
+ ],
+ "stage": {
+  "layers": [
+   0,
+   4
+  ],
+  "kv": "f32",
+  "chunks": [
+   9,
+   1,
+   1,
+   1
+  ],
+  "calls": [
+   {
+    "tokens": 9,
+    "max_abs": 0.0009765625,
+    "max_rel_row": 4.3378320990032096e-07,
+    "min_cosine": 0.9999997615814209
+   },
+   {
+    "tokens": 1,
+    "max_abs": 1.430511474609375e-06,
+    "max_rel_row": 2.1775504995736357e-07,
+    "min_cosine": 1.0
+   },
+   {
+    "tokens": 1,
+    "max_abs": 9.5367431640625e-07,
+    "max_rel_row": 1.1659199726521812e-07,
+    "min_cosine": 1.0000001192092896
+   },
+   {
+    "tokens": 1,
+    "max_abs": 2.86102294921875e-06,
+    "max_rel_row": 4.1570013498476215e-07,
+    "min_cosine": 1.0
+   }
+  ]
+ },
+ "pipeline": {
+  "splits": [
+   0,
+   20,
+   40
+  ],
+  "kv": "f16",
+  "wire": "f16",
+  "prompt": "The capital of France is Paris. The capital of Italy is Rome. The capital of Spain is",
+  "generated": [
+   25048,
+   1210,
+   198,
+   198,
+   1687,
+   1205,
+   311,
+   8819,
+   279,
+   6864,
+   315,
+   15704,
+   13,
+   578,
+   4320,
+   1288,
+   387,
+   330,
+   49,
+   638,
+   3343,
+   198,
+   198,
+   4071,
+   584,
+   2011,
+   1833,
+   279,
+   7754,
+   25,
+   330,
+   2746
+  ],
+  "text": " Madrid.\"\n\nWe need to extract the capital of Italy. The answer should be \"Rome\".\n\nBut we must follow the instruction: \"If",
+  "all_match": true,
+  "steps": [
+   {
+    "match": true,
+    "margin": 6.25,
+    "max_rel": 0.00024042519360413178
+   },
+   {
+    "match": true,
+    "margin": 0.254,
+    "max_rel": 0.00011767541103179333
+   },
+   {
+    "match": true,
+    "margin": 1.007,
+    "max_rel": 0.0001420830785841951
+   },
+   {
+    "match": true,
+    "margin": 1.987,
+    "max_rel": 0.00010044347927486597
+   },
+   {
+    "match": true,
+    "margin": 0.646,
+    "max_rel": 0.00012768655894140294
+   },
+   {
+    "match": true,
+    "margin": 1.981,
+    "max_rel": 9.291410144613892e-05
+   },
+   {
+    "match": true,
+    "margin": 5.197,
+    "max_rel": 0.00011804247127919524
+   },
+   {
+    "match": true,
+    "margin": 0.068,
+    "max_rel": 0.00010394238367123208
+   },
+   {
+    "match": true,
+    "margin": 0.53,
+    "max_rel": 0.00018630660340923985
+   },
+   {
+    "match": true,
+    "margin": 1.025,
+    "max_rel": 0.00014334572920242708
+   },
+   {
+    "match": true,
+    "margin": 0.633,
+    "max_rel": 0.00010368050596155718
+   },
+   {
+    "match": true,
+    "margin": 0.309,
+    "max_rel": 0.00020074022233291324
+   },
+   {
+    "match": true,
+    "margin": 0.474,
+    "max_rel": 0.00015095915791559912
+   },
+   {
+    "match": true,
+    "margin": 0.18,
+    "max_rel": 0.00010379194157737638
+   },
+   {
+    "match": true,
+    "margin": 0.685,
+    "max_rel": 0.00018990376754328558
+   },
+   {
+    "match": true,
+    "margin": 1.017,
+    "max_rel": 0.00010190248100789125
+   },
+   {
+    "match": true,
+    "margin": 3.99,
+    "max_rel": 9.878883618769674e-05
+   },
+   {
+    "match": true,
+    "margin": 0.649,
+    "max_rel": 0.00017446924610593835
+   },
+   {
+    "match": true,
+    "margin": 6.704,
+    "max_rel": 0.0002471260516806135
+   },
+   {
+    "match": true,
+    "margin": 10.838,
+    "max_rel": 0.00016947849030209383
+   },
+   {
+    "match": true,
+    "margin": 3.459,
+    "max_rel": 9.418778789734676e-05
+   },
+   {
+    "match": true,
+    "margin": 0.199,
+    "max_rel": 8.251970044374517e-05
+   },
+   {
+    "match": true,
+    "margin": 5.747,
+    "max_rel": 0.00015249978432069466
+   },
+   {
+    "match": true,
+    "margin": 1.001,
+    "max_rel": 8.194589383639814e-05
+   },
+   {
+    "match": true,
+    "margin": 0.419,
+    "max_rel": 8.650201269986536e-05
+   },
+   {
+    "match": true,
+    "margin": 0.385,
+    "max_rel": 6.70276155064503e-05
+   },
+   {
+    "match": true,
+    "margin": 0.185,
+    "max_rel": 6.308932934812724e-05
+   },
+   {
+    "match": true,
+    "margin": 1.953,
+    "max_rel": 0.00010290449822016336
+   },
+   {
+    "match": true,
+    "margin": 2.472,
+    "max_rel": 0.00013647818875227915
+   },
+   {
+    "match": true,
+    "margin": 4.609,
+    "max_rel": 0.00013184873020777375
+   },
+   {
+    "match": true,
+    "margin": 4.423,
+    "max_rel": 0.0001456434619708843
+   },
+   {
+    "match": true,
+    "margin": 0.421,
+    "max_rel": 0.00021857756065658487
+   }
+  ],
+  "decode_ms_median": 140.5,
+  "allocated": 5360429472
+ },
+ "serving": {
+  "bundle": {
+   "splits": [
+    0,
+    20,
+    40
+   ],
+   "capacity": 4096,
+   "generate": 256,
+   "chat": "checkpoint ChatML pieces, thinking off"
+  },
+  "sessions": [
+   {
+    "arm": "R",
+    "route": "relay",
+    "ready_s": 8.0,
+    "requests": [
+     {
+      "max_tokens": 32,
+      "completion_tokens": 32,
+      "seconds": 5.58,
+      "text": "The sky appears blue because molecules and tiny particles in the atmosphere scatter shorter (blue) wavelengths of sunlight more effectively than longer (red) wavelengths. This phenomenon,"
+     },
+     {
+      "max_tokens": 6,
+      "completion_tokens": 6,
+      "seconds": 2.24,
+      "text": "The sky is blue because atmospheric"
+     },
+     {
+      "max_tokens": 32,
+      "completion_tokens": 32,
+      "seconds": 5.5,
+      "text": "1. Electrical wiring \u2013 copper is widely used in electrical systems because of its excellent conductivity, durability, and ease of installation.  \n2. Plumbing \u2013 copper"
+     }
+    ]
+   },
+   {
+    "arm": "W",
+    "route": "webrtc",
+    "ready_s": 8.0,
+    "requests": [
+     {
+      "max_tokens": 32,
+      "completion_tokens": 32,
+      "seconds": 5.21,
+      "text": "The sky appears blue because molecules and tiny particles in the atmosphere scatter shorter (blue) wavelengths of sunlight more effectively than longer (red) wavelengths. This phenomenon,"
+     },
+     {
+      "max_tokens": 6,
+      "completion_tokens": 6,
+      "seconds": 2.19,
+      "text": "The sky is blue because atmospheric"
+     },
+     {
+      "max_tokens": 32,
+      "completion_tokens": 32,
+      "seconds": 5.12,
+      "text": "1. Electrical wiring \u2013 copper is widely used in electrical systems because of its excellent conductivity, durability, and ease of installation.  \n2. Plumbing \u2013 copper"
+     }
+    ]
+   }
+  ],
+  "allocated_gb": {
+   "stage_A": 2.97,
+   "stage_B": 3.08
+  },
+  "planned_gb": {
+   "stage_A": 2.968,
+   "stage_B": 3.074
+  }
+ },
+ "gate": {
+  "kernels": true,
+  "stage": true,
+  "pipeline": true,
+  "serving": true
+ }
+}

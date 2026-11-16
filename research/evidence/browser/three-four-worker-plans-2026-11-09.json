@@ -1,0 +1,351 @@
+{
+ "experiment": "WS-13",
+ "date": "2026-11-09",
+ "bundles": {
+  "twil-3": {
+   "splits": [
+    0,
+    13,
+    28,
+    40
+   ],
+   "memory_gb": 3,
+   "pipeline": {
+    "tokens_matching": 32,
+    "steps": 32,
+    "worst_logits_rel": 0.00030929024241835984,
+    "smallest_margin": 0.06881164496503445,
+    "decode_ms_median": 145.80000001192093
+   },
+   "sessions": [
+    {
+     "arm": "R",
+     "route": "relay",
+     "ready_s": 16.0,
+     "allocated_gb": [
+      2.03,
+      2.03,
+      2.02
+     ],
+     "links": [],
+     "requests": [
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.99,
+       "text": "The sky appears blue because molecules and tiny particles in the atmosphere scatter shorter (blue) wavelengths of sunlight more effectively than longer (red) wavelengths. This phenomenon,"
+      },
+      {
+       "max_tokens": 6,
+       "completion_tokens": 6,
+       "seconds": 2.34,
+       "text": "The sky is blue because atmospheric"
+      },
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.85,
+       "text": "1. Electrical wiring \u2013 copper is widely used in electrical systems because of its excellent conductivity, durability, and ease of installation.  \n2. Plumbing \u2013 copper"
+      }
+     ]
+    },
+    {
+     "arm": "W",
+     "route": "webrtc",
+     "ready_s": 6.0,
+     "allocated_gb": [
+      2.02,
+      2.03,
+      2.03
+     ],
+     "links": [
+      "C open host-host udp 0 ms, opened after 0.1 s, A open host-host udp 0 ms, opened after 0.1 s",
+      "A open host-host udp 0 ms, opened after 0.1 s, B open host-host udp 0 ms, opened after 0.0 s",
+      "B open host-prflx udp 0 ms, opened after 0.1 s, C open host-prflx udp 0 ms, opened after 0.1 s"
+     ],
+     "requests": [
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.37,
+       "text": "The sky appears blue because molecules and tiny particles in the atmosphere scatter shorter (blue) wavelengths of sunlight more effectively than longer (red) wavelengths. This phenomenon,"
+      },
+      {
+       "max_tokens": 6,
+       "completion_tokens": 6,
+       "seconds": 2.21,
+       "text": "The sky is blue because atmospheric"
+      },
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.26,
+       "text": "1. Electrical wiring \u2013 copper is widely used in electrical systems because of its excellent conductivity, durability, and ease of installation.  \n2. Plumbing \u2013 copper"
+      }
+     ]
+    }
+   ]
+  },
+  "twil-4": {
+   "splits": [
+    0,
+    9,
+    20,
+    31,
+    40
+   ],
+   "memory_gb": 2,
+   "pipeline": {
+    "tokens_matching": 32,
+    "steps": 32,
+    "worst_logits_rel": 0.0003759177705295794,
+    "smallest_margin": 0.06798884392645022,
+    "decode_ms_median": 151.2000000178814
+   },
+   "sessions": [
+    {
+     "arm": "R",
+     "route": "relay",
+     "ready_s": 18.0,
+     "allocated_gb": [
+      1.48,
+      1.5,
+      1.5,
+      1.62
+     ],
+     "links": [],
+     "requests": [
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 6.33,
+       "text": "The sky appears blue because molecules and tiny particles in the atmosphere scatter shorter (blue) wavelengths of sunlight more effectively than longer (red) wavelengths. This phenomenon,"
+      },
+      {
+       "max_tokens": 6,
+       "completion_tokens": 6,
+       "seconds": 2.38,
+       "text": "The sky is blue because atmospheric"
+      },
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 6.19,
+       "text": "1. Electrical wiring \u2013 copper is widely used in electrical systems because of its excellent conductivity, durability, and ease of installation.  \n2. Plumbing \u2013 copper"
+      }
+     ]
+    },
+    {
+     "arm": "W",
+     "route": "webrtc",
+     "ready_s": 6.0,
+     "allocated_gb": [
+      1.5,
+      1.5,
+      1.48,
+      1.62
+     ],
+     "links": [
+      "C open host-host udp 1 ms, opened after 0.1 s, A open host-host udp 0 ms, opened after 0.1 s",
+      "A open host-prflx udp 0 ms, opened after 0.0 s, C open host-prflx udp 0 ms, opened after 0.0 s",
+      "B open host-prflx udp 0 ms, opened after 0.0 s, D open host-host udp 0 ms, opened after 0.3 s",
+      "D open host-host udp 0 ms, opened after 0.3 s, B open host-host udp 0 ms, opened after 0.1 s"
+     ],
+     "requests": [
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.52,
+       "text": "The sky appears blue because molecules and tiny particles in the atmosphere scatter shorter (blue) wavelengths of sunlight more effectively than longer (red) wavelengths. This phenomenon,"
+      },
+      {
+       "max_tokens": 6,
+       "completion_tokens": 6,
+       "seconds": 2.25,
+       "text": "The sky is blue because atmospheric"
+      },
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.47,
+       "text": "1. Electrical wiring \u2013 copper is widely used in electrical systems because of its excellent conductivity, durability, and ease of installation.  \n2. Plumbing \u2013 copper"
+      }
+     ]
+    }
+   ]
+  },
+  "qwen-3": {
+   "splits": [
+    0,
+    10,
+    24,
+    32
+   ],
+   "memory_gb": 3,
+   "pipeline": {
+    "tokens_matching": 32,
+    "steps": 32,
+    "worst_logits_rel": 8.485642081868882e-05,
+    "smallest_margin": 0.507151955705794,
+    "decode_ms_median": 142.69999998807907
+   },
+   "sessions": [
+    {
+     "arm": "R",
+     "route": "relay",
+     "ready_s": 18.0,
+     "allocated_gb": [
+      2.0,
+      1.93,
+      2.0
+     ],
+     "links": [],
+     "requests": [
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.79,
+       "text": "The sky appears blue because sunlight is scattered by molecules in the Earth's atmosphere, with shorter blue wavelengths being scattered much more strongly than longer red wavelengths. This phenomenon"
+      },
+      {
+       "max_tokens": 6,
+       "completion_tokens": 6,
+       "seconds": 2.13,
+       "text": "The sky is blue because Earth"
+      },
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.67,
+       "text": "Copper is a versatile metal valued for its excellent electrical conductivity, thermal conductivity, and resistance to corrosion. Here are three primary uses:\n\n1.  **"
+      }
+     ]
+    },
+    {
+     "arm": "W",
+     "route": "webrtc",
+     "ready_s": 6.0,
+     "allocated_gb": [
+      2.0,
+      1.93,
+      2.0
+     ],
+     "links": [
+      "A open host-host udp 0 ms, opened after 0.3 s, B open host-host udp 0 ms, opened after 0.1 s",
+      "C open host-host udp 0 ms, opened after 0.0 s, A open host-host udp 0 ms, opened after 0.1 s",
+      "B open host-prflx udp 0 ms, opened after 0.0 s, C open host-prflx udp 0 ms, opened after 0.1 s"
+     ],
+     "requests": [
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.23,
+       "text": "The sky appears blue because sunlight is scattered by molecules in the Earth's atmosphere, with shorter blue wavelengths being scattered much more strongly than longer red wavelengths. This phenomenon"
+      },
+      {
+       "max_tokens": 6,
+       "completion_tokens": 6,
+       "seconds": 2.01,
+       "text": "The sky is blue because Earth"
+      },
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.11,
+       "text": "Copper is a versatile metal valued for its excellent electrical conductivity, thermal conductivity, and resistance to corrosion. Here are three primary uses:\n\n1.  **"
+      }
+     ]
+    }
+   ]
+  },
+  "qwen-4": {
+   "splits": [
+    0,
+    6,
+    17,
+    28,
+    32
+   ],
+   "memory_gb": 2,
+   "pipeline": {
+    "tokens_matching": 32,
+    "steps": 32,
+    "worst_logits_rel": 0.00010169367826115361,
+    "smallest_margin": 0.5076392990520233,
+    "decode_ms_median": 147.5
+   },
+   "sessions": [
+    {
+     "arm": "R",
+     "route": "relay",
+     "ready_s": 16.0,
+     "allocated_gb": [
+      1.44,
+      1.44,
+      1.54,
+      1.54
+     ],
+     "links": [],
+     "requests": [
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 6.16,
+       "text": "The sky appears blue because sunlight is scattered by molecules in the Earth's atmosphere, with shorter blue wavelengths being scattered much more strongly than longer red wavelengths. This phenomenon"
+      },
+      {
+       "max_tokens": 6,
+       "completion_tokens": 6,
+       "seconds": 2.18,
+       "text": "The sky is blue because Earth"
+      },
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 6.01,
+       "text": "Copper is a versatile metal valued for its excellent electrical conductivity, thermal conductivity, and resistance to corrosion. Here are three primary uses:\n\n1.  **"
+      }
+     ]
+    },
+    {
+     "arm": "W",
+     "route": "webrtc",
+     "ready_s": 6.0,
+     "allocated_gb": [
+      1.44,
+      1.44,
+      1.54,
+      1.54
+     ],
+     "links": [
+      "A open host-host udp 0 ms, opened after 0.1 s, C open host-host udp 0 ms, opened after 0.4 s",
+      "C open host-host udp 0 ms, opened after 0.1 s, A open host-prflx udp 0 ms, opened after 0.1 s",
+      "D open host-prflx udp 0 ms, opened after 0.1 s, B open host-host udp 0 ms, opened after 0.1 s",
+      "B open host-host udp 0 ms, opened after 0.4 s, D open host-host udp 0 ms, opened after 0.0 s"
+     ],
+     "requests": [
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.34,
+       "text": "The sky appears blue because sunlight is scattered by molecules in the Earth's atmosphere, with shorter blue wavelengths being scattered much more strongly than longer red wavelengths. This phenomenon"
+      },
+      {
+       "max_tokens": 6,
+       "completion_tokens": 6,
+       "seconds": 2.05,
+       "text": "The sky is blue because Earth"
+      },
+      {
+       "max_tokens": 32,
+       "completion_tokens": 32,
+       "seconds": 5.3,
+       "text": "Copper is a versatile metal valued for its excellent electrical conductivity, thermal conductivity, and resistance to corrosion. Here are three primary uses:\n\n1.  **"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "commit": "28f5b77+dirty (prepare --workers, driver one browser per stage)"
+}

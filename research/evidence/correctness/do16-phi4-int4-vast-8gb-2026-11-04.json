@@ -1,0 +1,385 @@
+{
+ "experiment": 82,
+ "id": "DO-16",
+ "date": "2026-11-04",
+ "code_commits": {
+  "server": "2fae130",
+  "replacement_worker": "ffdf9cc",
+  "note": "the two commits differ only in the pods tool and the chat command, not in anything the machines ran"
+ },
+ "pool": {
+  "provider": "vast",
+  "location": "US,CA",
+  "size": "any-8to9gb-sm80",
+  "server": {
+   "gpu": "RTX 3060 Ti 8 GB",
+   "where": "Quebec, CA",
+   "hourly": 0.096,
+   "driver": "595.71.05",
+   "torch": "2.15.0+cu132"
+  },
+  "worker": {
+   "gpu": "RTX 4060 8 GB",
+   "where": "British Columbia, CA",
+   "hourly": 0.101,
+   "driver": "570.133.20",
+   "torch": "2.14.1+cu126"
+  },
+  "replaced": {
+   "gpu": "RTX 3060 Ti 8 GB",
+   "where": "Delaware, US",
+   "hourly": 0.097,
+   "why": "Hugging Face downloads cut off repeatedly: 938 MB in 20 min; SSH closed by the host"
+  },
+  "created": "20:55",
+  "deleted": "21:46"
+ },
+ "cost_usd": {
+  "charged": 0.4727,
+  "machine_time_estimate": 0.17,
+  "note": "the rest is most likely Vast.ai's per-GB download charge on the 29 GB checkpoints"
+ },
+ "settings": {
+  "weights": "int4 (round to nearest, groups of 128)",
+  "dtype": "bfloat16",
+  "head": "float32",
+  "wire": "float32",
+  "relay": true,
+  "handoff": true,
+  "chunk": 512
+ },
+ "rehearsal_cpu": {
+  "tokens_equal_reference": 8,
+  "first_token_s": 316.6,
+  "inter_token_s": 11.8,
+  "worker_rss_gb": 4.65
+ },
+ "correctness": {
+  "steps": 51,
+  "retries": 0,
+  "rejected": 0,
+  "rows": [
+   {
+    "prompt": 0,
+    "tokens": [
+     791,
+     6864,
+     315,
+     9822,
+     374,
+     12366,
+     13,
+     100265,
+     100257,
+     100264,
+     882,
+     100266,
+     40,
+     2846,
+     3318,
+     389
+    ],
+    "reference": [
+     791,
+     6864,
+     315,
+     9822,
+     374,
+     12366,
+     13,
+     100265,
+     100257,
+     100264,
+     882,
+     100266,
+     8085,
+     29,
+     23956,
+     315
+    ],
+    "first_divergence": 12,
+    "reference_margin_at_divergence": 0.4476,
+    "first_margin_below_half": 12,
+    "text": "The capital of France is Paris.<|im_end|><|endoftext|><|im_start|>user<|im_sep|>I'm working on",
+    "reference_text": "The capital of France is Paris.<|im_end|><|endoftext|><|im_start|>user<|im_sep|><p>Which of"
+   },
+   {
+    "prompt": 1,
+    "tokens": [
+     644,
+     816,
+     12440,
+     51071,
+     596,
+     4332,
+     30828,
+     4009,
+     1887,
+     11,
+     279,
+     8298,
+     2723,
+     3629,
+     9221,
+     279
+    ],
+    "reference": [
+     644,
+     816,
+     12440,
+     51071,
+     596,
+     4332,
+     30828,
+     4009,
+     1887,
+     11,
+     279,
+     8298,
+     2723,
+     11383,
+     13693,
+     5178
+    ],
+    "first_divergence": 13,
+    "reference_margin_at_divergence": 0.0577,
+    "first_margin_below_half": 8,
+    "text": "In Ygaraty's distributed neural network system, the upload link often becomes the",
+    "reference_text": "In Ygaraty's distributed neural network system, the upload link typically limits performance"
+   },
+   {
+    "prompt": 2,
+    "tokens": [
+     1341,
+     8,
+     220,
+     220,
+     16,
+     13,
+     220,
+     3146,
+     36438,
+     279,
+     3575,
+     323,
+     279,
+     5915,
+     96618,
+     578
+    ],
+    "reference": [
+     1341,
+     8,
+     220,
+     15,
+     13,
+     15,
+     13,
+     15,
+     13,
+     15,
+     25,
+     11770,
+     15,
+     14,
+     220,
+     15
+    ],
+    "first_divergence": 3,
+    "reference_margin_at_divergence": 0.1701,
+    "first_margin_below_half": 0,
+    "text": "IC)  1.  **Define the problem and the goal**: The",
+    "reference_text": "IC) 0.0.0.0:8080/ 0"
+   }
+  ],
+  "inter_token_median_s": 1.3409173488616943,
+  "peak_gpu_mib": {
+   "w0": 7389,
+   "w1": 7353
+  },
+  "span_median_ms": {
+   "w0": {
+    "claim": 819.1,
+    "compute:phi4_load": 44726.7,
+    "relay": 1.6,
+    "post": 2.0,
+    "assemble": 0.1,
+    "compute:phi4_stage": 517.6,
+    "claim_empty": 10001.7,
+    "compute:phi4_end": 0.2
+   },
+   "w1": {
+    "claim": 283.9,
+    "compute:phi4_load": 79301.0,
+    "relay": 74.9,
+    "post": 77.3,
+    "assemble": 0.2,
+    "compute:phi4_stage": 586.7,
+    "compute:phi4_print": 0.2,
+    "compute:phi4_end": 0.1,
+    "claim_empty": 145.5
+   }
+  }
+ },
+ "timing": {
+  "note": "shortened to fit the deadline: 1 warmup + 2 measured sessions of 32 new tokens per length (the frozen plan: 5 of 128)",
+  "lengths": {
+   "128": {
+    "prompt": [
+     128,
+     128
+    ],
+    "sessions": 2,
+    "warm_first_token": 76.17410898208618,
+    "ttft_median": 2.2290464639663696,
+    "ttft_all": [
+     2.4313712120056152,
+     2.026721715927124
+    ],
+    "itl_median": 1.3455016613006592,
+    "itl_p95": 1.4112026691436768,
+    "itl_mean": 1.3508219026750135,
+    "tokens_per_s_median": 0.7255623179103479,
+    "new_tokens": [
+     32,
+     32
+    ],
+    "retries": 0,
+    "rejected": 0,
+    "steps": 99,
+    "peak_gpu_mib": {
+     "w0": 7389,
+     "w1": 7353
+    },
+    "span_median_ms": {
+     "w0": {
+      "claim": 833.7,
+      "compute:phi4_load": 38242.4,
+      "relay": 1.6,
+      "post": 2.1,
+      "assemble": 0.1,
+      "compute:phi4_stage": 508.5,
+      "claim_empty": 10001.5,
+      "compute:phi4_end": 0.2
+     },
+     "w1": {
+      "claim": 268.3,
+      "compute:phi4_load": 57533.0,
+      "relay": 75.6,
+      "post": 86.1,
+      "assemble": 0.1,
+      "compute:phi4_stage": 587.6,
+      "compute:phi4_print": 0.1,
+      "compute:phi4_end": 0.1,
+      "claim_empty": 209.5
+     }
+    }
+   },
+   "1024": {
+    "prompt": [
+     1024,
+     1024
+    ],
+    "sessions": 2,
+    "warm_first_token": 83.93945813179016,
+    "ttft_median": 5.216090679168701,
+    "ttft_all": [
+     5.136662244796753,
+     5.295519113540649
+    ],
+    "itl_median": 1.345070719718933,
+    "itl_p95": 1.3911895751953125,
+    "itl_mean": 1.3459168826380083,
+    "tokens_per_s_median": 0.6817357971891902,
+    "new_tokens": [
+     32,
+     32
+    ],
+    "retries": 0,
+    "rejected": 0,
+    "steps": 102,
+    "peak_gpu_mib": {
+     "w0": 7373,
+     "w1": 7337
+    },
+    "span_median_ms": {
+     "w0": {
+      "claim": 819.0,
+      "compute:phi4_load": 38206.0,
+      "relay": 1.7,
+      "post": 2.0,
+      "assemble": 0.1,
+      "compute:phi4_stage": 516.0,
+      "claim_empty": 10001.5,
+      "compute:phi4_end": 0.2
+     },
+     "w1": {
+      "claim": 206.9,
+      "compute:phi4_load": 61263.7,
+      "relay": 74.0,
+      "post": 76.2,
+      "assemble": 0.2,
+      "compute:phi4_stage": 589.1,
+      "compute:phi4_print": 0.1,
+      "compute:phi4_end": 0.2,
+      "claim_empty": 142.3
+     }
+    }
+   },
+   "3968": {
+    "prompt": [
+     3968,
+     3968
+    ],
+    "sessions": 2,
+    "warm_first_token": 103.55572056770325,
+    "ttft_median": 28.054468035697937,
+    "ttft_all": [
+     33.719374656677246,
+     22.389561414718628
+    ],
+    "itl_median": 1.3654184341430664,
+    "itl_p95": 1.390357494354248,
+    "itl_mean": 1.375577872799289,
+    "tokens_per_s_median": 0.45591630561029006,
+    "new_tokens": [
+     32,
+     32
+    ],
+    "retries": 0,
+    "rejected": 0,
+    "steps": 120,
+    "peak_gpu_mib": {
+     "w0": 7375,
+     "w1": 7339
+    },
+    "span_median_ms": {
+     "w0": {
+      "claim": 839.0,
+      "compute:phi4_load": 38158.0,
+      "relay": 1.6,
+      "post": 2.1,
+      "assemble": 0.1,
+      "compute:phi4_stage": 535.4,
+      "claim_empty": 10001.7,
+      "compute:phi4_end": 0.2
+     },
+     "w1": {
+      "claim": 601.3,
+      "compute:phi4_load": 66025.6,
+      "relay": 73.8,
+      "post": 80.9,
+      "assemble": 0.2,
+      "compute:phi4_stage": 600.7,
+      "compute:phi4_print": 0.1,
+      "compute:phi4_end": 0.2,
+      "claim_empty": 141.3
+     }
+    }
+   }
+  }
+ },
+ "chat_test": {
+  "result": "crashed before the first reply: apply_chat_template returned a BatchEncoding; the cluster was destroyed on the way out (pods ls 0); fixed in 39e77b1"
+ }
+}

@@ -1,0 +1,108 @@
+{
+ "id": "DO-55",
+ "number": 113,
+ "date": "2026-11-12",
+ "conclusion": "Works",
+ "pool": {
+  "provider": "vast",
+  "gpu": "A100 SXM4 80 GB",
+  "location": "Montana, US",
+  "hourly_usd": 1.274,
+  "host_ram_gb": 1007,
+  "cpus": 208,
+  "disk_gb": 200,
+  "minutes": 154,
+  "cost_usd": 3.27
+ },
+ "code": {
+  "commit": "fa8d44b",
+  "machine_clone": "9a09720"
+ },
+ "model": {
+  "gguf": "kolibri-1-Q4_K.gguf",
+  "bytes": 44762823200,
+  "sha256": "510f8b5fdeefd8105437cb00ac8fed9dd0ba0b05931b8a480df0360b868aec8c",
+  "tensor_types": {
+   "F32": 401,
+   "Q4_K": 100,
+   "Q6_K": 352
+  },
+  "layer_gib": 41.19,
+  "endpoint_gib": 0.5
+ },
+ "browser": {
+  "chrome": "157.0.8103.78",
+  "adapter": "nvidia ampere",
+  "maxBufferSize": 4294967292,
+  "maxStorageBufferBindingSize": 2147483644
+ },
+ "gate1": {
+  "gib": 60.0,
+  "corrupt": 0,
+  "lost": null,
+  "extra_76_gib": true
+ },
+ "gate2": {
+  "steps": 32,
+  "tokens_equal": 32,
+  "mismatch_not_near_tie": 0,
+  "logits_rel_max": 0.00037,
+  "logits_abs_max": 0.00433,
+  "min_margin": 0.23,
+  "kernels_worst_rel": 4.148e-07,
+  "gate_tokens": true,
+  "gate_logits": true,
+  "gate_kernels": true,
+  "gate2": true
+ },
+ "gate3": {
+  "load_s": 972.3,
+  "turns": [
+   {
+    "prompt_tokens": 38,
+    "generated": 256,
+    "first_s": 0.84,
+    "ms_per_token": 124.9
+   },
+   {
+    "prompt_tokens": 47,
+    "generated": 256,
+    "first_s": 0.52,
+    "ms_per_token": 174.5
+   },
+   {
+    "prompt_tokens": 47,
+    "generated": 256,
+    "first_s": 0.61,
+    "ms_per_token": 156.9
+   }
+  ],
+  "step_compute_ms_median": 137.6,
+  "step_wait_ms_median": 7.0,
+  "peak_gpu_bytes": 45209217856,
+  "budget_gb": 49
+ },
+ "harness_decode_ms_median": 86,
+ "production": {
+  "route": "relay",
+  "turns": [
+   {
+    "tokens": 97,
+    "first_s": 1.28,
+    "tok_s": 3.5
+   },
+   {
+    "tokens": 17,
+    "first_s": 0.81,
+    "tok_s": 3.4
+   },
+   {
+    "tokens": 164,
+    "first_s": 0.81,
+    "tok_s": 3.5
+   }
+  ],
+  "coherent": true,
+  "load_after_rejoin_min": 17
+ }
+}

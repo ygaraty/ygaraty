@@ -1,0 +1,121 @@
+{
+ "experiment": "WS-47",
+ "date": "2026-11-13",
+ "machine": "workstation Radeon 680M",
+ "cases": [
+  {
+   "tensor": ".ssm_alpha.weight",
+   "tokens": 1,
+   "G_ms": 0.097,
+   "D_ms": 0.066,
+   "ratio": 0.68,
+   "max_rel": 1.6321053539287942e-07
+  },
+  {
+   "tensor": ".ssm_alpha.weight",
+   "tokens": 2,
+   "G_ms": 0.104,
+   "D_ms": 0.074,
+   "ratio": 0.712,
+   "max_rel": 2.8355831107669274e-07
+  },
+  {
+   "tensor": ".ssm_alpha.weight",
+   "tokens": 3,
+   "G_ms": 0.119,
+   "D_ms": 0.075,
+   "ratio": 0.63,
+   "max_rel": 1.5467084355155719e-07
+  },
+  {
+   "tensor": ".ssm_alpha.weight",
+   "tokens": 8,
+   "G_ms": 0.18,
+   "D_ms": 0.083,
+   "ratio": 0.461,
+   "max_rel": 1.8844956326360796e-07
+  },
+  {
+   "tensor": ".ssm_alpha.weight",
+   "tokens": 9,
+   "G_ms": 0.195,
+   "D_ms": 0.182,
+   "ratio": 0.933,
+   "max_rel": 2.0086218291193316e-07
+  },
+  {
+   "tensor": ".ssm_alpha.weight",
+   "tokens": 32,
+   "G_ms": 0.202,
+   "D_ms": 0.203,
+   "ratio": 1.005,
+   "max_rel": 1.1704152511384932e-07
+  },
+  {
+   "tensor": ".ssm_alpha.weight",
+   "tokens": 64,
+   "G_ms": 0.2,
+   "D_ms": 0.196,
+   "ratio": 0.98,
+   "max_rel": 1.3882591261945208e-07
+  },
+  {
+   "tensor": "5.ssm_beta.weight",
+   "tokens": 1,
+   "G_ms": 0.074,
+   "D_ms": 0.061,
+   "ratio": 0.824,
+   "max_rel": 1.6385211277441135e-07
+  },
+  {
+   "tensor": "5.ssm_beta.weight",
+   "tokens": 2,
+   "G_ms": 0.094,
+   "D_ms": 0.066,
+   "ratio": 0.702,
+   "max_rel": 1.6793520052007528e-07
+  },
+  {
+   "tensor": "5.ssm_beta.weight",
+   "tokens": 3,
+   "G_ms": 0.119,
+   "D_ms": 0.071,
+   "ratio": 0.597,
+   "max_rel": 1.26381918843888e-07
+  },
+  {
+   "tensor": "5.ssm_beta.weight",
+   "tokens": 8,
+   "G_ms": 0.179,
+   "D_ms": 0.065,
+   "ratio": 0.363,
+   "max_rel": 8.829642273196157e-08
+  },
+  {
+   "tensor": "5.ssm_beta.weight",
+   "tokens": 9,
+   "G_ms": 0.18,
+   "D_ms": 0.182,
+   "ratio": 1.011,
+   "max_rel": 1.5154945206421113e-07
+  },
+  {
+   "tensor": "5.ssm_beta.weight",
+   "tokens": 32,
+   "G_ms": 0.196,
+   "D_ms": 0.196,
+   "ratio": 1.0,
+   "max_rel": 2.0809513657073903e-07
+  },
+  {
+   "tensor": "5.ssm_beta.weight",
+   "tokens": 64,
+   "G_ms": 0.203,
+   "D_ms": 0.204,
+   "ratio": 1.005,
+   "max_rel": 1.694807501402103e-07
+  }
+ ],
+ "tokens_equal": true,
+ "gate": true
+}

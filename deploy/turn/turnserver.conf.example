@@ -1,0 +1,62 @@
+# coturn for direct (WebRTC) user sessions (see README.md). Copy to /etc/turnserver.conf
+# (mode 0600, owned by the turnserver user), customize every placeholder, and restart coturn.
+# The coordinator signs short-lived credentials with the same secret: set YGARATY_TURN_SECRET to it and
+# YGARATY_TURN_HOST to TURN_HOST below. Never add static `user=` accounts.
+
+listening-port=3478
+tls-listening-port=5349
+# CHANGE-ME: the host's public address, and the name its certificate is for.
+external-ip=203.0.113.10
+realm=turn.example.org
+server-name=turn.example.org
+
+# Credentials: HMAC-SHA1 of "<expiry>:<session>:<slot>" with this secret, issued by the coordinator per
+# contributor (YGARATY_TURN_TTL, default 2 h). CHANGE-ME: at least 32 random characters, e.g.
+# `openssl rand -hex 32`; the same value goes in the coordinator's YGARATY_TURN_SECRET.
+use-auth-secret
+static-auth-secret=CHANGE-ME
+stale-nonce=600
+
+# TLS for contributors behind firewalls that only allow TCP 443-like traffic (turns:, TCP 5349). The
+# data channels are DTLS-encrypted end to end either way. CHANGE-ME: the certificate paths.
+cert=/etc/letsencrypt/live/turn.example.org/fullchain.pem
+pkey=/etc/letsencrypt/live/turn.example.org/privkey.pem
+no-tlsv1
+no-tlsv1_1
+no-dtls
+
+# Relay ports: open these (UDP) in the firewall, with 3478/udp, 3478/tcp and 5349/tcp, and nothing else.
+min-port=49160
+max-port=49260
+
+# Never relay to private, loopback, link-local or multicast addresses, nor to the coordinator when it is
+# another host: TURN must not become a way into our network. CHANGE-ME: the coordinator's address (delete
+# that line when coturn runs on the coordinator's host). Do NOT deny this host's own public address: in a
+# "Direct, private" session both contributors relay through this server, so each one's peer is a relayed
+# address on this host (DO-43 found it). Keep this host's other services bound to loopback, which
+# no-loopback-peers covers.
+no-multicast-peers
+no-loopback-peers
+denied-peer-ip=0.0.0.0-0.255.255.255
+denied-peer-ip=10.0.0.0-10.255.255.255
+denied-peer-ip=100.64.0.0-100.127.255.255
+denied-peer-ip=127.0.0.0-127.255.255.255
+denied-peer-ip=169.254.0.0-169.254.255.255
+denied-peer-ip=172.16.0.0-172.31.255.255
+denied-peer-ip=192.168.0.0-192.168.255.255
+# denied-peer-ip=198.51.100.20
+denied-peer-ip=::1
+denied-peer-ip=fc00::-fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+denied-peer-ip=fe80::-febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+
+# Quotas: allocations per credential and in total, and bytes per second per allocation. Decoding needs
+# little (one hidden state per token), but a long prompt's prefill sends tens of MB at once; 12.5 MB/s
+# (100 Mbit/s) keeps prefill fast and bounds what one leaked credential can relay.
+user-quota=4
+total-quota=200
+max-bps=12500000
+
+no-cli
+fingerprint
+simple-log
+log-file=/var/log/turnserver/turn.log

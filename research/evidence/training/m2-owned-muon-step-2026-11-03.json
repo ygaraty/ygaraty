@@ -1,0 +1,76 @@
+{
+ "experiment": "M-2 stage 1 (experiment 74)",
+ "date": "2026-11-03",
+ "host": "omarchy, Ryzen 9 PRO 6950H; OpenBLAS 0.3.34 (scipy-openblas), float64 NumPy",
+ "setup": "one owned layer of the 30.3M translator (d 512, hidden 2,048), tf_owned_step summing 8 bands, 15 timed steps after 2 warm-ups, 2 rotated repeats per thread count; threads pinned to separate physical cores (taskset -c 2,4,6,8)",
+ "medians_ms": {
+  "1": {
+   "encoder-adam": 53.4,
+   "encoder-muon5": 594.2,
+   "encoder-muon2": 279.4,
+   "decoder-adam": 67.9,
+   "decoder-muon5": 794.2,
+   "decoder-muon2": 373.2
+  },
+  "2": {
+   "encoder-adam": 55.0,
+   "encoder-muon5": 377.3,
+   "encoder-muon2": 191.6,
+   "decoder-adam": 68.5,
+   "decoder-muon5": 507.7,
+   "decoder-muon2": 256.6
+  },
+  "4": {
+   "encoder-adam": 54.6,
+   "encoder-muon5": 261.4,
+   "encoder-muon2": 146.4,
+   "decoder-adam": 68.4,
+   "decoder-muon5": 351.0,
+   "decoder-muon2": 192.2
+  }
+ },
+ "gate_threshold": "predicted update <= 1.3 x 4.64 s (delta <= 1.39 s), delta = larger of encoder/decoder extra step time at 4 threads",
+ "gate": {
+  "t1-ns5": {
+   "delta_s": 0.726,
+   "predicted_update_s": 5.366,
+   "ratio": 1.157,
+   "go": true
+  },
+  "t1-ns2": {
+   "delta_s": 0.305,
+   "predicted_update_s": 4.945,
+   "ratio": 1.066,
+   "go": true
+  },
+  "t2-ns5": {
+   "delta_s": 0.439,
+   "predicted_update_s": 5.079,
+   "ratio": 1.095,
+   "go": true
+  },
+  "t2-ns2": {
+   "delta_s": 0.188,
+   "predicted_update_s": 4.828,
+   "ratio": 1.041,
+   "go": true
+  },
+  "t4-ns5": {
+   "delta_s": 0.283,
+   "predicted_update_s": 4.923,
+   "ratio": 1.061,
+   "go": true
+  },
+  "t4-ns2": {
+   "delta_s": 0.124,
+   "predicted_update_s": 4.764,
+   "ratio": 1.027,
+   "go": true
+  }
+ },
+ "verdict": "go for stage 3: delta 0.282 s at 4 threads, 5 steps -> 4.92 s, 1.06x",
+ "correctness": "tests/test_owned_muon.py: matrices within rtol 1e-10 of ygaraty/reference/muon.py (encoder 5 steps, decoder 2 steps, 2 updates)",
+ "code": "1c5d451+dirty (owned Muon in ygaraty/runtime/transformer_kernels.py, committed with this write-up)",
+ "bench_sha256": "5379fc6c6fc7ba3fffc184fe4252e5943bf3e680d880643928308127856e435b",
+ "raw": "runs/experiments/M-2/omarchy-20261103-175323/ (local, not in git)"
+}

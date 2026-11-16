@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+node_modules/
+_build/
+.pytest_cache/
+.ruff_cache/
+.env*
+*.sqlite*
+runs/
+/.venv-webgpu-example/
+
+# Local TURN deployment secrets and certificates
+/deploy/turn/turnserver.conf
+/deploy/turn/*.key
+/deploy/turn/*.pem

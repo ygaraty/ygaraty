@@ -1,0 +1,1190 @@
+{
+ "experiment": "DO-25",
+ "number": 112,
+ "date": "2026-11-10",
+ "hosts": {
+  "stage_A": "Vast.ai RTX 3060 12 GB, Poland (machine 20938)",
+  "stage_B": "Vast.ai RTX 3060 Ti 8 GB, Norway (offer 155565)",
+  "coordinator": "DigitalOcean s-4vcpu-8gb ams3, STUN/TURN (coturn)",
+  "link": {
+   "local": "srflx",
+   "remote": "srflx",
+   "rtt_ms": 57.0
+  },
+  "amendment": "before any main run: stage B moved from a second Polish 3060 behind the same public IP (link via TURN, 64 ms RTT) to Norway (direct srflx-srflx, 58 ms RTT)"
+ },
+ "model": "Qwen3.5-9B Q4_K_M (unsloth 3885219), splits 0,16,32, one conversation, 64 tokens, default rows-per-thread kernel, --logit-digests",
+ "code": "e346637 on every host",
+ "arms": {
+  "T1": "plain decoding",
+  "S3": "--draft ngram:n=3,k=8,min=2,adapt=cost"
+ },
+ "order": "three repeats; per prompt T1 S3 / S3 T1 / T1 S3; prompts edit, summary, chat, code, rename, notes",
+ "results": {
+  "edit": {
+   "T1": {
+    "ms": [
+     284.4,
+     277.8,
+     281.0
+    ],
+    "median": 281.0,
+    "tokens_per_pass": null,
+    "peak": 3012926080,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9977,
+        "rttMs": 58.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 1589248,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9977,
+        "rttMs": 57.0
+       }
+      ],
+      "hiddenBytesSent": 1589248
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 837,
+        "rttMs": 60.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 1589248,
+        "relinks": 0,
+        "openedMs": 837,
+        "rttMs": 57.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   },
+   "S3": {
+    "ms": [
+     99.1,
+     95.0,
+     99.5
+    ],
+    "median": 99.1,
+    "tokens_per_pass": 3.3157894736842106,
+    "peak": 3047219840,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9929,
+        "rttMs": 59.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 1720320,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9929,
+        "rttMs": 59.0
+       }
+      ],
+      "hiddenBytesSent": 1720320
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 884,
+        "rttMs": 64.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 1720320,
+        "relinks": 0,
+        "openedMs": 884,
+        "rttMs": 59.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   }
+  },
+  "summary": {
+   "T1": {
+    "ms": [
+     286.1,
+     283.4,
+     289.9
+    ],
+    "median": 286.1,
+    "tokens_per_pass": null,
+    "peak": 3023944320,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 950,
+        "rttMs": 57.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 6569984,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 950,
+        "rttMs": 57.0
+       }
+      ],
+      "hiddenBytesSent": 6569984
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 912,
+        "rttMs": 58.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 6569984,
+        "relinks": 0,
+        "openedMs": 912,
+        "rttMs": 57.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   },
+   "S3": {
+    "ms": [
+     298.1,
+     297.9,
+     282.0
+    ],
+    "median": 297.9,
+    "tokens_per_pass": 1.0,
+    "peak": 3031892608,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 920,
+        "rttMs": 58.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 6569984,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 920,
+        "rttMs": 57.0
+       }
+      ],
+      "hiddenBytesSent": 6569984
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 881,
+        "rttMs": 59.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 6569984,
+        "relinks": 0,
+        "openedMs": 881,
+        "rttMs": 58.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   }
+  },
+  "chat": {
+   "T1": {
+    "ms": [
+     288.0,
+     290.7,
+     287.8
+    ],
+    "median": 288.0,
+    "tokens_per_pass": null,
+    "peak": 3011156608,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 925,
+        "rttMs": 60.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 704512,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 925,
+        "rttMs": 60.0
+       }
+      ],
+      "hiddenBytesSent": 704512
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 897,
+        "rttMs": 60.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 704512,
+        "relinks": 0,
+        "openedMs": 897,
+        "rttMs": 60.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   },
+   "S3": {
+    "ms": [
+     281.8,
+     279.7,
+     284.3
+    ],
+    "median": 281.8,
+    "tokens_per_pass": 1.0,
+    "peak": 3019104896,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9687,
+        "rttMs": 58.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 704512,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9687,
+        "rttMs": 63.0
+       }
+      ],
+      "hiddenBytesSent": 704512
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 847,
+        "rttMs": 66.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 704512,
+        "relinks": 0,
+        "openedMs": 847,
+        "rttMs": 58.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   }
+  },
+  "code": {
+   "T1": {
+    "ms": [
+     290.6,
+     293.8,
+     280.2
+    ],
+    "median": 290.6,
+    "tokens_per_pass": null,
+    "peak": 3013270144,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 984,
+        "rttMs": 57.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 1761280,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 984,
+        "rttMs": 57.0
+       }
+      ],
+      "hiddenBytesSent": 1761280
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 907,
+        "rttMs": 62.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 1761280,
+        "relinks": 0,
+        "openedMs": 907,
+        "rttMs": 57.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   },
+   "S3": {
+    "ms": [
+     77.6,
+     80.1,
+     78.1
+    ],
+    "median": 78.1,
+    "tokens_per_pass": 4.5,
+    "peak": 3047563904,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9654,
+        "rttMs": 60.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 1826816,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9654,
+        "rttMs": 60.0
+       }
+      ],
+      "hiddenBytesSent": 1826816
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 898,
+        "rttMs": 66.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 1826816,
+        "relinks": 0,
+        "openedMs": 898,
+        "rttMs": 59.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   }
+  },
+  "rename": {
+   "T1": {
+    "ms": [
+     284.5,
+     315.9,
+     282.4
+    ],
+    "median": 284.5,
+    "tokens_per_pass": null,
+    "peak": 3013302912,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 10354,
+        "rttMs": 64.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": false,
+        "state": "closed",
+        "dropped": "disconnected",
+        "bytesSent": 1777664,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 10354
+       }
+      ],
+      "hiddenBytesSent": 1777664
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 899,
+        "rttMs": 63.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 1777664,
+        "relinks": 0,
+        "openedMs": 899,
+        "rttMs": 57.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   },
+   "S3": {
+    "ms": [
+     129.2,
+     200.1,
+     127.9
+    ],
+    "median": 129.2,
+    "tokens_per_pass": 2.739130434782609,
+    "peak": 3047596672,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 10004,
+        "rttMs": 60.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 2154496,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 10004,
+        "rttMs": 60.0
+       }
+      ],
+      "hiddenBytesSent": 2154496
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 844,
+        "rttMs": 67.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 2154496,
+        "relinks": 0,
+        "openedMs": 844,
+        "rttMs": 60.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   }
+  },
+  "notes": {
+   "T1": {
+    "ms": [
+     286.5,
+     295.2,
+     283.0
+    ],
+    "median": 286.5,
+    "tokens_per_pass": null,
+    "peak": 3016317568,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9791,
+        "rttMs": 59.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 3284992,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 9791,
+        "rttMs": 59.0
+       }
+      ],
+      "hiddenBytesSent": 3284992
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 900,
+        "rttMs": 61.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 3284992,
+        "relinks": 0,
+        "openedMs": 900,
+        "rttMs": 59.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   },
+   "S3": {
+    "ms": [
+     270.1,
+     276.1,
+     328.0
+    ],
+    "median": 276.1,
+    "tokens_per_pass": 1.0677966101694916,
+    "peak": 3050611328,
+    "routes": [
+     {
+      "atStart": [
+       {
+        "peer": 1,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 994,
+        "rttMs": 59.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 1,
+        "open": false,
+        "state": "closed",
+        "dropped": "disconnected",
+        "bytesSent": 3399680,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 994
+       }
+      ],
+      "hiddenBytesSent": 3399680
+     },
+     {
+      "atStart": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 0,
+        "relinks": 0,
+        "openedMs": 918,
+        "rttMs": 66.0
+       }
+      ],
+      "atEnd": [
+       {
+        "peer": 0,
+        "open": true,
+        "state": "connected",
+        "local": "srflx",
+        "remote": "srflx",
+        "protocol": "udp",
+        "bytesSent": 0,
+        "bytesReceived": 3399680,
+        "relinks": 0,
+        "openedMs": 918,
+        "rttMs": 59.0
+       }
+      ],
+      "hiddenBytesSent": 0
+     }
+    ]
+   }
+  }
+ },
+ "gate": {
+  "edit: every run's tokens and logits digests equal T1's": true,
+  "edit: S3 <= 0.70 T1": true,
+  "edit: peak application GPU memory per stage under 4.0 GB": true,
+  "edit: every contributor passed the self-test": true,
+  "summary: every run's tokens and logits digests equal T1's": true,
+  "summary: S3 <= 1.03 T1": false,
+  "summary: peak application GPU memory per stage under 4.0 GB": true,
+  "summary: every contributor passed the self-test": true,
+  "chat: every run's tokens and logits digests equal T1's": true,
+  "chat: S3 <= 1.03 T1": true,
+  "chat: peak application GPU memory per stage under 4.0 GB": true,
+  "chat: every contributor passed the self-test": true,
+  "code: every run's tokens and logits digests equal T1's": true,
+  "code: S3 <= 0.70 T1": true,
+  "code: peak application GPU memory per stage under 4.0 GB": true,
+  "code: every contributor passed the self-test": true,
+  "rename: every run's tokens and logits digests equal T1's": true,
+  "rename: S3 <= 1.03 T1": true,
+  "rename: peak application GPU memory per stage under 4.0 GB": true,
+  "rename: every contributor passed the self-test": true,
+  "notes: every run's tokens and logits digests equal T1's": true,
+  "notes: S3 <= 1.03 T1": true,
+  "notes: peak application GPU memory per stage under 4.0 GB": true,
+  "notes: every contributor passed the self-test": true
+ },
+ "passed": false,
+ "drafting_run1": {
+  "edit": {
+   "passes": 19,
+   "passes_with_drafts": 8,
+   "drafts_sent": 56,
+   "drafts_kept": 44,
+   "passes_with_replay": 2
+  },
+  "summary": {
+   "passes": 63,
+   "passes_with_drafts": 0,
+   "drafts_sent": 0,
+   "drafts_kept": 0,
+   "passes_with_replay": 0
+  },
+  "chat": {
+   "passes": 63,
+   "passes_with_drafts": 0,
+   "drafts_sent": 0,
+   "drafts_kept": 0,
+   "passes_with_replay": 0
+  },
+  "code": {
+   "passes": 14,
+   "passes_with_drafts": 8,
+   "drafts_sent": 55,
+   "drafts_kept": 49,
+   "passes_with_replay": 1
+  },
+  "rename": {
+   "passes": 23,
+   "passes_with_drafts": 11,
+   "drafts_sent": 68,
+   "drafts_kept": 40,
+   "passes_with_replay": 6
+  },
+  "notes": {
+   "passes": 59,
+   "passes_with_drafts": 2,
+   "drafts_sent": 12,
+   "drafts_kept": 4,
+   "passes_with_replay": 2
+  }
+ },
+ "single_row_compute_ms_median_per_run_stage_A_B": {
+  "edit/T1-1": [
+   68.1,
+   92.5
+  ],
+  "edit/T1-2": [
+   50.5,
+   90.8
+  ],
+  "edit/T1-3": [
+   54.4,
+   90.6
+  ],
+  "edit/S3-1": [
+   39.6,
+   66.5
+  ],
+  "edit/S3-2": [
+   32.9,
+   66
+  ],
+  "edit/S3-3": [
+   39.1,
+   60.4
+  ],
+  "summary/T1-1": [
+   68.8,
+   89.7
+  ],
+  "summary/T1-2": [
+   65.1,
+   89.9
+  ],
+  "summary/T1-3": [
+   63.9,
+   90
+  ],
+  "summary/S3-1": [
+   73.7,
+   92
+  ],
+  "summary/S3-2": [
+   74,
+   90.7
+  ],
+  "summary/S3-3": [
+   56.9,
+   93.7
+  ],
+  "chat/T1-1": [
+   57.6,
+   90.5
+  ],
+  "chat/T1-2": [
+   65.8,
+   90.7
+  ],
+  "chat/T1-3": [
+   58.6,
+   95.2
+  ],
+  "chat/S3-1": [
+   58.4,
+   89.8
+  ],
+  "chat/S3-2": [
+   54.8,
+   93.1
+  ],
+  "chat/S3-3": [
+   54.8,
+   90.7
+  ],
+  "code/T1-1": [
+   66.8,
+   92.6
+  ],
+  "code/T1-2": [
+   55.7,
+   91.4
+  ],
+  "code/T1-3": [
+   63.3,
+   88.7
+  ],
+  "code/S3-1": [
+   35.8,
+   58.8
+  ],
+  "code/S3-2": [
+   35.7,
+   52.1
+  ],
+  "code/S3-3": [
+   35.3,
+   63
+  ],
+  "rename/T1-1": [
+   51.3,
+   93.2
+  ],
+  "rename/T1-2": [
+   62.1,
+   92.2
+  ],
+  "rename/T1-3": [
+   57.7,
+   92.1
+  ],
+  "rename/S3-1": [
+   39.8,
+   54
+  ],
+  "rename/S3-2": [
+   39.4,
+   56.3
+  ],
+  "rename/S3-3": [
+   39.1,
+   55.8
+  ],
+  "notes/T1-1": [
+   69.7,
+   88.9
+  ],
+  "notes/T1-2": [
+   68.6,
+   93
+  ],
+  "notes/T1-3": [
+   65.3,
+   88.9
+  ],
+  "notes/S3-1": [
+   63.5,
+   73.2
+  ],
+  "notes/S3-2": [
+   68.6,
+   75.5
+  ],
+  "notes/S3-3": [
+   48.6,
+   87.7
+  ]
+ },
+ "rehearsals": {
+  "turn_pair": "edit/R3-1-turn-pair: 16 tokens, about 250 ms per plain token, link srflx-relay 64 ms",
+  "new_pair": "edit/R3-1-rehearsal: 16 tokens, link srflx-srflx 58 ms"
+ },
+ "cost_usd_estimate": 0.43,
+ "raw": "runs/experiments/DO-25/remote-20261110-1047/ (not in git); drive_remote.py, gate.py in runs/experiments/DO-25/"
+}

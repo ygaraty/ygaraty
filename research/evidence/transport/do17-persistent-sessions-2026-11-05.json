@@ -1,0 +1,542 @@
+{
+ "id": "DO-17",
+ "date": "2026-11-05",
+ "host": "omarchy (workstation), emulated links (relay/cmd/latency-proxy, half the round trip each way, no bandwidth limit)",
+ "code": {
+  "commit": "d314641",
+  "run_py_diagnostics": "phi4_run reports a timed-out job (added for the resume)",
+  "driver_sha256": "e899cefbb02081bc"
+ },
+ "arms": {
+  "A": "step by step: phi4_run --handoff, relay, float32 wire, pushed inputs, eager claims",
+  "B": "persistent: phi4_run --persistent, phi4_loop per owner, named relay handoffs"
+ },
+ "model": "tests.test_phi4_kernels.reference_model with TINY's shapes and a 512-token context (3 layers, hidden 64, 8 heads over 2 KV heads, vocab 97), float64 owners",
+ "sessions": "128-token prompt (numpy default_rng(2026), vocab 97), 128 new tokens; per job 1 warmup + 5 measured",
+ "order": "per round trip A B B A; rtt 25's last A ran in the resume, after a hang",
+ "prompt": [
+  82,
+  17,
+  2,
+  62,
+  35,
+  45,
+  7,
+  35,
+  62,
+  34,
+  80,
+  76,
+  68,
+  87,
+  69,
+  17,
+  83,
+  63,
+  9,
+  28,
+  16,
+  93,
+  70,
+  89,
+  27,
+  61,
+  58,
+  73,
+  11,
+  49,
+  62,
+  80,
+  63,
+  43,
+  44,
+  32,
+  15,
+  26,
+  14,
+  21,
+  82,
+  51,
+  8,
+  41,
+  26,
+  64,
+  80,
+  1,
+  45,
+  43,
+  96,
+  35,
+  16,
+  18,
+  46,
+  57,
+  31,
+  42,
+  64,
+  29,
+  93,
+  20,
+  90,
+  84,
+  92,
+  77,
+  51,
+  58,
+  20,
+  33,
+  44,
+  91,
+  77,
+  54,
+  57,
+  41,
+  40,
+  87,
+  0,
+  30,
+  39,
+  67,
+  39,
+  30,
+  7,
+  25,
+  10,
+  67,
+  41,
+  22,
+  52,
+  47,
+  45,
+  56,
+  60,
+  18,
+  15,
+  70,
+  94,
+  53,
+  43,
+  60,
+  3,
+  36,
+  34,
+  40,
+  72,
+  47,
+  83,
+  45,
+  3,
+  65,
+  77,
+  55,
+  90,
+  40,
+  77,
+  0,
+  3,
+  77,
+  84,
+  50,
+  73,
+  31,
+  70,
+  48,
+  29,
+  9
+ ],
+ "jobs": [
+  {
+   "rtt_ms": 1,
+   "arm": "A",
+   "seconds": 12.5,
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 14.45,
+   "itl_p95_ms": 17.88,
+   "first_token_s": [
+    0.018,
+    0.018,
+    0.018,
+    0.02,
+    0.018
+   ]
+  },
+  {
+   "rtt_ms": 1,
+   "arm": "B",
+   "seconds": 5.5,
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 5.94,
+   "itl_p95_ms": 6.09,
+   "first_token_s": [
+    0.012,
+    0.013,
+    0.012,
+    0.011,
+    0.012
+   ]
+  },
+  {
+   "rtt_ms": 1,
+   "arm": "B",
+   "seconds": 5.5,
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 5.99,
+   "itl_p95_ms": 6.17,
+   "first_token_s": [
+    0.013,
+    0.013,
+    0.012,
+    0.013,
+    0.012
+   ]
+  },
+  {
+   "rtt_ms": 1,
+   "arm": "A",
+   "seconds": 12.5,
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 14.58,
+   "itl_p95_ms": 15.22,
+   "first_token_s": [
+    0.019,
+    0.018,
+    0.017,
+    0.017,
+    0.019
+   ]
+  },
+  {
+   "rtt_ms": 10,
+   "arm": "A",
+   "seconds": 39.6,
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 49.7,
+   "itl_p95_ms": 51.2,
+   "first_token_s": [
+    0.052,
+    0.054,
+    0.054,
+    0.052,
+    0.054
+   ]
+  },
+  {
+   "rtt_ms": 10,
+   "arm": "B",
+   "seconds": 19.1,
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 23.52,
+   "itl_p95_ms": 24.55,
+   "first_token_s": [
+    0.03,
+    0.03,
+    0.03,
+    0.029,
+    0.03
+   ]
+  },
+  {
+   "rtt_ms": 10,
+   "arm": "B",
+   "seconds": 19.1,
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 23.62,
+   "itl_p95_ms": 24.6,
+   "first_token_s": [
+    0.029,
+    0.029,
+    0.029,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "rtt_ms": 10,
+   "arm": "A",
+   "seconds": 39.6,
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 49.69,
+   "itl_p95_ms": 51.23,
+   "first_token_s": [
+    0.054,
+    0.058,
+    0.054,
+    0.053,
+    0.055
+   ]
+  },
+  {
+   "rtt_ms": 25,
+   "arm": "A",
+   "seconds": 90.8,
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 116.11,
+   "itl_p95_ms": 117.21,
+   "first_token_s": [
+    0.118,
+    0.121,
+    0.119,
+    0.119,
+    0.119
+   ]
+  },
+  {
+   "rtt_ms": 25,
+   "arm": "B",
+   "seconds": 44.7,
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 56.33,
+   "itl_p95_ms": 56.98,
+   "first_token_s": [
+    0.064,
+    0.064,
+    0.063,
+    0.063,
+    0.064
+   ]
+  },
+  {
+   "rtt_ms": 25,
+   "arm": "B",
+   "seconds": 44.2,
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 55.89,
+   "itl_p95_ms": 56.59,
+   "first_token_s": [
+    0.063,
+    0.063,
+    0.062,
+    0.061,
+    0.063
+   ]
+  },
+  {
+   "rtt_ms": 25,
+   "arm": "A",
+   "seconds": 89.3,
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 113.75,
+   "itl_p95_ms": 114.8,
+   "first_token_s": [
+    0.117,
+    0.117,
+    0.117,
+    0.117,
+    0.118
+   ]
+  },
+  {
+   "rtt_ms": 50,
+   "arm": "A",
+   "seconds": 164.5,
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 210.9,
+   "itl_p95_ms": 212.17,
+   "first_token_s": [
+    0.214,
+    0.215,
+    0.213,
+    0.214,
+    0.215
+   ]
+  },
+  {
+   "rtt_ms": 50,
+   "arm": "B",
+   "seconds": 81.9,
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 103.68,
+   "itl_p95_ms": 104.38,
+   "first_token_s": [
+    0.11,
+    0.11,
+    0.111,
+    0.111,
+    0.111
+   ]
+  },
+  {
+   "rtt_ms": 50,
+   "arm": "B",
+   "seconds": 81.9,
+   "steps": 7,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 103.85,
+   "itl_p95_ms": 104.6,
+   "first_token_s": [
+    0.11,
+    0.111,
+    0.111,
+    0.111,
+    0.111
+   ]
+  },
+  {
+   "rtt_ms": 50,
+   "arm": "A",
+   "seconds": 165.5,
+   "steps": 774,
+   "retries": 0,
+   "rejected": 0,
+   "measured_sessions": 5,
+   "itl_median_ms": 211.83,
+   "itl_p95_ms": 214.89,
+   "first_token_s": [
+    0.218,
+    0.217,
+    0.217,
+    0.212,
+    0.213
+   ]
+  }
+ ],
+ "by_rtt": {
+  "1": {
+   "A": {
+    "jobs": 2,
+    "sessions": 10,
+    "median_ms": 14.518976211547852,
+    "p95_ms": 15.85531234741211,
+    "retries": 0,
+    "rejected": 0,
+    "first_token_median_s": 0.01826488971710205
+   },
+   "B": {
+    "jobs": 2,
+    "sessions": 10,
+    "median_ms": 5.961894989013672,
+    "p95_ms": 6.140947341918945,
+    "retries": 0,
+    "rejected": 0,
+    "first_token_median_s": 0.012398719787597656
+   },
+   "p95_reduction": 0.6126883402002947,
+   "median_reduction": 0.589372218664302
+  },
+  "10": {
+   "A": {
+    "jobs": 2,
+    "sessions": 10,
+    "median_ms": 49.695730209350586,
+    "p95_ms": 51.20992660522461,
+    "retries": 0,
+    "rejected": 0,
+    "first_token_median_s": 0.0538783073425293
+   },
+   "B": {
+    "jobs": 2,
+    "sessions": 10,
+    "median_ms": 23.576021194458008,
+    "p95_ms": 24.581193923950195,
+    "retries": 0,
+    "rejected": 0,
+    "first_token_median_s": 0.029623985290527344
+   },
+   "p95_reduction": 0.5199916197215886,
+   "median_reduction": 0.5255926194234284
+  },
+  "25": {
+   "A": {
+    "jobs": 2,
+    "sessions": 10,
+    "median_ms": 114.84622955322266,
+    "p95_ms": 116.99438095092773,
+    "retries": 0,
+    "rejected": 0,
+    "first_token_median_s": 0.11800289154052734
+   },
+   "B": {
+    "jobs": 2,
+    "sessions": 10,
+    "median_ms": 56.110382080078125,
+    "p95_ms": 56.88667297363281,
+    "retries": 0,
+    "rejected": 0,
+    "first_token_median_s": 0.06310224533081055
+   },
+   "p95_reduction": 0.5137657679688614,
+   "median_reduction": 0.5114303508407723
+  },
+  "50": {
+   "A": {
+    "jobs": 2,
+    "sessions": 10,
+    "median_ms": 211.228609085083,
+    "p95_ms": 214.53499794006348,
+    "retries": 0,
+    "rejected": 0,
+    "first_token_median_s": 0.2146693468093872
+   },
+   "B": {
+    "jobs": 2,
+    "sessions": 10,
+    "median_ms": 103.7684679031372,
+    "p95_ms": 104.52961921691895,
+    "retries": 0,
+    "rejected": 0,
+    "first_token_median_s": 0.11072063446044922
+   },
+   "p95_reduction": 0.512761925930042,
+   "median_reduction": 0.5087385730910191
+  }
+ },
+ "gate": {
+  "p95_30pct_at_25_and_50": true,
+  "identical_tokens": true,
+  "no_rejected": true,
+  "failed_jobs": []
+ },
+ "hang": {
+  "job": "rtt 25, 4th job (arm A, step by step), first start",
+  "outcome": "a worker's communicate() reached the 1,800 s limit; stderr lost; did not recur in its rerun"
+ },
+ "tokens_identical_across_all_sessions": true,
+ "tests": [
+  "tests/test_phi4_persistent.py: same tokens as the step path (1, 2, 3 owners; chunks), eos and max_new, a repeated publish changes nothing, a stalled owner fails its task with an explicit error",
+  "73 tests across the Phi-4 suites and tests/test_handoff.py pass"
+ ]
+}

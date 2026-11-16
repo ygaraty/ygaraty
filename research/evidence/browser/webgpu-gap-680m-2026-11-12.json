@@ -1,0 +1,89 @@
+{
+ "experiment": "WS-30",
+ "date": "2026-11-12",
+ "device": "Radeon 680M (Ryzen 9 PRO 6950H, RADV), shared memory",
+ "model": "Qwen3.5-9B",
+ "engines": {
+  "llama_cpp": {
+   "build": "b12318 Vulkan",
+   "gguf": "Qwen3.5-9B-Q4_K_M.gguf",
+   "tok_s": {
+    "0": 12.30249,
+    "1024": 12.18897
+   }
+  },
+  "ours": {
+   "code": "283965a",
+   "path": "qwen35_session local --chat --splits 0,32 (one stage, chat path)",
+   "ms_per_token": {
+    "short": [
+     124.71938133239746,
+     124.81331825256348,
+     126.67965888977051
+    ],
+    "long": [
+     125.81157684326172,
+     125.85115432739258,
+     128.1564235687256
+    ]
+   },
+   "first_token_s": {
+    "short": [
+     0.5921103954315186,
+     0.5946207046508789,
+     0.5973315238952637
+    ],
+    "long": [
+     10.579973936080933,
+     10.592447757720947,
+     10.878836870193481
+    ]
+   },
+   "tok_s": {
+    "short": 8.01196550176216,
+    "long": 7.945894539819421
+   }
+  },
+  "webllm": {
+   "version": "0.2.88",
+   "model": "Qwen3.5-9B-q4f16_1-MLC",
+   "lib": "v0_2_87/base cs1k",
+   "short_runs": [
+    {
+     "prompt_tokens": 36.0,
+     "completion_tokens": 124.0,
+     "decode_tokens_per_s": 8.911764833613475,
+     "prefill_tokens_per_s": 25.32651862374264,
+     "time_to_first_token_s": 1.421435000002384
+    },
+    {
+     "prompt_tokens": 36.0,
+     "completion_tokens": 124.0,
+     "decode_tokens_per_s": 8.914671374567906,
+     "prefill_tokens_per_s": 25.519969376640596,
+     "time_to_first_token_s": 1.4106599999666214
+    }
+   ],
+   "tok_s": {
+    "short": 8.91321810409069
+   },
+   "long": "failed twice: GPU ring timeout (amdgpu gfx ring reset) during the ~1,036-token prompt, with prefill chunks of 1,024 and 128"
+  }
+ },
+ "bytes_per_token_gb": {
+  "gguf_q4_k_m": 5.097424896,
+  "webllm_q4f16_1": 4.465910784
+ },
+ "share_of_native": {
+  "ours_short": 0.6512474711836514,
+  "ours_long": 0.6518922058073341,
+  "webllm_short": 0.7245052102534275
+ },
+ "effective_gb_s": {
+  "llama_short": 62.71101880879104,
+  "llama_long": 62.13235913459712,
+  "ours_short": 40.84039241457557,
+  "ours_long": 40.50360064826598,
+  "webllm_short": 39.80563685120265
+ }
+}

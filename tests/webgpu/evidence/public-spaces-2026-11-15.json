@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-15",
+  "models": [
+    {
+      "model": "s5-nano",
+      "manifest_url": "https://ygaraty-models.fra1.digitaloceanspaces.com/s5-nano/prepared/v1/2-workers/bundle.json",
+      "manifest_sha256": "685880345d44c9d6e7c3affa00e6e12b8ca3995932a9c191d6482da9a9917ff5",
+      "manifest_http_status": 200,
+      "object_head_checks": 461,
+      "object_head_successes": 461,
+      "context_tokens": 4096,
+      "generation_cap": 256,
+      "conversation_slots": 1,
+      "weight_budget_gib_per_contributor": 3,
+      "stage_layers": [
+        [
+          0,
+          16
+        ],
+        [
+          16,
+          32
+        ]
+      ],
+      "stage_weight_bytes": [
+        1609649152,
+        1609659392
+      ],
+      "public_metadata_admission": "passed",
+      "weight_payload_downloaded": false,
+      "real_model_inference_run": false
+    },
+    {
+      "model": "qwen3.5-9b",
+      "manifest_url": "https://ygaraty-models.fra1.digitaloceanspaces.com/qwen3.5-9b/prepared/v1/2-workers/bundle.json",
+      "manifest_sha256": "6ea908583d9c28771c755128d6d797caefe7dd6a0b574116e3405ecfc3887c97",
+      "manifest_http_status": 200,
+      "object_head_checks": 469,
+      "object_head_successes": 469,
+      "context_tokens": 4096,
+      "generation_cap": 256,
+      "conversation_slots": 1,
+      "weight_budget_gib_per_contributor": 4,
+      "stage_layers": [
+        [
+          0,
+          17
+        ],
+        [
+          17,
+          32
+        ]
+      ],
+      "stage_weight_bytes": [
+        2834695936,
+        2834858240
+      ],
+      "public_metadata_admission": "passed",
+      "weight_payload_downloaded": false,
+      "real_model_inference_run": false
+    }
+  ]
+}

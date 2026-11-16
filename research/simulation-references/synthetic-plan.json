@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "graph": {
+    "tasks": [
+      {
+        "id": "out",
+        "op": "scale",
+        "inputs": [
+          {
+            "value": "x",
+            "region": null
+          }
+        ],
+        "shape": [
+          2,
+          2
+        ],
+        "attrs": {}
+      }
+    ],
+    "leaves": {
+      "x": {
+        "shape": [
+          2,
+          2
+        ]
+      }
+    },
+    "reusable": [
+      "x"
+    ],
+    "owner_keys": [],
+    "owned": false,
+    "replicated": false
+  },
+  "graph_sha256": "3d2fb862276c24725512c46ef693864b82971c569cfb558d7f5830fc500b030a",
+  "provenance": {
+    "purpose": "Synthetic replay demonstration; not a real training reference"
+  }
+}

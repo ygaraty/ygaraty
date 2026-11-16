@@ -1,0 +1,559 @@
+{
+ "experiment": 62,
+ "plan": "059-b (pair holders upload slots)",
+ "date": "2026-11-01",
+ "machine": "workstation (Ryzen 9 PRO 6950H), loopback with latency-proxy",
+ "code_commit": "39eacf7aadab6dda80422bd278ef9a4b908eed35 plus this commit's tools",
+ "settings": {
+  "recipe": "tiny 1m-seed2026-v2k, embedding 128, hidden 384, 2 layers, 4 heads, band 16",
+  "workers": 8,
+  "rtt_ms": 50,
+  "down_mbps": 100,
+  "up_mbps": 20,
+  "strong": 2,
+  "strong_up_mbps": 100,
+  "strong_cores": 8,
+  "strong_gflops": 40,
+  "worker_gflops": 10,
+  "handoff": false,
+  "placement": "capacity",
+  "steps": 12,
+  "steady": "median of updates 2-10"
+ },
+ "arms": {
+  "P2": {
+   "pairs": "always",
+   "strong_uploaders": 2
+  },
+  "P4": {
+   "pairs": "always",
+   "strong_uploaders": 4
+  },
+  "N2": {
+   "pairs": "never",
+   "strong_uploaders": 2
+  }
+ },
+ "runs": [
+  {
+   "name": "r1-P2",
+   "arm": "P2",
+   "repeat": 1,
+   "seconds_per_update": {
+    "2": 3.929,
+    "3": 3.776,
+    "4": 3.9128,
+    "5": 3.8896,
+    "6": 4.0193,
+    "7": 4.0719,
+    "8": 4.1353,
+    "9": 3.9715,
+    "10": 4.0473,
+    "11": 2.0255,
+    "12": 7.0639
+   },
+   "steady_s": 3.9715,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r1-P4",
+   "arm": "P4",
+   "repeat": 1,
+   "seconds_per_update": {
+    "2": 3.8375,
+    "3": 3.8868,
+    "4": 4.0104,
+    "5": 3.8836,
+    "6": 3.904,
+    "7": 3.9858,
+    "8": 3.996,
+    "9": 3.8473,
+    "10": 3.9111,
+    "11": 2.0602,
+    "12": 5.4818
+   },
+   "steady_s": 3.904,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r1-N2",
+   "arm": "N2",
+   "repeat": 1,
+   "seconds_per_update": {
+    "2": 3.8446,
+    "3": 3.6255,
+    "4": 3.6415,
+    "5": 3.7593,
+    "6": 3.6179,
+    "7": 3.5799,
+    "8": 3.565,
+    "9": 3.6337,
+    "10": 3.6039,
+    "11": 1.9946,
+    "12": 5.9013
+   },
+   "steady_s": 3.6255,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r2-P4",
+   "arm": "P4",
+   "repeat": 2,
+   "seconds_per_update": {
+    "2": 4.173,
+    "3": 3.9982,
+    "4": 4.1584,
+    "5": 4.0243,
+    "6": 4.1774,
+    "7": 4.0028,
+    "8": 3.8949,
+    "9": 4.0195,
+    "10": 3.8499,
+    "11": 2.1352,
+    "12": 5.3517
+   },
+   "steady_s": 4.0195,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r2-N2",
+   "arm": "N2",
+   "repeat": 2,
+   "seconds_per_update": {
+    "2": 3.7421,
+    "3": 3.4963,
+    "4": 3.8366,
+    "5": 3.4871,
+    "6": 3.5088,
+    "7": 3.5999,
+    "8": 3.6336,
+    "9": 3.7059,
+    "10": 3.4175,
+    "11": 2.1014,
+    "12": 5.9074
+   },
+   "steady_s": 3.5999,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r2-P2",
+   "arm": "P2",
+   "repeat": 2,
+   "seconds_per_update": {
+    "2": 3.9621,
+    "3": 3.7929,
+    "4": 4.1639,
+    "5": 3.8396,
+    "6": 4.0135,
+    "7": 4.0178,
+    "8": 4.0231,
+    "9": 4.1132,
+    "10": 4.2056,
+    "11": 1.9909,
+    "12": 7.0363
+   },
+   "steady_s": 4.0178,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r3-N2",
+   "arm": "N2",
+   "repeat": 3,
+   "seconds_per_update": {
+    "2": 3.7096,
+    "3": 3.5561,
+    "4": 3.575,
+    "5": 3.5642,
+    "6": 3.537,
+    "7": 3.6131,
+    "8": 3.696,
+    "9": 3.6397,
+    "10": 3.4582,
+    "11": 2.0401,
+    "12": 5.6867
+   },
+   "steady_s": 3.575,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r3-P2",
+   "arm": "P2",
+   "repeat": 3,
+   "seconds_per_update": {
+    "2": 3.9658,
+    "3": 3.7422,
+    "4": 3.8034,
+    "5": 3.9681,
+    "6": 3.9259,
+    "7": 3.8954,
+    "8": 3.9237,
+    "9": 4.0464,
+    "10": 4.0129,
+    "11": 2.0765,
+    "12": 6.7878
+   },
+   "steady_s": 3.9259,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  },
+  {
+   "name": "r3-P4",
+   "arm": "P4",
+   "repeat": 3,
+   "seconds_per_update": {
+    "2": 3.9372,
+    "3": 3.8086,
+    "4": 3.9604,
+    "5": 4.0254,
+    "6": 3.8872,
+    "7": 3.6721,
+    "8": 3.8846,
+    "9": 3.8921,
+    "10": 3.7634,
+    "11": 1.9308,
+    "12": 5.5588
+   },
+   "steady_s": 3.8872,
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311,
+    7.4468,
+    7.0398,
+    7.4388,
+    7.2648
+   ]
+  }
+ ],
+ "captures": {
+  "P2": {
+   "placement": {
+    "w0": [
+     "decoder.layers.0",
+     "decoder.layers.1"
+    ],
+    "w1": [
+     "encoder.layers.0",
+     "encoder.layers.1"
+    ],
+    "w7": [
+     "vocab.0"
+    ],
+    "w4": [
+     "vocab.1"
+    ],
+    "w6": [
+     "vocab.2"
+    ],
+    "w3": [
+     "vocab.3"
+    ]
+   },
+   "chain_ms": 3996.5,
+   "chain_hops": 90,
+   "median_ms": {
+    "upload": 70.87,
+    "after_upload": 161.05,
+    "post": 71.5,
+    "post_wait": 0.24,
+    "claim": 66.12,
+    "to_kernel": 1.19
+   },
+   "sum_per_update_ms": {
+    "upload": 1170.6,
+    "after_upload": 2599.3,
+    "post": 1227.8,
+    "post_wait": 312.0,
+    "claim": 1262.5,
+    "to_kernel": 108.9
+   },
+   "pair_holders": [
+    "w0",
+    "w1"
+   ],
+   "pair_holder_chain_slot_wait_ms": 0.27,
+   "pair_holder_chain_post_wait_ms": 0.24,
+   "total_slot_wait_per_update_ms": {
+    "w0": 68.2,
+    "w1": 70.7,
+    "w2": 2.3,
+    "w3": 5.2,
+    "w4": 15.1,
+    "w5": 1.3,
+    "w6": 27.6,
+    "w7": 4.1
+   },
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311
+   ]
+  },
+  "P4": {
+   "placement": {
+    "w0": [
+     "decoder.layers.0",
+     "decoder.layers.1"
+    ],
+    "w1": [
+     "encoder.layers.0",
+     "encoder.layers.1"
+    ],
+    "w5": [
+     "vocab.0"
+    ],
+    "w2": [
+     "vocab.1"
+    ],
+    "w7": [
+     "vocab.2"
+    ],
+    "w3": [
+     "vocab.3"
+    ]
+   },
+   "chain_ms": 3936.1,
+   "chain_hops": 90,
+   "median_ms": {
+    "upload": 72.13,
+    "after_upload": 169.32,
+    "post": 69.98,
+    "post_wait": 1.79,
+    "claim": 71.39,
+    "to_kernel": 1.18
+   },
+   "sum_per_update_ms": {
+    "upload": 1205.3,
+    "after_upload": 2598.0,
+    "post": 1270.7,
+    "post_wait": 370.1,
+    "claim": 1228.5,
+    "to_kernel": 98.9
+   },
+   "pair_holders": [
+    "w0",
+    "w1"
+   ],
+   "pair_holder_chain_slot_wait_ms": 0.28,
+   "pair_holder_chain_post_wait_ms": 50.19,
+   "total_slot_wait_per_update_ms": {
+    "w0": 7.3,
+    "w1": 7.5,
+    "w2": 30.9,
+    "w3": 4.8,
+    "w4": 2.2,
+    "w5": 4.2,
+    "w6": 2.3,
+    "w7": 4.7
+   },
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311
+   ]
+  },
+  "N2": {
+   "placement": {
+    "w0": [
+     "decoder.layers.0"
+    ],
+    "w1": [
+     "decoder.layers.1"
+    ],
+    "w5": [
+     "vocab.0"
+    ],
+    "w6": [
+     "vocab.1"
+    ],
+    "w7": [
+     "vocab.2"
+    ],
+    "w2": [
+     "vocab.3"
+    ],
+    "w3": [
+     "encoder.layers.1"
+    ],
+    "w4": [
+     "encoder.layers.0"
+    ]
+   },
+   "chain_ms": 3581.8,
+   "chain_hops": 90,
+   "median_ms": {
+    "upload": 86.98,
+    "after_upload": 129.2,
+    "post": 56.6,
+    "post_wait": 0.06,
+    "claim": 62.76,
+    "to_kernel": 0.89
+   },
+   "sum_per_update_ms": {
+    "upload": 1245.6,
+    "after_upload": 2094.0,
+    "post": 970.5,
+    "post_wait": 107.5,
+    "claim": 1048.0,
+    "to_kernel": 75.4
+   },
+   "pair_holders": [],
+   "pair_holder_chain_slot_wait_ms": null,
+   "pair_holder_chain_post_wait_ms": null,
+   "total_slot_wait_per_update_ms": {
+    "w0": 4.9,
+    "w1": 4.5,
+    "w2": 4.4,
+    "w3": 5.3,
+    "w4": 118.5,
+    "w5": 4.6,
+    "w6": 4.4,
+    "w7": 4.2
+   },
+   "losses": [
+    9.5837,
+    9.7809,
+    7.7651,
+    8.2209,
+    8.0429,
+    7.318,
+    7.4274,
+    6.9311
+   ]
+  }
+ },
+ "summary": {
+  "median_steady_s": {
+   "P2": 3.9715,
+   "P4": 3.904,
+   "N2": 3.5999
+  },
+  "pairs_penalty": 0.1032,
+  "p4_recovered": 0.182,
+  "losses_identical": true,
+  "gates": {
+   "correctness": true,
+   "penalty": true,
+   "queue_on_chain": false,
+   "slots_remove_penalty": false
+  }
+ }
+}

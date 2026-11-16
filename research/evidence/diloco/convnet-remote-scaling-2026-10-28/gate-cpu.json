@@ -1,0 +1,134 @@
+{
+  "config": {
+    "experiment": 45,
+    "name": "convnet_remote_scaling",
+    "replicas": 1,
+    "local_steps": 1,
+    "measured_rounds": 3,
+    "warmup_rounds": 0,
+    "batch": 2,
+    "backend": "torch",
+    "seed": 2026,
+    "tiny": false,
+    "model": {
+      "in_channels": 3,
+      "height": 32,
+      "width": 32,
+      "channels": [
+        32,
+        64,
+        128
+      ],
+      "classes": 10
+    },
+    "parameters": 94538,
+    "allow_shared_host": false,
+    "data": "synthetic"
+  },
+  "state": "completed",
+  "error": null,
+  "members": {
+    "native-01": {
+      "machine": "do-sfo2-g8",
+      "backend": "torch",
+      "device": "cpu",
+      "dtype": "float64",
+      "torch": "2.15.0+cpu",
+      "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+      "threads": 1,
+      "gpu": "cpu",
+      "mps_fallback": null
+    }
+  },
+  "history": [
+    {
+      "round": 1,
+      "warmup": false,
+      "seconds": 1.2640156929999193,
+      "outer_seconds": 0.0020884690000002593,
+      "images": 2,
+      "images_per_second": 1.582258836718515,
+      "losses": {
+        "native-01": [
+          2.319708068925324
+        ]
+      },
+      "workers": {
+        "native-01": {
+          "compute_seconds": 0.012483887000144023
+        }
+      }
+    },
+    {
+      "round": 2,
+      "warmup": false,
+      "seconds": 0.19741905700016105,
+      "outer_seconds": 0.0013079550001293683,
+      "images": 2,
+      "images_per_second": 10.130734238074941,
+      "losses": {
+        "native-01": [
+          2.245289675288454
+        ]
+      },
+      "workers": {
+        "native-01": {
+          "compute_seconds": 0.008894878000091921
+        }
+      }
+    },
+    {
+      "round": 3,
+      "warmup": false,
+      "seconds": 0.19747767800004112,
+      "outer_seconds": 0.0012654089998704876,
+      "images": 2,
+      "images_per_second": 10.127726942381729,
+      "losses": {
+        "native-01": [
+          2.4276214287136835
+        ]
+      },
+      "workers": {
+        "native-01": {
+          "compute_seconds": 0.00915138899995327
+        }
+      }
+    }
+  ],
+  "images_per_second": 3.60408383424589,
+  "measured_seconds": 1.6647781449999002,
+  "active_round_seconds": 1.6589124280001215,
+  "sent_bytes": 6071629,
+  "received_bytes": 6159225,
+  "timing": "Coordinator wall time from preparation of the first measured round through the last committed outer update; includes plan generation, serialization, network, local work, stragglers and inter-round polling gaps. Excludes initial membership and warmup. Per-round times exclude inter-round gaps. Worker compute timers include weight rebasing and host/device transfers; not GPU timestamp queries.",
+  "limitations": [
+    "Trusted workers; machine labels are self-reported, not hardware attestation.",
+    "Throughput only, no validation accuracy or time-to-quality measurement.",
+    "WebGPU kernels use float32; JS Adam and coordinator use float64.",
+    "JSON prototype transport; WebGPU sends compiled plans, PyTorch sends compact batches."
+  ],
+  "metadata": {
+    "source_sha256": {
+      "experiments/convnet_remote_scaling.py": "f382e6630c886df56c0786d9f7c5ad1e2f1dd23d769f7c35edd9525c8364239a",
+      "coordination/convnet_scaling.py": "e7100eb97fd565577086501b95348bad48a3a6796e58aa913103a8fb1e6a26f4",
+      "reference/convnet.py": "9390a302bd946bf01967b82e7e51eecd1240ff614b364dd80f9f486e79ef6afe",
+      "diloco/convnet_webgpu.py": "3962a33d343bd674afdb5f953cb07215ca17ae0de6f545389a186ef38f4a3ba4"
+    },
+    "source_revision": "3af9c87719b96b557f4406a87df99da35cb8e5bc",
+    "source_dirty": false,
+    "coordinator_host": "ygaraty-dev-web-server",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "python": "3.12.16",
+    "numpy": "2.5.4",
+    "data_sha256": null,
+    "assets": {
+      "convnet_scaling.html": "af630a034e9328f129313092c1180a90fd1d7d0f5a55d4198df314beca0430be",
+      "convnet_scaling.mjs": "d0109b07949d8f1346c2f1e9eb06fa085e9a01d3179eaf910d20ff4eec0ee8ec",
+      "convnet_test.mjs": "b052d57b964f94305c8b3b5b0ee1317e45dbe48fb126614a9ad9f8a450958815",
+      "convolution.mjs": "4efe4dfcdb83c1854ee0c5cd205c9a36224d47b8207ba3c2a68565190e3879c5",
+      "diloco.mjs": "230f98c1decb1ed3c15da3a5e20c4630c2eacad0624e9f206f22625a51453728",
+      "sdk.mjs": "c175a5d63c094dde948e33dd1c52d0c18fb199006fbd0c8d634985e69116ff3a"
+    }
+  }
+}

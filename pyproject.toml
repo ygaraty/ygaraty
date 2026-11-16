@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ygaraty"
+version = "0.1.0.dev0"
+description = "Public Ygaraty Tape compiler and standalone WebGPU coordinator"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["numpy>=1.24,<3"]
+
+[project.optional-dependencies]
+server = ["tokenizers>=0.23,<1", "fastapi>=0.119,<1", "uvicorn>=0.30,<1"]
+prepare = ["gguf>=0.19,<1", "jinja2>=3.1,<4", "tokenizers>=0.23,<1"]
+training-torch = ["torch>=2,<3"]
+test = ["httpx>=0.27,<1", "pytest>=8,<9", "ruff==0.14.0"]
+
+[project.scripts]
+ygaraty = "ygaraty.cli:main"
+ygaraty-compile = "ygaraty.compiler.export:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ygaraty", "ygaraty.*"]
+
+[tool.setuptools.package-data]
+"*" = ["README.md", "py.typed"]
+"ygaraty.backends.webgpu" = ["browser/*.mts", "browser/*.mjs", "browser/*.js", "browser/*.html", "browser/README.md", "contributors/*.sh", "contributors/README.md"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 79
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+# Preserve extracted numerical kernels and historical implementation formatting.
+[tool.ruff.lint.per-file-ignores]
+"ygaraty/runtime/transformer_kernels.py" = ["E501"]
+"ygaraty/backends/webgpu/_legacy/*.py" = ["E501", "E402", "E741", "F401", "I001", "UP"]
+"ygaraty/backends/webgpu/checkpoints/*.py" = ["E501", "E402", "E741", "F401", "I001", "UP", "E731"]

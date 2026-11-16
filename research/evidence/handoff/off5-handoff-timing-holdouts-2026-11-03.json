@@ -1,0 +1,885 @@
+{
+ "id": "OFF-5",
+ "number": 71,
+ "date": "2026-11-03",
+ "verdict": "Failed gate",
+ "how": "simulated (offline replay), against measured experiments 59, 60, 61",
+ "gate": {
+  "rule": "simulated change in seconds per update within 3 points of the measured change, for each of 59 h0/hn, 60 h0/r, 61 A/B; all three evaluated and passing",
+  "outcome": "not accepted: 59 passes (1.16 points), 60 fails (4.26 points), 61 not evaluated"
+ },
+ "settings": {
+  "hop_constants": {
+   "coordinator_ms": 0.53,
+   "claim_unit_ms": 0.0,
+   "reply_ms_per_mib": 86.3,
+   "decode_ms_per_mib": 29.8,
+   "upload_hash_ms_per_mib": 3.7
+  },
+  "protocol": {
+   "push_inputs": true,
+   "stream_posts": true,
+   "eager_claims": true,
+   "max_tasks": 16
+  },
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "tiny": "8 workers, 50 ms, 100/20 Mb/s, experiment 54 fitted kernels, 12 batches 0-11 in sequence, median of updates 2-10 per seed, median across seeds",
+  "big": "experiment 61 reports per repeat, bundled kernels scaled by reported GFLOP/s, 22 batches in sequence, mean of updates 2-21 per seed, mean across seeds"
+ },
+ "cases": {
+  "59 h0/hn": {
+   "measured_without": 3.9326376953125,
+   "measured_with": 3.017958740234375,
+   "measured_change_pct": -23.25866316565025,
+   "simulated_without": 3.7009121155263243,
+   "simulated_with": 2.797306156457445,
+   "simulated_change_pct": -24.415763759371877,
+   "points": -1.1571005937216263,
+   "error_without_pct": -5.8923704073319705,
+   "error_with_pct": -7.31131876772424,
+   "evaluated": true,
+   "passes": true,
+   "note": "whole reads modelled as logical bytes"
+  },
+  "60 h0/r": {
+   "measured_without": 3.947731689453125,
+   "measured_with": 2.995272705078125,
+   "measured_change_pct": -24.126740601941542,
+   "simulated_without": 3.7009121155263243,
+   "simulated_with": 2.65045736565234,
+   "simulated_change_pct": -28.38367183773545,
+   "points": -4.256931235793907,
+   "error_without_pct": -6.25218716323126,
+   "error_with_pct": -11.511984830002032,
+   "evaluated": true,
+   "passes": false,
+   "note": ""
+  },
+  "60 h0/f (diagnostic)": {
+   "measured_without": 3.947731689453125,
+   "measured_with": 3.017140869140625,
+   "measured_change_pct": -23.572798090576754,
+   "simulated_without": 3.7009121155263243,
+   "simulated_with": 2.797306156457445,
+   "simulated_change_pct": -24.415763759371877,
+   "points": -0.8429656687951237,
+   "error_without_pct": -6.25218716323126,
+   "error_with_pct": -7.286193194744528,
+   "evaluated": false,
+   "passes": null,
+   "note": "diagnostic arm, not in the gate"
+  },
+  "61 A/B": {
+   "measured_without": 5.986333,
+   "measured_with": 4.639167,
+   "measured_change_pct": -22.504027089705847,
+   "simulated_without": 6.521629225984515,
+   "simulated_with": 4.621258393337444,
+   "simulated_change_pct": -29.139510493410313,
+   "points": -6.635483403704466,
+   "error_without_pct": 8.941972088497497,
+   "error_with_pct": -0.38603065297188044,
+   "evaluated": false,
+   "passes": null,
+   "note": "gzip frames on weak workers not modelled: not evaluated by the frozen rule"
+  }
+ },
+ "anchor": {
+  "l5_plain": 3.672943301853371,
+  "now_plain": 3.672943301853371,
+  "l5_handoff": 2.638071718872301,
+  "now_handoff_region": 2.6910397244961426
+ },
+ "tiny_sim": {
+  "plain": {
+   "value": 3.7009121155263243,
+   "seeds": [
+    3.691609805564916,
+    3.7009121155263243,
+    3.7210511475463974
+   ]
+  },
+  "whole": {
+   "value": 2.797306156457445,
+   "seeds": [
+    2.718050735880384,
+    2.797306156457445,
+    2.8278238075546014
+   ]
+  },
+  "region": {
+   "value": 2.65045736565234,
+   "seeds": [
+    2.65045736565234,
+    2.7042412357902665,
+    2.6503762386349123
+   ]
+  }
+ },
+ "tiny_measured_per_run": {
+  "h59": [
+   3.913617431640625,
+   3.9326376953125,
+   3.9435625
+  ],
+  "hn59": [
+   2.99959326171875,
+   3.017958740234375,
+   3.0692841796875
+  ],
+  "h60": [
+   3.900748779296875,
+   3.947731689453125,
+   4.020856689453125
+  ],
+  "r60": [
+   3.04564990234375,
+   2.995272705078125,
+   2.9419228515625
+  ],
+  "f60": [
+   3.000548583984375,
+   3.12097314453125,
+   3.017140869140625
+  ]
+ },
+ "big_sim": {
+  "A": {
+   "value": 6.521629225984515,
+   "seeds": [
+    6.558195640353848,
+    6.495997806213607,
+    6.510694231386091
+   ]
+  },
+  "B": {
+   "value": 4.621258393337444,
+   "seeds": [
+    4.580717871809968,
+    4.651092173312935,
+    4.631965134889428
+   ]
+  }
+ },
+ "batch_checks": {
+  "tiny": "tokens of every captured batch (8 updates each) in runs/exp58/cap-home-h0-cap, runs/exp59/cap-home-hn-cap, runs/exp60/cap-h0-cap and cap-r-cap equal the replayed plans",
+  "exp61": {
+   "mismatches": [
+    [
+     0,
+     "A",
+     1
+    ],
+    [
+     0,
+     "A",
+     2
+    ],
+    [
+     0,
+     "A",
+     3
+    ],
+    [
+     0,
+     "A",
+     4
+    ],
+    [
+     0,
+     "A",
+     5
+    ],
+    [
+     0,
+     "A",
+     6
+    ],
+    [
+     0,
+     "A",
+     7
+    ],
+    [
+     0,
+     "A",
+     8
+    ],
+    [
+     0,
+     "A",
+     9
+    ],
+    [
+     0,
+     "A",
+     10
+    ],
+    [
+     0,
+     "A",
+     11
+    ],
+    [
+     0,
+     "A",
+     12
+    ],
+    [
+     0,
+     "A",
+     13
+    ],
+    [
+     0,
+     "A",
+     14
+    ],
+    [
+     0,
+     "A",
+     15
+    ],
+    [
+     0,
+     "A",
+     16
+    ],
+    [
+     0,
+     "A",
+     17
+    ],
+    [
+     0,
+     "A",
+     18
+    ],
+    [
+     0,
+     "A",
+     19
+    ],
+    [
+     0,
+     "A",
+     20
+    ],
+    [
+     0,
+     "A",
+     21
+    ],
+    [
+     0,
+     "A",
+     22
+    ],
+    [
+     0,
+     "B",
+     1
+    ],
+    [
+     0,
+     "B",
+     2
+    ],
+    [
+     0,
+     "B",
+     3
+    ],
+    [
+     0,
+     "B",
+     4
+    ],
+    [
+     0,
+     "B",
+     5
+    ],
+    [
+     0,
+     "B",
+     6
+    ],
+    [
+     0,
+     "B",
+     7
+    ],
+    [
+     0,
+     "B",
+     8
+    ],
+    [
+     0,
+     "B",
+     9
+    ],
+    [
+     0,
+     "B",
+     10
+    ],
+    [
+     0,
+     "B",
+     11
+    ],
+    [
+     0,
+     "B",
+     12
+    ],
+    [
+     0,
+     "B",
+     13
+    ],
+    [
+     0,
+     "B",
+     14
+    ],
+    [
+     0,
+     "B",
+     15
+    ],
+    [
+     0,
+     "B",
+     16
+    ],
+    [
+     0,
+     "B",
+     17
+    ],
+    [
+     0,
+     "B",
+     18
+    ],
+    [
+     0,
+     "B",
+     19
+    ],
+    [
+     0,
+     "B",
+     20
+    ],
+    [
+     0,
+     "B",
+     21
+    ],
+    [
+     0,
+     "B",
+     22
+    ],
+    [
+     1,
+     "A",
+     1
+    ],
+    [
+     1,
+     "A",
+     2
+    ],
+    [
+     1,
+     "A",
+     3
+    ],
+    [
+     1,
+     "A",
+     4
+    ],
+    [
+     1,
+     "A",
+     5
+    ],
+    [
+     1,
+     "A",
+     6
+    ],
+    [
+     1,
+     "A",
+     7
+    ],
+    [
+     1,
+     "A",
+     8
+    ],
+    [
+     1,
+     "A",
+     9
+    ],
+    [
+     1,
+     "A",
+     10
+    ],
+    [
+     1,
+     "A",
+     11
+    ],
+    [
+     1,
+     "A",
+     12
+    ],
+    [
+     1,
+     "A",
+     13
+    ],
+    [
+     1,
+     "A",
+     14
+    ],
+    [
+     1,
+     "A",
+     15
+    ],
+    [
+     1,
+     "A",
+     16
+    ],
+    [
+     1,
+     "A",
+     17
+    ],
+    [
+     1,
+     "A",
+     18
+    ],
+    [
+     1,
+     "A",
+     19
+    ],
+    [
+     1,
+     "A",
+     20
+    ],
+    [
+     1,
+     "A",
+     21
+    ],
+    [
+     1,
+     "A",
+     22
+    ],
+    [
+     1,
+     "B",
+     1
+    ],
+    [
+     1,
+     "B",
+     2
+    ],
+    [
+     1,
+     "B",
+     3
+    ],
+    [
+     1,
+     "B",
+     4
+    ],
+    [
+     1,
+     "B",
+     5
+    ],
+    [
+     1,
+     "B",
+     6
+    ],
+    [
+     1,
+     "B",
+     7
+    ],
+    [
+     1,
+     "B",
+     8
+    ],
+    [
+     1,
+     "B",
+     9
+    ],
+    [
+     1,
+     "B",
+     10
+    ],
+    [
+     1,
+     "B",
+     11
+    ],
+    [
+     1,
+     "B",
+     12
+    ],
+    [
+     1,
+     "B",
+     13
+    ],
+    [
+     1,
+     "B",
+     14
+    ],
+    [
+     1,
+     "B",
+     15
+    ],
+    [
+     1,
+     "B",
+     16
+    ],
+    [
+     1,
+     "B",
+     17
+    ],
+    [
+     1,
+     "B",
+     18
+    ],
+    [
+     1,
+     "B",
+     19
+    ],
+    [
+     1,
+     "B",
+     20
+    ],
+    [
+     1,
+     "B",
+     21
+    ],
+    [
+     1,
+     "B",
+     22
+    ],
+    [
+     2,
+     "A",
+     1
+    ],
+    [
+     2,
+     "A",
+     2
+    ],
+    [
+     2,
+     "A",
+     3
+    ],
+    [
+     2,
+     "A",
+     4
+    ],
+    [
+     2,
+     "A",
+     5
+    ],
+    [
+     2,
+     "A",
+     6
+    ],
+    [
+     2,
+     "A",
+     7
+    ],
+    [
+     2,
+     "A",
+     8
+    ],
+    [
+     2,
+     "A",
+     9
+    ],
+    [
+     2,
+     "A",
+     10
+    ],
+    [
+     2,
+     "A",
+     11
+    ],
+    [
+     2,
+     "A",
+     12
+    ],
+    [
+     2,
+     "A",
+     13
+    ],
+    [
+     2,
+     "A",
+     14
+    ],
+    [
+     2,
+     "A",
+     15
+    ],
+    [
+     2,
+     "A",
+     16
+    ],
+    [
+     2,
+     "A",
+     17
+    ],
+    [
+     2,
+     "A",
+     18
+    ],
+    [
+     2,
+     "A",
+     19
+    ],
+    [
+     2,
+     "A",
+     20
+    ],
+    [
+     2,
+     "A",
+     21
+    ],
+    [
+     2,
+     "A",
+     22
+    ],
+    [
+     2,
+     "B",
+     1
+    ],
+    [
+     2,
+     "B",
+     2
+    ],
+    [
+     2,
+     "B",
+     3
+    ],
+    [
+     2,
+     "B",
+     4
+    ],
+    [
+     2,
+     "B",
+     5
+    ],
+    [
+     2,
+     "B",
+     6
+    ],
+    [
+     2,
+     "B",
+     7
+    ],
+    [
+     2,
+     "B",
+     8
+    ],
+    [
+     2,
+     "B",
+     9
+    ],
+    [
+     2,
+     "B",
+     10
+    ],
+    [
+     2,
+     "B",
+     11
+    ],
+    [
+     2,
+     "B",
+     12
+    ],
+    [
+     2,
+     "B",
+     13
+    ],
+    [
+     2,
+     "B",
+     14
+    ],
+    [
+     2,
+     "B",
+     15
+    ],
+    [
+     2,
+     "B",
+     16
+    ],
+    [
+     2,
+     "B",
+     17
+    ],
+    [
+     2,
+     "B",
+     18
+    ],
+    [
+     2,
+     "B",
+     19
+    ],
+    [
+     2,
+     "B",
+     20
+    ],
+    [
+     2,
+     "B",
+     21
+    ],
+    [
+     2,
+     "B",
+     22
+    ]
+   ],
+   "checked": 132,
+   "mismatched": 132,
+   "cause": "the pods trained their own SentencePiece model (sha256 fb73068e...), not this workstation's (24cc7eb7...); same dataset sha256 f3b85415..."
+  }
+ },
+ "hashes": {
+  "ygaraty/simulation/engine.py": "2119a2c57cedd8a3e04b8efa3cc8f079aa620ec0933f2772f132310dcbdfd4e5",
+  "ygaraty/simulation/handoff.py": "bd04de4fc54959bb36c86dab2b143754167e3b9b89f0be94c5bc6a05522337ea",
+  "papers/uplink-bound/scripts/l2_validate.py": "f2aa027fe9760d057082be4dcbcbd6d0e956ee878aeebd8f2bb477750a5c789b",
+  "ygaraty/simulation/planning.py": "9ae673c4b5a4a6c572ef23224256fa774349b69d2c28ab322229000e94c0fe91",
+  "cost-exp54": "77a6e8d6ba2809422788b55ebd007d19bfde49bc09b111ffccd2085ef902f8b0",
+  "dataset_sqlite": "fcf16e86facbdeabcf8ccee0f9734ab212a3876cc0d8454b4fa51cd161dca57c",
+  "tiny_plans": [
+   "de30c0b56844a25f8471627e38d5a8795a8a12cf8132f197409c3dbc41cab44e",
+   "fe98ea00cc1ee09726dc6ea226ada4c6b81b52fb76949d21471d85df89e7cd40",
+   "a7dc96d2ffca8f0a6241a2db2c5abff38dc682a103efb5471a9857aa1568409b",
+   "4256ba2a694a2e2872a23511b308d9037766dac46db2e430b836a682cf9941e5",
+   "ac9502dce20d5efa7eec0f44789d0188984ba498b7686b6a2b914a408185f6c3",
+   "d80554fb189d9902120fb902d513bb0cf8ee6060eff6c8fd4797c2b323c656de",
+   "6dc3a880b9178a55f06a688694993c31463062c5ed995a61057487aff6162941",
+   "adff39db757686f4f01d6d84f05f26d183276cd189ed5de40110ac77cde58015",
+   "61b25d536d7058dd53811865e495bcef4cc8c9e0915738149111ac1c83c54122",
+   "09ab4bd8a157bdb6b57c6b73222426deb3e2ecf0986884d52ea82e6c7797df5c",
+   "deb6a0e5098c73a85847345f7074f152f861d874720b40c6475ee6f0298e7f04",
+   "a1870c5d9ad4800ecfe768d5d310f123fb8c68c31dafbf0eac7ac259688fdc66"
+  ],
+  "big_plans": [
+   "00b127c7cfc2ba7398af73de43582f1ea0abf993b4378b79f03989d21f418a1b",
+   "fe81d75da96f2e46209165ed787e7aa87c38c8b915612e386fdbd16ca20d5894",
+   "feda4c2574ac3e33146f3c1f57403c24d7aa792f7f10747e737167501c149ea6",
+   "30e382dc5e4cff771521200bc98f25819fec1cab2e55609fa5ddbdf400210980",
+   "34f2129e514d4beee9b5e1bd979a4d480c5a684ee92b1d1e5c67b8e70b256a69",
+   "354e3b0a74bf1a1a4b8cd96b0fcd2c251846ba76eb036b82417fe10aec73e831",
+   "44087bffce4b15ee0d0c6be232b709f09396cc15f5b9a2a1e49411507a50f5c4",
+   "0cfa47a5aa39df5ca4da6cd89a5b8fc410abe76d118e9c353c82501579d40aa2",
+   "93a8e836c1845cb899034a8d5e6ac3cb0d21bd8bc4e262906f2fbb3d016ec85f",
+   "06c0ba177c8d3c430f4eb65a81b8445470e6ff8d8c3fb0a9aa35f094e628c3be",
+   "c8f45ddf1d15fc7381f4d9f7e150aaee903cd5912c2e56eb1321eaebfd027551",
+   "70f1771f384bff8c6f15e3baa76a5a9e9d571f42c22a3ce049427c7a28c270ea",
+   "2cfb297a048470e7aa0211fe67708f11175bd1b20e263b76f8cae1c2fe644fab",
+   "246cf88e012b8e7aa04c15aa1b3d71e20d5e293d30dc4735656b777c1da95d98",
+   "97e5445212b2c9dd7c585d9df981856c38e02ce92f47a6f4600265d56614e1ad",
+   "a7eb3bbce8691da47b1a037837dc6472796ba8efbe6bcfb1d9ca55b94cc75c7c",
+   "6f87fd4053978bb2f76afd77487ef9441d1bdf2352b863980906fa520d444cab",
+   "1ecea3b04e98e8ce153991cfe7deb8609b853b15d26be26e758cac1be82e8fef",
+   "d462a0d7a516eec22725536897ccb6b7bc0c2bcdc56c0d76d9b825b9702d413c",
+   "d603752654a43f30b4558e5c5aa634828a8c49c45c7b8c30b28bc389218c8a50",
+   "7fee60a1b4207b734e8345f07e2018582d7ec4fe68c47d91604948379aba0476",
+   "68ea807f4f469bca69e6d1d63334477c45264559cce82d2e162a38185b7418fc"
+  ],
+  "exp61_evidence": "b5a9e50ddabd15256011e0fa65624b1d3bd7d109350961a63a18b70c811180c5"
+ }
+}
