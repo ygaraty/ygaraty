@@ -1232,7 +1232,7 @@ def detect(config, header=None):
         return FAMILIES["dense"]
     raise ValueError(
         f"No model family runs architecture {arch or config.get('model_type')!r} yet: "
-        "add one (see docs/internal/inference-model-onboarding.md)"
+        "add one (see ygaraty/backends/webgpu/checkpoints/README.md)"
     )
 
 
@@ -1246,7 +1246,7 @@ def load_model(gguf, config_path, *, tensor_only=False):
         if QWEN3NEXT_STAGE is None:
             raise ValueError(
                 "qwen3next has no WebGPU stage yet (admission only): its loader and NumPy reference are "
-                "qwen3next_gguf.Model; see docs/internal/inference-model-onboarding.md"
+                "qwen3next_gguf.Model; see ygaraty/backends/webgpu/checkpoints/README.md"
             )
         from ygaraty.backends.webgpu.checkpoints import qwen3next_gguf
 

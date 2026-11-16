@@ -42,9 +42,9 @@ Both GETs answer with `Content-Encoding: gzip` (fastest level) when the request'
 ## Build and operate
 
 The relay remains an independently runnable Go module in this repository. It requires
-**Go 1.27 or newer**, matching `go.mod`. Follow the single
-[coordinator and relay operator guide](../docs/internal/operator-guide.md) for builds,
-`ygaraty relay serve`, credentials, HTTPS, browser CORS, monitoring and shutdown.
+**Go 1.27 or newer**, matching `go.mod`. Build from this folder with
+`go build ./...` and inspect the executable flags with `go run ./cmd/relay -help`.
+For the supported model-serving workflow, see the [quickstart](../docs/quickstart.md).
 The latency proxy is a separate experiment utility, not a deployment dependency.
 
 Go tests and benchmarks may start loopback servers. Run them only on an authorized
