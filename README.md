@@ -32,6 +32,12 @@ curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/main/install.sh | b
 export PATH="$HOME/.local/share/ygaraty/venv/bin:$PATH"
 ```
 
+The `export` above makes `ygaraty` available only in the current terminal.
+To keep it available in new terminals, add the same line to your shell's startup
+file: `~/.zshrc` for Zsh or `~/.bashrc` for Bash. Create the file if needed, save
+it, then open a new terminal. If Bash starts as a login shell, make sure your
+`~/.bash_profile` sources `~/.bashrc`.
+
 ## Launch
 
 ```sh
