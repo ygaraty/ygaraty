@@ -99,88 +99,23 @@ Start with `--synthetic`: random CIFAR-shaped images and labels, fully reproduci
 
 The coordinator uses trusted, fixed membership; machine labels are self-reported, not hardware attestation. A lost/reloaded worker loses its private Adam moments. Failed jobs are recorded and must restart as a new case. Checkpoints contain global weights only and do not implement resume. JSON and per-operation GPU uploads/readbacks remain prototype costs.
 
-## Implementation layout and offline checks
+## Historical implementation and current public helpers
 
-The `ygaraty experiment convnet_remote_scaling` entry point retains its `serve`, `worker` and `report` commands. The runner owns case setup and shutdown; HTTP request handling lives in `ygaraty.webapp.convnet_scaling`, native worker transport in `ygaraty.transports.http.convnet_worker`, and saved-report comparison in `ygaraty.analysis.convnet_scaling`. Round coordination remains in `ygaraty.coordination.convnet_scaling`. See the architecture guide (historical internal note; not part of this repository).
+The original hosted `serve`/`worker` commands and deployment instructions are
+archived outside this repository. They are not supported commands in this public
+release. The measurements above used that historical implementation.
 
-The report command reads local `report.json` files without loading training packages or HTTP adapters. The following checks use saved evidence and fake I/O only:
+Reusable saved-report analysis remains public in
+`ygaraty_webgpu_research.convnet_remote_scaling` and
+`ygaraty.analysis.convnet_scaling`. Install the optional helpers with
+`python -m pip install -e ./research` from the repository root.
 
-```bash
-python -m unittest discover -s tests -p 'test_convnet_scaling_boundaries.py' -v
-```
+### Wire-format comparison
 
-These checks cover CLI compatibility and component contracts, not numerical correctness or live scaling. The extraction preserves the wire protocol, workload comparison policy and timing boundaries. New cases record the extracted modules in their source hashes; existing evidence is unchanged.
-
-## Prepare the same checkout on each machine
-
-Copy/synchronize this change to all machines first. Then from the repository root on the coordinator and every native worker:
-
-```bash
-python3 -m venv .venv
-python -m pip install -e . 'torch>=2.2,<3'
-ygaraty experiment convnet_remote_scaling --help
-```
-
-Browser-only workers need a hardware WebGPU browser and SSH, not Python. Use Chrome with hardware acceleration available. Keep the page visible and the machine awake throughout a measured case. There are no cloud provisioning steps or automatic dataset downloads.
-
-Run the focused checks on an execution host before the matrix:
-
-```bash
-python -m unittest discover -s tests -p 'test_convnet_remote_scaling.py' -v
-python -m unittest discover -s tests -p 'test_convnet_webgpu.py' -v
-```
-
-The first test compares native and portable Adam across two rounds with retained moments, checks fixed membership, stale/duplicate results, GPU dispatch validation and warmup accounting. Browser workers must also pass the original **42-check hardware numerical preflight** before joining a case. Preflight is outside the timed region. This tiny gate does not establish full-size GPU parity; check a matching full-model one-worker case on both backends before interpreting the physical scaling matrix (instructions below).
-
-## Launch a WebGPU case
-
-On the **coordinator**:
-
-```bash
-ygaraty experiment convnet_remote_scaling serve \
-  --backend webgpu --synthetic --replicas 2 \
-  --batch 8 --local-steps 5 --warmup-rounds 2 --rounds 10 \
-  --port 8000 --output runs/experiments/045/webgpu-m2-h5-r1
-```
-
-The service binds only to 127.0.0.1. It writes a private `connection.json` with a bearer token, mode 0600. Open that file locally to obtain the token; do not commit it. Default timeout is 900 seconds without a completed round, including waiting for initial membership. Raise `--timeout` deliberately for slow devices. Use a **new** output directory per case; the runner refuses overwrites.
+The historical flags below identify the measured case settings, not current
+launch options.
 
 `--wire-dtype float32` sends each round's weights, and takes each pseudo-gradient back, as base64 little-endian float32 instead of JSON float64 numbers; WebGPU and native workers follow the assignment's setting. The coordinator's weights and outer step stay float64, and plan constants (the images) are unchanged. It is a separate case setting (recorded in the report's `config.wire_dtype`): compare float32-wire cases with each other, or against float64-wire cases explicitly. On loopback with a native worker (full model, batch 8, H=5, four rounds), it cut the coordinator's sent bytes from 9.8 to 3.8 MB and received bytes from 8.4 to 2.0 MB; final weights differed from the float64-wire case by at most 3.3e-6. `--pixels uint8` (WebGPU cases) sends each local step's images as base64 uint8 pixels; the browser rebuilds the recipe's float64 `x/127.5-1` with the same operations, so losses and pseudo-gradients are bitwise identical to `--pixels float64` (tested in Node). With the float32 wire, a full-model round's download falls from 3.0 to 0.76 MB at H=5 and from 10.5 to 1.5 MB at H=20; the remainder is the compiled task lists.
-
-On **each of two worker machines**, replace `USER@COORDINATOR` with the SSH destination and keep this tunnel open:
-
-```bash
-ssh -N -L 8000:127.0.0.1:8000 USER@COORDINATOR
-```
-
-Open `http://127.0.0.1:8000/` in the browser **on each worker**. Supply distinct worker IDs (`gpu-01`, `gpu-02`), distinct physical machine labels, and the coordinator token. Click **Check GPU and join**. Each worker checks hardware evidence and numerical parity, then waits until all expected hosts join. Its persistent trainer executes local steps, sends its pseudo-gradient and rebases from the next global weights. The coordinator commits synchronously and exits after saving results. All browser tabs show completion.
-
-Without SSH access on the workers, the coordinator machine can serve the same page over HTTPS instead: `./scripts/remote.sh https-proxy 8000 8443` makes a self-signed certificate for its public address (30 days), starts a TLS proxy on port 8443 to 127.0.0.1:8000 and prints the certificate's SHA-256 fingerprint. Open `https://COORDINATOR:8443/` on each worker and accept the certificate once; WebGPU needs a secure context, which a plain `http://` address other than localhost is not. The token then crosses the internet inside TLS, but nothing but the fingerprint proves the server: use it for testing with trusted workers, not for volunteers. The proxy serves whatever case is listening on port 8000, so it survives coordinator restarts.
-
-Repeat using `--replicas 1`, `4`, and `8`, with that many worker machines and new output directories. Recreate tabs for a new case; never reuse a trainer from another case. If local port 8000 is occupied, forward `8001:127.0.0.1:8000` and open local port 8001 instead.
-
-## Launch the native comparison
-
-Start a **separate coordinator case** with identical batch/H/round/seed settings:
-
-```bash
-ygaraty experiment convnet_remote_scaling serve \
-  --backend torch --synthetic --replicas 2 \
-  --batch 8 --local-steps 5 --warmup-rounds 2 --rounds 10 \
-  --port 8000 --output runs/experiments/045/cuda-f32-m2-h5-r1
-```
-
-On each native worker, keep the SSH tunnel open and securely copy the **new case's** connection file. Replace the remote repository path:
-
-```bash
-scp USER@COORDINATOR:/path/to/ygaraty/runs/experiments/045/cuda-f32-m2-h5-r1/connection.json /tmp/exp45-connection.json
-chmod 600 /tmp/exp45-connection.json
-ygaraty experiment convnet_remote_scaling worker \
-  --url http://127.0.0.1:8000 --connection /tmp/exp45-connection.json \
-  --id native-01 --machine gpu-host-01 --device cuda --dtype float32 --threads 1
-```
-
-Use a unique worker ID and host label on every machine. Apple GPU: `--device mps --dtype float32`. Canonical CPU: `--device cpu --dtype float64`. CPU alternative: `--device cpu --dtype float32`. Name output directories accordingly. Do not enable `PYTORCH_ENABLE_MPS_FALLBACK=1`; the worker rejects it. A case cannot mix native device types or precisions. Do not run WebGPU and native cases simultaneously on the same GPUs.
 
 ## Full-model numerical gate before scaling
 
@@ -201,37 +136,22 @@ PY
 
 The initial preparation used tiny smoke tests; the subsequent full-model gate passed as recorded in Results so far above. Even a pass checks only this small batch/round count, not all proposed batch/H settings; inspect finite losses and retain every failure during the matrix.
 
-## Optional real training-image inputs
+## Input and smoke-test controls
 
-On the coordinator only, use `cifar_prepare` with an already-downloaded official archive:
+The historical real-data cases used prepared CIFAR training arrays; validation
+and test labels were unused. Reports record the NPZ SHA-256. Do not compare
+synthetic and real-data throughput as if inputs were identical.
 
-```bash
-ygaraty experiment cifar_prepare \
-  --archive /path/to/cifar-10-binary.tar.gz \
-  --output runs/datasets/cifar10/cifar-pilot.npz
-```
-
-Replace `--synthetic` with `--data runs/datasets/cifar10/cifar-pilot.npz` in **every case** of the comparison. It reads only training arrays; validation/test labels are unused. Reports record the NPZ SHA-256. Do not compare synthetic and real-data case throughput as if inputs were identical.
-
-## Tiny smoke test on one machine
-
-Before involving remote hosts, start the WebGPU coordinator with:
-
-```bash
-ygaraty experiment convnet_remote_scaling serve \
-  --backend webgpu --synthetic --tiny --allow-shared-host --replicas 2 \
-  --batch 2 --local-steps 2 --warmup-rounds 1 --rounds 2 \
-  --output runs/experiments/045/smoke-webgpu
-```
-
-Join two browser tabs with different worker IDs but the same host label. The explicit shared-host flag marks this as a local smoke test. The corresponding native smoke uses `--backend torch`, a new output directory, and two native worker processes. Keep this separate from the physical machine matrix. Both paths were exercised during preparation, and their final checkpoints passed the declared WebGPU tolerance after three rounds.
+Tiny smoke tests used two browser tabs on one host, explicitly distinguished
+from physical-machine scaling. Native and WebGPU checkpoints passed the declared
+tolerance after three rounds. The original setup commands are archived separately.
 
 ## Read the results
 
 Each case produces `report.json` and `weights.npz`. The report is saved after each submitted result and at exit; interrupted/incomplete cases stay labeled accordingly. Use:
 
 ```bash
-ygaraty experiment convnet_remote_scaling report \
+python -m ygaraty_webgpu_research.convnet_remote_scaling report \
   runs/experiments/045/webgpu-m1-h5-r1 \
   runs/experiments/045/webgpu-m2-h5-r1 \
   runs/experiments/045/cuda-f32-m1-h5-r1 \
@@ -239,5 +159,3 @@ ygaraty experiment convnet_remote_scaling report \
 ```
 
 The comparison refuses incomplete cases and unlike model/data/batch/H/seed/round/source settings. It prints images/sec and scaling relative to the matching backend's one-worker baseline. Keep native device/precision/thread settings and hardware membership consistent when interpreting scaling. The helper does not infer equivalent hardware from machine labels. Repeat all cases three times, compare median throughput, and disclose the variation and straggler times.
-
-The numbered shortcut `ygaraty experiment 45 --no-sync` starts a **one-worker, full-model, synthetic WebGPU coordinator**, using the defaults above and a new generated case directory. Use the named command for explicit backend/data/matrix settings. The `--no-sync` option prevents any configured experiment-result sync script from running.

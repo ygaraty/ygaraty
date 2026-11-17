@@ -5,9 +5,10 @@ and bounded ASGI transport extracted from the existing WebGPU coordinator.
 Imports are public-local; storage is local-file-only. The public session adapter
 owns authorization, admission, lifecycle and accounting around this engine.
 
-Keep recorded transformations in `public/extraction.json` explicit. The temporary
-copies are checked against their source baseline; do not change kernels,
-batching or protocol semantics silently. `TokenMailbox` adds bounded delivery
+This is the public compatibility engine used by the WebGPU backend. Changes to
+kernels, batching or protocol semantics should include corresponding regression
+checks in [the WebGPU tests](../../../../tests/webgpu/README.md).
+`TokenMailbox` adds bounded delivery
 and shutdown drains pending inbox work. Control and data use separate pools.
 
 Tests use fake engines and synthetic packets. No numerical or performance

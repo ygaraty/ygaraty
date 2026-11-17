@@ -1,6 +1,11 @@
 # Binary tensor uploads and loopback evaluation
 
-## Implemented behavior
+This report preserves measurements from a retired upload implementation. Its
+`CoordinatorClient`, upload server and benchmark CLI are not supported APIs in
+this public release. Operational commands are archived outside the repository;
+methods, results and evidence below remain available for reuse.
+
+## Historical implementation
 
 `CoordinatorClient.submit()` (and the `ygaraty submit` workflow) automatically sends external tensor chunks as raw bytes when upload creation advertises `chunk_encodings: ["json-base64", "raw"]`. Older servers and custom transports without binary support keep the JSON/base64 path. Plan uploads, API metadata, exported models and worker frames retain their existing formats. This change covers external float64 tensor uploads, not every weight/update path.
 
@@ -14,17 +19,11 @@ Protocol:
 - Both encodings enter the same tensor validator: exact chunk length, checksum, finite values, duplicate/conflicting chunks, expiry, disk quotas and whole-tensor finalization digest. The raw endpoint is distinct from the worker binary-frame decoder.
 - Raw requests closed the connection when this was first measured, so both variants below use a new connection per request. Since the follow-up below, a raw chunk whose body was read in full keeps the connection open; rejected or unread bodies still close it.
 
-## Run the explicit loopback experiment
+## Historical measurement setup
 
-This command **starts a local HTTP server** and requires permission under any offline-only machine policy. It binds only `127.0.0.1` on an ephemeral port, uses the actual webapp handler with a minimal upload-only application fixture, and never constructs the coordinator application, submits jobs, runs training, starts contributors or opens external data stores. Cleanup stops the server and removes temporary uploads even on failure.
-
-```bash
-ygaraty benchmark-upload-loopback --allow-loopback \
-  --elements 32768 1048576 --repeats 5 \
-  --output /tmp/upload-loopback.json
-```
-
-The user explicitly authorized this run on 2026-10-30. As with the serialization benchmark, the moved environment's stale CLI shebang required invoking the existing CLI script with its local interpreter and checkout import path; no dependencies were downloaded.
+The experiment used a loopback HTTP server and an upload-only fixture from the
+retired application, without TLS. Each run created and cleaned up temporary
+uploads. The implementation and execution commands are archived separately.
 
 ## Measured results
 
@@ -47,7 +46,7 @@ This is loopback **HTTP without TLS**, using an experiment-only client adapter. 
 
 Offline tests cover binary routing, authentication, origin checks, body limits, truncation, encoding rejection, digest mismatch, nonfinite tensors, duplicate/conflicting chunks, expiry, raw negotiation, old-server fallback, and HTTPS transport headers. Existing submission and external tensor tests also remain applicable.
 
-Use the negotiated raw upload path now for external tensors. Retain JSON for metadata and reports. Evaluate HTTPS and browser implementations before extending this to other weight/update protocols; preserve their independent precision and frame contracts. Do not replace export formats, canonical hashes or all JSON messages based on this experiment.
+The experiment evaluated negotiated raw uploads for external tensors. Retain JSON for metadata and reports. Evaluate HTTPS and browser implementations before extending this to other weight/update protocols; preserve their independent precision and frame contracts. Do not replace export formats, canonical hashes or all JSON messages based on this experiment.
 
 ## Follow-up: one connection and 4 MiB chunks
 
@@ -58,10 +57,7 @@ The home-link run of the measurement above (50 ms round trip, 100 Mb/s down, 20 
 
 `latency-proxy` accepted each connection locally, so opening one cost nothing there and the first home run could not see what a kept-alive connection saves: the same 34 requests took 5.14 s on one connection and 5.15 s on 34 ([no-handshake run](keepalive-home-no-handshake-2026-10-30.json)). Its new `-handshake-rtts N` flag holds each new connection for N round trips before the first byte moves; 2 stands for TCP plus TLS 1.3. The default 0 keeps the earlier behaviour. The benchmark passes 2 on `--link home` unless told otherwise:
 
-```bash
-ygaraty benchmark-upload-loopback --allow-loopback --elements 32768 1048576 --repeats 5 \
-  --modes base64 raw raw-reuse raw-reuse-4m --link home --handshake-rtts 2 --output /tmp/upload-home.json
-```
+
 
 `raw-reuse` and `raw-reuse-4m` go through the production `HTTPTransport` (over plain HTTP to the loopback port); `base64` and `raw` are the first measurement's fresh-connection client. Medians of 5, 8 MiB float64 tensor, Ryzen 9 PRO 6950H, all uploads byte-identical:
 
@@ -89,26 +85,17 @@ The loopback experiment owns its server and optional proxy through a context man
 
 `HTTPTransport` serializes each complete exchange, including retries, on a reentrant lock. Sharing a client across threads is supported but does not provide parallel requests on its single connection. Closing waits for the current exchange. Automatic retry after a stale reused connection is restricted to GETs, upload chunks/finalization, and keyed creates at `/api/v1/tensors`, `/api/v1/uploads`, and `/api/v1/jobs`. An arbitrary endpoint does not become retryable merely by carrying a key.
 
-For controlled future measurements, run matching pairs:
+For controlled future measurements, compare base64 and raw encoding with the same connection strategy and chunk size:
 
-```bash
-ygaraty benchmark-upload-loopback --allow-loopback \
-  --modes base64 raw base64-reuse raw-reuse base64-reuse-4m raw-reuse-4m \
-  --output /tmp/upload-comparison-v2.json
-```
+
 
 Each pair uses the same connection strategy and chunk size. Compare base64/raw within a pair for encoding cost, then compare reused 256 KiB/4 MiB modes for chunk-size effects. Schema version 2 records `transfer_peak_traced_bytes` and `verification_peak_traced_bytes` separately, excluding source generation and session-directory setup. Memory passes remain separate from timing and cover client/server traced allocations, not RSS. Existing version 1 reports are historical and have not been rewritten. These new modes and locking changes have offline regression coverage; no new server measurements were run for this refactor.
 
 ## Client connection cleanup
 
-Use a context manager when the application is finished with a client:
+The historical client used a context manager to release its connection:
 
-```python
-from ygaraty import CoordinatorClient
 
-with CoordinatorClient("https://coordinator.example", token=token) as client:
-    capabilities = client.capabilities()
-```
 
 `CoordinatorClient.close()` releases the transport connection, and the context manager does so on both normal return and exceptions. It also closes an explicitly supplied transport if that transport exposes `close()`; callers sharing an injected transport should manage that lifetime deliberately. `HTTPTransport` supports the same context-manager pattern. Closing releases the current connection; a later request can open a new one.
 
