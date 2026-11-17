@@ -225,7 +225,11 @@ class LaunchTests(unittest.TestCase):
         self.assertFalse(self.serve.call_args.args[0].share)
         self.command("--local")
         self.assertFalse(self.serve.call_args.args[0].share)
-        self.command("--public")
+        with patch(
+            "ygaraty.backends.webgpu.sharing.PublicTunnel.command",
+            return_value=["cloudflared"],
+        ):
+            self.command("--public")
         self.assertTrue(self.serve.call_args.args[0].share)
         self.command("--public-url", "https://ai.example.com")
         self.assertFalse(self.serve.call_args.args[0].share)
