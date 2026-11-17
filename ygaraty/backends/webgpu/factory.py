@@ -63,7 +63,7 @@ class WebGPUFactory:
         self.turn = turn
 
     def describe(self) -> BackendDescriptor:
-        return BackendDescriptor("webgpu", "0.1.0.dev0")
+        return BackendDescriptor("webgpu", "0.1.0a1")
 
     def validate(self, spec: SessionSpec) -> None:
         config = WebGPUConfig.from_contract(spec.configuration)

@@ -8,8 +8,8 @@ Usage: install.sh --num-workers N [launch options]
        install.sh --install-only
 
 Install the public server and prepare/launch a WebGPU chat coordinator.
-Requires Python 3.12+ with venv/pip, Git for installation, and OpenSSH for sharing.
-Public Spaces presets: s5-nano (2 x 3 GiB), qwen3.5-9b (2 x 4 GiB, default).
+Requires Python 3.12+ with venv/pip and Git. Public sharing needs cloudflared.
+Choose a model and 1–4 workers; launch prints estimated GPU RAM per worker.
 Prepared artifacts are downloaded and verified; no local checkpoint is needed.
 Use --bundle-url for another public bundle or --checkpoint for local preparation.
 Links work on this machine by default; add --public for a temporary public link.
@@ -17,7 +17,7 @@ Launch options include --workspace, --model, --open-chat, --host and --port.
 
 Environment:
   YGARATY_INSTALL_DIR  Installation directory (default: ~/.local/share/ygaraty)
-  YGARATY_REF          Public Git branch/tag/commit (default: main)
+  YGARATY_REF          Public Git branch/tag/commit (default: v0.1.0a1)
   YGARATY_WORKSPACE_ROOT  Model cache parent (default: INSTALL_DIR/workspaces)
   YGARATY_SOURCE_DIR   Install an existing public checkout instead of downloading
   PYTHON              Python executable (default: python3)
@@ -48,7 +48,7 @@ main() {
     fi
     local root=${YGARATY_INSTALL_DIR:-"$HOME/.local/share/ygaraty"}
     local python=${PYTHON:-python3}
-    local ref=${YGARATY_REF:-main}
+    local ref=${YGARATY_REF:-v0.1.0a1}
     [[ "$root" == /* ]] || fail 'YGARATY_INSTALL_DIR must be an absolute path'
     local executable="$root/venv/bin/ygaraty"
     if [[ ! -f "$root/.installed" ]]; then
@@ -76,8 +76,15 @@ main() {
         "$executable" --help >/dev/null
         printf '%s\n' "$ref" > "$root/.installed"
     fi
+    local installed_ref
+    installed_ref=$(cat "$root/.installed")
+    [[ "$installed_ref" == "$ref" ]] || fail "Installed version is $installed_ref, requested $ref. Choose another YGARATY_INSTALL_DIR to install a different version."
     [[ -x "$executable" ]] || fail 'Installation is incomplete: missing venv/bin/ygaraty'
     printf 'Ygaraty installed: %s\n' "$executable"
+    printf '\nFor this terminal, run:\n  export PATH=%q:"$PATH"\n' "$root/venv/bin"
+    printf 'To keep ygaraty available in new terminals, add that export line to\n'
+    printf '  ~/.zshrc for Zsh, or ~/.bashrc for Bash, then open a new terminal.\n'
+    printf 'For Bash login shells, ensure ~/.bash_profile sources ~/.bashrc.\n\n'
     if [[ "$install_only" == true ]]; then
         printf 'Run: %q launch --num-workers 2 --workspace %q\n' "$executable" "$root/workspaces/qwen3.5-9b"
         return

@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ygaraty-webgpu-research"
-version = "0.1.0.dev0"
+version = "0.1.0a1"
 description = "WebGPU research with public numerical and browser components"
 readme = "src/ygaraty_webgpu_research/README.md"
 requires-python = ">=3.12"
 license = "MIT"
 license-files = ["LICENSE"]
-dependencies = ["numpy>=1.24,<3", "ygaraty==0.1.0.dev0"]
+dependencies = ["numpy>=1.24,<3", "ygaraty==0.1.0a1"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

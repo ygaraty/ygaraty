@@ -28,7 +28,7 @@ See [how to contribute](CONTRIBUTING.md).
 Requires Python 3.12+, Git and curl. See [setup details](docs/quickstart.md) if needed.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/main/install.sh | bash -s -- --install-only
+curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/v0.1.0a1/install.sh | bash -s -- --install-only
 export PATH="$HOME/.local/share/ygaraty/venv/bin:$PATH"
 ```
 

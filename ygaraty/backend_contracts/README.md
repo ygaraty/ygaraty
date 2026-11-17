@@ -1,7 +1,7 @@
 # Ygaraty backend contracts
 
 Distribution: `ygaraty.backend_contracts`. Import: `ygaraty.backend_contracts`.
-Python 3.12+, standard library only, MIT. Version `0.1.0.dev0` is an initial
+Python 3.12+, standard library only, MIT. Version `0.1.0a1` is an initial
 development contract, not a stable release or an inference implementation.
 
 This package defines the boundary between an inference backend and its host.

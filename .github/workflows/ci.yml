@@ -1,0 +1,120 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Python, browser and wheels
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            research/pyproject.toml
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install build and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'setuptools>=77' wheel 'packaging>=24.2'
+          python -m pip install '.[server,prepare,test]'
+          npm ci
+      - name: Check Python errors
+        run: python -m ruff check ygaraty research/src tools --select F401,F811,F821,F841
+      - name: Check generated browser code and inference schema
+        run: |
+          npm run check
+          python tools/webgpu/inference_schema.py --check
+      - name: Check installer
+        run: python tools/test_installer.py
+      - name: Check package namespaces
+        run: python -m pytest tests/core tests/inference_support -q
+      - name: Build runtime and research wheels
+        run: python -m pip wheel --no-deps --no-build-isolation --wheel-dir dist . ./research
+      - name: Test isolated wheels and browser modules
+        run: python tools/check_wheels.py dist
+      - name: Upload verified wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: ygaraty-wheels-${{ github.sha }}
+          path: dist/*.whl
+          if-no-files-found: error
+          retention-days: 14
+
+  relay:
+    name: Go relay
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: relay
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: relay/go.mod
+          cache: false
+      - name: Test relay with race detection
+        run: go test -race ./...
+      - name: Build relay and latency proxy
+        run: go build ./...
+
+  install:
+    name: Clean install (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install into a fresh home from the tested Git revision
+        shell: bash
+        env:
+          YGARATY_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+          CI_EVENT: ${{ github.event_name }}
+        run: |
+          export HOME="$RUNNER_TEMP/ygaraty-clean-home"
+          mkdir -p "$HOME"
+          if [[ "$CI_EVENT" == pull_request ]]; then
+            export YGARATY_SOURCE_DIR="$GITHUB_WORKSPACE"
+          fi
+          bash install.sh --install-only | tee "$RUNNER_TEMP/install.log"
+          export PATH="$HOME/.local/share/ygaraty/venv/bin:$PATH"
+          ygaraty --help
+          ygaraty launch --help
+          ygaraty contribute --help
+          python_bin="$HOME/.local/share/ygaraty/venv/bin/python"
+          "$python_bin" -m pip check
+          "$python_bin" -c 'from importlib.metadata import version; assert version("ygaraty") == "0.1.0a1"'
+          bash install.sh --install-only
+          test ! -e "$HOME/.zshrc"
+          test ! -e "$HOME/.bashrc"

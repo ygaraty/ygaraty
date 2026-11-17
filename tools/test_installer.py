@@ -88,6 +88,17 @@ for name in ('python', 'ygaraty'):
         self.assertIn('"fetch", "--depth", "1", "origin", "v0.1.0"', calls)
         self.assertIn('"checkout", "-q", "--detach", "FETCH_HEAD"', calls)
 
+    def test_persistent_path_guidance_and_version_mismatch(self):
+        result = self.run_installer('--install-only')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('export PATH=', result.stdout)
+        self.assertIn('~/.zshrc', result.stdout)
+        self.assertIn('~/.bashrc', result.stdout)
+        self.env['YGARATY_REF'] = 'another-version'
+        result = self.run_installer('--install-only')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Installed version is', result.stderr)
+
     def test_help_does_not_install(self):
         result = self.run_installer('--help')
         self.assertEqual(result.returncode, 0)

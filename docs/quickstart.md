@@ -2,7 +2,8 @@
 
 ## 1. Choose a public Spaces model
 
-Use Linux or macOS with Python 3.12+ (`venv`/`pip`), Git, curl and OpenSSH.
+Use Linux or macOS with Python 3.12+ (`venv`/`pip`), Git and curl.
+Public sharing (`--public`) also requires `cloudflared`; local launch does not.
 The examples download prepared models from our public DigitalOcean Spaces
 storage. No checkpoint directory, cloud credentials or numerical preparation is
 needed. The server keeps only metadata (about 26 MB); each contributor's
@@ -19,27 +20,34 @@ each for S5-Nano or 3.85 GB each for Qwen3.5-9B, including headroom. See [all co
 Qwen3.5-0.8B (smallest and fastest):
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/main/install.sh | bash -s -- --num-workers 2 --model qwen3.5-0.8b --open-chat
+curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/v0.1.0a1/install.sh | bash -s -- --num-workers 2 --model qwen3.5-0.8b --open-chat
 ```
 
 S5-Nano:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/main/install.sh | bash -s -- --num-workers 2 --model s5-nano --open-chat
+curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/v0.1.0a1/install.sh | bash -s -- --num-workers 2 --model s5-nano --open-chat
 ```
 
 Qwen3.5-9B:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/main/install.sh | bash -s -- --num-workers 2 --model qwen3.5-9b --open-chat
+curl -fsSL https://raw.githubusercontent.com/ygaraty/ygaraty/v0.1.0a1/install.sh | bash -s -- --num-workers 2 --model qwen3.5-9b --open-chat
 ```
 
-Run one at a time. The installer uses the code published to `main`. From this
+Run one at a time. The installer uses the versioned preview `v0.1.0a1`. From this
 checkout, use `YGARATY_SOURCE_DIR="$PWD" bash ./install.sh --num-workers 2 --model s5-nano`.
 
 The installation is in `~/.local/share/ygaraty/venv`. The installer keeps separate
 caches, keys and state in `~/.local/share/ygaraty/workspaces/MODEL/N-workers/`. Reruns
 validate and reuse cached artifacts. Ctrl-C stops the server and public tunnel.
+
+The installer prints an `export PATH=...` line for this terminal. Add that line
+to `~/.zshrc` (Zsh) or `~/.bashrc` (Bash) for future terminals. Bash login shells
+must source `~/.bashrc` from `~/.bash_profile`.
+
+To install a different version, choose a fresh `YGARATY_INSTALL_DIR`; existing
+installations are never silently upgraded. Keep the old directory for rollback.
 
 After installation, use the CLI directly:
 
