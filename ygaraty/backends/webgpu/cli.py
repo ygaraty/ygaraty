@@ -151,6 +151,14 @@ def serve(args):
 
 
 def model_command(args):
+    if args.operation == "import-kyse":
+        from .checkpoints.kyse import convert_checkpoint
+
+        print(
+            json.dumps(convert_checkpoint(args.source, args.output), indent=2)
+        )
+        return 0
+
     from dataclasses import asdict
 
     from .bundles import (
@@ -190,6 +198,16 @@ def model_parser(commands):
         "model", help="Inspect, prepare and validate local model bundles"
     )
     operations = model.add_subparsers(dest="operation", required=True)
+    kyse = operations.add_parser(
+        "import-kyse",
+        help="Import a Kyse English QW35 checkpoint for one worker",
+    )
+    kyse.add_argument(
+        "source",
+        type=Path,
+        help="Directory containing model.bin and tokenizer.bin",
+    )
+    kyse.add_argument("--output", type=Path, required=True)
     inspect = operations.add_parser(
         "inspect", help="Read local GGUF/config metadata; no inference"
     )

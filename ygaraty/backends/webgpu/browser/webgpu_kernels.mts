@@ -8,7 +8,7 @@ export type BufferBinding = GPUBuffer | GPUBufferBinding;
 export interface ProfileRecord { encodeMs: number; gpuMs: number | null; wallMs: number; dispatches: number; uniforms: number;
                                  byName: Record<string, number>; gpuByName?: Record<string, number>; bytesByName?: Record<string, number>;
                                  expandMs?: number }
-export type PackedKind = "F32" | "F16" | "Q4_K" | "Q5_K" | "Q6_K" | "Q8_0" | "Q4_KR" | "Q5_KR" | "Q6_KR";  // *_KR: exact repacks (experiment 141, DO-80)
+export type PackedKind = "F32" | "F16" | "Q4_0" | "Q4_K" | "Q5_K" | "Q6_K" | "Q8_0" | "Q4_KR" | "Q5_KR" | "Q6_KR";  // *_KR: exact repacks (experiment 141, DO-80)
 export interface PackedMatrix {
   kind: PackedKind;
   rows: number;
@@ -96,6 +96,11 @@ fn scale_min(b: u32, j: u32) -> vec2<f32> {
 }`;
 
 const DEQ = {
+  Q4_0: /* wgsl */ `fn deq(base: u32, e: u32) -> f32 {
+    let b = base + (e / 32u) * 18u; let j = e % 32u;
+    let q = (byte_at(b + 2u + j % 16u) >> ((j / 16u) * 4u)) & 15u;
+    return half_at(b) * (f32(q) - 8.0);
+  }`,
   F16: /* wgsl */ `fn deq(base: u32, e: u32) -> f32 {
     let v = unpack2x16float(w[(base >> 2u) + (e >> 1u)]);
     return v[e & 1u];

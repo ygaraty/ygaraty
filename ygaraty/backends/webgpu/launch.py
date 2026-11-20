@@ -260,7 +260,9 @@ def add_parser(commands):
     add_network_arguments(parser)
     source = parser.add_mutually_exclusive_group()
     source.add_argument(
-        "--checkpoint", type=Path, help="GGUF/config/tokenizer directory"
+        "--checkpoint",
+        type=Path,
+        help="GGUF/config/tokenizer or raw Kyse directory",
     )
     source.add_argument(
         "--bundle", type=Path, help="Existing prepared bundle.json"
@@ -411,6 +413,12 @@ def run(args):
             / f"{contributors}-workers"
         )
     args.workspace = args.workspace.resolve()
+    if args.checkpoint:
+        from .checkpoints.kyse import launch_checkpoint
+
+        args.checkpoint = launch_checkpoint(
+            args.checkpoint, args.workspace, contributors
+        )
     tls = None
     if getattr(args, "lan", None):
         from .lan import check_address, lan_address, lan_certificate

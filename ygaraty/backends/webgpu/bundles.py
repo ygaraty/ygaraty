@@ -25,10 +25,10 @@ class Checkpoint:
         local_input(self.gguf)
         read_json(self.config)
         tokenizer = local_input(self.tokenizer, limit=64 << 20)
-        from tokenizers import Tokenizer
+        from ygaraty.inference_support.kyse_tokenizer import load_tokenizer
 
         try:
-            Tokenizer.from_file(str(tokenizer))
+            load_tokenizer(tokenizer)
         except Exception as error:
             raise ValueError("Invalid tokenizer file") from error
         if self.chat_format is not None:

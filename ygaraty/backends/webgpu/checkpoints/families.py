@@ -32,6 +32,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 PACKED = {
+    "Q4_0",
     "F32",
     "F16",
     "Q4_K",
