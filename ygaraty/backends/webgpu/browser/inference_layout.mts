@@ -30,7 +30,7 @@ function matrix(value:unknown):PackedMatrix {
   const m=object(value),rows=integer(m.rows,1),cols=integer(m.cols,1),rowBytes=integer(m.rowBytes,1);
   // *_KR: the exact repacks of experiments 141/142. A row need not be 4-byte aligned (a Q6_K row of 768 columns is
   // 630 bytes, Qwen3-Coder's down experts): the decoders read unaligned words; uploads pad the whole buffer.
-  const formats:Record<string,[number,number]>={F32:[1,4],F16:[1,2],Q4_K:[256,144],Q5_K:[256,176],Q6_K:[256,210],Q8_0:[32,34],
+  const formats:Record<string,[number,number]>={F32:[1,4],F16:[1,2],Q4_0:[32,18],Q4_K:[256,144],Q5_K:[256,176],Q6_K:[256,210],Q8_0:[32,34],
     Q4_KR:[256,192],Q5_KR:[256,224],Q6_KR:[256,256]};
   const format=formats[String(m.kind)];
   if(!format||cols%format[0]||rowBytes!==cols/format[0]*format[1])

@@ -53,7 +53,7 @@ class PreparedSession(SessionProtocol):
         conversation_slots=8,
         metadata=None,
     ):
-        from tokenizers import Tokenizer
+        from ygaraty.inference_support.kyse_tokenizer import load_tokenizer
 
         bundle_path = Path(bundle_path)
         if bundle_path.stat().st_size > 16 * 1024 * 1024:
@@ -223,9 +223,7 @@ class PreparedSession(SessionProtocol):
             production_chat=True,
         )
         self.key = secrets.token_urlsafe(32)
-        self.tokenizer = Tokenizer.from_file(
-            str(local_file(bundle_path.parent, data["tokenizer"]))
-        )
+        self.tokenizer = load_tokenizer(local_file(bundle_path.parent, data["tokenizer"]))
         self.prompts, self.prompt, self.prompt_source = (
             [[]],
             [],
