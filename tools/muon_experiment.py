@@ -34,9 +34,9 @@ def summarize(reports, targets):
             final_loss=d["metrics"][-1]["evaluation"]["loss"],
             accuracy=d["metrics"][-1]["evaluation"]["accuracy"],
             worker_compute_seconds=sum(s["seconds"] for s in stats),
-            optimizer_seconds=sum(
-                s.get("optimizer_seconds", 0) for s in stats
-            ),
+            optimizer_seconds=sum(s["optimizer_seconds"] for s in stats)
+            if all("optimizer_seconds" in s for s in stats)
+            else None,
             traffic=d["traffic"],
             time_to_loss={},
         )

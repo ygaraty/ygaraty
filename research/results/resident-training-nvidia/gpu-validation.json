@@ -1,0 +1,27 @@
+{
+  "physical_gpus": 4,
+  "distinct_vulkan_devices_verified": true,
+  "cuda_baseline_matches_vulkan": true,
+  "devices": [
+    {
+      "name": "NVIDIA GeForce RTX 3060",
+      "memory_mib": 12288,
+      "driver": "615.71.09"
+    },
+    {
+      "name": "NVIDIA GeForce RTX 3060",
+      "memory_mib": 12288,
+      "driver": "615.71.09"
+    },
+    {
+      "name": "NVIDIA GeForce RTX 3060",
+      "memory_mib": 12288,
+      "driver": "615.71.09"
+    },
+    {
+      "name": "NVIDIA GeForce RTX 3060",
+      "memory_mib": 12288,
+      "driver": "615.71.09"
+    }
+  ]
+}

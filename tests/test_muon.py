@@ -61,6 +61,25 @@ class MuonTests(unittest.TestCase):
                     result[updates["muon_m_weight"]], expected_m, atol=1e-12
                 )
 
+    def test_resident_hints_survive_lowering_without_changing_tape_ops(self):
+        tape = ShapeTape()
+        p = tape.declare("weight", (8, 9), dict(kind="zeros"), True)
+        g = tape.declare("gradient", (8, 9), dict(kind="zeros"))
+        tape.gradients[p] = g
+        append_muon(tape, [p], 0.02)
+        tasks = split(tape, 512)
+        block = [t for t in tasks if t.attrs.get("muon_block") == p]
+        self.assertEqual(sum(t.op == "matmul" for t in block), 15)
+        self.assertTrue(any(t.op == "assemble" for t in block))
+        self.assertTrue(
+            all(
+                t.op in {"transpose", "matmul", "scale", "add", "assemble"}
+                for t in block
+            )
+        )
+        indexes = [i for i, t in enumerate(tasks) if t in block]
+        self.assertEqual(indexes, list(range(indexes[0], indexes[-1] + 1)))
+
     def test_browser_cpu_matches_reference(self):
         tape = ShapeTape()
         p = tape.declare("weight", (2, 3), dict(kind="zeros"), True)

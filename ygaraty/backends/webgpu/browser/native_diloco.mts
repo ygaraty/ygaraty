@@ -19,6 +19,12 @@ const url = new URL(c.base_url);
 if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.search || url.hash || url.pathname !== '/')
   throw Error('Expected coordinator origin');
 const controller = new AbortController(), sdk = new ComputeSDK();
+if (c.muon_execution !== undefined && !['resident','tasks'].includes(String(c.muon_execution)))
+  throw Error('Invalid Muon execution mode');
+if (c.muon_execution === 'tasks') sdk.executeMuonBlock = async () => null;
+if (c.training_execution !== undefined && !['resident','tasks'].includes(String(c.training_execution)))
+  throw Error('Invalid training execution mode');
+if (c.training_execution === 'tasks' || c.muon_execution === 'tasks') sdk.executeTrainingRound = async () => null;
 const timer = setTimeout(() => controller.abort(), c.timeout_seconds * 1000);
 for (const signal of ['SIGINT', 'SIGTERM'] as const) deno.addSignalListener(signal, () => controller.abort());
 const initialize = sdk.initialize.bind(sdk);

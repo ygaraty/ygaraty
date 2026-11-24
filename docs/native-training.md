@@ -181,3 +181,68 @@ matching aggregate sample counts. Keep optimizer settings and seed fixed within
 each pair, alternate run order across seeds, and retain failed trials. The
 harness stops its contributor processes and coordinator after each run; it does
 not destroy cloud rentals.
+
+### GPU-resident local training
+
+Supported ConvNet rounds now execute the Tape/compiler graph on GPU across all
+local steps. Weights and optimizer moments upload once per round; only batch
+constants upload for each step. Forward/backward intermediates stay on-device,
+and scratch buffers are reused after their last reader.
+
+One final readback retrieves losses, weights and optimizer state. The trainer
+publishes them only after the complete round succeeds. Cancellation, device loss
+or a nonfinite intermediate leaves the previous checkpoint unchanged. Global
+rebasing, outer DiLoCo updates and held-out evaluation retain their existing path.
+
+Convolutions retain FP32 arithmetic. Dense, elementwise, loss and optimizer
+operations use compensated FP32 pairs. The executor accepts bounded portable
+plans: at most 20,000 tasks, 64 MiB of input uploads and 64 MiB of uniform metadata
+per round, with a 256 MiB tensor-buffer arena. Unsupported operations or oversized
+plans take the existing per-step path before GPU execution starts; execution
+errors fail the round rather than silently switching arithmetic.
+
+```sh
+PYTHONPATH=. python tools/check_resident_training.py --output /tmp/resident-check.json
+PYTHONPATH=. python tools/benchmark_resident_training.py \
+  --num-workers 1 --samples 768 --output /tmp/resident-comparison
+```
+
+The Deno benchmark control `--training-execution tasks` keeps the previous
+per-step path, including the earlier resident Muon optimization. The default is
+`--training-execution resident`. Optimizer-only timings are omitted for full
+resident rounds because GPU timestamps are not collected.
+
+### Muon-only execution
+
+The per-step fallback keeps each supported Newton–Schulz block on the GPU,
+with one submission and one readback per convolution matrix. The compiler keeps
+portable Tape operations; compensated arithmetic and optimizer equations are
+preserved. Momentum, normalization and final weight updates still run on the host.
+
+This path supports whole matrices that fit a single compiler tile, with a 64 MiB
+intermediate allocation bound. Tiled or unsupported graphs use the existing task
+executor; GPU execution errors still fail the operation. Float32 requests retain
+the existing execution path. Buffers are scoped to a block, not cached across steps.
+
+Run `PYTHONPATH=. python tools/benchmark_muon.py --output /tmp/muon.json` for local
+numerical checks and paired timings. See the
+[local results](../research/muon-resident-local.md) and
+[NVIDIA results](../research/muon-resident-nvidia.md) for the earlier Muon-only measurements and reproduction commands.
+The [full-round comparison](../research/resident-training-local.md) measures the
+additional benefit of keeping forward/backward and state on GPU.
+
+The [full-round NVIDIA comparison](../research/resident-training-nvidia.md)
+checks one/four physical RTX 3060 GPUs against upstream MuLoCo-1 across three seeds.
+
+### Coordinator profiling
+
+Training assignment requests now wait up to 20 seconds for work and wake when
+contributors join or a round commits or aborts. Authentication is rechecked after
+waking. Assignment JSON is cached only for the current round, up to 16 MiB per
+worker, and cleared on commit or rollback. Checkpoint durability is unchanged.
+
+Use `tools/profile_training_coordinator.py` for phase timers or its separate
+`--preparation-only` CPU profile. Use `tools/benchmark_training_coordinator.py`
+with a baseline checkout for unprofiled comparisons. The
+[local report and reproduction commands](../research/coordinator-overhead-local.md)
+include source hashes, retry/recovery checks and all three-seed measurements.

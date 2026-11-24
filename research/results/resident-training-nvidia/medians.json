@@ -1,0 +1,78 @@
+[
+  {
+    "arm": "resident-1",
+    "trials": 3,
+    "seconds": 239.57090324291494,
+    "loss": 1.2199504860090145,
+    "accuracy": 0.6005859375,
+    "time_to_loss": {
+      "1.5": {
+        "reached": 3,
+        "trials": 3,
+        "median_seconds": 47.93076622497756
+      },
+      "1.0": {
+        "reached": 1,
+        "trials": 3,
+        "median_seconds": null
+      }
+    }
+  },
+  {
+    "arm": "resident-4",
+    "trials": 3,
+    "seconds": 171.27009940799326,
+    "loss": 0.7709529442959926,
+    "accuracy": 0.7333984375,
+    "time_to_loss": {
+      "1.5": {
+        "reached": 3,
+        "trials": 3,
+        "median_seconds": 53.53745615296066
+      },
+      "1.0": {
+        "reached": 3,
+        "trials": 3,
+        "median_seconds": 85.83234454598278
+      }
+    }
+  },
+  {
+    "arm": "torch-upstream-1",
+    "trials": 3,
+    "seconds": 15.052220587967895,
+    "loss": 1.1392839053479518,
+    "accuracy": 0.59375,
+    "time_to_loss": {
+      "1.5": {
+        "reached": 3,
+        "trials": 3,
+        "median_seconds": 3.532556443940848
+      },
+      "1.0": {
+        "reached": 2,
+        "trials": 3,
+        "median_seconds": null
+      }
+    }
+  },
+  {
+    "arm": "torch-control-1",
+    "trials": 3,
+    "seconds": 14.51845972391311,
+    "loss": 1.318428071058642,
+    "accuracy": 0.6044921875,
+    "time_to_loss": {
+      "1.5": {
+        "reached": 3,
+        "trials": 3,
+        "median_seconds": 3.1758648050017655
+      },
+      "1.0": {
+        "reached": 0,
+        "trials": 3,
+        "median_seconds": null
+      }
+    }
+  }
+]

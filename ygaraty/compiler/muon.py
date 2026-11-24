@@ -44,6 +44,7 @@ def append_muon(tape, parameters, learning_rate, *, momentum=0.95, steps=5):
             "inverse_norm", [squares], (1, 1), dict(epsilon=1e-7)
         )
         x = tape.mul(x, tape._broadcast(inverse, (rows, cols)))
+        resident_start = len(tape.nodes)
         if rows > cols:
             x = tape.transpose(x)
         for _ in range(steps):
@@ -54,6 +55,9 @@ def append_muon(tape, parameters, learning_rate, *, momentum=0.95, steps=5):
             x = tape.add(tape.scale(x, 3.4445), tape.matmul(b, x))
         if rows > cols:
             x = tape.transpose(x)
+        # An optional execution hint: portable Tape operations remain authoritative.
+        for node in tape.nodes[resident_start:]:
+            node.attrs["muon_block"] = p
         updates[p] = tape.add(
             tape.scale(x, -learning_rate * math.sqrt(max(1, rows / cols))), p
         )

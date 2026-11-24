@@ -1,0 +1,191 @@
+{
+  "runtime": "deno",
+  "kind": "same-host-native-correctness",
+  "reference_checked": true,
+  "training_execution": "resident",
+  "muon_execution": "resident",
+  "samples": 256,
+  "traffic": {
+    "request_body_bytes": 346880,
+    "response_body_bytes": 5531434
+  },
+  "observations": [
+    {
+      "version": 0,
+      "seconds_since_launch": 0.15788633422926068,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.2882553303307356,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 1,
+      "seconds_since_launch": 3.334503000136465,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.093704820451693,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 2,
+      "seconds_since_launch": 4.427911375183612,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 1.9307377147683118,
+        "accuracy": 0.25
+      }
+    }
+  ],
+  "first_assignment_seconds": 0.6904275421984494,
+  "synthetic": true,
+  "source_sha256": "970d8012bbf46c2f2228d80f91901e8b85056ee35dd58dc9c5c551041d431c7d",
+  "config": {
+    "num_workers": 1,
+    "rounds": 2,
+    "local_steps": 8,
+    "batch_size": 16,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "learning_rate": 0.001,
+    "optimizer": "muon",
+    "muon_learning_rate": 0.02,
+    "muon_momentum": 0.95,
+    "muon_steps": 5,
+    "outer_learning_rate": 0.7,
+    "momentum": 0.9,
+    "seed": 2026,
+    "eval_examples": 8,
+    "eval_interval": 1,
+    "round_timeout": 600,
+    "lease_seconds": 45,
+    "max_retries": 3,
+    "precision": "webgpu"
+  },
+  "dataset": {
+    "name": "synthetic-protocol-fixture",
+    "sha256": "d3bb210677e5f0c007984b480b748472b3be9b7148aec9983e144f17881cfe02"
+  },
+  "seconds": 4.427922083996236,
+  "max_weight_error": 2.254675004136064e-06,
+  "tolerance": 5e-05,
+  "metrics": [
+    {
+      "version": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.2882553303307356,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 1,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.2950970804454123,
+          2.2879351773752106,
+          2.2814562403438394,
+          2.275630328529921,
+          2.2707017722701153,
+          2.2662911902534013,
+          2.2623256313472595,
+          2.2583645908758
+        ]
+      },
+      "seconds": 2.171347124967724,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.093704820451693,
+        "accuracy": 0.0
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9261495419999999,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    },
+    {
+      "version": 2,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.2490366675004765,
+          2.245065285090874,
+          2.2404985238945976,
+          2.235971892311941,
+          2.23121306836396,
+          2.226281282703077,
+          2.2214162038410663,
+          2.216446478454422
+        ]
+      },
+      "seconds": 1.3970844163559377,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 1.9307377147683118,
+        "accuracy": 0.25
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.43041841700000033,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    }
+  ],
+  "platform": "macOS-27.0.1-arm64-arm-64bit"
+}

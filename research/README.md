@@ -38,6 +38,16 @@ are retained. Cloud marketplace operations are outside this research collection.
 
 ### DiLoCo training
 
+- [Coordinator overhead: profiled response handling and event-driven rounds, 1.63–2.38× faster locally](coordinator-overhead-local.md)
+
+- [GPU-resident NVIDIA training: one/four GPUs versus MuLoCo-1, three seeds](resident-training-nvidia.md)
+
+- [GPU-resident local steps: full forward/backward and optimizer execution, with paired local measurements](resident-training-local.md)
+
+- [Resident Muon on NVIDIA: 1.67× faster training with matching loss](muon-resident-nvidia.md)
+
+- [Resident Muon: 2.14× faster local Fashion-MNIST training with matching loss](muon-resident-local.md)
+
 - [Muon DiLoCo: one/four physical GPUs and a same-ConvNet upstream PyTorch reference](muon-diloco-vast.md)
 
 - [Muon versus Adam: two-seed local one/three-worker learning and time-to-loss comparison](muon-diloco-local.md)

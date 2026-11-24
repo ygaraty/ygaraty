@@ -1,0 +1,87 @@
+{
+  "source_sha256": {
+    "baseline": "076e5a5872710c62ccba62e1cee4f6724de20f28959589e9e2ab5586f64bec2b",
+    "candidate": "9ded0e3f074bea0e0fe5c3fc6ee2ff5e9ff3ac4b86b6e0d83a88f5c0c6b6ffdb"
+  },
+  "trial_order": [
+    [
+      2026,
+      1,
+      "baseline"
+    ],
+    [
+      2026,
+      1,
+      "candidate"
+    ],
+    [
+      2026,
+      4,
+      "baseline"
+    ],
+    [
+      2026,
+      4,
+      "candidate"
+    ],
+    [
+      2027,
+      4,
+      "candidate"
+    ],
+    [
+      2027,
+      4,
+      "baseline"
+    ],
+    [
+      2027,
+      1,
+      "candidate"
+    ],
+    [
+      2027,
+      1,
+      "baseline"
+    ],
+    [
+      2028,
+      1,
+      "baseline"
+    ],
+    [
+      2028,
+      1,
+      "candidate"
+    ],
+    [
+      2028,
+      4,
+      "baseline"
+    ],
+    [
+      2028,
+      4,
+      "candidate"
+    ]
+  ],
+  "samples": 3072,
+  "dataset": "fashion-mnist",
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "optimizer": "muon",
+  "batch_size": 16,
+  "local_steps": 8,
+  "evaluation_examples": 256,
+  "evaluation_every_samples": 1536,
+  "loss_tolerance": 1e-10,
+  "topology": "same-host default GPU; processes are not independent physical GPUs",
+  "cpu_library_threads": 1,
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "runtime": "deno 2.9.5 (stable, release, aarch64-apple-darwin)\nv8 15.0.245.2-rusty\ntypescript 6.0.3",
+  "tool_sha256": "c52c2196d04caa46a3dd6943068729dbd5d14c7720f74bc559734d0cb1152d08",
+  "timing": "Unprofiled; includes contributor startup, training and evaluation. Excludes initial coordinator evaluation and dataset loading. No thermal/cache reset."
+}

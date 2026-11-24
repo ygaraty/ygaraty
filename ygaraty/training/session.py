@@ -156,6 +156,8 @@ class TrainingSession:
         self.states = {w: dict(step=0, moments=None) for w in self.members}
         self.receipts, self.metrics = {}, []
         self.clock, self.lock = clock, threading.RLock()
+        self.changed = threading.Condition(self.lock)
+        self.encoded_bundles = {}
         self.join_token = secrets.token_urlsafe(32)
         self.clients, self.staged, self.bundles = {}, {}, {}
         self.started = None
@@ -228,6 +230,9 @@ class TrainingSession:
                 reason + "; retry limit reached; restart with --resume"
             )
 
+        self.encoded_bundles.clear()
+        self.changed.notify_all()
+
     def tick(self):
         """Called by the server timer as well as requests, even with no clients."""
         with self.lock:
@@ -255,6 +260,8 @@ class TrainingSession:
                 expired |= evicted
             for worker in expired:
                 self.clients.pop(worker, None)
+            if expired:
+                self.changed.notify_all()
 
     def join(self, token, client_id):
         with self.lock:
@@ -286,6 +293,7 @@ class TrainingSession:
                         token=secrets.token_urlsafe(32),
                         seen=self.clock(),
                     )
+                    self.changed.notify_all()
                     return dict(
                         worker=worker,
                         token=self.clients[worker]["token"],
@@ -305,7 +313,7 @@ class TrainingSession:
             )
         client["seen"] = self.clock()
 
-    def status(self):
+    def status(self, *, include_metrics=True):
         with self.lock:
             self.tick()
             return dict(
@@ -323,44 +331,88 @@ class TrainingSession:
                 pending=list(self.coordinator.pending),
                 retries=self.retries,
                 error=self.error,
-                metrics=copy.deepcopy(self.metrics),
+                **(
+                    {"metrics": copy.deepcopy(self.metrics)}
+                    if include_metrics
+                    else {}
+                ),
             )
 
+    def _assignment(self, worker, token, *, include_metrics=False):
+        """Borrow an internal bundle under the session lock; never expose it."""
+        self.authenticate(worker, token)
+        status = self.status(include_metrics=include_metrics)
+        if status["state"] in ("failed", "complete") or len(
+            self.clients
+        ) != len(self.members):
+            return status
+        if self.started is None:
+            self.coordinator.begin_round(self.members)
+            self.started = self.clock()
+        if worker in self.staged:
+            return dict(state="submitted", version=self.coordinator.version)
+        if worker not in self.bundles:
+            step = self.states[worker]["step"]
+            batches = self.dataset.batches(
+                self.members.index(worker),
+                len(self.members),
+                step,
+                self.config.local_steps,
+                self.config.batch_size,
+                self.config.seed,
+            )
+            self.bundles[worker] = dict(
+                state="assignment",
+                optimizer=copy.deepcopy(self.states[worker]),
+                **self.recipe.round_bundle(
+                    self.coordinator.assignment(worker),
+                    batches,
+                    start_step=step,
+                ),
+            )
+        return self.bundles[worker]
+
     def assignment(self, worker, token):
+        """Return an isolated Python value for direct callers."""
         with self.lock:
-            self.authenticate(worker, token)
-            status = self.status()
-            if status["state"] in ("failed", "complete") or len(
-                self.clients
-            ) != len(self.members):
-                return status
-            if self.started is None:
-                self.coordinator.begin_round(self.members)
-                self.started = self.clock()
-            if worker in self.staged:
-                return dict(
-                    state="submitted", version=self.coordinator.version
-                )
-            if worker not in self.bundles:
-                step = self.states[worker]["step"]
-                batches = self.dataset.batches(
-                    self.members.index(worker),
-                    len(self.members),
-                    step,
-                    self.config.local_steps,
-                    self.config.batch_size,
-                    self.config.seed,
-                )
-                self.bundles[worker] = dict(
-                    state="assignment",
-                    optimizer=copy.deepcopy(self.states[worker]),
-                    **self.recipe.round_bundle(
-                        self.coordinator.assignment(worker),
-                        batches,
-                        start_step=step,
-                    ),
-                )
-            return copy.deepcopy(self.bundles[worker])
+            return copy.deepcopy(
+                self._assignment(worker, token, include_metrics=True)
+            )
+
+    def assignment_bytes(self, worker, token, *, wait_seconds=20):
+        """Bounded long poll with immutable, per-round JSON response caching.
+
+        Waiting releases the session lock. Join, commit and rollback wake all
+        waiters; each wake rechecks authentication and the committed generation.
+        No uncommitted state is acknowledged or persisted by this cache.
+        """
+        if (
+            type(wait_seconds) not in (int, float)
+            or not math.isfinite(wait_seconds)
+            or not 0 <= wait_seconds <= 20
+        ):
+            raise ValueError(
+                "Assignment wait must be between 0 and 20 seconds"
+            )
+        deadline = time.monotonic() + wait_seconds
+        with self.changed:
+            while True:
+                bundle = self._assignment(worker, token)
+                if bundle["state"] == "assignment":
+                    encoded = self.encoded_bundles.get(worker)
+                    if encoded is None:
+                        encoded = json.dumps(
+                            bundle, allow_nan=False, separators=(",", ":")
+                        ).encode()
+                        # At most four current-round responses, 16 MiB each.
+                        # Larger valid plans still work without retaining bytes.
+                        if len(encoded) <= recovery.LIMIT:
+                            self.encoded_bundles[worker] = encoded
+                    return encoded
+                remaining = deadline - time.monotonic()
+                if bundle["state"] in ("complete", "failed") or remaining <= 0:
+                    return json.dumps(bundle, allow_nan=False).encode()
+                self.changed.wait(remaining)
 
     def submit(self, worker, token, payload):
         with self.lock:
@@ -461,5 +513,7 @@ class TrainingSession:
             raise
         finally:
             self.staged, self.bundles, self.started = {}, {}, None
+            self.encoded_bundles.clear()
+            self.changed.notify_all()
         self.retries = 0
         print(json.dumps(record, allow_nan=False), flush=True)

@@ -277,6 +277,164 @@ class TrainingSessionTests(unittest.TestCase):
             )
             self.assertIn("no-store", response.headers["cache-control"])
 
+    def wait_for_assignment(self, session, credentials):
+        """Start a waiter and prove it released the session lock."""
+        from concurrent.futures import ThreadPoolExecutor
+
+        pool = ThreadPoolExecutor(max_workers=1)
+        self.addCleanup(pool.shutdown)
+        entered = threading.Event()
+        original = session.changed.wait
+
+        def wait(timeout):
+            entered.set()
+            return original(timeout)
+
+        patched = patch.object(session.changed, "wait", side_effect=wait)
+        patched.start()
+        self.addCleanup(patched.stop)
+        future = pool.submit(
+            session.assignment_bytes,
+            credentials["worker"],
+            credentials["token"],
+            wait_seconds=3,
+        )
+        self.assertTrue(entered.wait(2), "Assignment did not wait")
+        return future
+
+    def test_assignment_bytes_cache_is_isolated_and_authenticated(self):
+        session = self.session(workers=1)
+        c = join_all(session)[0]
+        args = (c["worker"], c["token"])
+        encoded = session.assignment_bytes(*args)
+        self.assertIs(encoded, session.assignment_bytes(*args))
+        decoded = json.loads(encoded)
+        value = session.assignment(*args)
+        self.assertEqual(decoded, json.loads(json.dumps(value)))
+        value["plans"][0]["tasks"].clear()
+        value["assignment"]["weights"].clear()
+        self.assertEqual(json.loads(session.assignment_bytes(*args)), decoded)
+        with self.assertRaises(PermissionError):
+            session.assignment_bytes(c["worker"], "wrong-token")
+        session.submit(*args, result_for(session, c))
+        self.assertFalse(session.encoded_bundles)
+        following = json.loads(session.assignment_bytes(*args))
+        self.assertEqual(following["assignment"]["version"], 1)
+        self.assertNotEqual(
+            following["assignment"]["round_id"],
+            decoded["assignment"]["round_id"],
+        )
+
+    def test_large_assignment_is_serialized_without_retained_byte_cache(self):
+        session = self.session(workers=1)
+        c = join_all(session)[0]
+        with patch.object(recovery, "LIMIT", 1):
+            encoded = session.assignment_bytes(c["worker"], c["token"])
+        self.assertFalse(session.encoded_bundles)
+        self.assertEqual(json.loads(encoded)["state"], "assignment")
+
+    def test_waiting_assignment_wakes_on_join_and_has_bounded_timeout(self):
+        session = self.session()
+        c = session.join(session.join_token, "first-client-000000")
+        status = json.loads(
+            session.assignment_bytes(c["worker"], c["token"], wait_seconds=0)
+        )
+        self.assertEqual(status["state"], "waiting")
+        self.assertNotIn("metrics", status)
+        self.assertIn("metrics", session.assignment(c["worker"], c["token"]))
+        for invalid in (-1, 21, float("nan"), True):
+            with self.assertRaises(ValueError):
+                session.assignment_bytes(
+                    c["worker"], c["token"], wait_seconds=invalid
+                )
+        future = self.wait_for_assignment(session, c)
+        session.join(session.join_token, "second-client-00000")
+        self.assertEqual(json.loads(future.result(2))["state"], "assignment")
+
+    def test_waiting_assignment_wakes_only_after_durable_commit(self):
+        session = self.session()
+        a, b = join_all(session)
+        session.submit(a["worker"], a["token"], result_for(session, a))
+        future = self.wait_for_assignment(session, a)
+        original = recovery.save
+
+        def save(*args, **kwargs):
+            self.assertFalse(future.done())
+            return original(*args, **kwargs)
+
+        with patch.object(recovery, "save", side_effect=save):
+            session.submit(b["worker"], b["token"], result_for(session, b))
+        bundle = json.loads(future.result(2))
+        self.assertEqual(bundle["assignment"]["version"], 1)
+        self.assertEqual(
+            bundle["optimizer"]["step"], session.config.local_steps
+        )
+        self.assertEqual(
+            recovery.load(session.path)["metrics"][-1]["version"], 1
+        )
+
+    def test_waiter_rechecks_lease_and_discards_aborted_response_cache(self):
+        session = self.session(lease_seconds=5)
+        a, b = join_all(session)
+        session.assignment_bytes(a["worker"], a["token"])
+        session.submit(a["worker"], a["token"], result_for(session, a))
+        future = self.wait_for_assignment(session, a)
+        self.now = 6
+        session.tick()
+        with self.assertRaises(PermissionError):
+            future.result(2)
+        self.assertFalse(session.encoded_bundles)
+        self.assertEqual(session.coordinator.version, 0)
+        replacement = join_all(session)
+        new = json.loads(
+            session.assignment_bytes(
+                replacement[0]["worker"], replacement[0]["token"]
+            )
+        )
+        self.assertEqual(new["optimizer"]["step"], 0)
+
+    def test_commit_failure_wakes_waiter_without_publishing_new_state(self):
+        session = self.session()
+        a, b = join_all(session)
+        session.submit(a["worker"], a["token"], result_for(session, a))
+        future = self.wait_for_assignment(session, a)
+        payload = result_for(session, b)
+        with patch.object(recovery, "save", side_effect=OSError("disk full")):
+            with self.assertRaises(OSError):
+                session.submit(b["worker"], b["token"], payload)
+        self.assertEqual(json.loads(future.result(2))["state"], "failed")
+        self.assertEqual(session.coordinator.version, 0)
+        self.assertFalse(session.encoded_bundles)
+
+    def test_http_assignment_is_protocol_json_without_recursive_conversion(
+        self,
+    ):
+        from fastapi.testclient import TestClient
+
+        session = self.session(workers=1)
+        c = join_all(session)[0]
+        with TestClient(create_app(session)) as client:
+            with patch(
+                "fastapi.routing.serialize_response",
+                side_effect=AssertionError(
+                    "Protocol response must bypass recursive conversion"
+                ),
+            ):
+                response = client.post(
+                    f"/api/workers/{c['worker']}/assignment",
+                    headers={"Authorization": "Bearer " + c["token"]},
+                )
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(
+                response.headers["content-type"], "application/json"
+            )
+            self.assertEqual(
+                response.json(),
+                json.loads(
+                    json.dumps(session.assignment(c["worker"], c["token"]))
+                ),
+            )
+
 
 class ConvNetTapeTests(unittest.TestCase):
     def test_gradients_match_finite_differences(self):

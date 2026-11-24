@@ -10,7 +10,7 @@ from .recovery import LIMIT
 
 def create_app(session):
     from fastapi import FastAPI, Request
-    from fastapi.responses import FileResponse, JSONResponse
+    from fastapi.responses import FileResponse, JSONResponse, Response
 
     # Request is local to keep the server extra optional at import time.
     @asynccontextmanager
@@ -82,11 +82,20 @@ def create_app(session):
     def token(request):
         return request.headers.get("Authorization", "").removeprefix("Bearer ")
 
+    async def respond(function, *args):
+        # Session methods already return JSON-native protocol data. Returning a
+        # Response skips FastAPI's recursive object conversion; render in the
+        # same worker thread so large plans do not block the event loop.
+        def render():
+            return JSONResponse(function(*args))
+
+        return await asyncio.to_thread(render)
+
     @app.post("/api/join")
     async def join(request: Request):
         try:
             data = await body(request)
-            return await asyncio.to_thread(
+            return await respond(
                 session.join, token(request), data["client_id"]
             )
         except PermissionError as error:
@@ -99,14 +108,13 @@ def create_app(session):
         try:
             auth = token(request)
             if action == "assignment":
-                return await asyncio.to_thread(
-                    session.assignment, worker, auth
+                content = await asyncio.to_thread(
+                    session.assignment_bytes, worker, auth
                 )
+                return Response(content, media_type="application/json")
             if action == "result":
                 data = await body(request)
-                return await asyncio.to_thread(
-                    session.submit, worker, auth, data
-                )
+                return await respond(session.submit, worker, auth, data)
             if action == "heartbeat":
 
                 def heartbeat():
@@ -114,7 +122,7 @@ def create_app(session):
                         session.authenticate(worker, auth)
                         return {"ok": True}
 
-                return await asyncio.to_thread(heartbeat)
+                return await respond(heartbeat)
             if action == "status":
 
                 def status():
@@ -122,7 +130,7 @@ def create_app(session):
                         session.authenticate(worker, auth)
                         return session.status()
 
-                return await asyncio.to_thread(status)
+                return await respond(status)
             return JSONResponse({"error": "Not found"}, status_code=404)
         except PermissionError as error:
             return JSONResponse({"error": str(error)}, status_code=401)

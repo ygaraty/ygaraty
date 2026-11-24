@@ -1,11 +1,23 @@
-# Train with browser contributors
+# DiLoCo training: implementation and results
 
 Start an experimental DiLoCo session from the command line. Each contributor
 trains a full replica of a small residual ConvNet using Ygaraty's Tape,
-compiler, browser kernels and Adam optimizer. The coordinator combines their
-updates using outer Nesterov momentum. No PyTorch is needed.
+compiler and WebGPU engine. Choose Adam (default) or Muon with auxiliary Adam;
+the coordinator combines model deltas using outer Nesterov momentum. No PyTorch
+is needed for Ygaraty training; PyTorch is used only for independent comparisons.
 
-From a checkout of this branch, install `python -m pip install '.[server]'`.
+This guide describes `feature/public-diloco-training`, including the GPU-resident
+executor and coordinator optimizations. It is research code, not a claim about
+the main-branch installer release. See [measured results](#measured-results) and
+[implementation reference](../ygaraty/training/README.md) for scope and code locations.
+
+[Start a session](#start-a-browser-session) · [How rounds work](#how-a-diloco-round-works) ·
+[GPU execution](#gpu-residency-and-coordination) · [Muon](#experimental-muon-local-optimizer) ·
+[Results](#measured-results) · [Recovery](#resume-and-replace-a-contributor)
+
+## Start a browser session
+
+From this source checkout, install `python -m pip install -e '.[server]'`.
 Then run:
 
 ```sh
@@ -39,10 +51,10 @@ pools, a residual connection around the final convolution, global average
 pooling and a ten-class head. It is a compact residual ConvNet research recipe,
 not a reproduction of ConvNeXt or a state-of-the-art benchmark.
 
-Tape differentiates the model and the compiler lowers the forward, backward
-and Adam updates into portable tasks. Convolution and matrix multiplication
-run on WebGPU; supported elementwise and optimizer tasks currently run in
-JavaScript. A missing GPU fails explicitly. `--precision float64` selects the
+Tape differentiates the model and the compiler lowers forward, backward and
+optimizer updates into portable tasks. Supported rounds execute these tasks on
+WebGPU, retaining weights, activations, gradients and optimizer moments across
+local steps. A missing GPU fails explicitly. `--precision float64` selects the
 JavaScript CPU reference path for debugging and CI.
 
 The dataset has disjoint, deterministic worker shards. Each local step draws
@@ -52,6 +64,53 @@ training and after every committed round by default. Use `--eval-interval N`
 to evaluate every N rounds; the final round is always evaluated. Evaluation uses the first
 256 test examples; choose `--eval-examples 10000` for the complete test split.
 Small subsets and short runs are functional checks, not convergence evidence.
+
+## How a DiLoCo round works
+
+1. The coordinator assigns the same committed global weights to every logical
+   worker, together with that worker's optimizer state and deterministic batches.
+2. Each worker runs `--local-steps H` forward/backward/optimizer updates on its
+   own data shard. Workers compute concurrently and keep separate inner moments.
+3. Each returns a **model delta**: starting global weights minus its final local
+   weights. This is not a per-minibatch gradient all-reduce.
+4. After every assigned worker finishes, the coordinator averages the deltas in
+   deterministic worker order and applies the outer update. Defaults are
+   `--outer-learning-rate 0.7` and `--momentum 0.9` (Nesterov).
+5. The coordinator atomically saves the new global weights, outer momentum and
+   every worker's optimizer state. Only then can workers start the next round.
+   Inner moments survive synchronization; weights rebase to the new global model.
+
+With `K` workers, `R` rounds, `H` local steps and batch size `B`, a run processes
+`K × R × H × B` training samples. Increasing `K` at a fixed sample budget changes
+sharding and the number of outer updates, so learning curves need not match.
+Each worker must fit the **whole model and its training state**. Inference's
+layer partitioning does not make this training path model-parallel.
+
+## GPU residency and coordination
+
+Weights and optimizer moments upload once per local round; batches upload as
+needed. Supported forward/backward and optimizer intermediates stay on GPU,
+with reusable scratch buffers and one final readback for losses, weights and
+moments. Residency spans the local steps, not global synchronization. Outer
+updates, evaluation and durable checkpoints still run on the coordinator.
+
+Convolutions use FP32; other supported operations use compensated FP32 pairs.
+Unsupported or oversized plans use the portable per-task path before execution
+starts. GPU execution errors fail the round. See [execution limits and controls](native-training.md#gpu-resident-local-training).
+
+The coordinator sends protocol JSON directly, caches immutable assignment
+responses for retries, and wakes waiting requests when work is ready. Waits are
+bounded to 20 seconds and release the session lock. The cache is cleared on
+commit or abort and retains at most 16 MiB per worker. Larger responses work
+without byte caching. Authentication is rechecked after waking; checkpoint
+publication remains durable. DiLoCo currently uses coordinator HTTP with JSON
+tensors, not the separate binary peer-tree transport.
+
+Browser contributors use `ygaraty train serve`. The public test harness also
+runs **Deno/wgpu contributors without Chromium**; see [native DiLoCo experiments](native-training.md#native-diloco-and-muon-experiments).
+`ygaraty contribute` in the inference quickstart is not a training contributor
+command. The small `ygaraty train --workers ...` example is a sequential local
+CPU demonstration, not a distributed GPU run.
 
 ## Experimental Muon local optimizer
 
@@ -69,17 +128,18 @@ ygaraty train serve --dataset fashion-mnist --num-workers 1 \
 
 `--learning-rate` controls auxiliary Adam, and `--muon-learning-rate` controls
 Muon. In the Python recipe, the existing `optimizer` options dictionary applies
-to the Adam group; Muon's settings are separate. Both use zero weight decay in this experiment. The default optimizer
-remains `adam`. Use a different run directory for each configuration; resume
+to the Adam group; Muon's settings are separate. Both use zero weight decay
+in this experiment. The default optimizer remains `adam`. Use a different run directory for each configuration; resume
 requires the original optimizer and settings.
 
 The compiler expresses momentum, normalization and the Newton–Schulz matrix
-iterations as Tape operations after the model's backward pass. Matrix products
-run through the WebGPU SDK; scalar/elementwise work uses the existing CPU
-runtime. The implementation follows the [Muon reference algorithm](https://github.com/KellerJordan/Muon),
-using float64 CPU and compensated WebGPU matrix arithmetic instead of its BF16
-iteration. No PyTorch runtime is involved. Muon uses one momentum tensor per
-convolution matrix; auxiliary Adam retains first and second moments. Both are
+iterations as Tape operations after the model's backward pass. The resident
+executor keeps those operations on GPU, including momentum and normalization.
+Our [Muon implementation](../ygaraty/compiler/muon.py) uses compensated arithmetic
+rather than the upstream MuLoCo-1 reference's BF16 Newton–Schulz iteration;
+its momentum and scaling also differ. This is not a bitwise reproduction of
+upstream MuLoCo-1. No PyTorch runtime is involved. Muon uses one momentum tensor
+per convolution matrix; auxiliary Adam retains first and second moments. Both are
 saved in transactional checkpoints and restored on contributor replacement.
 
 To reproduce the bounded, sequential one/three-worker comparison:
@@ -96,9 +156,69 @@ extrapolated. Every run uses the same sample budget and evaluation frequency.
 Optimizer arms at a given worker count share initialization and sample streams;
 changing worker count changes data shards and the number of outer updates.
 The fixed learning rates are a pilot, not a tuned optimizer comparison.
-`optimizer_seconds` measures SDK execution of optimizer tasks, including their
-GPU transfers, but excludes plan compilation and protocol overhead. Summed
-worker times overlap for multiple contributors and are not wall-clock time.
+Full resident rounds report task, submission, readback and transfer counters.
+They omit `optimizer_seconds`: GPU timestamps are not collected, so optimizer-only
+time cannot be separated reliably. Older per-task reports contain that field.
+Summed worker times overlap for multiple contributors and are not wall-clock time.
+
+## Measured results
+
+### Physical GPUs: GPU residency, before the latest coordinator fixes
+
+Three seeds, 15,360 Fashion-MNIST samples per trial; four RTX 3060 GPUs on one
+host. ConvNet channels 8/16/16, batch 16, eight local steps, 120/30 rounds for
+one/four workers. Evaluation uses 1,024 images every 1,536 training samples.
+
+| Implementation | GPUs | Median time | Final loss | Accuracy | Time to loss ≤1.5 |
+|---|---:|---:|---:|---:|---:|
+| Ygaraty DiLoCo + Muon | 1 | 239.57 s | 1.2200 | 60.06% | 47.93 s |
+| Ygaraty DiLoCo + Muon | 4 | 171.27 s | 0.7710 | 73.34% | 53.54 s |
+| PyTorch MuLoCo-1 | 1 | 15.05 s | 1.1393 | 59.38% | 3.53 s |
+| PyTorch, Ygaraty optimizer equations | 1 | 14.52 s | 1.3184 | 60.45% | 3.18 s |
+
+Four Ygaraty workers finished the sample budget **1.40× sooner**, with lower
+final loss, but took **12% longer to reach loss 1.5** than one Ygaraty worker.
+They did not beat single-GPU MuLoCo-1 in runtime or time to that target.
+Loss 1.0 was reached in 3/3 four-worker Ygaraty trials, 1/3 one-worker Ygaraty
+trials and 2/3 upstream trials; these are first observed crossings, not sustained
+thresholds. Optimizer differences and changed outer-update counts prevent an
+optimizer-superiority claim.
+
+Ygaraty timing includes contributor startup, training and evaluation; PyTorch
+reports setup separately. Dataset loading and initial Ygaraty evaluation are
+excluded. [All trials, timing definitions and reproduction commands](../research/resident-training-nvidia.md).
+
+### Latest coordinator fixes: local validation only
+
+After that remote run, profiling led to direct JSON responses, immutable response
+caching and event-driven waits. Three-seed medians on **one Apple M1 GPU**, with
+3,072 samples per trial:
+
+| Contributor processes | Before | After | Speedup |
+|---|---:|---:|---:|
+| 1 | 11.21 s | 6.88 s | 1.63× |
+| 4 | 9.34 s | 3.93 s | 2.38× |
+
+All recorded local-step losses, evaluation losses and accuracies matched exactly.
+The four processes share one GPU: this is an execution-path comparison, not
+four-GPU scaling. **The updated coordinator has not been benchmarked on NVIDIA.**
+Do not apply these multipliers to the remote times above.
+[Profile, correctness checks and exact baseline reconstruction](../research/coordinator-overhead-local.md).
+
+### What remains open
+
+- WAN throughput, mixed-GPU scheduling and straggler handling for this resident
+  ConvNet implementation. Fixed synchronous rounds wait for every worker.
+- Larger models, longer training and tuned time-to-loss comparisons. Short
+  Fashion-MNIST runs do not establish large-model convergence.
+- Plan serialization, tensor payload size and local executor efficiency. GPU
+  residency removes intermediate readbacks, not all host or network overhead.
+- Model partitioning for training: the current DiLoCo path uses full replicas.
+
+Protocol checks validate shapes, finite values and session identity; they do not
+prove that a trusted contributor computed honest updates. Older research reports
+may test other models or transports; their results do not validate every current
+path. [Browse the public DiLoCo experiments](../research/README.md#diloco-training).
 
 ## Resume and replace a contributor
 
@@ -111,7 +231,7 @@ ygaraty train serve --dataset fashion-mnist --num-workers 2 \
 ```
 
 Use the new link after restarting. The checkpoint includes global weights,
-outer momentum, each logical worker's Adam moments and step count, metrics,
+outer momentum, each logical worker's Muon/Adam moments and step count, metrics,
 and retry receipts. Dataset SHA-256, implementation SHA-256, seed and config
 are checked before resuming. The worker's step count determines its exact data
 cursor and shuffle epoch. A replacement browser inherits that logical slot's

@@ -1,0 +1,168 @@
+{
+  "runtime": "deno",
+  "gpu_selectors": null,
+  "kind": "same-host-native-correctness",
+  "reference_checked": true,
+  "samples": 64,
+  "traffic": {
+    "request_body_bytes": 350543,
+    "response_body_bytes": 1568384
+  },
+  "observations": [
+    {
+      "version": 0,
+      "seconds_since_launch": 0.09011949971318245,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.2882553303307356,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 1,
+      "seconds_since_launch": 1.829856290947646,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.2358432481277846,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 2,
+      "seconds_since_launch": 2.8863823330029845,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.1660793117358184,
+        "accuracy": 0.0
+      }
+    }
+  ],
+  "first_assignment_seconds": 0.30985045805573463,
+  "synthetic": true,
+  "source_sha256": "e3d64e57f42550e045a2a2b569609f5c4a39c94eb70ec94ecf6fdb6bcddad89f",
+  "config": {
+    "num_workers": 1,
+    "rounds": 2,
+    "local_steps": 2,
+    "batch_size": 16,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "learning_rate": 0.001,
+    "optimizer": "muon",
+    "muon_learning_rate": 0.02,
+    "muon_momentum": 0.95,
+    "muon_steps": 5,
+    "outer_learning_rate": 0.7,
+    "momentum": 0.9,
+    "seed": 2026,
+    "eval_examples": 8,
+    "eval_interval": 1,
+    "round_timeout": 600,
+    "lease_seconds": 45,
+    "max_retries": 3,
+    "precision": "webgpu"
+  },
+  "dataset": {
+    "name": "synthetic-protocol-fixture",
+    "sha256": "d3bb210677e5f0c007984b480b748472b3be9b7148aec9983e144f17881cfe02"
+  },
+  "seconds": 2.8863878748379648,
+  "max_weight_error": 9.457460631162595e-07,
+  "tolerance": 5e-05,
+  "metrics": [
+    {
+      "version": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.2882553303307356,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 1,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 2,
+      "losses": {
+        "worker-0": [
+          2.2950970804454074,
+          2.287935177375223
+        ]
+      },
+      "seconds": 1.446029707789421,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.2358432481277846,
+        "accuracy": 0.0
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 334,
+          "gpu_tasks": 312,
+          "matmul_tasks": 96,
+          "optimizer_seconds": 0.4947057860000007,
+          "seconds": 1.3595165420000002,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    },
+    {
+      "version": 2,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 2,
+      "losses": {
+        "worker-0": [
+          2.2778686872070923,
+          2.272607870304961
+        ]
+      },
+      "seconds": 1.0325890420936048,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.1660793117358184,
+        "accuracy": 0.0
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 334,
+          "gpu_tasks": 312,
+          "matmul_tasks": 96,
+          "optimizer_seconds": 0.12097112899999957,
+          "seconds": 0.938462416,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    }
+  ],
+  "platform": "macOS-27.0.1-arm64-arm-64bit"
+}

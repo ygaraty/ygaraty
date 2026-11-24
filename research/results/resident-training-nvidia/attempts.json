@@ -1,0 +1,17 @@
+[
+  {
+    "stage": "provisioning",
+    "outcome": "host DNS failure reaching provider service; destroyed before replacement",
+    "timed_trial": false
+  },
+  {
+    "stage": "remote launcher",
+    "outcome": "local SSH wait timed out; remote setup confirmed continuing; no duplicate launch",
+    "timed_trial": false
+  },
+  {
+    "stage": "benchmark",
+    "outcome": "all twelve timed trials and correctness gates passed",
+    "excluded_timed_trials": 0
+  }
+]

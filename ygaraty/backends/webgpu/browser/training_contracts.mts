@@ -24,7 +24,7 @@ export interface Assignment {
   weights: Named<WireTensor>; wire_dtype?: 'float32';
 }
 export interface OptimizerState {step: number; moments: Moments<WireTensor> | null}
-export interface ExecutionStats {cpu_tasks: number; gpu_tasks: number; matmul_tasks: number; optimizer_seconds?: number}
+export interface ExecutionStats {cpu_tasks: number; gpu_tasks: number; matmul_tasks: number; optimizer_seconds?: number; resident_rounds?: number; gpu_submissions?: number; readbacks?: number; uploaded_bytes?: number; downloaded_bytes?: number; gpu_buffer_bytes?: number}
 export interface RoundResult {
   stats: ExecutionStats;
   round_id: string; version: number; worker: string; steps: number;
@@ -34,7 +34,17 @@ export interface AdapterInfo {
   vendor: string; architecture: string; device: string; description: string;
   isFallbackAdapter: boolean | null; maxBufferSize: number; maxStorageBufferBindingSize: number;
 }
+export interface ResidentTrainingRequest {
+  steps: {plan: StepPlan; constants: Named<Tensor>}[];
+  weights: Named<Tensor>; moments: Moments<Tensor>; signal?: AbortSignal;
+}
+export interface ResidentTrainingResult {
+  weights: Named<Tensor>; moments: Moments<Tensor>; losses: number[]; stats: ExecutionStats;
+}
 export interface TrainingExecutor {
+  executeTrainingRound?(request: ResidentTrainingRequest, arithmetic: DenseArithmetic): Promise<ResidentTrainingResult | null>;
+  executeMuonBlock?(tasks: Task[], inputs: Map<string, Tensor>, outputs: string[],
+    arithmetic: DenseArithmetic): Promise<Map<string, Tensor> | null>;
   execute(task: Task & {precision: Precision}, inputs: Tensor[]):
     Promise<{value: Tensor; backend: 'cpu' | 'webgpu'}>;
 }

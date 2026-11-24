@@ -1,6 +1,7 @@
 // Generated output: diloco.mjs. Edit this TypeScript source.
 // Complete local DiLoCo rounds. All numerical work goes through the existing SDK.
 // This module does no networking and evaluates only allowlisted, data-only tasks.
+import {stateReferences} from './resident_training_plan.mjs';
 import {ComputeSDK} from './sdk_compute.mjs';
 import {tensor, type Tensor} from './sdk_tensor.mjs';
 import {momentKinds} from './training_contracts.mjs';
@@ -64,14 +65,43 @@ export async function executeLocalPlan(plan: StepPlan, inputs: Named<Tensor>, sd
   }
   if ([...keep].some(k => !known.has(k))) throw Error('Missing local outputs');
   for (const key of values.keys()) if (!remaining.get(key) && !keep.has(key)) values.delete(key);
-  const stats = {cpu_tasks: 0, gpu_tasks: 0, matmul_tasks: 0, optimizer_seconds: 0};
+  const stats: ExecutionStats = {cpu_tasks: 0, gpu_tasks: 0, matmul_tasks: 0, optimizer_seconds: 0};
+  let portableUntil = 0;
   for (let i = 0; i < plan.tasks.length; i++) {
     signal?.throwIfAborted();
+    const block = plan.tasks[i].attrs.muon_block;
+    if (i >= portableUntil && precision === 'webgpu' && typeof block === 'string' && sdk.executeMuonBlock) {
+      let end = i + 1;
+      while (end < plan.tasks.length && plan.tasks[end].attrs.muon_block === block) end++;
+      const tasks = plan.tasks.slice(i, end), uses = new Map<string, number>();
+      for (let j = i; j < end; j++) for (const dep of dependencies[j]) uses.set(dep, (uses.get(dep) || 0) + 1);
+      const outputs = tasks.filter(t => keep.has(t.id) || (remaining.get(t.id) || 0) > (uses.get(t.id) || 0)).map(t => t.id);
+      const start = performance.now();
+      const result = await sdk.executeMuonBlock(tasks, values, outputs, arithmetic);
+      if (result) {
+        signal?.throwIfAborted();
+        for (const id of outputs) {
+          const value = required(result, id), task = tasks.find(t => t.id === id)!;
+          if (value.shape[0] !== task.shape[0] || value.shape[1] !== task.shape[1] || !value.data.every(Number.isFinite)) throw Error('Invalid resident output');
+          values.set(id, value);
+        }
+        stats.optimizer_seconds! += (performance.now() - start) / 1000;
+        stats.gpu_tasks += tasks.filter(t => t.op !== 'assemble').length;
+        stats.matmul_tasks += tasks.filter(t => t.op === 'matmul').length;
+        for (const [dep, used] of uses) {
+          remaining.set(dep, (remaining.get(dep) || 0) - used);
+          if (!remaining.get(dep) && !keep.has(dep)) values.delete(dep);
+        }
+        i = end - 1;
+        continue;
+      }
+      portableUntil = end;
+    }
     const task = plan.tasks[i], args = task.inputs.map(x => slice(required(values, x.value), x.region));
     const taskStart = performance.now();
     const {value, backend} = await sdk.execute({...task, precision,
       attrs: {...task.attrs, gpu_arithmetic: arithmetic}}, args);
-    if (task.attrs.optimizer) stats.optimizer_seconds += (performance.now() - taskStart) / 1000;
+    if (task.attrs.optimizer) stats.optimizer_seconds! += (performance.now() - taskStart) / 1000;
     if (value.shape[0] !== task.shape[0] || value.shape[1] !== task.shape[1] ||
         !value.data.every(Number.isFinite)) throw Error('Invalid local output');
     stats[backend === 'webgpu' ? 'gpu_tasks' : 'cpu_tasks']++;
@@ -163,8 +193,33 @@ export class DiLoCoTrainer {
         Object.keys(base).some(n => !previous[n] || base[n].shape.some((s,i) => s !== previous[n].shape[i]))))
       throw Error('Assignment model changed');
     let weights = base, moments = this.moments || momentsFrom(() => Object.fromEntries(Object.entries(base).map(([n,w]) => [n, tensor(w.shape, new Float64Array(w.data.length))])));
-    const losses: number[] = [], stats = {cpu_tasks: 0, gpu_tasks: 0, matmul_tasks: 0, optimizer_seconds: 0};
+    const losses: number[] = [];
+    const stats: ExecutionStats = {cpu_tasks: 0, gpu_tasks: 0, matmul_tasks: 0, optimizer_seconds: 0};
+    const scheduled: StepPlan[] = [];
     for await (const plan of plans) {
+      this.signal?.throwIfAborted();
+      if (scheduled.length >= assignment.steps || plan.step !== this.step + scheduled.length + 1)
+        throw Error('Wrong local optimizer step');
+      scheduled.push(plan);
+    }
+    if (scheduled.length !== assignment.steps) throw Error('Not enough local plans');
+    if (!this.moments) {
+      const first = stateReferences(scheduled[0]);
+      if (Object.keys(first.m).sort().join(',') !== Object.keys(base).sort().join(',') || Object.keys(first.v).some(n => !base[n]))
+        throw Error('Optimizer state layout changed');
+      moments = momentsFrom(kind => Object.fromEntries(Object.keys(first[kind]).map(n => [n,moments[kind][n]])));
+    }
+    const resident = this.precision === 'webgpu' && this.sdk.executeTrainingRound
+      ? await this.sdk.executeTrainingRound({steps: scheduled.map(plan => ({plan,
+          constants: Object.fromEntries(Object.entries(plan.constants).map(([k,v])=>[k,unpack(v)]))})),
+          weights, moments, signal: this.signal}, this.arithmetic) : null;
+    if (resident) {
+      weights = resident.weights; moments = resident.moments; losses.push(...resident.losses);
+      // GPU timestamps are not collected: do not label host encoding time as optimizer time.
+      delete (stats as ExecutionStats).optimizer_seconds;
+      Object.assign(stats,resident.stats);
+    }
+    for (const plan of resident ? [] : scheduled) {
       this.signal?.throwIfAborted();
       if (losses.length >= assignment.steps || plan.step !== this.step + losses.length + 1)
         throw Error('Wrong local optimizer step');
@@ -181,13 +236,21 @@ export class DiLoCoTrainer {
         for (const [name, ref] of Object.entries(stateParameters[kind])) inputs[ref] = moments[kind][name];
       }
       const result = await executeLocalPlan(plan, inputs, this.sdk, this);
-      for (const key of (Object.keys(stats) as (keyof ExecutionStats)[])) stats[key] += result.stats[key] ?? 0;
+      for (const key of (Object.keys(stats) as (keyof ExecutionStats)[])) stats[key] = (stats[key] ?? 0) + (result.stats[key] ?? 0);
       losses.push(required(result.values, plan.loss).data[0]);
       weights = Object.fromEntries(Object.entries(plan.parameters).map(([n,p]) => [n, required(result.values, plan.updates[p])]));
       moments = momentsFrom(kind => Object.fromEntries(Object.entries(stateParameters[kind])
         .map(([n,ref]) => [n, required(result.values, plan.updates[ref])])));
     }
-    if (losses.length !== assignment.steps) throw Error('Not enough local plans');
+    if (losses.length !== assignment.steps || !losses.every(Number.isFinite)) throw Error('Invalid local losses');
+    const finalRefs = stateReferences(scheduled[scheduled.length - 1]);
+    for (const [actual, expected, variance] of [[weights, base, false], [moments.m, finalRefs.m, false], [moments.v, finalRefs.v, true]] as const) {
+      if (Object.keys(actual).sort().join(',') !== Object.keys(expected).sort().join(',')) throw Error('Invalid local state layout');
+      for (const [name,value] of Object.entries(actual)) {
+        if (!base[name] || value.shape.length !== base[name].shape.length || value.shape.some((n,i) => n !== base[name].shape[i]) || value.data.length !== base[name].data.length ||
+            !value.data.every(x => Number.isFinite(x) && (!variance || x >= 0))) throw Error('Invalid local state output');
+      }
+    }
     const pseudo_gradient: Named<WireTensor> = Object.fromEntries(Object.keys(base).map(name => {
       const before = base[name], after = weights[name];
       const data = Float64Array.from(before.data, (x, i) => x - after.data[i]);

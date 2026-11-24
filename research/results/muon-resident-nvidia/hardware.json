@@ -1,0 +1,9 @@
+{
+  "physical_gpus": 1,
+  "name": "NVIDIA GeForce RTX 3060",
+  "memory": "12288 MiB",
+  "driver": "580.178.04",
+  "vulkan_uuid_matches_allocated_gpu": true,
+  "observed_processes_during": 1,
+  "remaining_processes_after": 0
+}

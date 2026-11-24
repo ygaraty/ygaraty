@@ -2,12 +2,7 @@
 import {tensor} from './sdk_tensor.mjs';
 import type {Tensor, DenseArithmetic} from './webgpu_contracts.mjs';
 import {BufferScope, compileProgram, runReadback, checkedGPU} from './webgpu_kernels.mjs';
-export const COMPENSATED_MATMUL_WGSL=`
-          struct Dims {m:u32,n:u32,k:u32,pad:u32};
-          @group(0) @binding(0) var<storage,read> a:array<vec2<f32>>;
-          @group(0) @binding(1) var<storage,read> b:array<vec2<f32>>;
-          @group(0) @binding(2) var<storage,read_write> c:array<vec2<f32>>;
-          @group(0) @binding(3) var<uniform> d:Dims;
+export const COMPENSATED_ARITHMETIC_WGSL=`
           // Unevaluated hi+lo pairs preserve the residual discarded by f32.
           // pad is a runtime zero. The integer round-trip prevents GPU fast-
           // math from algebraically deleting the rounding residuals. It does
@@ -30,6 +25,14 @@ export const COMPENSATED_MATMUL_WGSL=`
             let e=rounded(rounded(residual+cross)+rounded(a.y*b.y));
             return two_sum(p,e);
           }
+`;
+export const COMPENSATED_MATMUL_WGSL=`
+          struct Dims {m:u32,n:u32,k:u32,pad:u32};
+          @group(0) @binding(0) var<storage,read> a:array<vec2<f32>>;
+          @group(0) @binding(1) var<storage,read> b:array<vec2<f32>>;
+          @group(0) @binding(2) var<storage,read_write> c:array<vec2<f32>>;
+          @group(0) @binding(3) var<uniform> d:Dims;
+${COMPENSATED_ARITHMETIC_WGSL}
           @compute @workgroup_size(8,8) fn main(@builtin(global_invocation_id) id:vec3<u32>){
             let row=id.y;let col=id.x;if(row>=d.m||col>=d.n){return;}
             var sum=vec2<f32>(0.0,0.0);

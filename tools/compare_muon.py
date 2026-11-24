@@ -101,7 +101,9 @@ def compare(directory):
                     optimizer_share_of_worker_execution=sum(
                         x["optimizer_seconds"] for x in group
                     )
-                    / sum(x["worker_compute_seconds"] for x in group),
+                    / sum(x["worker_compute_seconds"] for x in group)
+                    if all(x["optimizer_seconds"] is not None for x in group)
+                    else None,
                 )
             )
     return dict(trials=rows, aggregates=aggregates), reports

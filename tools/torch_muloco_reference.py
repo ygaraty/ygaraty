@@ -350,8 +350,9 @@ def main():
         device=args.device,
         dtype="float32",
         arithmetic_note=(
-            "Torch uses FP32 tensors on CUDA; Ygaraty uses FP64 host ops "
-            "and FP32 WebGPU matrix kernels. Control is not bitwise exact."
+            "Torch uses FP32 tensors on CUDA; resident Ygaraty uses FP32 "
+            "convolutions and compensated FP32 pairs for other GPU ops. "
+            "Outer updates use the host. Control is not bitwise exact."
         ),
         tf32=False,
         optimizer=dict(

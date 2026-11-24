@@ -51,6 +51,18 @@ def main(argv=None):
         type=Path,
         help="JSON list of unique DRI_PRIME PCI selectors, one per worker",
     )
+    parser.add_argument(
+        "--muon-execution",
+        choices=("resident", "tasks"),
+        default="resident",
+        help="Deno benchmark control: disable resident Muon batching with tasks",
+    )
+    parser.add_argument(
+        "--training-execution",
+        choices=("resident", "tasks"),
+        default="resident",
+        help="Deno control: retain current per-step execution with tasks",
+    )
     parser.add_argument("--timeout", type=float, default=180)
     parser.add_argument(
         "--data-dir",
@@ -77,6 +89,12 @@ def main(argv=None):
         help="Measure training instead of replaying every step in Python",
     )
     args = parser.parse_args(argv)
+    if args.muon_execution == "tasks":
+        args.training_execution = "tasks"
+    if args.muon_execution == "tasks" and args.runtime != "deno":
+        parser.error("--muon-execution tasks requires --runtime deno")
+    if args.training_execution == "tasks" and args.runtime != "deno":
+        parser.error("--training-execution tasks requires --runtime deno")
     chrome = (
         os.environ.get("YGARATY_CHROME")
         or shutil.which("chromium")
@@ -237,6 +255,8 @@ catch (error) {
                                 join_token=session.join_token,
                                 client_id=f"native-{i:020}",
                                 timeout_seconds=args.timeout,
+                                muon_execution=args.muon_execution,
+                                training_execution=args.training_execution,
                             )
                         )
                     )
@@ -443,6 +463,8 @@ catch (error) {
                 else "same-host-browser-correctness"
             ),
             reference_checked=not args.training_run,
+            training_execution=args.training_execution,
+            muon_execution=args.muon_execution,
             samples=cfg.rounds
             * cfg.num_workers
             * cfg.local_steps

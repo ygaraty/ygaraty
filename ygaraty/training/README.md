@@ -15,11 +15,11 @@ The browser DiLoCo client and kernels live in the WebGPU package's `browser/`.
 `TrainingSession` owns fixed logical worker slots and a `Coordinator`.
 `server.py` supplies authenticated HTTP transport; `launch.py` owns the server
 and optional public tunnel. `datasets.py` validates IDX archives and derives
-each shuffled shard from seed, logical worker and epoch. The committed Adam
+each shuffled shard from seed, logical worker and epoch. The committed optimizer
 step determines the next sample cursor. `convnet_webgpu.py` builds its graph
 using `ShapeTape`, reverse-mode differentiation and the shared compiler.
 
-Only a completed round is published durably. All replica Adam states, global
+Only a completed round is published durably. All replica Muon/Adam states, global
 weights, outer momentum, configuration/dataset/code identity, metrics and retry
 receipts are in one atomic checkpoint. An aborted or interrupted round discards
 every tentative update. Membership replacement preserves the logical slot's
@@ -67,3 +67,40 @@ Muon is available for the public ConvNet recipe through `optimizer_kind="muon"`
 and the training CLI's `--optimizer muon`. See the
 [Muon user guide](../../docs/distributed-training.md#experimental-muon-local-optimizer)
 for parameter groups, optimizer state and the bounded comparison command.
+
+## DiLoCo execution and code map
+
+The [user guide](../../docs/distributed-training.md) covers launch, optimizers,
+recovery and results. The production round is synchronous, with full replicas:
+
+- `coordinator.py`: sorted-worker mean of model deltas; outer SGD/Nesterov update.
+- `convnet_webgpu.py`: ShapeTape forward/backward graph and compiled Adam/Muon
+  tasks. Workers consume these plans; the network does not invoke PyTorch.
+- `session.py`: logical membership, deterministic batches, complete optimizer
+  checkpoints, idempotent receipts and durable round publication.
+- `server.py`: authenticated HTTP. Assignment responses use immutable JSON bytes
+  rather than FastAPI's recursive conversion. `assignment_bytes()` waits on a
+  condition (up to 20 seconds), releases the lock while waiting, reauthenticates
+  on wake and clears its bounded cache on commit/abort. `assignment()` still
+  returns an isolated Python value; `status()` retains full metrics.
+- [Browser/native trainer](../backends/webgpu/browser/diloco.mts): local rounds,
+  optimizer checkpoints and delta construction. It commits local state only
+  after a complete successful round.
+- [Resident executor](../backends/webgpu/browser/resident_training.mts): bounded
+  plan admission, buffer reuse, GPU forward/backward/optimizer work across local
+  steps and one final readback. Unsupported plans use the per-task path before
+  execution; GPU failures do not silently switch arithmetic.
+
+For each parameter, `delta = mean(global_before - local_after)`. The outer
+coordinator uses `v = momentum * v + delta`; Nesterov updates global weights by
+`-outer_lr * (delta + momentum * v)`. With no momentum it applies outer SGD.
+Inner optimizer moments remain per worker, persist across rounds and are
+checkpointed centrally for recovery; workers rebase weights to the committed
+global model. This is distinct from synchronous gradient reduction.
+
+Measure with `tools/profile_training_coordinator.py` and compare frozen source
+checkouts with `tools/benchmark_training_coordinator.py`. See the
+[GPU-resident NVIDIA result](../../research/resident-training-nvidia.md) and the
+[subsequent local coordinator result](../../research/coordinator-overhead-local.md).
+Their hardware, sample budgets and implementation revisions differ; local
+speedups cannot be multiplied into the earlier NVIDIA timings.

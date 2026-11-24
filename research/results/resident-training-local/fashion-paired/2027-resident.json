@@ -1,0 +1,398 @@
+{
+  "runtime": "deno",
+  "kind": "same-host-native-training",
+  "reference_checked": false,
+  "training_execution": "resident",
+  "muon_execution": "resident",
+  "samples": 768,
+  "traffic": {
+    "request_body_bytes": 1033499,
+    "response_body_bytes": 12321764
+  },
+  "observations": [
+    {
+      "version": 0,
+      "seconds_since_launch": 0.09417683305218816,
+      "evaluation": {
+        "split": "test",
+        "examples": 256,
+        "loss": 2.331905240082677,
+        "accuracy": 0.08203125
+      }
+    },
+    {
+      "version": 1,
+      "seconds_since_launch": 1.162811541929841,
+      "evaluation": null
+    },
+    {
+      "version": 2,
+      "seconds_since_launch": 4.320232749916613,
+      "evaluation": {
+        "split": "test",
+        "examples": 256,
+        "loss": 2.280274742927051,
+        "accuracy": 0.109375
+      }
+    },
+    {
+      "version": 3,
+      "seconds_since_launch": 6.258965374901891,
+      "evaluation": null
+    },
+    {
+      "version": 4,
+      "seconds_since_launch": 7.592533291783184,
+      "evaluation": {
+        "split": "test",
+        "examples": 256,
+        "loss": 2.0205407494397125,
+        "accuracy": 0.20703125
+      }
+    },
+    {
+      "version": 5,
+      "seconds_since_launch": 8.74758966686204,
+      "evaluation": null
+    },
+    {
+      "version": 6,
+      "seconds_since_launch": 9.651928874664009,
+      "evaluation": {
+        "split": "test",
+        "examples": 256,
+        "loss": 1.498360434442544,
+        "accuracy": 0.39453125
+      }
+    }
+  ],
+  "first_assignment_seconds": 0.1913875830359757,
+  "synthetic": false,
+  "source_sha256": "2e40fe63f48c6a2c8f97c0415196aae63e05edb56e86aaf25c2f18b37292c736",
+  "config": {
+    "num_workers": 1,
+    "rounds": 6,
+    "local_steps": 8,
+    "batch_size": 16,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "learning_rate": 0.001,
+    "optimizer": "muon",
+    "muon_learning_rate": 0.02,
+    "muon_momentum": 0.95,
+    "muon_steps": 5,
+    "outer_learning_rate": 0.7,
+    "momentum": 0.9,
+    "seed": 2027,
+    "eval_examples": 256,
+    "eval_interval": 2,
+    "round_timeout": 600,
+    "lease_seconds": 45,
+    "max_retries": 3,
+    "precision": "webgpu"
+  },
+  "dataset": {
+    "name": "fashion-mnist",
+    "sha256": "97d0ae5aecca304875b4cf15d34f9339ddef82259c31841e28aea88fdfa48aee"
+  },
+  "seconds": 9.651937041897327,
+  "max_weight_error": null,
+  "tolerance": 5e-05,
+  "metrics": [
+    {
+      "version": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 256,
+        "loss": 2.331905240082677,
+        "accuracy": 0.08203125
+      }
+    },
+    {
+      "version": 1,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.283407073588151,
+          2.293165011745373,
+          2.3132784884021973,
+          2.3601897468539335,
+          2.355954939634014,
+          2.2725000131022757,
+          2.253555850550036,
+          2.3901077961987625
+        ]
+      },
+      "seconds": 0.7450215416029096,
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.28187575000000004,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    },
+    {
+      "version": 2,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.2534115355111544,
+          2.350514340455284,
+          2.218574259428742,
+          2.4195747520569473,
+          2.3393782012610984,
+          2.3074707016955642,
+          2.277797309821196,
+          2.275340365343034
+        ]
+      },
+      "seconds": 1.189270875416696,
+      "evaluation": {
+        "split": "test",
+        "examples": 256,
+        "loss": 2.280274742927051,
+        "accuracy": 0.109375
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.536747625,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    },
+    {
+      "version": 3,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.218962478427006,
+          2.261764919499612,
+          2.2614137273457544,
+          2.250223639515638,
+          2.2999653752388936,
+          2.318772634309866,
+          2.324220081426617,
+          2.2341704309673425
+        ]
+      },
+      "seconds": 2.132254417054355,
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.5410218750000003,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    },
+    {
+      "version": 4,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.101700229403555,
+          2.3498425986267044,
+          2.246959449922244,
+          2.1121784708986695,
+          2.1718490263372106,
+          2.1642232779795734,
+          2.1101354623279605,
+          2.194704988060103
+        ]
+      },
+      "seconds": 1.156680166721344,
+      "evaluation": {
+        "split": "test",
+        "examples": 256,
+        "loss": 2.0205407494397125,
+        "accuracy": 0.20703125
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.3028645000000006,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    },
+    {
+      "version": 5,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.016171841010049,
+          1.9093231694517137,
+          2.1142073875773377,
+          2.024787745707364,
+          1.7455432010253915,
+          1.9122075245861367,
+          2.2187478151468163,
+          1.9299169182670397
+        ]
+      },
+      "seconds": 0.9209564160555601,
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.27654204199999916,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    },
+    {
+      "version": 6,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.391138656474567,
+          1.543337288144027,
+          1.6048309586378178,
+          1.7943586291623816,
+          1.9255974646809264,
+          1.856244369732373,
+          1.8370020550158923,
+          1.74594923059081
+        ]
+      },
+      "seconds": 1.1270250002853572,
+      "evaluation": {
+        "split": "test",
+        "examples": 256,
+        "loss": 1.498360434442544,
+        "accuracy": 0.39453125
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.3317862089999999,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "0",
+            "architecture": "",
+            "device": "0",
+            "description": "Apple M1",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 9534832640,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    }
+  ],
+  "platform": "macOS-27.0.1-arm64-arm-64bit"
+}

@@ -1,0 +1,8 @@
+{
+  "provider_reported_usd": 0.215,
+  "matching_charge_rows": 2,
+  "created_instances": 2,
+  "retrieved_at": 1795550733.0330172,
+  "cap_usd": 3,
+  "includes": "provider per-instance GPU, disk and network charge tree"
+}
