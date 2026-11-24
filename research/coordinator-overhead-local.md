@@ -50,6 +50,8 @@ trials. Repeated plan construction and large JSON payloads remain future targets
   Existing recovery and lost-acknowledgement tests also pass.
 
 No remote resources or budget were used. NVIDIA gains remain unmeasured.
-Changes are an uncommitted candidate, not a released version.
+Implementation and evidence are published in [450b147](https://github.com/ygaraty/ygaraty/commit/450b147eb37a74a0bf0f98154f0efbf46e7527dd).
+Recorded source hashes and the reconstruction patch identify the measured
+baseline and candidate. This is experimental, not a release.
 
 [All measurements, exact baseline patch and reproduction commands](results/coordinator-overhead-local/README.md).

@@ -22,12 +22,11 @@ median **68.97 → 41.22 seconds**, with matching loss and accuracy.
   coordinator evaluation and dataset download are excluded.
 - One physical GPU was verified against Vulkan; driver **580.178.04**. This
   short run measures execution cost, not convergence quality or multi-GPU scaling.
-  It tests uncommitted changes on base **9867b7e96a9c**, not a released version.
+  The tested snapshot is pinned in `source.json`; implementation and evidence
+  were later published in [450b147](https://github.com/ygaraty/ygaraty/commit/450b147eb37a74a0bf0f98154f0efbf46e7527dd). This is experimental, not a release.
 
-The first rental failed to expose SSH within its startup window and was destroyed.
-The replacement completed testing. **Both rentals were destroyed within 20 minutes**;
-no experiment resources remain. Temporary SSH credentials were removed.
-**Provider-reported total cost: $0.013**, including the failed startup.
+**Provider-reported total cost: $0.013**, including setup failures.
+All experiment resources were destroyed after testing.
 
 [Results and reproduction](results/muon-resident-nvidia/README.md) ·
 [Local M1 comparison](muon-resident-local.md)

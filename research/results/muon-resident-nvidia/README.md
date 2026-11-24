@@ -1,10 +1,13 @@
 # NVIDIA resident Muon evidence
 
 The protocol was frozen before measurement. All four training trials and all
-optimizer cases are retained. `attempts.json` also records the first host's
-startup failure. `source.json` identifies the base commit, uncommitted patch,
-runtime and tool hashes. `hardware.json` contains sanitized GPU validation;
-`cleanup.json` records verified teardown and provider-reported cost.
+optimizer cases are retained. `attempts.json` records benchmark validity.
+`source.json` identifies the historical tested snapshot by base commit, patch,
+runtime and tool hashes; its uncommitted flag describes the state at measurement.
+Implementation and evidence were published in [450b147](https://github.com/ygaraty/ygaraty/commit/450b147eb37a74a0bf0f98154f0efbf46e7527dd), with subsequent changes;
+that commit is not the exact snapshot timed here. `hardware.json` contains GPU
+validation. Cost and teardown are summarized in the
+[report](../../muon-resident-nvidia.md); operational notes are archived separately.
 
 Install the public package with its `server` extra and Deno 2.9.5. The experiment
 used Ubuntu 24.04, an RTX 3060 with driver 580.178.04, and Vulkan. Exact Python
@@ -39,8 +42,7 @@ and seed 2027 tasks, using distinct output files. Training uses loopback HTTP an
 JSON tensors. These measurements compare execution modes on one GPU, not PyTorch
 or distributed scaling. Momentum, normalization and final updates remain on CPU.
 
-Only the public Ygaraty package and declared dependencies performed training;
-provider/SSH scripts handled provisioning, transfer and independent teardown.
+Only the public Ygaraty package and declared dependencies performed training.
 
 These historical timings predate full-round residency. The commands explicitly
 select `--training-execution tasks` to reproduce the Muon-only execution path.

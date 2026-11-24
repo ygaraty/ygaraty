@@ -68,10 +68,10 @@ The [older benchmark](muon-diloco-vast.md) measured 1,390/432 seconds for Ygarat
 on one/four RTX 3060s. The new times are substantially lower, but the host and
 candidate changed; this rerun is not a controlled measurement of residency alone.
 
-**Provider-reported total cost: $0.215, against a $3 cap.** Both created rentals
-were destroyed (the first failed during startup), no experiment instances or
-created volumes remain, and temporary SSH keys were removed. Cleanup completed
-36.62 minutes after first provisioning, within the two-hour deadline.
+**Provider-reported total cost: $0.215.** All experiment resources were destroyed
+after testing. No timed trials were excluded.
 
 [All trials, source hashes, checks and reproduction commands](results/resident-training-nvidia/README.md).
-The candidate is based on `9867b7e96a9c`; changes are not a released version.
+The tested snapshot is pinned by source hashes. Implementation and evidence
+were published in [450b147](https://github.com/ygaraty/ygaraty/commit/450b147eb37a74a0bf0f98154f0efbf46e7527dd), which also includes later coordinator improvements
+not measured here. This is experimental, not a release.

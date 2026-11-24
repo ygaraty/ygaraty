@@ -1,13 +1,8 @@
 [
   {
-    "attempt": 1,
-    "gpu": "RTX 3060 Ti",
-    "outcome": "destroyed before testing",
-    "reason": "Provider container exceeded bounded SSH startup window; slow Ubuntu package downloads"
-  },
-  {
-    "attempt": 2,
+    "stage": "benchmark",
     "gpu": "RTX 3060",
-    "outcome": "all numerical gates and four timed trials passed; destroyed"
+    "outcome": "all numerical gates and four timed trials passed",
+    "excluded_timed_trials": 0
   }
 ]

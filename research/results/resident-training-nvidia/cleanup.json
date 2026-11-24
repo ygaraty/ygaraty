@@ -1,9 +1,0 @@
-{
-  "created_instances_destroyed": 2,
-  "remaining_experiment_instances": 0,
-  "temporary_account_ssh_key_removed": true,
-  "local_temporary_private_key_removed": true,
-  "elapsed_minutes": 36.62097301483154,
-  "within_two_hour_deadline": true,
-  "volumes_created": 0
-}

@@ -7,8 +7,10 @@ settings and trial order; `summary.json` preserves individual measurements and
 
 Install the public candidate with its server dependencies, Deno 2.9.5, PyTorch
 2.9.1 with CUDA 12.8, Vulkan tools and Mesa's device-select layer. Dependency
-versions are recorded in `dependencies.txt`. Source was an uncommitted candidate;
-base commit, patch hash and file hashes identify it, not a released version.
+versions are recorded in `dependencies.txt`. The tested snapshot is identified by its base commit, patch hash and scoped
+file hashes in `source-manifest.json`. Implementation and evidence were published
+in [450b147](https://github.com/ygaraty/ygaraty/commit/450b147eb37a74a0bf0f98154f0efbf46e7527dd); that commit also includes later coordinator changes, so it is not
+the exact snapshot timed here. This is experimental, not a release.
 
 Verify physical GPU isolation; keep selectors and identifiers private:
 
@@ -60,7 +62,7 @@ loss crossings use its training clock. Dataset loading and initial Ygaraty
 coordinator evaluation are excluded. Crossings are first observed evaluations
 at 1,536-sample intervals, not interpolated estimates. No thermal/cache reset.
 
-`gpu-validation.json`, `attempts.json`, `cost.json` and `cleanup.json` summarize
-hardware checks, setup failures, provider charges and verified teardown without
-account or machine identifiers. Session IDs and selectors are removed from
-public trial reports. No failed timed trial is silently excluded.
+`gpu-validation.json` records hardware checks; `attempts.json` records benchmark
+validity. All twelve timed trials are retained. Session IDs and selectors are
+removed from public trial reports. Cost and teardown are summarized in the
+[report](../../resident-training-nvidia.md); operational notes are archived separately.
