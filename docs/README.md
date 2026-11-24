@@ -15,6 +15,8 @@ For more control, see [advanced launch settings](advanced.md),
 
 For WebRTC contributor links, see [TURN setup and command-line routes](turn.md).
 
+To use a compressed English Qwen3.5-0.8B checkpoint, see [Kyse models](kyse.md).
+
 Use the [Python API and local training](python-api.md) to build, analyze,
 compile and execute Tape graphs from your own code.
 

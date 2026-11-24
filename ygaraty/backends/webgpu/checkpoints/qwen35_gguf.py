@@ -258,7 +258,7 @@ class Model:
             allowed = (
                 {"F32"}
                 if floating
-                else {"F32", "F16", "Q4_K", "Q5_K", "Q6_K", "Q8_0"}
+                else {"F32", "F16", "Q4_0", "Q4_K", "Q5_K", "Q6_K", "Q8_0"}
             )
             if tensor.shape != shape or tensor.kind not in allowed:
                 raise ValueError(
