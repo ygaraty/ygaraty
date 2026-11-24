@@ -1,0 +1,380 @@
+{
+  "source_sha256": "076e5a5872710c62ccba62e1cee4f6724de20f28959589e9e2ab5586f64bec2b",
+  "total_seconds": 9.054753167089075,
+  "cpu_profile": true,
+  "scopes": {
+    "recipe.compile": {
+      "calls": 32,
+      "seconds": 0.8545190836302936,
+      "max_seconds": 0.2665169588290155
+    },
+    "recipe.predict": {
+      "calls": 16,
+      "seconds": 0.36839529033750296,
+      "max_seconds": 0.030823915731161833
+    },
+    "evaluation": {
+      "calls": 1,
+      "seconds": 0.37046249955892563,
+      "max_seconds": 0.37046249955892563
+    },
+    "checkpoint.save": {
+      "calls": 1,
+      "seconds": 0.008917749859392643,
+      "max_seconds": 0.008917749859392643
+    },
+    "session._save": {
+      "calls": 1,
+      "seconds": 0.009728083852678537,
+      "max_seconds": 0.009728083852678537
+    },
+    "http.fastapi_encode": {
+      "calls": 6,
+      "seconds": 4.793407374061644,
+      "max_seconds": 3.3101265830919147
+    },
+    "http.json_render": {
+      "calls": 7,
+      "seconds": 0.20025229267776012,
+      "max_seconds": 0.10742229223251343
+    },
+    "session.status": {
+      "calls": 2,
+      "seconds": 0.00021004211157560349,
+      "max_seconds": 0.00013291696086525917
+    },
+    "recipe.round_bundle": {
+      "calls": 2,
+      "seconds": 2.2703332090750337,
+      "max_seconds": 1.3542896248400211
+    },
+    "session.assignment": {
+      "calls": 2,
+      "seconds": 7.052060750313103,
+      "max_seconds": 5.1723283333703876
+    }
+  },
+  "cpu_hotspots": [
+    {
+      "file": "encoders.py",
+      "line": 129,
+      "function": "jsonable_encoder",
+      "calls": 438010,
+      "self_seconds": 1.6687522490000002,
+      "cumulative_seconds": 4.790666376000001
+    },
+    {
+      "file": "copy.py",
+      "line": 118,
+      "function": "deepcopy",
+      "calls": 437993,
+      "self_seconds": 0.893819044,
+      "cumulative_seconds": 4.2178678750000005
+    },
+    {
+      "file": "base_events.py",
+      "line": 1908,
+      "function": "_run_once",
+      "calls": 32,
+      "self_seconds": 0.001038665,
+      "cumulative_seconds": 3.384894375
+    },
+    {
+      "file": "copy.py",
+      "line": 217,
+      "function": "_deepcopy_dict",
+      "calls": 24555,
+      "self_seconds": 0.15347232,
+      "cumulative_seconds": 2.902927917
+    },
+    {
+      "file": "copy.py",
+      "line": 191,
+      "function": "_deepcopy_list",
+      "calls": 22035,
+      "self_seconds": 0.16993219,
+      "cumulative_seconds": 2.882912167
+    },
+    {
+      "file": "tasks.py",
+      "line": 35,
+      "function": "describe",
+      "calls": 7088,
+      "self_seconds": 0.009925573,
+      "cumulative_seconds": 2.424180998
+    },
+    {
+      "file": "profile_training.py",
+      "line": 38,
+      "function": "wrapped",
+      "calls": 25,
+      "self_seconds": 3.421859184,
+      "cumulative_seconds": 2.40070796
+    },
+    {
+      "file": "events.py",
+      "line": 86,
+      "function": "_run",
+      "calls": 61,
+      "self_seconds": 0.00029616900000000004,
+      "cumulative_seconds": 2.238958627
+    },
+    {
+      "file": "selectors.py",
+      "line": 558,
+      "function": "select",
+      "calls": 32,
+      "self_seconds": 0.0030983770000000002,
+      "cumulative_seconds": 1.902806919
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1299,
+      "function": "asdict",
+      "calls": 7089,
+      "self_seconds": 0.014637535,
+      "cumulative_seconds": 1.8993985260000001
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'control' of 'select.kqueue' objects>",
+      "calls": 37,
+      "self_seconds": 0.003918058,
+      "cumulative_seconds": 1.8862892480000002
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'run' of '_contextvars.Context' objects>",
+      "calls": 61,
+      "self_seconds": 0.0006699960000000001,
+      "cumulative_seconds": 1.5117888720000001
+    },
+    {
+      "file": "routing.py",
+      "line": 329,
+      "function": "serialize_response",
+      "calls": 5,
+      "self_seconds": 3.9623e-05,
+      "cumulative_seconds": 1.480992624
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1323,
+      "function": "_asdict_inner",
+      "calls": 171863,
+      "self_seconds": 0.40375595,
+      "cumulative_seconds": 1.017866528
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.isinstance>",
+      "calls": 2486171,
+      "self_seconds": 0.9395731650000001,
+      "cumulative_seconds": 0.939899832
+    },
+    {
+      "file": "traceback.py",
+      "line": 318,
+      "function": "line",
+      "calls": 210,
+      "self_seconds": 0.00090368,
+      "cumulative_seconds": 0.8807480040000001
+    },
+    {
+      "file": "linecache.py",
+      "line": 26,
+      "function": "getline",
+      "calls": 35,
+      "self_seconds": 0.009871119000000001,
+      "cumulative_seconds": 0.791720666
+    },
+    {
+      "file": "h11_impl.py",
+      "line": 409,
+      "function": "run_asgi",
+      "calls": 10,
+      "self_seconds": 5.7542000000000006e-05,
+      "cumulative_seconds": 0.729472168
+    },
+    {
+      "file": "__init__.py",
+      "line": 1558,
+      "function": "error",
+      "calls": 1,
+      "self_seconds": 3.1249000000000005e-05,
+      "cumulative_seconds": 0.724989709
+    },
+    {
+      "file": "__init__.py",
+      "line": 1660,
+      "function": "_log",
+      "calls": 1,
+      "self_seconds": 1.1709000000000001e-05,
+      "cumulative_seconds": 0.724748334
+    },
+    {
+      "file": "__init__.py",
+      "line": 1686,
+      "function": "handle",
+      "calls": 1,
+      "self_seconds": 5.841700000000001e-05,
+      "cumulative_seconds": 0.724736625
+    },
+    {
+      "file": "__init__.py",
+      "line": 1746,
+      "function": "callHandlers",
+      "calls": 1,
+      "self_seconds": 1.8667000000000003e-05,
+      "cumulative_seconds": 0.724670875
+    },
+    {
+      "file": "__init__.py",
+      "line": 1011,
+      "function": "handle",
+      "calls": 1,
+      "self_seconds": 0.000311205,
+      "cumulative_seconds": 0.724649792
+    },
+    {
+      "file": "linecache.py",
+      "line": 36,
+      "function": "getlines",
+      "calls": 35,
+      "self_seconds": 0.0014442410000000002,
+      "cumulative_seconds": 0.710114962
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1292,
+      "function": "is_dataclass",
+      "calls": 438010,
+      "self_seconds": 0.371482419,
+      "cumulative_seconds": 0.6296959260000001
+    },
+    {
+      "file": "convnet_webgpu.py",
+      "line": 145,
+      "function": "compile",
+      "calls": 16,
+      "self_seconds": 0.008037546000000001,
+      "cumulative_seconds": 0.469045418
+    },
+    {
+      "file": "transformer.py",
+      "line": 37,
+      "function": "describe",
+      "calls": 16,
+      "self_seconds": 0.0024414580000000005,
+      "cumulative_seconds": 0.444080625
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1364,
+      "function": "<genexpr>",
+      "calls": 99412,
+      "self_seconds": 0.10144483400000001,
+      "cumulative_seconds": 0.443433422
+    },
+    {
+      "file": "linecache.py",
+      "line": 80,
+      "function": "updatecache",
+      "calls": 18,
+      "self_seconds": 0.0060816080000000005,
+      "cumulative_seconds": 0.41330950000000005
+    },
+    {
+      "file": "plan.py",
+      "line": 37,
+      "function": "split",
+      "calls": 16,
+      "self_seconds": 0.08742606500000001,
+      "cumulative_seconds": 0.40794583400000006
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'get' of 'dict' objects>",
+      "calls": 886751,
+      "self_seconds": 0.331056531,
+      "cumulative_seconds": 0.331056531
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1373,
+      "function": "<genexpr>",
+      "calls": 26336,
+      "self_seconds": 0.0393903,
+      "cumulative_seconds": 0.23556830700000003
+    },
+    {
+      "file": "traceback.py",
+      "line": 399,
+      "function": "_extract_from_extended_frame_gen",
+      "calls": 2,
+      "self_seconds": 1.7333e-05,
+      "cumulative_seconds": 0.21312249900000002
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'append' of 'list' objects>",
+      "calls": 627715,
+      "self_seconds": 0.198182407,
+      "cumulative_seconds": 0.198182407
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'readlines' of '_io._IOBase' objects>",
+      "calls": 18,
+      "self_seconds": 0.017185336000000002,
+      "cumulative_seconds": 0.17394696
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.id>",
+      "calls": 538290,
+      "self_seconds": 0.138152935,
+      "cumulative_seconds": 0.138152935
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1269,
+      "function": "fields",
+      "calls": 17297,
+      "self_seconds": 0.083659468,
+      "cumulative_seconds": 0.136035277
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.hasattr>",
+      "calls": 512725,
+      "self_seconds": 0.13166956000000002,
+      "cumulative_seconds": 0.13166956000000002
+    },
+    {
+      "file": "convnet_webgpu.py",
+      "line": 277,
+      "function": "round_bundle",
+      "calls": 2,
+      "self_seconds": 0.0011714610000000002,
+      "cumulative_seconds": 0.125020291
+    },
+    {
+      "file": "datasets.py",
+      "line": 117,
+      "function": "batches",
+      "calls": 17,
+      "self_seconds": 0.032481483,
+      "cumulative_seconds": 0.11944679300000001
+    }
+  ],
+  "note": "Inclusive scopes overlap. cProfile and timing wrappers perturb wall time; use unprofiled paired trials for speedups."
+}

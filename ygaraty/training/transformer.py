@@ -32,6 +32,7 @@ class StepPlan:
     updates: dict
     loss: str
     step: int
+    state_parameters: dict | None = None
 
     def describe(self):
         """Portable data-only plan; weights and moments are sent once per
@@ -46,6 +47,11 @@ class StepPlan:
             updates=self.updates,
             loss=self.loss,
             step=self.step,
+            **(
+                {"state_parameters": self.state_parameters}
+                if self.state_parameters is not None
+                else {}
+            ),
         )
 
 

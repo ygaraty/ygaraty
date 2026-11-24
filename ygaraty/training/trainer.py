@@ -4,7 +4,45 @@ communication."""
 import numpy as np
 
 from ygaraty.runtime.local import execute_plan
-from ygaraty.training.coordinator import RoundResult, copy_tensors
+from ygaraty.training.coordinator import (
+    RoundResult,
+    copy_tensors,
+    describe_tensors,
+)
+
+
+def optimizer_state(state, expected, step, moment_names=None):
+    """Validate complete portable optimizer state at a round boundary."""
+    if (
+        not isinstance(state, dict)
+        or type(state.get("step")) is not int
+        or state["step"] < 0
+        or state["step"] != step
+    ):
+        raise ValueError("Wrong optimizer checkpoint step")
+    moments = state.get("moments")
+    if step == 0 and moments is None:
+        return None
+    if not isinstance(moments, dict) or set(moments) != {"m", "v"}:
+        raise ValueError("Incomplete optimizer checkpoint")
+    decoded = {}
+    for kind in ("m", "v"):
+        if not isinstance(moments[kind], dict) or any(
+            not isinstance(v, dict) for v in moments[kind].values()
+        ):
+            raise ValueError("Malformed optimizer moments")
+        decoded[kind] = copy_tensors(
+            {
+                n: np.asarray(v["data"], dtype=np.float64).reshape(v["shape"])
+                for n, v in moments[kind].items()
+            },
+            {n: expected[n] for n in moment_names[kind]}
+            if moment_names
+            else expected,
+        )
+    if any(np.any(v < 0) for v in decoded["v"].values()):
+        raise ValueError("Negative Adam variance")
+    return decoded
 
 
 class Trainer:
@@ -16,8 +54,34 @@ class Trainer:
         self._seen_rounds = set()
         self._version = -1
 
+    def checkpoint(self):
+        return dict(
+            step=self.step,
+            moments=None
+            if self.moments is None
+            else {
+                kind: describe_tensors(values)
+                for kind, values in self.moments.items()
+            },
+        )
+
+    def restore(self, state, weights):
+        """Restore a committed optimizer; the next assignment rebases weights."""
+        moments = optimizer_state(
+            state,
+            weights,
+            state["step"],
+            self.recipe.moment_names()
+            if hasattr(self.recipe, "moment_names")
+            else None,
+        )
+        self.step, self.moments = state["step"], moments
+        self.weights = None
+        self._seen_rounds = set()
+        self._version = -1
+
     def run_round(self, assignment, batches):
-        """Rebase weights, retain Adam moments/clock, train H steps, return
+        """Rebase weights, retain optimizer moments/clock, train H steps, return
         θ₀−θH.
 
         A failed local round leaves this trainer's previous state intact. The
@@ -46,7 +110,14 @@ class Trainer:
             self.moments
             if self.moments is not None
             else {
-                kind: {name: np.zeros_like(w) for name, w in weights.items()}
+                kind: {
+                    name: np.zeros_like(weights[name])
+                    for name in (
+                        self.recipe.moment_names()[kind]
+                        if hasattr(self.recipe, "moment_names")
+                        else weights
+                    )
+                }
                 for kind in ("m", "v")
             }
         )
@@ -62,8 +133,15 @@ class Trainer:
             inputs = dict(plan.constants)
             for name, p in plan.parameters.items():
                 inputs[p] = weights[name]
-                for kind in ("m", "v"):
-                    inputs[f"adam_{kind}_{p}"] = moments[kind][name]
+            state_parameters = plan.state_parameters or {
+                kind: {
+                    n: f"adam_{kind}_{p}" for n, p in plan.parameters.items()
+                }
+                for kind in ("m", "v")
+            }
+            for kind, mapping in state_parameters.items():
+                for name, ref in mapping.items():
+                    inputs[ref] = moments[kind][name]
             values = execute_plan(
                 plan.tasks, inputs, [plan.loss, *plan.updates.values()]
             )
@@ -74,8 +152,8 @@ class Trainer:
             }
             moments = {
                 kind: {
-                    name: values[plan.updates[f"adam_{kind}_{p}"]]
-                    for name, p in plan.parameters.items()
+                    name: values[plan.updates[ref]]
+                    for name, ref in state_parameters[kind].items()
                 }
                 for kind in ("m", "v")
             }

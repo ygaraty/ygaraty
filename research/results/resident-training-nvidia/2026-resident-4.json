@@ -1,0 +1,4621 @@
+{
+  "runtime": "deno",
+  "kind": "same-host-native-training",
+  "reference_checked": false,
+  "training_execution": "resident",
+  "muon_execution": "resident",
+  "samples": 15360,
+  "traffic": {
+    "request_body_bytes": 20407517,
+    "response_body_bytes": 247011139
+  },
+  "observations": [
+    {
+      "version": 0,
+      "seconds_since_launch": 0.10528520995285362,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 2.3197483230805354,
+        "accuracy": 0.0888671875
+      }
+    },
+    {
+      "version": 1,
+      "seconds_since_launch": 8.20291301398538,
+      "evaluation": null
+    },
+    {
+      "version": 2,
+      "seconds_since_launch": 15.381805878016166,
+      "evaluation": null
+    },
+    {
+      "version": 3,
+      "seconds_since_launch": 21.734531788970344,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 2.1873493468805862,
+        "accuracy": 0.2783203125
+      }
+    },
+    {
+      "version": 4,
+      "seconds_since_launch": 23.632439136039466,
+      "evaluation": null
+    },
+    {
+      "version": 5,
+      "seconds_since_launch": 31.28913527401164,
+      "evaluation": null
+    },
+    {
+      "version": 6,
+      "seconds_since_launch": 37.519020918989554,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.5471135850135265,
+        "accuracy": 0.453125
+      }
+    },
+    {
+      "version": 7,
+      "seconds_since_launch": 42.37836615904234,
+      "evaluation": null
+    },
+    {
+      "version": 8,
+      "seconds_since_launch": 45.53637309593614,
+      "evaluation": null
+    },
+    {
+      "version": 9,
+      "seconds_since_launch": 53.53745615296066,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.176386983206633,
+        "accuracy": 0.61328125
+      }
+    },
+    {
+      "version": 10,
+      "seconds_since_launch": 58.49902037496213,
+      "evaluation": null
+    },
+    {
+      "version": 11,
+      "seconds_since_launch": 63.39925040898379,
+      "evaluation": null
+    },
+    {
+      "version": 12,
+      "seconds_since_launch": 69.33015073998831,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.0522060916451976,
+        "accuracy": 0.669921875
+      }
+    },
+    {
+      "version": 13,
+      "seconds_since_launch": 73.2386351400055,
+      "evaluation": null
+    },
+    {
+      "version": 14,
+      "seconds_since_launch": 79.68078117701225,
+      "evaluation": null
+    },
+    {
+      "version": 15,
+      "seconds_since_launch": 85.83234454598278,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.9104768483787288,
+        "accuracy": 0.6875
+      }
+    },
+    {
+      "version": 16,
+      "seconds_since_launch": 90.79187366901897,
+      "evaluation": null
+    },
+    {
+      "version": 17,
+      "seconds_since_launch": 93.72495135501958,
+      "evaluation": null
+    },
+    {
+      "version": 18,
+      "seconds_since_launch": 101.8913041499909,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.8864606821971555,
+        "accuracy": 0.6923828125
+      }
+    },
+    {
+      "version": 19,
+      "seconds_since_launch": 105.77793273993302,
+      "evaluation": null
+    },
+    {
+      "version": 20,
+      "seconds_since_launch": 111.66896235500462,
+      "evaluation": null
+    },
+    {
+      "version": 21,
+      "seconds_since_launch": 117.85859294899274,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.7944046445879632,
+        "accuracy": 0.705078125
+      }
+    },
+    {
+      "version": 22,
+      "seconds_since_launch": 119.76649460499175,
+      "evaluation": null
+    },
+    {
+      "version": 23,
+      "seconds_since_launch": 127.71569582400844,
+      "evaluation": null
+    },
+    {
+      "version": 24,
+      "seconds_since_launch": 133.66517203697003,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.7874312529417932,
+        "accuracy": 0.728515625
+      }
+    },
+    {
+      "version": 25,
+      "seconds_since_launch": 139.04621713794768,
+      "evaluation": null
+    },
+    {
+      "version": 26,
+      "seconds_since_launch": 141.0591463400051,
+      "evaluation": null
+    },
+    {
+      "version": 27,
+      "seconds_since_launch": 150.2411884299945,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.8190770829583858,
+        "accuracy": 0.7236328125
+      }
+    },
+    {
+      "version": 28,
+      "seconds_since_launch": 155.46627698093653,
+      "evaluation": null
+    },
+    {
+      "version": 29,
+      "seconds_since_launch": 158.21011492598336,
+      "evaluation": null
+    },
+    {
+      "version": 30,
+      "seconds_since_launch": 163.0913274009945,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.7709529442959926,
+        "accuracy": 0.736328125
+      }
+    }
+  ],
+  "first_assignment_seconds": 1.9248697379371151,
+  "synthetic": false,
+  "source_sha256": "076e5a5872710c62ccba62e1cee4f6724de20f28959589e9e2ab5586f64bec2b",
+  "config": {
+    "num_workers": 4,
+    "rounds": 30,
+    "local_steps": 8,
+    "batch_size": 16,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "learning_rate": 0.001,
+    "optimizer": "muon",
+    "muon_learning_rate": 0.02,
+    "muon_momentum": 0.95,
+    "muon_steps": 5,
+    "outer_learning_rate": 0.7,
+    "momentum": 0.9,
+    "seed": 2026,
+    "eval_examples": 1024,
+    "eval_interval": 3,
+    "round_timeout": 600,
+    "lease_seconds": 45,
+    "max_retries": 3,
+    "precision": "webgpu"
+  },
+  "dataset": {
+    "name": "fashion-mnist",
+    "sha256": "97d0ae5aecca304875b4cf15d34f9339ddef82259c31841e28aea88fdfa48aee"
+  },
+  "seconds": 163.09133594995365,
+  "max_weight_error": null,
+  "tolerance": 5e-05,
+  "metrics": [
+    {
+      "version": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 2.3197483230805354,
+        "accuracy": 0.0888671875
+      }
+    },
+    {
+      "version": 1,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.35209812266492,
+          2.271812066445527,
+          2.2945729535347255,
+          2.336447448340726,
+          2.2927684413741183,
+          2.305370290467337,
+          2.3067539864687845,
+          2.313678632152886
+        ],
+        "worker-1": [
+          2.3408202915630767,
+          2.331574045725432,
+          2.324205980001274,
+          2.291432192868811,
+          2.2907260602433652,
+          2.283383150982303,
+          2.319025498006358,
+          2.3040569634320036
+        ],
+        "worker-2": [
+          2.2976419399124453,
+          2.316707683824056,
+          2.3082407787979236,
+          2.287252358377607,
+          2.3046040350130585,
+          2.3134033871982496,
+          2.3283966020857427,
+          2.289644657491941
+        ],
+        "worker-3": [
+          2.3893423049636464,
+          2.320952658813092,
+          2.3460674310031937,
+          2.3029390387864197,
+          2.2921142898733073,
+          2.2819081721680874,
+          2.3331665314814245,
+          2.3216990010078007
+        ]
+      },
+      "seconds": 4.944275579066016,
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.643537358,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9169027680000008,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9650400470000005,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.1240615580000004,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 2,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.2874362471789373,
+          2.312751286436722,
+          2.312084652879552,
+          2.2691652182511888,
+          2.26847492416713,
+          2.337596260146597,
+          2.2844905925259384,
+          2.2874680778273415
+        ],
+        "worker-1": [
+          2.3206434437879473,
+          2.309029703568953,
+          2.2677057715005446,
+          2.33079028944129,
+          2.303463835288099,
+          2.280577895315785,
+          2.2819436307372882,
+          2.3011123528605566
+        ],
+        "worker-2": [
+          2.297958045176614,
+          2.2846840882377606,
+          2.2684318563656376,
+          2.2620892854347296,
+          2.2830164808072517,
+          2.3035738011914475,
+          2.285847898328866,
+          2.290453445482041
+        ],
+        "worker-3": [
+          2.3014438507621584,
+          2.2717923157936255,
+          2.3423023211824896,
+          2.3212454650129217,
+          2.2890677691345367,
+          2.278174269019587,
+          2.2831062148578667,
+          2.2956168245850463
+        ]
+      },
+      "seconds": 4.797362487995997,
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.010840182,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0405918340000007,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0011283199999998,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0528291119999995,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 3,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.2538183622772436,
+          2.3197667153466597,
+          2.278946410876502,
+          2.2971409164833716,
+          2.2245684536138057,
+          2.2129138905873376,
+          2.254388582554416,
+          2.2521084992924614
+        ],
+        "worker-1": [
+          2.2740028001745145,
+          2.3099729288904953,
+          2.2808455874002114,
+          2.2438544739322808,
+          2.230722536323931,
+          2.259251457141957,
+          2.313135609600076,
+          2.29120720286263
+        ],
+        "worker-2": [
+          2.238151511517753,
+          2.265503957688118,
+          2.2838787476107427,
+          2.208312737322937,
+          2.2482708456312537,
+          2.203735939132642,
+          2.1894877049583172,
+          2.293163117895279
+        ],
+        "worker-3": [
+          2.280952572053039,
+          2.277620438379543,
+          2.243745168036476,
+          2.264082771905805,
+          2.246197579071122,
+          2.248639877484351,
+          2.2999501114332155,
+          2.2252189664924735
+        ]
+      },
+      "seconds": 5.055671100039035,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 2.1873493468805862,
+        "accuracy": 0.2783203125
+      },
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9793970250000003,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9915673459999998,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9269856849999997,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0415271240000001,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 4,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.150633055350184,
+          2.2258547736022223,
+          2.1492391721304216,
+          2.2050350388322286,
+          2.132940018507682,
+          2.1784371578815183,
+          2.211629626547548,
+          2.036802783274684
+        ],
+        "worker-1": [
+          2.160332290768359,
+          2.063890368092956,
+          2.0343262456141744,
+          2.1596385605351998,
+          1.9828185533040816,
+          2.134097373272894,
+          2.137010333754372,
+          2.138786221599105
+        ],
+        "worker-2": [
+          2.148309083232725,
+          2.184398323646107,
+          2.2195828144946486,
+          2.2438800096580334,
+          2.1450781229759635,
+          2.1082331293374352,
+          2.3178072142793837,
+          2.1504872545293807
+        ],
+        "worker-3": [
+          2.247496425125359,
+          2.207349172563667,
+          2.07818022421403,
+          2.1939705573553567,
+          2.2049336422018477,
+          2.2996731510965773,
+          2.067856851448738,
+          2.0177909356139807
+        ]
+      },
+      "seconds": 4.866236709989607,
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9655262779999976,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9418876459999992,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0265675420000007,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.020501731999997,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 5,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.275507394153621,
+          1.6946737255104694,
+          1.9567062398577448,
+          1.836545848113289,
+          2.125212165112515,
+          2.1980301349795965,
+          2.03946019096594,
+          2.049887103423906
+        ],
+        "worker-1": [
+          1.8994852883859927,
+          2.1019820115611765,
+          2.006316230552308,
+          2.0342308394964164,
+          2.122019252595866,
+          2.0763266905111593,
+          2.0361868419469715,
+          1.5200775852857205
+        ],
+        "worker-2": [
+          2.0446845213555846,
+          1.9888204476207525,
+          2.030067130143962,
+          2.192998158273477,
+          1.6900919621684438,
+          1.955708665400877,
+          1.8023185643724613,
+          2.02443029419908
+        ],
+        "worker-3": [
+          2.1302928328183555,
+          1.8749991420705712,
+          2.2364721954295135,
+          2.000045542956717,
+          2.014305921375552,
+          2.0511189803585523,
+          1.8370374414822543,
+          1.9608677059229578
+        ]
+      },
+      "seconds": 4.5635468900436535,
+      "worker_stats": {
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9910697289999989,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9956750900000007,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0320496740000016,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9267302649999983,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 6,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.2963326770447168,
+          1.8854636714694735,
+          1.6473571899265345,
+          1.6626725019420139,
+          1.4878515147733538,
+          1.915117316609905,
+          1.8566863725931917,
+          1.9466962063647557
+        ],
+        "worker-1": [
+          1.88678254979515,
+          1.5941664934105866,
+          1.5997255297556094,
+          1.883641981105809,
+          1.449974652221258,
+          1.6838173026224865,
+          1.6761404020094979,
+          1.9826439006655043
+        ],
+        "worker-2": [
+          2.375861628284534,
+          1.8996468055737736,
+          1.608093161421614,
+          1.6750506336731625,
+          1.74470257589898,
+          1.7064564658478787,
+          1.7250560509751676,
+          1.9428211219634264
+        ],
+        "worker-3": [
+          2.0679279400804944,
+          2.25344888106509,
+          1.766111744322215,
+          1.6833816273749207,
+          1.6818097359753494,
+          1.9826780485255586,
+          1.0530846617672864,
+          1.5751613392159867
+        ]
+      },
+      "seconds": 4.883776357979514,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.5471135850135265,
+        "accuracy": 0.453125
+      },
+      "worker_stats": {
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9927065269999985,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9788058980000024,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9487953879999986,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9926857420000015,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 7,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          2.0042804335789413,
+          1.8295037129478757,
+          0.9674924479419866,
+          1.6203511393523229,
+          1.2115995775385153,
+          1.3643791524098585,
+          1.3861828776247265,
+          1.880529478029036
+        ],
+        "worker-1": [
+          1.500259512316541,
+          1.4495521357465435,
+          1.7977823386884069,
+          1.4713468881083962,
+          1.4394016249266346,
+          1.162309073580687,
+          1.289145608593472,
+          2.0084462173464916
+        ],
+        "worker-2": [
+          1.683446075692835,
+          1.7867615606870686,
+          1.6506819202957104,
+          1.4442846417793902,
+          1.399692118729984,
+          1.4236294508969998,
+          1.3280661773871785,
+          1.5813003151004281
+        ],
+        "worker-3": [
+          1.094183403651897,
+          1.8967356506052226,
+          1.1298150673261418,
+          1.6073987609142444,
+          1.441698356094122,
+          1.1939378232553004,
+          1.1614965721743005,
+          1.318448209876891
+        ]
+      },
+      "seconds": 4.639692586031742,
+      "worker_stats": {
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9293005499999999,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0157507609999956,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0149623639999992,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9504622410000011,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 8,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.2862912147258978,
+          1.1150501233282313,
+          1.4762725977098583,
+          1.1910131477626038,
+          1.0901108412991078,
+          1.7326600043372764,
+          1.8941529812998485,
+          1.2749429431157822
+        ],
+        "worker-1": [
+          1.4273802278502057,
+          0.94059990391069,
+          1.2707555544748903,
+          1.472460928218652,
+          1.07344304189645,
+          1.09861795943538,
+          1.1060556491238245,
+          1.2179634433737832
+        ],
+        "worker-2": [
+          1.5071698847953527,
+          0.9772141928105356,
+          1.2668836369415573,
+          1.4345108228211814,
+          1.4268271595468853,
+          1.4927903848632695,
+          1.1298936048997135,
+          0.8674619342565384
+        ],
+        "worker-3": [
+          0.998183774315117,
+          0.7323132715577625,
+          1.5285546151932543,
+          1.8857089102282991,
+          1.2516710813381176,
+          1.619432373120059,
+          1.3691411492707921,
+          1.2787921463757632
+        ]
+      },
+      "seconds": 4.990363012999296,
+      "worker_stats": {
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9725880159999942,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0420386149999976,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9313117899999998,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0538806259999982,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 9,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.8673388872932417,
+          1.340927755481598,
+          1.790720595646877,
+          0.9491353020817277,
+          1.724033669550444,
+          1.434614423924672,
+          1.434643716212614,
+          2.513606513704726
+        ],
+        "worker-1": [
+          0.8234196775874558,
+          0.842064087401547,
+          1.1017900375444256,
+          1.0581082403920448,
+          2.1025648932202614,
+          0.9659190053886766,
+          1.2961199871906608,
+          1.3557944886772049
+        ],
+        "worker-2": [
+          0.8920492402800058,
+          1.2926348135238719,
+          2.505454977675001,
+          0.7513572816707033,
+          1.454448306277893,
+          1.029719204623456,
+          1.1417157557172395,
+          1.4757698607975414
+        ],
+        "worker-3": [
+          0.687823772202173,
+          1.2822195403672092,
+          0.9132766879780991,
+          1.3153459949824198,
+          1.079718221849781,
+          1.5590496124766258,
+          1.3199475136181391,
+          1.5519401098299248
+        ]
+      },
+      "seconds": 4.759737707907334,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.176386983206633,
+        "accuracy": 0.61328125
+      },
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.939987844999996,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0179599949999973,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9465423049999954,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9749916880000019,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 10,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.9755758926358524,
+          0.8516498874986507,
+          1.375436520789961,
+          1.5081823492999504,
+          1.197591481913861,
+          0.9851713275297049,
+          0.99464993894851,
+          0.9766282006057097
+        ],
+        "worker-1": [
+          1.0033279530249866,
+          1.377618688538952,
+          1.71323578181061,
+          1.3234870457168553,
+          1.1242957731306014,
+          0.9734714194252874,
+          1.729976778574036,
+          1.01467395464715
+        ],
+        "worker-2": [
+          1.1008554738768113,
+          1.876472468488191,
+          1.3088946717264136,
+          1.3218658186851702,
+          1.0343908532156973,
+          1.9465743394983832,
+          1.4238403802525177,
+          1.9082385677988718
+        ],
+        "worker-3": [
+          1.3090730161707675,
+          1.166526309498166,
+          1.6765768699321804,
+          1.0461251356349734,
+          1.9219905116988603,
+          1.4514560772448206,
+          1.390083672512054,
+          0.9396589214019464
+        ]
+      },
+      "seconds": 4.859825902967714,
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.921537473000004,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9522017449999984,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0322851850000005,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0065549790000003,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 11,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.302576471386466,
+          2.502339055285134,
+          0.6755787585086441,
+          1.6899218434827468,
+          0.5955817471045624,
+          0.6894853842242936,
+          0.8891809390416743,
+          1.5718777954181284
+        ],
+        "worker-1": [
+          1.1827992403918852,
+          0.9156904209929644,
+          0.6853984937260194,
+          0.5661485216887776,
+          0.4564998103378759,
+          0.9431482537051108,
+          1.013396399935333,
+          0.5586140175626402
+        ],
+        "worker-2": [
+          0.9108423677373638,
+          1.8059400641752141,
+          1.1812172768890825,
+          0.7399867036513257,
+          0.6951540068839037,
+          0.7340961597987228,
+          1.1852657713016983,
+          0.5877084800731005
+        ],
+        "worker-3": [
+          1.3780447125090793,
+          1.1411917739675417,
+          0.5396558206316211,
+          1.1141860655272922,
+          1.2647551702898525,
+          1.055167469520864,
+          1.3430428671283767,
+          1.0329782514308583
+        ]
+      },
+      "seconds": 4.805233880062588,
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9787415810000021,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9582706059999982,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0233955070000011,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.999073841000005,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 12,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.6049952254476381,
+          0.772126075998101,
+          0.7795834060300209,
+          0.6857779505396229,
+          0.7681658165403791,
+          0.5536408432047195,
+          1.0060366729391639,
+          0.9375750398668043
+        ],
+        "worker-1": [
+          1.1697449729627034,
+          0.9634984567498233,
+          1.6731490563428366,
+          1.3328060189612572,
+          0.6444185004720211,
+          1.0883911930614696,
+          0.7058073261146658,
+          1.0162447081911807
+        ],
+        "worker-2": [
+          0.884088356731155,
+          1.1146870620954061,
+          1.3207986004818935,
+          1.1684716362053607,
+          0.8419942435192542,
+          1.6664753434760193,
+          0.5855674906391464,
+          1.0063755053401735
+        ],
+        "worker-3": [
+          1.4806184959949142,
+          0.531524567807983,
+          0.7997145707583329,
+          0.9724108724633123,
+          0.5862673668759779,
+          1.1350252064652615,
+          1.1860826968989855,
+          1.8029423683529178
+        ]
+      },
+      "seconds": 4.898628335911781,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.0522060916451976,
+        "accuracy": 0.669921875
+      },
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0191826000000002,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9182703459999975,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0952111250000016,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.011217715999999,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 13,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.161026909109367,
+          0.7891859715463436,
+          0.44615922625842863,
+          1.0147806081412618,
+          0.6487302641516948,
+          0.5513463315157772,
+          1.3521479955924782,
+          0.4977818827586411
+        ],
+        "worker-1": [
+          1.3719077603529435,
+          1.2606233146273986,
+          0.7424482877186325,
+          0.4823702976360096,
+          0.7841999355391529,
+          0.5672985363528853,
+          0.9024021584413582,
+          0.43550942066435194
+        ],
+        "worker-2": [
+          1.5726995330061833,
+          0.9886720481722833,
+          0.6854511090463902,
+          0.8354610326069434,
+          0.9264487969860848,
+          1.0714297718865566,
+          1.3944228069978735,
+          1.2958408706068312
+        ],
+        "worker-3": [
+          1.343486090890913,
+          1.0373945326513825,
+          0.7883999851016261,
+          1.5378457233772367,
+          1.0375851786577854,
+          1.8744717877358408,
+          1.747957960868895,
+          1.1111032278478277
+        ]
+      },
+      "seconds": 4.674569056020118,
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9219132969999919,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0015851050000055,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.960145279999997,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9852746469999983,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 14,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.1985151806277452,
+          0.9552445714115549,
+          1.8577976845525157,
+          0.24552262100614453,
+          1.1618332318564342,
+          2.25640627893152,
+          1.3031973696822021,
+          1.1485571259544685
+        ],
+        "worker-1": [
+          0.6323546034721845,
+          1.1020667233118715,
+          1.172517378369406,
+          0.9287824539303369,
+          0.6539280718519329,
+          0.5559425119843588,
+          0.85047587886557,
+          0.9716018239311524
+        ],
+        "worker-2": [
+          1.1342666301515134,
+          1.4374321994001775,
+          0.47509043104081705,
+          0.6243173862438098,
+          0.9332970824627367,
+          0.5229636412414977,
+          1.1923092692386827,
+          1.3200501571741121
+        ],
+        "worker-3": [
+          0.6782053496905327,
+          2.2669370441578742,
+          1.1487286211231158,
+          0.7248638763815247,
+          0.9481601003826885,
+          1.3584152371336513,
+          1.0480797636934085,
+          1.1053212065955123
+        ]
+      },
+      "seconds": 4.874131942051463,
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9483264840000047,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0066072449999919,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0664629370000038,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0236600920000056,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 15,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.7011665522968187,
+          0.8365713209984129,
+          1.1381123176936594,
+          1.4628463226389883,
+          0.8239018681476864,
+          0.6210133097345256,
+          0.6629671918604849,
+          0.39808851947819557
+        ],
+        "worker-1": [
+          0.8650412981797331,
+          0.7264989528995986,
+          0.7047756668996605,
+          1.0336206863522897,
+          1.4321062887205827,
+          0.8329457583991222,
+          0.48761313971214415,
+          1.5803910672088346
+        ],
+        "worker-2": [
+          1.2921133119006836,
+          0.5887346002399241,
+          1.0952849552759147,
+          0.7981131260087952,
+          0.905234020597355,
+          1.529289742260234,
+          0.9104044184077917,
+          1.2392227027482647
+        ],
+        "worker-3": [
+          0.8035825530867484,
+          0.9756268773886427,
+          0.7139784953000259,
+          0.4594940057964916,
+          1.2214734058421328,
+          1.0186032882016036,
+          1.9083565667562894,
+          1.4777574783870069
+        ]
+      },
+      "seconds": 5.072475178982131,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.9104768483787288,
+        "accuracy": 0.6875
+      },
+      "worker_stats": {
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0791430390000023,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9429958170000027,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0795461789999972,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0015803460000026,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 16,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.6982702014501321,
+          0.48084679072712144,
+          0.6001358122683502,
+          1.321679225941125,
+          1.1744003047501543,
+          0.7712981968726993,
+          0.7628001569131473,
+          0.6767663124281214
+        ],
+        "worker-1": [
+          0.9395430659978401,
+          1.2547382885805725,
+          0.8859367910846387,
+          1.6270334253644236,
+          0.7505322347768342,
+          0.9138536022384738,
+          0.6616514616990159,
+          1.0711670306063006
+        ],
+        "worker-2": [
+          0.9940478807040596,
+          0.44025680072818174,
+          1.0425156613437672,
+          0.5188769583937933,
+          0.6401134944083839,
+          0.8273129283404455,
+          0.5729411661698265,
+          1.2443475747434682
+        ],
+        "worker-3": [
+          0.6862883803252959,
+          1.0709189188257198,
+          0.40704005714088964,
+          0.43686398578054675,
+          0.9231217466296548,
+          0.3885865999890328,
+          1.6041294877788488,
+          1.0212338745754614
+        ]
+      },
+      "seconds": 4.98730166698806,
+      "worker_stats": {
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9812567899999994,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9815328340000123,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9134766090000048,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.981430554999999,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 17,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.7192513669455458,
+          0.8021189408439255,
+          0.904566904341717,
+          0.7336913220156589,
+          0.6501416572515315,
+          0.6141540004338228,
+          1.0663833511783158,
+          0.8809418447917352
+        ],
+        "worker-1": [
+          0.9530151369355231,
+          0.402658245892872,
+          1.2820428068133083,
+          0.6590987856982267,
+          0.23450499495541788,
+          0.6057953128564311,
+          0.8044681547873727,
+          1.1118409945001702
+        ],
+        "worker-2": [
+          0.77196573348734,
+          0.6186160899263493,
+          0.4216594704891001,
+          0.431830074665271,
+          0.7865633176275022,
+          1.167427594639772,
+          0.7341660387905309,
+          1.0292628170954785
+        ],
+        "worker-3": [
+          0.9749690187682463,
+          0.9131843030177809,
+          1.0548857342055893,
+          1.1041404081490542,
+          0.9757884292188201,
+          0.936643782890463,
+          1.1842210794566626,
+          1.1006066355857023
+        ]
+      },
+      "seconds": 4.85042248503305,
+      "worker_stats": {
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0368506349999953,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9386349800000026,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.990737696000011,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0193471770000033,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 18,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.1943937320139781,
+          0.9191613241976233,
+          1.003765286495657,
+          0.6652101092039544,
+          1.146380688496091,
+          1.2895047280831164,
+          0.8019125566085634,
+          1.2119468956106836
+        ],
+        "worker-1": [
+          0.6837084522389141,
+          0.5050160431264183,
+          0.43083860545452257,
+          0.9566270877480694,
+          0.7910241646419269,
+          0.8289160446838792,
+          0.4787459098415874,
+          0.7178973967460411
+        ],
+        "worker-2": [
+          0.6749970476395433,
+          0.6875024189517625,
+          0.7376497817179004,
+          0.6347297986400418,
+          0.7601277512183771,
+          0.7979809132911697,
+          0.6795502070374528,
+          0.8288056777088779
+        ],
+        "worker-3": [
+          1.272725993192303,
+          1.1042815345374883,
+          0.8767457219177519,
+          1.653898164567977,
+          1.0571528260575285,
+          0.778551832668299,
+          0.6985230188326277,
+          0.7058707945139879
+        ]
+      },
+      "seconds": 4.649389351950958,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.8864606821971555,
+        "accuracy": 0.6923828125
+      },
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9960781439999992,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0377947310000017,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.975541041000004,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0266180569999996,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 19,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.934964452816601,
+          0.6326551977832406,
+          0.8703256519598668,
+          0.5644318592336584,
+          0.4987460908884698,
+          1.1315348892045662,
+          0.6273925565308822,
+          0.7797003304252357
+        ],
+        "worker-1": [
+          0.6592521927468766,
+          0.5240036998840623,
+          0.8075675930233244,
+          0.5940357592399561,
+          0.8995348907878125,
+          0.7098514375043958,
+          1.0250762996585099,
+          1.1195650900039595
+        ],
+        "worker-2": [
+          1.0936177140660739,
+          0.5665266069516584,
+          0.45958998917229354,
+          1.1979720742776934,
+          0.9280533442269956,
+          0.7042764955528646,
+          0.9496650409368037,
+          0.16280632865377154
+        ],
+        "worker-3": [
+          1.4125517620472368,
+          0.9683673419068839,
+          0.7656845408988024,
+          0.5715546283586406,
+          0.9108481022069839,
+          0.7372582539272559,
+          0.8547540957251898,
+          0.4504716682405233
+        ]
+      },
+      "seconds": 4.964171894011088,
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9896275840000016,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9967714980000019,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0300647009999957,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9793265899999969,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 20,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.7211741658201722,
+          0.43559990461545084,
+          0.943318399255574,
+          0.357254104590619,
+          0.8486672121641821,
+          1.6425460191825465,
+          0.8401165904212959,
+          0.5575544277410867
+        ],
+        "worker-1": [
+          1.5203478356378115,
+          0.5267998596567638,
+          0.5707129645830946,
+          0.597532697803282,
+          0.7381446825697582,
+          0.391407137779082,
+          0.7849767207498256,
+          0.45559430482845187
+        ],
+        "worker-2": [
+          0.7058344170750424,
+          0.7129209843183411,
+          0.754274324689959,
+          0.6228545132156498,
+          0.9062052857225016,
+          1.0596006805579101,
+          0.7720944486828536,
+          0.6488514398317866
+        ],
+        "worker-3": [
+          1.2655849759179922,
+          0.7130629805690525,
+          0.9313971021717116,
+          0.7624303907488148,
+          1.2771010828133953,
+          0.6682132743449092,
+          0.6150762830609864,
+          0.6880650701493973
+        ]
+      },
+      "seconds": 4.692606011987664,
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.979967267999993,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9379129010000034,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.991854662999991,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9997835999999952,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 21,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.040493210654244,
+          0.5592415412058545,
+          0.9439315118160607,
+          0.9707582356190443,
+          1.0808347013797501,
+          0.8897178250748059,
+          0.9054352679954265,
+          0.8402743530742995
+        ],
+        "worker-1": [
+          0.7550898827874857,
+          0.6009774029075796,
+          1.1197299988587648,
+          1.1397669771190415,
+          0.4151538950261249,
+          0.4445934128559763,
+          0.9160282615368502,
+          0.6680863268992283
+        ],
+        "worker-2": [
+          1.0654440021598814,
+          0.4091715785174104,
+          1.2275269054963076,
+          1.341801932367133,
+          0.39281389049148585,
+          0.5866758674381742,
+          0.5257780766374349,
+          0.41556195845422295
+        ],
+        "worker-3": [
+          0.9184335235287389,
+          0.8475400082498465,
+          0.7283109765296558,
+          0.7026693388049985,
+          0.45890336427717493,
+          0.6246689278121504,
+          0.8212869529217244,
+          0.98945880870472
+        ]
+      },
+      "seconds": 4.792793252971023,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.7944046445879632,
+        "accuracy": 0.705078125
+      },
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9889774780000007,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.025177754999997,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.994713373000006,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9102402629999997,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 22,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.7322256562612558,
+          1.3731942766739778,
+          0.7459868745943798,
+          1.2412984916710847,
+          0.5873676505588681,
+          1.4127096514011939,
+          1.4106363561707767,
+          0.4563413973216086
+        ],
+        "worker-1": [
+          0.9860347750617287,
+          0.9238990398453302,
+          0.46763283103788966,
+          0.547770192214557,
+          1.7186836680650615,
+          0.6350510299301284,
+          0.6713427040503852,
+          0.4401714367110676
+        ],
+        "worker-2": [
+          0.7745684648601969,
+          0.47925192272647876,
+          0.9957511419345102,
+          0.7037469339549869,
+          0.44110476646017815,
+          0.9291219734604141,
+          0.8114812863995233,
+          1.2535336355561526
+        ],
+        "worker-3": [
+          0.48924971798757966,
+          0.4812415144660056,
+          1.2744786282959595,
+          1.0356074199552552,
+          0.9110600525498764,
+          0.6893266687941413,
+          0.4544674871311436,
+          0.5503068866571201
+        ]
+      },
+      "seconds": 4.922693183994852,
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.942846160000001,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9631275919999898,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0562864050000063,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0312205790000006,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 23,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.087868229337822,
+          0.56144234035105,
+          1.1385847149370942,
+          1.3251964831129825,
+          1.0952069796228994,
+          0.3369875304483778,
+          0.4044796240714885,
+          0.6526190521161439
+        ],
+        "worker-1": [
+          0.7863364983744177,
+          0.6535735137406191,
+          1.3430092876327748,
+          0.5132361231815068,
+          0.8390289242645466,
+          1.3742069490119846,
+          0.8525389144458373,
+          0.6861018115624784
+        ],
+        "worker-2": [
+          0.7932161668161712,
+          0.7609363537391189,
+          0.5312168003200812,
+          0.3343445946617394,
+          0.42871782836937555,
+          0.5061950748670636,
+          1.0334551626463924,
+          0.5142610701343615
+        ],
+        "worker-3": [
+          0.8380344134593365,
+          0.7802263405004135,
+          0.6614457760105736,
+          0.7078557293668908,
+          1.1243956389948302,
+          0.4873479161134604,
+          0.4880127175260087,
+          0.7141173717062035
+        ]
+      },
+      "seconds": 4.841224523959681,
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9536522459999979,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9932381000000023,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0042786950000009,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.976012910999998,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 24,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.9489593025043677,
+          0.7781943883062343,
+          0.8599855734273039,
+          1.2215213938298408,
+          0.8991446907279936,
+          0.6725477991226274,
+          0.810736957784133,
+          0.9520056299405759
+        ],
+        "worker-1": [
+          0.445433649537172,
+          0.5397183280828929,
+          0.5642059849431647,
+          0.18600922667507835,
+          0.6619312533447896,
+          1.2024775361628954,
+          0.6848140303680301,
+          0.47536785145795424
+        ],
+        "worker-2": [
+          0.8214385150576735,
+          0.9619999399130634,
+          0.6769951003473634,
+          0.5728776514960763,
+          0.6916988163706694,
+          0.47421126909967937,
+          1.1115422204155698,
+          0.37472650542431063
+        ],
+        "worker-3": [
+          0.8114010300483727,
+          1.089738638053582,
+          0.9910062147303336,
+          0.5406688578189431,
+          0.38425127535252557,
+          0.5250475640173402,
+          0.945835721545591,
+          0.7477988082351192
+        ]
+      },
+      "seconds": 4.800535453017801,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.7874312529417932,
+        "accuracy": 0.728515625
+      },
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9772275650000083,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9533469760000007,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0117788719999954,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9260523359999934,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 25,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.7013375202713847,
+          0.6336281598443243,
+          0.6200158269548908,
+          0.8161916026678133,
+          1.1440678216383233,
+          0.6936416099332394,
+          0.8870441843629409,
+          0.507039195161362
+        ],
+        "worker-1": [
+          1.0361649655609035,
+          0.9056463673735529,
+          0.585944845245483,
+          0.7987595620457348,
+          0.2899742651393149,
+          1.355032563233049,
+          1.1128498608947393,
+          1.1293767757180024
+        ],
+        "worker-2": [
+          0.562622528711394,
+          0.4008604822903763,
+          0.9395364928590588,
+          0.8167174828841848,
+          0.5192398098530084,
+          0.3555506397884587,
+          0.7716743408026692,
+          0.4941474015816425
+        ],
+        "worker-3": [
+          0.8606899384436915,
+          0.8236181383749059,
+          1.108361224750471,
+          1.4140136803667893,
+          0.6113325875138651,
+          0.6408820908425668,
+          1.2373655939330206,
+          0.767009620736161
+        ]
+      },
+      "seconds": 5.001017783069983,
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.969919400999992,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9936453539999784,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9993778750000056,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0155562790000112,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 26,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.6642328099228028,
+          0.7717988452866242,
+          0.28125396363092736,
+          0.9825943747139592,
+          0.5013395827598526,
+          0.7598682867848563,
+          0.5907216527480941,
+          0.8622879478606347
+        ],
+        "worker-1": [
+          0.6780057984508687,
+          0.9731646060263337,
+          1.482814470961415,
+          0.515664449975028,
+          0.7591808171518224,
+          0.5655405073599287,
+          0.622130172972911,
+          0.26800842155910143
+        ],
+        "worker-2": [
+          1.1230325597460915,
+          0.6497927079788184,
+          1.1624411909639036,
+          0.7386580607657542,
+          0.6482394049364864,
+          0.6140833272017527,
+          0.44006747775785904,
+          0.5102230233774172
+        ],
+        "worker-3": [
+          0.7364534615059508,
+          1.3493411826719743,
+          1.1918807862904757,
+          0.5379344226517567,
+          0.6502108528871364,
+          0.5129685303593572,
+          0.49242752063477147,
+          0.6374494897092564
+        ]
+      },
+      "seconds": 4.997014368069358,
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9658106860000116,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9841234549999935,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9977749720000137,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9745634609999834,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 27,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.8681282251177844,
+          0.41488751019157455,
+          0.5248367379370844,
+          0.6179686667740008,
+          0.5872760868925733,
+          0.8112010865196027,
+          0.7147073521297767,
+          1.134250648531955
+        ],
+        "worker-1": [
+          0.7722939950287859,
+          0.7065961943642253,
+          0.5261587868960529,
+          1.1380654684705345,
+          0.617699322331372,
+          0.6804706168669235,
+          0.4754203514327444,
+          0.3618867487690567
+        ],
+        "worker-2": [
+          0.6420636661981973,
+          0.7211433637500893,
+          1.0646152101139776,
+          0.5858415638772936,
+          1.6647878772825155,
+          0.1564885150797375,
+          0.9021734047122063,
+          1.2556473208178112
+        ],
+        "worker-3": [
+          1.1143944779415342,
+          1.1787543313518016,
+          0.9783397802664666,
+          0.6821011548639646,
+          0.45764759014756995,
+          0.9747889712961451,
+          0.6183085959144137,
+          0.9090516402042113
+        ]
+      },
+      "seconds": 4.827028158004396,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.8190770829583858,
+        "accuracy": 0.7236328125
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9744668109999911,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9684043370000145,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.988406909000012,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0329294119999977,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 28,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.8697657190655264,
+          0.800414594636857,
+          0.6568270105999208,
+          0.6229646690495727,
+          0.6510247301958465,
+          0.45662200287918253,
+          0.4419995175308631,
+          0.3013280608091691
+        ],
+        "worker-1": [
+          0.5470720518373988,
+          0.6713584954824476,
+          0.8496442325392843,
+          0.7706686449588194,
+          1.0122788955821402,
+          0.9819603459605863,
+          0.794748076855627,
+          0.844388026091897
+        ],
+        "worker-2": [
+          0.3240092236547927,
+          1.263388455946128,
+          0.6648111799174234,
+          0.9724741903634087,
+          1.5374369443491869,
+          0.8632540878962818,
+          1.2128158792357686,
+          0.8337870731650483
+        ],
+        "worker-3": [
+          0.5545232446478305,
+          0.6935175263138778,
+          0.6356434718331618,
+          0.6172880404998864,
+          0.2949568052202407,
+          0.39572763864175897,
+          0.5417454925322467,
+          0.5623015840960051
+        ]
+      },
+      "seconds": 4.993144662934355,
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0057409719999997,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0384550630000013,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9882148330000055,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.996382299000019,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 29,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          1.2269666054658952,
+          0.6883094684003019,
+          0.7613635187460641,
+          0.411012027568864,
+          0.8530957835127557,
+          0.5632953898729944,
+          1.383258471490306,
+          0.5645213836092839
+        ],
+        "worker-1": [
+          0.2564623629102236,
+          0.6465771210448805,
+          0.46725043545511236,
+          0.607232240014703,
+          1.1816520000412396,
+          0.5215628707499296,
+          0.7056813231955403,
+          0.962510861999144
+        ],
+        "worker-2": [
+          0.7709894420288066,
+          0.6011130596432324,
+          0.9642217783438787,
+          0.6050306242016141,
+          0.48046060921885925,
+          0.22518560276677596,
+          0.5445764638860373,
+          0.5452903664409092
+        ],
+        "worker-3": [
+          0.5280610202489493,
+          0.3168870861747157,
+          0.6937878592613451,
+          1.0189612692903047,
+          0.8950971280305069,
+          0.3475394946240016,
+          0.6204170817965036,
+          1.1721789059309558
+        ]
+      },
+      "seconds": 4.92785925604403,
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9663706130000064,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9545142679999989,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9957286880000029,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9218305939999991,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 30,
+      "workers": [
+        "worker-0",
+        "worker-1",
+        "worker-2",
+        "worker-3"
+      ],
+      "local_steps": 8,
+      "losses": {
+        "worker-0": [
+          0.23321668484610925,
+          0.40534806424432823,
+          0.6324234587474213,
+          0.39853752247553276,
+          0.9469822763278541,
+          0.5796854408332885,
+          0.7976964251422398,
+          0.24151807025990601
+        ],
+        "worker-1": [
+          0.5660189761371246,
+          1.007145396755413,
+          0.44558007539483224,
+          0.9271854347678481,
+          0.48694763501561056,
+          1.0102845736200656,
+          0.9247871572972346,
+          0.30794500104092837
+        ],
+        "worker-2": [
+          0.36530755926262604,
+          0.47742441992104334,
+          0.7000115495327748,
+          0.6956631120393304,
+          0.378177129288074,
+          1.2771718567614792,
+          0.565609577129885,
+          0.7807880899839752
+        ],
+        "worker-3": [
+          1.0716039343367676,
+          0.5000695085024667,
+          1.0598982790653988,
+          0.9537858810957331,
+          1.154586467791006,
+          1.1226573485886675,
+          0.5534175951334142,
+          1.3109009280471988
+        ]
+      },
+      "seconds": 4.657783668022603,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 0.7709529442959926,
+        "accuracy": 0.736328125
+      },
+      "worker_stats": {
+        "worker-2": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9077607530000096,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 1.0338474160000042,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9351",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-3": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9427563209999935,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 0,
+          "gpu_tasks": 2496,
+          "matmul_tasks": 384,
+          "resident_rounds": 1,
+          "gpu_submissions": 9,
+          "readbacks": 1,
+          "uploaded_bytes": 865392,
+          "downloaded_bytes": 61556,
+          "gpu_buffer_bytes": 12253224,
+          "seconds": 0.9312577100000053,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9475",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    }
+  ],
+  "platform": "Linux-6.8.0-149-generic-x86_64-with-glibc2.39"
+}

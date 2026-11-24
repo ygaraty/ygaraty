@@ -475,7 +475,15 @@ def split(
     keep.update(getattr(tape, "gradients", {}).values())
     keep.update(getattr(tape, "carry", {}).values())
     keep.update(owned_keep)
-    return prune(resolve_assemblies(tasks), keep)
+    result = prune(resolve_assemblies(tasks), keep)
+    # Lowering may create tiles/assemblies without copying node attributes.
+    blocks = {n.id: n.attrs["muon_block"] for n in tape.nodes
+              if "muon_block" in n.attrs}
+    for task in result:
+        block = blocks.get(task.id.split("/")[0])
+        if block is not None:
+            task.attrs["muon_block"] = block
+    return result
 
 
 # Results that keep the wire's dtype on a narrow activation wire: losses,

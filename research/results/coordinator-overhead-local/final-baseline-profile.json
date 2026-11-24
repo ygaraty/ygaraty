@@ -1,0 +1,79 @@
+{
+  "kind": "coordinator-phase-timers",
+  "succeeded": true,
+  "source_sha256": "076e5a5872710c62ccba62e1cee4f6724de20f28959589e9e2ab5586f64bec2b",
+  "total_seconds": 6.412759375292808,
+  "scopes": {
+    "json.encode": {
+      "calls": 77,
+      "seconds": 0.5086871674284339,
+      "max_seconds": 0.03937899973243475
+    },
+    "recipe.compile": {
+      "calls": 128,
+      "seconds": 0.4572314191609621,
+      "max_seconds": 0.057108249980956316
+    },
+    "recipe.predict": {
+      "calls": 32,
+      "seconds": 0.20248508267104626,
+      "max_seconds": 0.011668958701193333
+    },
+    "evaluation": {
+      "calls": 2,
+      "seconds": 0.2032243339344859,
+      "max_seconds": 0.10290091671049595
+    },
+    "checkpoint.save": {
+      "calls": 4,
+      "seconds": 0.04785137390717864,
+      "max_seconds": 0.015001832973212004
+    },
+    "session._save": {
+      "calls": 4,
+      "seconds": 0.04896875051781535,
+      "max_seconds": 0.015280541963875294
+    },
+    "http.fastapi_encode": {
+      "calls": 40,
+      "seconds": 2.1179455830715597,
+      "max_seconds": 0.23517450038343668
+    },
+    "http.json_render": {
+      "calls": 40,
+      "seconds": 0.42111371411010623,
+      "max_seconds": 0.03956354223191738
+    },
+    "session.status": {
+      "calls": 24,
+      "seconds": 0.0027007930912077427,
+      "max_seconds": 0.0007955413311719894
+    },
+    "recipe.round_bundle": {
+      "calls": 12,
+      "seconds": 1.2459465418942273,
+      "max_seconds": 0.17253454076126218
+    },
+    "session.assignment": {
+      "calls": 24,
+      "seconds": 4.152670708019286,
+      "max_seconds": 0.9080824996344745
+    },
+    "session.submit": {
+      "calls": 12,
+      "seconds": 0.2445399584248662,
+      "max_seconds": 0.13614337518811226
+    },
+    "checkpoint.load": {
+      "calls": 3,
+      "seconds": 0.017253708094358444,
+      "max_seconds": 0.008241707924753428
+    },
+    "session._commit": {
+      "calls": 3,
+      "seconds": 0.18331699818372726,
+      "max_seconds": 0.13044054061174393
+    }
+  },
+  "note": "Inclusive scopes overlap across threads. assignment_bytes includes waiting; _assignment measures preparation. Initial evaluation is included here. Profiled wall time is diagnostic; use unprofiled paired trials for speedups."
+}

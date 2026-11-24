@@ -1,0 +1,15 @@
+[
+  {
+    "stage": "initial instrumentation",
+    "outcome": "aborted because concurrent cProfile instances conflicted; not a performance trial",
+    "evidence": "exploratory/instrumentation-failure.json"
+  },
+  {
+    "stage": "profiling",
+    "outcome": "live phase timers and separate sequential CPU profiler passed; exploratory results retained"
+  },
+  {
+    "stage": "unprofiled comparison",
+    "outcome": "all 12 trials passed; no exclusions"
+  }
+]

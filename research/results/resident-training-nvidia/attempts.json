@@ -1,0 +1,7 @@
+[
+  {
+    "stage": "benchmark",
+    "outcome": "all twelve timed trials and correctness gates passed",
+    "excluded_timed_trials": 0
+  }
+]

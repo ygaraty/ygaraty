@@ -1,0 +1,187 @@
+{
+  "kind": "native-peer-tree",
+  "status": "passed",
+  "source_sha256": "6e7416284057cb99bd45616157564bb8881ed4e5610268912129762a5497576a",
+  "dataset": {
+    "name": "fixture",
+    "sha256": "4d173f4f16e1c34d3332096248fce2dd4e77e1375e13d4e9aa6f7b0e8a41a8fd"
+  },
+  "config": {
+    "num_workers": 2,
+    "dataset": "fixture",
+    "steps": 3,
+    "global_batch": 20,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "seed": 2026,
+    "eval_examples": 16,
+    "eval_interval": 1,
+    "verify_steps": 3,
+    "timeout": 300
+  },
+  "topology": "binary heap; peer gradient reduction and weight broadcast; root Adam",
+  "model": {
+    "in_channels": 1,
+    "height": 28,
+    "width": 28,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "classes": 10,
+    "residual": true
+  },
+  "learning_rate": 0.001,
+  "optimizer": {
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-08,
+    "clip_norm": 0.0
+  },
+  "precision": "float64",
+  "metrics": [
+    {
+      "step": 0,
+      "seconds": 0,
+      "samples": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.303726888940804,
+        "accuracy": 0.0625
+      }
+    },
+    {
+      "step": 1,
+      "samples": 20,
+      "loss": 2.3353839973563817,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 10,
+          "seconds": 0.17160474999999997,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 10,
+          "seconds": 0.245773416,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3047823420380387,
+        "accuracy": 0.0625
+      },
+      "seconds": 0.5591978752054274
+    },
+    {
+      "step": 2,
+      "samples": 40,
+      "loss": 2.3210945149309063,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 10,
+          "seconds": 0.08163458400000002,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 10,
+          "seconds": 0.08688799999999992,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3050261874960154,
+        "accuracy": 0.0625
+      },
+      "seconds": 0.8316158750094473
+    },
+    {
+      "step": 3,
+      "samples": 60,
+      "loss": 2.2904164266840192,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 10,
+          "seconds": 0.13434241700000008,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 10,
+          "seconds": 0.11558870899999989,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3052988745131815,
+        "accuracy": 0.0625
+      },
+      "seconds": 1.3028337908908725
+    }
+  ],
+  "parity": [
+    {
+      "step": 1,
+      "max_weight_error": 2.168404344971009e-19
+    },
+    {
+      "step": 2,
+      "max_weight_error": 2.7755575615628914e-17
+    },
+    {
+      "step": 3,
+      "max_weight_error": 2.7755575615628914e-17
+    }
+  ],
+  "workers": [
+    {
+      "rank": 0,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 12284,
+      "peer_received_bytes": 9693
+    },
+    {
+      "rank": 1,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    }
+  ],
+  "seconds": 1.4137738328427076,
+  "sample_sequence_sha256": "e3ab627b28f756b330f003983710074f23b5f8a62836a09e218443789d368ed1",
+  "coordinator_sent_bytes": 474824,
+  "coordinator_received_bytes": 11259
+}

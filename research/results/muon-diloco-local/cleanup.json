@@ -1,0 +1,8 @@
+{
+  "experiment_runner_completed": true,
+  "timed_trials": 8,
+  "final_gpu_parity_checks": 2,
+  "test_browsers_remaining": 0,
+  "server_cleanup": "Harness finally blocks joined server threads and closed sockets",
+  "remote_resources_created": 0
+}

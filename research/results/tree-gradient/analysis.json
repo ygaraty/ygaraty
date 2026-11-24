@@ -1,0 +1,5 @@
+{
+  "analysis_sha256": "a7dfc6e4479a626481f2c16321115099a2caee001f37f5aa3244cce63cacbbc1",
+  "time_to_target": "First observed evaluation at or below loss 1.5, no interpolation",
+  "timer": "Before server/browser start through final evaluation and final shared optimizer snapshot file write; excludes dataset loading and initial evaluation"
+}

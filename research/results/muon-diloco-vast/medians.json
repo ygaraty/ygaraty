@@ -1,0 +1,44 @@
+[
+  {
+    "engine": "ygaraty-deno",
+    "arm": "muon",
+    "workers": 1,
+    "seconds": 1390.4307142269681,
+    "loss": 1.2762777440342679,
+    "accuracy": 0.537109375,
+    "seconds_to_1_5": 278.3583339835168,
+    "reached_1_0": 0
+  },
+  {
+    "engine": "ygaraty-deno",
+    "arm": "muon",
+    "workers": 4,
+    "seconds": 431.8549669390195,
+    "loss": 0.7838870897250371,
+    "accuracy": 0.72900390625,
+    "seconds_to_1_5": 111.50826599099673,
+    "reached_1_0": 2
+  },
+  {
+    "engine": "pytorch",
+    "arm": "ygaraty-math",
+    "workers": 1,
+    "seconds": 16.82123479701113,
+    "loss": 1.2485029104506555,
+    "accuracy": 0.6162109375,
+    "seconds_to_1_5": 3.688390888972208,
+    "reached_1_0": 0,
+    "seconds_with_setup": 19.604313642019406
+  },
+  {
+    "engine": "pytorch",
+    "arm": "upstream",
+    "workers": 1,
+    "seconds": 17.29523888695985,
+    "loss": 1.1850639211986493,
+    "accuracy": 0.5859375,
+    "seconds_to_1_5": 4.791779384948313,
+    "reached_1_0": 1,
+    "seconds_with_setup": 20.087198210530914
+  }
+]

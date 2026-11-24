@@ -1,0 +1,451 @@
+{
+  "kind": "native-peer-tree",
+  "status": "passed",
+  "source_sha256": "6e7416284057cb99bd45616157564bb8881ed4e5610268912129762a5497576a",
+  "dataset": {
+    "name": "fixture",
+    "sha256": "4d173f4f16e1c34d3332096248fce2dd4e77e1375e13d4e9aa6f7b0e8a41a8fd"
+  },
+  "config": {
+    "num_workers": 10,
+    "dataset": "fixture",
+    "steps": 3,
+    "global_batch": 20,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "seed": 2026,
+    "eval_examples": 16,
+    "eval_interval": 1,
+    "verify_steps": 3,
+    "timeout": 300
+  },
+  "topology": "binary heap; peer gradient reduction and weight broadcast; root Adam",
+  "model": {
+    "in_channels": 1,
+    "height": 28,
+    "width": 28,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "classes": 10,
+    "residual": true
+  },
+  "learning_rate": 0.001,
+  "optimizer": {
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-08,
+    "clip_norm": 0.0
+  },
+  "precision": "float64",
+  "metrics": [
+    {
+      "step": 0,
+      "seconds": 0,
+      "samples": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.303726888940804,
+        "accuracy": 0.0625
+      }
+    },
+    {
+      "step": 1,
+      "samples": 20,
+      "loss": 2.3353839973563812,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 2,
+          "seconds": 0.1194535420000002,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 2,
+          "seconds": 0.2810295000000001,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 3,
+          "samples": 2,
+          "seconds": 0.3201528749999998,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 7,
+          "samples": 2,
+          "seconds": 0.2601622499999999,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 8,
+          "samples": 2,
+          "seconds": 0.18174733300000026,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 4,
+          "samples": 2,
+          "seconds": 0.30164933299999985,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 9,
+          "samples": 2,
+          "seconds": 0.19767683399999988,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 2,
+          "samples": 2,
+          "seconds": 0.1313130000000001,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 5,
+          "samples": 2,
+          "seconds": 0.2804061670000001,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 6,
+          "samples": 2,
+          "seconds": 0.4322813329999999,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3047823420380387,
+        "accuracy": 0.0625
+      },
+      "seconds": 1.8914380827918649
+    },
+    {
+      "step": 2,
+      "samples": 40,
+      "loss": 2.321094514930906,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 2,
+          "seconds": 0.08663979100000051,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 2,
+          "seconds": 0.10209587499999997,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 3,
+          "samples": 2,
+          "seconds": 0.26913558400000054,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 7,
+          "samples": 2,
+          "seconds": 0.17174266699999952,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 8,
+          "samples": 2,
+          "seconds": 0.13741954199999964,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 4,
+          "samples": 2,
+          "seconds": 0.34384687500000016,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 9,
+          "samples": 2,
+          "seconds": 0.16561099999999987,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 2,
+          "samples": 2,
+          "seconds": 0.19050387500000032,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 5,
+          "samples": 2,
+          "seconds": 0.11429308300000048,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 6,
+          "samples": 2,
+          "seconds": 0.12835841699999948,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3050261874960154,
+        "accuracy": 0.0625
+      },
+      "seconds": 3.52767516579479
+    },
+    {
+      "step": 3,
+      "samples": 60,
+      "loss": 2.2904164266840183,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 2,
+          "seconds": 0.041352750000000014,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 2,
+          "seconds": 0.04830879199999981,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 3,
+          "samples": 2,
+          "seconds": 0.13018320900000072,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 7,
+          "samples": 2,
+          "seconds": 0.024772125000000415,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 8,
+          "samples": 2,
+          "seconds": 0.03955183299999953,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 4,
+          "samples": 2,
+          "seconds": 0.05587537500000053,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 9,
+          "samples": 2,
+          "seconds": 0.05673129200000039,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 2,
+          "samples": 2,
+          "seconds": 0.026310083999999734,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 5,
+          "samples": 2,
+          "seconds": 0.02776012499999979,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 6,
+          "samples": 2,
+          "seconds": 0.0776548330000005,
+          "cpu_tasks": 54,
+          "gpu_tasks": 0,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3052988745131815,
+        "accuracy": 0.0625
+      },
+      "seconds": 4.31898483261466
+    }
+  ],
+  "parity": [
+    {
+      "step": 1,
+      "max_weight_error": 1.3877787807814457e-17
+    },
+    {
+      "step": 2,
+      "max_weight_error": 2.7755575615628914e-17
+    },
+    {
+      "step": 3,
+      "max_weight_error": 2.7755575615628914e-17
+    }
+  ],
+  "workers": [
+    {
+      "rank": 0,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 24568,
+      "peer_received_bytes": 21468
+    },
+    {
+      "rank": 1,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 24568,
+      "peer_received_bytes": 20283
+    },
+    {
+      "rank": 2,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 24568,
+      "peer_received_bytes": 19389
+    },
+    {
+      "rank": 3,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 24568,
+      "peer_received_bytes": 19391
+    },
+    {
+      "rank": 4,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 12284,
+      "peer_received_bytes": 9695
+    },
+    {
+      "rank": 5,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    },
+    {
+      "rank": 6,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    },
+    {
+      "rank": 7,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    },
+    {
+      "rank": 8,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    },
+    {
+      "rank": 9,
+      "version": 3,
+      "failed": false,
+      "precision": "float64",
+      "adapter": null,
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    }
+  ],
+  "seconds": 4.770944249816239,
+  "sample_sequence_sha256": "e3ab627b28f756b330f003983710074f23b5f8a62836a09e218443789d368ed1",
+  "coordinator_sent_bytes": 709172,
+  "coordinator_received_bytes": 20359
+}

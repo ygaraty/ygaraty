@@ -1,0 +1,11 @@
+{
+  "reason": "Observer could see the coordinator version before final evaluation/checkpoint completed. Preserve both first trials as excluded and repeat the same protocol.",
+  "changes": "Nonblocking session-lock snapshots; require final evaluation in the observed curve before stopping the timer.",
+  "order": [
+    1,
+    3
+  ],
+  "training_configuration": "unchanged",
+  "harness_sha256": "e8bf60209cd2c65af6cf02560117882f77fa56cfd5e5473003790ce40c324750",
+  "analysis_sha256": "43aaaa5ad70a9306c71c1a050801d487af255cfe431e08e9b012b20daf6ea701"
+}

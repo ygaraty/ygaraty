@@ -12,7 +12,7 @@ browser or native WebGPU workers. **Inference is verified**: chat from your
 terminal, browser, or an OpenAI-compatible app or SDK. [TESTED.md](TESTED.md)
 records measured runs and what remains unverified.
 
-**Training is ongoing open research**, focused on DiLoCo and our own distributed
+**[Training is ongoing open research](#training-diloco-open-research)**, focused on DiLoCo and our own distributed
 compute compiler and execution engine. We are exploring how to train across
 heterogeneous devices and networks. Follow our [public list of experiments](research/README.md#reports)
 for methods, results and limitations, and help reproduce or extend the work.
@@ -145,6 +145,45 @@ See [runtime setup, GPU checks and per-runtime scripts](docs/contributing-gpu.md
 
 Keep the server and contributors running. Share only the contributor link;
 keep the private chat link and owner key private.
+
+## Training: DiLoCo open research
+
+Train a small residual ConvNet on MNIST or Fashion-MNIST with **1–4 contributors**,
+using our Tape, compiler and WebGPU engine. Each worker holds the full model,
+runs local Adam or Muon steps, then synchronizes through the coordinator.
+Supported local rounds keep forward/backward tensors and optimizer state on GPU.
+
+From this DiLoCo research checkout (experimental, not the main-branch installer):
+
+```sh
+python -m pip install -e '.[server]'
+ygaraty train serve --dataset fashion-mnist --num-workers 2 \
+  --optimizer muon --local-steps 8 --batch-size 16 --rounds 10 \
+  --run-dir runs/fashion-muon --open-browser
+```
+
+Open the printed link in two browser tabs and click **Start contributing**, or
+share it with another contributor using `--share` ([setup](docs/distributed-training.md)).
+
+**Earlier GPU-resident benchmark:** three-seed medians, 15,360 Fashion-MNIST
+samples, RTX 3060 GPUs on one host (before the latest coordinator fixes):
+
+| Implementation | GPUs | Training time | Final loss |
+|---|---:|---:|---:|
+| Ygaraty DiLoCo + Muon | 1 | 239.6 s | 1.220 |
+| Ygaraty DiLoCo + Muon | 4 | 171.3 s | 0.771 |
+| PyTorch MuLoCo-1 reference | 1 | 15.1 s | 1.139 |
+
+Four workers improved final loss and total runtime, but **did not beat MuLoCo-1**.
+Ygaraty includes startup and evaluation; PyTorch reports setup separately.
+See [method and limits](research/resident-training-nvidia.md).
+Later coordinator fixes measured **1.63× / 2.38×** improvements with one/four
+contributors on one M1 GPU, with identical losses. Those fixes have **not been
+retested on NVIDIA**; the two measurements cannot be multiplied together.
+
+[DiLoCo guide, implementation and results](docs/distributed-training.md) ·
+[Local optimization evidence](research/coordinator-overhead-local.md) ·
+[Open training experiments](research/README.md#diloco-training)
 
 [Quickstart](docs/quickstart.md) · [Models & RAM](docs/public-bundles.md) ·
 [Advanced settings](docs/advanced.md) · [WebRTC & TURN](docs/turn.md) ·

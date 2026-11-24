@@ -1,0 +1,8 @@
+[
+  {
+    "stage": "benchmark",
+    "gpu": "RTX 3060",
+    "outcome": "all numerical gates and four timed trials passed",
+    "excluded_timed_trials": 0
+  }
+]

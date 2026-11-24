@@ -1,0 +1,164 @@
+{
+  "kind": "same-host-browser-correctness",
+  "synthetic": false,
+  "source_sha256": "d195c78a5bea605737ec98baa2ff58873ab71fb2e63f412c3988850274060a13",
+  "config": {
+    "num_workers": 2,
+    "rounds": 2,
+    "local_steps": 2,
+    "batch_size": 2,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "learning_rate": 0.001,
+    "outer_learning_rate": 0.7,
+    "momentum": 0.9,
+    "seed": 2026,
+    "eval_examples": 8,
+    "round_timeout": 600,
+    "lease_seconds": 45,
+    "max_retries": 3,
+    "precision": "webgpu"
+  },
+  "dataset": {
+    "name": "fashion-mnist",
+    "sha256": "97d0ae5aecca304875b4cf15d34f9339ddef82259c31841e28aea88fdfa48aee"
+  },
+  "seconds": 3.4332340420223773,
+  "max_weight_error": 1.424980068838455e-09,
+  "tolerance": 5e-05,
+  "metrics": [
+    {
+      "version": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 8,
+        "loss": 2.3377962261473293,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 1,
+      "round_id": "60027fdfaccc76625fca9874531c7fa8",
+      "workers": [
+        "worker-0",
+        "worker-1"
+      ],
+      "local_steps": 2,
+      "losses": {
+        "worker-0": [
+          2.4156629191652024,
+          2.305765529294918
+        ],
+        "worker-1": [
+          2.3663747050365016,
+          2.2931624397475234
+        ]
+      },
+      "seconds": 0.9643630841746926,
+      "evaluation": {
+        "split": "test",
+        "examples": 8,
+        "loss": 2.3365570847520085,
+        "accuracy": 0.0
+      },
+      "worker_stats": {
+        "worker-1": {
+          "cpu_tasks": 168,
+          "gpu_tasks": 42,
+          "matmul_tasks": 6,
+          "seconds": 0.3861999998092651,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        },
+        "worker-0": {
+          "cpu_tasks": 168,
+          "gpu_tasks": 42,
+          "matmul_tasks": 6,
+          "seconds": 0.06590000009536744,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    },
+    {
+      "version": 2,
+      "round_id": "e772cd15fed98940d0b7240625c4270d",
+      "workers": [
+        "worker-0",
+        "worker-1"
+      ],
+      "local_steps": 2,
+      "losses": {
+        "worker-0": [
+          2.2910047666965037,
+          2.151490267069738
+        ],
+        "worker-1": [
+          2.2743677309932044,
+          2.3067120651028086
+        ]
+      },
+      "seconds": 0.7165532079525292,
+      "evaluation": {
+        "split": "test",
+        "examples": 8,
+        "loss": 2.3332077425965574,
+        "accuracy": 0.0
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 168,
+          "gpu_tasks": 42,
+          "matmul_tasks": 6,
+          "seconds": 0.05270000028610229,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        },
+        "worker-1": {
+          "cpu_tasks": 168,
+          "gpu_tasks": 42,
+          "matmul_tasks": 6,
+          "seconds": 0.06880000019073486,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      }
+    }
+  ],
+  "platform": "macOS-27.0.1-arm64-arm-64bit"
+}

@@ -1,0 +1,43 @@
+{
+  "source_sha256": "076e5a5872710c62ccba62e1cee4f6724de20f28959589e9e2ab5586f64bec2b",
+  "tool_sha256": "9d35de44571794b10a0d9e218fd70c8642253922d8147fcd3de1a3ef7c2d09d9",
+  "dataset": "fashion-mnist",
+  "samples": 768,
+  "workers": 1,
+  "topology": "same-host default adapter; no independent physical GPU count",
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "batch_size": 16,
+  "local_steps": 8,
+  "rounds": 6,
+  "optimizer": "muon",
+  "muon_execution": "resident",
+  "eval_examples": 256,
+  "eval_interval": 2,
+  "loss_parity_tolerance": 5e-05,
+  "trial_order": [
+    [
+      2026,
+      "tasks"
+    ],
+    [
+      2026,
+      "resident"
+    ],
+    [
+      2027,
+      "resident"
+    ],
+    [
+      2027,
+      "tasks"
+    ]
+  ],
+  "timeout_seconds": 180,
+  "cpu_library_threads": 1,
+  "runtime": "deno 2.9.5 (stable, release, aarch64-apple-darwin)\nv8 15.0.245.2-rusty\ntypescript 6.0.3",
+  "notes": "Sequential same-GPU trials; includes startup and evaluation; no thermal/cache reset; initial coordinator evaluation and dataset download excluded."
+}

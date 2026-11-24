@@ -1,0 +1,74 @@
+{
+  "source_sha256": "076e5a5872710c62ccba62e1cee4f6724de20f28959589e9e2ab5586f64bec2b",
+  "total_seconds": 15.089681166689843,
+  "cpu_profile": false,
+  "scopes": {
+    "recipe.compile": {
+      "calls": 128,
+      "seconds": 1.6510873306542635,
+      "max_seconds": 0.10407166602090001
+    },
+    "recipe.predict": {
+      "calls": 32,
+      "seconds": 0.6215802910737693,
+      "max_seconds": 0.09987899987027049
+    },
+    "evaluation": {
+      "calls": 2,
+      "seconds": 0.6243421658873558,
+      "max_seconds": 0.4095749999396503
+    },
+    "checkpoint.save": {
+      "calls": 4,
+      "seconds": 0.11410870915278792,
+      "max_seconds": 0.03793391678482294
+    },
+    "session._save": {
+      "calls": 4,
+      "seconds": 0.11761166900396347,
+      "max_seconds": 0.039148792158812284
+    },
+    "http.fastapi_encode": {
+      "calls": 46,
+      "seconds": 6.872260045260191,
+      "max_seconds": 0.7782856659032404
+    },
+    "http.json_render": {
+      "calls": 46,
+      "seconds": 1.2327196230180562,
+      "max_seconds": 0.1490559997037053
+    },
+    "session.status": {
+      "calls": 26,
+      "seconds": 0.004566875286400318,
+      "max_seconds": 0.0005967919714748859
+    },
+    "recipe.round_bundle": {
+      "calls": 12,
+      "seconds": 4.236035875510424,
+      "max_seconds": 0.6659009577706456
+    },
+    "session.assignment": {
+      "calls": 26,
+      "seconds": 13.058516541030258,
+      "max_seconds": 2.9539963328279555
+    },
+    "session.submit": {
+      "calls": 12,
+      "seconds": 0.8243576232343912,
+      "max_seconds": 0.49887399980798364
+    },
+    "checkpoint.load": {
+      "calls": 3,
+      "seconds": 0.0451345001347363,
+      "max_seconds": 0.02247762493789196
+    },
+    "session._commit": {
+      "calls": 3,
+      "seconds": 0.6231529996730387,
+      "max_seconds": 0.48690220806747675
+    }
+  },
+  "cpu_hotspots": [],
+  "note": "Inclusive scopes overlap. cProfile and timing wrappers perturb wall time; use unprofiled paired trials for speedups."
+}

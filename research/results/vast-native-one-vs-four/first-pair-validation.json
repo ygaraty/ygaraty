@@ -1,0 +1,7 @@
+{
+  "first_pair_max_final_weight_abs_difference": 0.002148291287056528,
+  "finite_final_weights": true,
+  "identical_samples_source_and_dataset": true,
+  "one_worker_median_local_compute_seconds": 2.024063038500011,
+  "four_workers_median_slowest_local_compute_seconds": 0.7207103924999829
+}

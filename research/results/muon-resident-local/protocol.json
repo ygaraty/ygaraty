@@ -1,0 +1,32 @@
+{
+  "dataset": "fashion-mnist",
+  "samples": 768,
+  "eval_examples": 256,
+  "rounds": 6,
+  "local_steps": 8,
+  "batch_size": 16,
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "runs": [
+    [
+      2026,
+      "tasks"
+    ],
+    [
+      2026,
+      "resident"
+    ],
+    [
+      2027,
+      "resident"
+    ],
+    [
+      2027,
+      "tasks"
+    ]
+  ],
+  "notes": "Sequential trials, alternating order by seed; one local M1 GPU; no thermal/cache reset."
+}

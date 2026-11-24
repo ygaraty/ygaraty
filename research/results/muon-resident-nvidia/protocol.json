@@ -1,0 +1,57 @@
+{
+  "question": "Original per-task versus resident Newton-Schulz Muon execution on NVIDIA",
+  "frozen_at": 1795532753.836001,
+  "base_commit": "9867b7e96a9c6c265bd84c2255bf5bb5127bd469",
+  "patch_sha256": "af5ebcdfe37a2fa740b564ba0d5dfe3a3613a57ce46b15220e8e4a254d7176ac",
+  "runtime": "Deno 2.9.5 Vulkan",
+  "physical_gpus": 1,
+  "workers": 1,
+  "transport": "loopback HTTP JSON tensors",
+  "dataset": "fashion-mnist",
+  "samples": 768,
+  "batch_size": 16,
+  "local_steps": 8,
+  "rounds": 6,
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "eval_examples": 256,
+  "eval_interval": 2,
+  "trial_order": [
+    [
+      2026,
+      "tasks"
+    ],
+    [
+      2026,
+      "resident"
+    ],
+    [
+      2027,
+      "resident"
+    ],
+    [
+      2027,
+      "tasks"
+    ]
+  ],
+  "optimizer": "muon",
+  "muon_learning_rate": 0.02,
+  "muon_momentum": 0.95,
+  "muon_steps": 5,
+  "auxiliary_adam_learning_rate": 0.001,
+  "outer_learning_rate": 0.7,
+  "outer_momentum": 0.9,
+  "correctness_gate": 5e-05,
+  "optimizer_gate": 1e-07,
+  "optimizer_repeats": 7,
+  "trial_timeout_seconds": 300,
+  "measurement": "Cold contributor startup plus training and evaluation; no cache or thermal reset; initial coordinator evaluation excluded; microbenchmark warms both arms and alternates pairs",
+  "targets": [
+    2.0,
+    1.5
+  ],
+  "cpu_threads_per_library": 1
+}

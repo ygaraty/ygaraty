@@ -86,6 +86,8 @@ def execute(op, inputs, attrs):
             else a[selected]
         )
         np.add.at(result, ids[selected], rows)
+    elif op == "inverse_norm":
+        result = 1.0 / (np.sqrt(a) + attrs["epsilon"])
     elif op == "sum_squares":
         result = np.array([[np.sum(a * a)]])
     elif op == "clip_gradient":
