@@ -1,0 +1,167 @@
+{
+  "runtime": "deno",
+  "kind": "same-host-native-correctness",
+  "reference_checked": true,
+  "samples": 64,
+  "traffic": {
+    "request_body_bytes": 350656,
+    "response_body_bytes": 1539813
+  },
+  "observations": [
+    {
+      "version": 0,
+      "seconds_since_launch": 0.10445775196421891,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.2882553303307356,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 1,
+      "seconds_since_launch": 3.9303075929638,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.235843248127784,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 2,
+      "seconds_since_launch": 6.860766828991473,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.166079311735818,
+        "accuracy": 0.0
+      }
+    }
+  ],
+  "first_assignment_seconds": 1.0377730679465458,
+  "synthetic": true,
+  "source_sha256": "4b4c9bd5dd207a763f38ae8347e5bc5cc0bc773aac93443cb6fb0ecdc4b95a96",
+  "config": {
+    "num_workers": 1,
+    "rounds": 2,
+    "local_steps": 2,
+    "batch_size": 16,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "learning_rate": 0.001,
+    "optimizer": "muon",
+    "muon_learning_rate": 0.02,
+    "muon_momentum": 0.95,
+    "muon_steps": 5,
+    "outer_learning_rate": 0.7,
+    "momentum": 0.9,
+    "seed": 2026,
+    "eval_examples": 8,
+    "eval_interval": 1,
+    "round_timeout": 600,
+    "lease_seconds": 45,
+    "max_retries": 3,
+    "precision": "webgpu"
+  },
+  "dataset": {
+    "name": "synthetic-protocol-fixture",
+    "sha256": "d3bb210677e5f0c007984b480b748472b3be9b7148aec9983e144f17881cfe02"
+  },
+  "seconds": 6.860776840010658,
+  "max_weight_error": 9.457460627415593e-07,
+  "tolerance": 5e-05,
+  "metrics": [
+    {
+      "version": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.2882553303307356,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "version": 1,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 2,
+      "losses": {
+        "worker-0": [
+          2.2950970804454074,
+          2.287935177375223
+        ]
+      },
+      "seconds": 2.7812304330291227,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.235843248127784,
+        "accuracy": 0.0
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 754,
+          "gpu_tasks": 132,
+          "matmul_tasks": 96,
+          "optimizer_seconds": 1.1552752840000025,
+          "seconds": 2.5605045769999997,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    },
+    {
+      "version": 2,
+      "workers": [
+        "worker-0"
+      ],
+      "local_steps": 2,
+      "losses": {
+        "worker-0": [
+          2.2778686872070923,
+          2.272607870304961
+        ]
+      },
+      "seconds": 2.8733771479455754,
+      "evaluation": {
+        "split": "test",
+        "examples": 4,
+        "loss": 2.166079311735818,
+        "accuracy": 0.0
+      },
+      "worker_stats": {
+        "worker-0": {
+          "cpu_tasks": 754,
+          "gpu_tasks": 132,
+          "matmul_tasks": 96,
+          "optimizer_seconds": 1.2119669879999968,
+          "seconds": 2.648931248,
+          "precision": "webgpu",
+          "adapter": {
+            "vendor": "4318",
+            "architecture": "",
+            "device": "9476",
+            "description": "NVIDIA GeForce RTX 3060",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 1099511627776,
+            "maxStorageBufferBindingSize": 2147483644
+          }
+        }
+      }
+    }
+  ],
+  "platform": "Linux-7.0.0-43-generic-x86_64-with-glibc2.39"
+}

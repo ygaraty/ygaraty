@@ -1,0 +1,217 @@
+{
+  "kind": "native-peer-tree",
+  "status": "passed",
+  "source_sha256": "14f4648635ae5642fff90a60c122cef95f7a51dc51620207e6d714eed43d200e",
+  "dataset": {
+    "name": "fashion-mnist",
+    "sha256": "97d0ae5aecca304875b4cf15d34f9339ddef82259c31841e28aea88fdfa48aee"
+  },
+  "config": {
+    "num_workers": 2,
+    "dataset": "fashion-mnist",
+    "steps": 3,
+    "global_batch": 20,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "seed": 2026,
+    "eval_examples": 16,
+    "eval_interval": 1,
+    "verify_steps": 3,
+    "timeout": 300
+  },
+  "topology": "binary heap; peer gradient reduction and weight broadcast; root Adam",
+  "model": {
+    "in_channels": 1,
+    "height": 28,
+    "width": 28,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "classes": 10,
+    "residual": true
+  },
+  "learning_rate": 0.001,
+  "optimizer": {
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-08,
+    "clip_norm": 0.0
+  },
+  "precision": "webgpu",
+  "metrics": [
+    {
+      "step": 0,
+      "seconds": 0,
+      "samples": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3652699553008105,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "step": 1,
+      "samples": 20,
+      "loss": 2.2861870071206996,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 10,
+          "seconds": 0.8063314579999996,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 10,
+          "seconds": 0.6159332919999997,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3661390204566968,
+        "accuracy": 0.0
+      },
+      "seconds": 1.028281708713621
+    },
+    {
+      "step": 2,
+      "samples": 40,
+      "loss": 2.380977605007804,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 10,
+          "seconds": 0.8712795829999995,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 10,
+          "seconds": 0.7112530420000003,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.366237215276162,
+        "accuracy": 0.0
+      },
+      "seconds": 2.0643009589985013
+    },
+    {
+      "step": 3,
+      "samples": 60,
+      "loss": 2.3453196846643483,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 10,
+          "seconds": 0.6174311659999994,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 10,
+          "seconds": 0.43338158399999976,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3661154441029035,
+        "accuracy": 0.0
+      },
+      "seconds": 2.8497419166378677
+    }
+  ],
+  "parity": [
+    {
+      "step": 1,
+      "max_weight_error": 7.190050776983981e-10
+    },
+    {
+      "step": 2,
+      "max_weight_error": 2.557224657723234e-09
+    },
+    {
+      "step": 3,
+      "max_weight_error": 3.417742875169716e-09
+    }
+  ],
+  "workers": [
+    {
+      "rank": 0,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [
+        1
+      ],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 12284,
+      "peer_received_bytes": 9704
+    },
+    {
+      "rank": 1,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    }
+  ],
+  "seconds": 3.089180374983698,
+  "sample_sequence_sha256": "62c84cda933c484fa9a2331596246e9cd79e0417db60ba898e68658f0e8cbcc5",
+  "coordinator_sent_bytes": 474824,
+  "coordinator_received_bytes": 12249
+}

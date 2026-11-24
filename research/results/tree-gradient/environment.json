@@ -1,0 +1,20 @@
+{
+  "host": "local-mac",
+  "physical_hosts": 1,
+  "physical_gpus": 1,
+  "chip": "Apple M1",
+  "ram_bytes": 17179869184,
+  "chrome": "157.0.8103.79",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "network": "HTTP over loopback",
+  "cache": "Dataset already downloaded; separate fresh Chromium profiles per trial",
+  "order": "one worker followed by three; no overlapping trials",
+  "peak_gpu_memory": "not measured",
+  "driver": "Metal 3 reported by WebGPU; exact driver version unavailable",
+  "python": "3.12.2",
+  "dependencies": {
+    "numpy": "2.1.1",
+    "fastapi": "0.119.0",
+    "uvicorn": "0.52.1"
+  }
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "stage": "initial host",
+    "outcome": "discarded before numerical trials",
+    "reason": "SSH authentication unavailable on initial rental; destroyed before replacement",
+    "cost_usd": 0.033
+  },
+  {
+    "stage": "replacement host Vulkan preflight",
+    "outcome": "fixed before numerical trials",
+    "reason": "Missing libXext and EGL loader caused CPU fallback; installed libxext6, libx11-6, libxrender1, libegl1; strict hardware GPU probe then passed"
+  },
+  {
+    "stage": "timed Ygaraty trials",
+    "passed": 4,
+    "failed": 0
+  },
+  {
+    "stage": "timed Torch trials",
+    "passed": 4,
+    "failed": 0
+  }
+]

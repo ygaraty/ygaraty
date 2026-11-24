@@ -1,0 +1,53 @@
+{
+  "authorized_total_cap_usd": 11.48,
+  "estimated_rental_and_disk_usd": 0.3304672417660971,
+  "estimate_basis": "Provider hourly total including 20GB instance disk, times provider start timestamp to deletion-request timestamp. Includes seven rentals in this retry; excludes separately billed traffic and the earlier brief credential-response attempt.",
+  "observed_credit_decrease_usd": 0.34887222214015523,
+  "credit_basis": "Supplied USD 11.48 starting balance minus final provider credit; includes earlier brief attempt, setup, storage and traffic already posted. Billing may lag.",
+  "rentals": [
+    {
+      "resource_label": "rental-1",
+      "hours": 0.11280056350760989,
+      "hourly_rate_including_instance_disk": 0.07703703703703704,
+      "estimated_usd": 0.008689821188734393
+    },
+    {
+      "resource_label": "rental-2",
+      "hours": 0.1126647358470493,
+      "hourly_rate_including_instance_disk": 0.07703703703703704,
+      "estimated_usd": 0.008679357428217132
+    },
+    {
+      "resource_label": "rental-3",
+      "hours": 0.11276377903090583,
+      "hourly_rate_including_instance_disk": 0.07703703703703704,
+      "estimated_usd": 0.008686987421640154
+    },
+    {
+      "resource_label": "rental-4",
+      "hours": 0.9999272706111272,
+      "hourly_rate_including_instance_disk": 0.08996296296296297,
+      "estimated_usd": 0.08995642001164549
+    },
+    {
+      "resource_label": "rental-5",
+      "hours": 0.9951057547993131,
+      "hourly_rate_including_instance_disk": 0.07222222222222222,
+      "estimated_usd": 0.07186874895772816
+    },
+    {
+      "resource_label": "rental-6",
+      "hours": 1.0078410734732945,
+      "hourly_rate_including_instance_disk": 0.06074074074074074,
+      "estimated_usd": 0.06121701335171122
+    },
+    {
+      "resource_label": "rental-7",
+      "hours": 1.277302396496137,
+      "hourly_rate_including_instance_disk": 0.0637037037037037,
+      "estimated_usd": 0.08136889340642058
+    }
+  ],
+  "current_attempt_rentals_created": 7,
+  "persistent_volumes_created": 0
+}

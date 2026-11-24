@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-20",
+  "base_commit": "5441492d12651021ca345715d12d5e536fc3c410",
+  "branch": "feature/public-diloco-training",
+  "uncommitted": true,
+  "runtime_source_sha256": "14f4648635ae5642fff90a60c122cef95f7a51dc51620207e6d714eed43d200e",
+  "runtime_patch_sha256": "14f237d54ad7f0b34e36189c6008d59fdc703e46b2b49c80304f5ca1d279157c",
+  "patch_scope": "git diff HEAD plus untracked files under ygaraty/; excludes research evidence and tools",
+  "runner_sha256": "69bdbc1bdc2a752dc98540e52e3226dbe0d821b6980dd25436acf6aa6107fd3f",
+  "workers": [
+    1,
+    2,
+    4,
+    10
+  ],
+  "physical_gpus": 1,
+  "machines": 1,
+  "hardware": "Apple M1, 16 GiB unified memory",
+  "native_runtime": "Deno 2.9.5 / wgpu Metal",
+  "dataset": "Fashion-MNIST, verified upstream archives",
+  "protocol": {
+    "steps": 3,
+    "global_batch": 40,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "seed": 2026,
+    "eval_examples": 16,
+    "eval_interval": 1,
+    "verification": "Every step vs unsplit Python full-batch reference; absolute weight error <= 2e-5",
+    "order": [
+      1,
+      2,
+      4,
+      10
+    ],
+    "repetitions": 1,
+    "timeout_seconds": 300
+  },
+  "scope": "Numerical and transport smoke test, not convergence or multi-GPU scaling; independent test/build processes may run concurrently",
+  "trials": {
+    "cpu-fixture": "Initial cross-process float64 protocol matrix; earlier runtime hash",
+    "initial-gpu-small": "Initial native GPU smoke before launcher/runtime-metadata refinement",
+    "gpu-small": "Final runtime, channels 2/4/4 and global batch 20",
+    "gpu-default": "Final runtime and documented default model/batch"
+  },
+  "setup_failures": [
+    "Initial init failed before any workers started: pathlib.Path.open does not accept opener; corrected to built-in open.",
+    "First wheel verification rejected a README edited after wheel build; rebuilt before final verification."
+  ],
+  "cleanup": "All final workers stopped, all loopback listening ports closed; no rented resources",
+  "external_spend_usd": 0
+}

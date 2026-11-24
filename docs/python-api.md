@@ -50,6 +50,10 @@ The workers run sequentially in this local demonstration. It validates DiLoCo
 rounds; it does not launch remote contributors. Use `ygaraty launch` for the
 browser inference service described in the quickstart.
 
+For networked training, use [`ygaraty train serve`](distributed-training.md).
+It launches a residual ConvNet session with browser contributors, deterministic
+dataset shards, held-out evaluation and complete round-boundary recovery.
+
 `ygaraty train --help` lists model config, batch and weight inputs, learning
 rates and portable round export. `Trainer` performs local Adam updates;
 `Coordinator` collects worker deltas and commits outer SGD or Nesterov updates.

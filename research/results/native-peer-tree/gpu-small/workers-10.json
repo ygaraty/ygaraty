@@ -1,0 +1,605 @@
+{
+  "kind": "native-peer-tree",
+  "status": "passed",
+  "source_sha256": "14f4648635ae5642fff90a60c122cef95f7a51dc51620207e6d714eed43d200e",
+  "dataset": {
+    "name": "fashion-mnist",
+    "sha256": "97d0ae5aecca304875b4cf15d34f9339ddef82259c31841e28aea88fdfa48aee"
+  },
+  "config": {
+    "num_workers": 10,
+    "dataset": "fashion-mnist",
+    "steps": 3,
+    "global_batch": 20,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "seed": 2026,
+    "eval_examples": 16,
+    "eval_interval": 1,
+    "verify_steps": 3,
+    "timeout": 300
+  },
+  "topology": "binary heap; peer gradient reduction and weight broadcast; root Adam",
+  "model": {
+    "in_channels": 1,
+    "height": 28,
+    "width": 28,
+    "channels": [
+      2,
+      4,
+      4
+    ],
+    "classes": 10,
+    "residual": true
+  },
+  "learning_rate": 0.001,
+  "optimizer": {
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-08,
+    "clip_norm": 0.0
+  },
+  "precision": "webgpu",
+  "metrics": [
+    {
+      "step": 0,
+      "seconds": 0,
+      "samples": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3652699553008105,
+        "accuracy": 0.0
+      }
+    },
+    {
+      "step": 1,
+      "samples": 20,
+      "loss": 2.2861870071206996,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 2,
+          "seconds": 1.035168291,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 2,
+          "seconds": 0.917368833,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 3,
+          "samples": 2,
+          "seconds": 0.8187903329999999,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 7,
+          "samples": 2,
+          "seconds": 0.9429945419999999,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 8,
+          "samples": 2,
+          "seconds": 0.8177124579999999,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 4,
+          "samples": 2,
+          "seconds": 0.971989458,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 9,
+          "samples": 2,
+          "seconds": 0.8794964169999998,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 2,
+          "samples": 2,
+          "seconds": 1.039807917,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 5,
+          "samples": 2,
+          "seconds": 1.0142655409999997,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 6,
+          "samples": 2,
+          "seconds": 0.866483792,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3661390204560844,
+        "accuracy": 0.0
+      },
+      "seconds": 2.2195081249810755
+    },
+    {
+      "step": 2,
+      "samples": 40,
+      "loss": 2.3809776050078035,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 2,
+          "seconds": 0.5622314589999996,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 2,
+          "seconds": 0.4230532919999996,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 3,
+          "samples": 2,
+          "seconds": 0.45736675000000016,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 7,
+          "samples": 2,
+          "seconds": 0.495686291,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 8,
+          "samples": 2,
+          "seconds": 0.4814481670000005,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 4,
+          "samples": 2,
+          "seconds": 0.537256958,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 9,
+          "samples": 2,
+          "seconds": 0.5548223749999998,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 2,
+          "samples": 2,
+          "seconds": 0.5727722089999997,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 5,
+          "samples": 2,
+          "seconds": 0.5820027909999999,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 6,
+          "samples": 2,
+          "seconds": 0.4818786669999999,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.3662372151325224,
+        "accuracy": 0.0
+      },
+      "seconds": 3.169737541116774
+    },
+    {
+      "step": 3,
+      "samples": 60,
+      "loss": 2.345319683754387,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 2,
+          "seconds": 0.41237704199999914,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 1,
+          "samples": 2,
+          "seconds": 0.33835674999999993,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 3,
+          "samples": 2,
+          "seconds": 0.33114412500000073,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 7,
+          "samples": 2,
+          "seconds": 0.33221404200000054,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 8,
+          "samples": 2,
+          "seconds": 0.3327196669999994,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 4,
+          "samples": 2,
+          "seconds": 0.42223329100000045,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 9,
+          "samples": 2,
+          "seconds": 0.4035722080000005,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 2,
+          "samples": 2,
+          "seconds": 0.4266290829999998,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 5,
+          "samples": 2,
+          "seconds": 0.4015997500000003,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        },
+        {
+          "rank": 6,
+          "samples": 2,
+          "seconds": 0.32720837500000016,
+          "cpu_tasks": 34,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.366115443764841,
+        "accuracy": 0.0
+      },
+      "seconds": 3.828200540971011
+    }
+  ],
+  "parity": [
+    {
+      "step": 1,
+      "max_weight_error": 5.933814550829197e-11
+    },
+    {
+      "step": 2,
+      "max_weight_error": 3.326347534221563e-09
+    },
+    {
+      "step": 3,
+      "max_weight_error": 3.4864903186715424e-09
+    }
+  ],
+  "workers": [
+    {
+      "rank": 0,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [
+        1,
+        2
+      ],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 24568,
+      "peer_received_bytes": 21440
+    },
+    {
+      "rank": 1,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [
+        3,
+        4
+      ],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 24568,
+      "peer_received_bytes": 20265
+    },
+    {
+      "rank": 2,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [
+        5,
+        6
+      ],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 24568,
+      "peer_received_bytes": 19385
+    },
+    {
+      "rank": 3,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [
+        7,
+        8
+      ],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 24568,
+      "peer_received_bytes": 19383
+    },
+    {
+      "rank": 4,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [
+        9
+      ],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 12284,
+      "peer_received_bytes": 9696
+    },
+    {
+      "rank": 5,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    },
+    {
+      "rank": 6,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    },
+    {
+      "rank": 7,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    },
+    {
+      "rank": 8,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    },
+    {
+      "rank": 9,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    }
+  ],
+  "seconds": 4.1610727910883725,
+  "sample_sequence_sha256": "62c84cda933c484fa9a2331596246e9cd79e0417db60ba898e68658f0e8cbcc5",
+  "coordinator_sent_bytes": 709172,
+  "coordinator_received_bytes": 25248
+}

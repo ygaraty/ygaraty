@@ -1,0 +1,29 @@
+{
+  "physical_gpus": 4,
+  "models": [
+    "RTX 3060 12 GiB",
+    "RTX 3060 12 GiB",
+    "RTX 3060 12 GiB",
+    "RTX 3060 12 GiB"
+  ],
+  "driver": "610.57.04",
+  "vulkan_each_selector_exposes_one_matching_unique_gpu": true,
+  "cuda_baseline_uuid_matches_vulkan": true,
+  "concurrent_compute_contexts_per_gpu": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "extra_graphics_only_contexts_on_first_gpu_mib": [
+    2,
+    2,
+    2
+  ],
+  "final_compute_contexts_per_gpu": [
+    0,
+    0,
+    0,
+    0
+  ]
+}

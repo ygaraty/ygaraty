@@ -1,0 +1,7 @@
+{
+  "all_supervisors_stopped": true,
+  "worker_processes": 4,
+  "physical_gpus": 1,
+  "machines": 1,
+  "external_spend_usd": 0
+}

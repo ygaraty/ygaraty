@@ -17,3 +17,9 @@ For WebRTC contributor links, see [TURN setup and command-line routes](turn.md).
 
 Use the [Python API and local training](python-api.md) to build, analyze,
 compile and execute Tape graphs from your own code.
+
+For open training research, [train a residual ConvNet with browser contributors](distributed-training.md)
+on MNIST or Fashion-MNIST using DiLoCo.
+
+For native wgpu contributors and 1/2/4/10-worker LAN experiments, see
+[native peer-tree training](native-training.md).

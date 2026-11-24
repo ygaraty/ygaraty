@@ -1,0 +1,51 @@
+name: Training browser E2E
+
+on:
+  workflow_dispatch:
+    inputs:
+      dataset:
+        description: Dataset for the bounded browser correctness check
+        type: choice
+        options: [fixture, mnist, fashion-mnist]
+        default: fashion-mnist
+  schedule:
+    - cron: '23 6 * * 5'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: training-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser:
+    name: Chromium training (${{ matrix.workers }} workers, CPU reference)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        workers: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install public runtime
+        run: python -m pip install '.[server]'
+      - name: Exercise Chromium contributors on held-out data
+        env:
+          DATASET: ${{ inputs.dataset || 'fashion-mnist' }}
+        run: |
+          python tools/training_e2e.py --num-workers ${{ matrix.workers }} \
+            --dataset "$DATASET" --precision float64 \
+            --output runs/training-${{ matrix.workers }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: training-browser-${{ matrix.workers }}-${{ github.sha }}
+          path: runs/training-*.json
+          if-no-files-found: error
+          retention-days: 14

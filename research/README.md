@@ -38,6 +38,20 @@ are retained. Cloud marketplace operations are outside this research collection.
 
 ### DiLoCo training
 
+- [Muon DiLoCo: one/four physical GPUs and a same-ConvNet upstream PyTorch reference](muon-diloco-vast.md)
+
+- [Muon versus Adam: two-seed local one/three-worker learning and time-to-loss comparison](muon-diloco-local.md)
+
+- [RunPod native preflight: RTX 4090 parity passed; four-GPU comparison blocked by capacity](runpod-native-preflight.md)
+
+- [Native wgpu peer tree: binary transport and 1/2/4/10-process hardware-GPU checks](native-peer-tree.md)
+
+- [Tree gradient reduction: matched global batches preserve learning quality, with measured same-GPU overhead](tree-gradient-reduction.md)
+
+- [One versus three browser workers: measured Fashion-MNIST learning curves and time to loss](convnet-one-vs-three.md)
+
+- [Browser DiLoCo: public training service, recovery and one/two-contributor WebGPU checks](browser-diloco-recovery.md)
+
 Local steps, replica averaging, communication precision and learning across machines. Start with experiments 040, 043 and 057.
 
 - [040: DiLoCo over HTTP tracks the PyTorch reference to within 0.004](040-diloco-over-http.md)
@@ -77,6 +91,8 @@ Graph transformations, task construction, numerical parity and compiled plans. S
 - [OFF-2: Does the MLP tile-epilogue rewrite still gain under pessimistic overhead?](OFF-2.md)
 
 ### Distributed engine and scheduling
+
+- [Native peer-tree training on one versus four physical GPUs: close learning quality, slower execution over internet links](vast-native-one-vs-four.md)
 
 Placement, memory, storage, transport, relays, handoffs and recovery across heterogeneous workers. Source: [runtime](../ygaraty/runtime/README.md).
 

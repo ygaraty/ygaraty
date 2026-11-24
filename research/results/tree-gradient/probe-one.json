@@ -1,0 +1,220 @@
+{
+  "kind": "tree-gradient-experiment",
+  "status": "passed",
+  "source_sha256": "5dad343f8d965f4135ab6ae70b982ab69fa579b82d9301455a785ee6e02424e1",
+  "dataset": {
+    "name": "fashion-mnist",
+    "sha256": "97d0ae5aecca304875b4cf15d34f9339ddef82259c31841e28aea88fdfa48aee"
+  },
+  "config": {
+    "num_workers": 1,
+    "steps": 5,
+    "global_batch": 48,
+    "seed": 2026,
+    "eval_every": 5,
+    "eval_examples": 48,
+    "verify_steps": 5,
+    "timeout": 900
+  },
+  "model": {
+    "in_channels": 1,
+    "height": 28,
+    "width": 28,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "classes": 10,
+    "residual": true
+  },
+  "learning_rate": 0.001,
+  "optimizer": {
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-08,
+    "clip_norm": 0.0
+  },
+  "topology": "pairwise sample-weighted reduction on coordinator; HTTP star transport",
+  "metrics": [
+    {
+      "step": 0,
+      "samples": 0,
+      "seconds": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 48,
+        "loss": 2.3187320268081684,
+        "accuracy": 0.08333333333333333
+      }
+    },
+    {
+      "step": 1,
+      "samples": 48,
+      "train_loss": 2.28853120133475,
+      "update_seconds": 0.3969125831499696,
+      "worker_stats": {
+        "0": {
+          "cpu_tasks": 66,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3,
+          "seconds": 0.24589999961853026,
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      },
+      "seconds": 2.522699249908328
+    },
+    {
+      "step": 2,
+      "samples": 96,
+      "train_loss": 2.3401088383574535,
+      "update_seconds": 0.3291154997423291,
+      "worker_stats": {
+        "0": {
+          "cpu_tasks": 66,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3,
+          "seconds": 0.20730000019073486,
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      },
+      "seconds": 2.851819375064224
+    },
+    {
+      "step": 3,
+      "samples": 144,
+      "train_loss": 2.306342239065867,
+      "update_seconds": 0.3404789171181619,
+      "worker_stats": {
+        "0": {
+          "cpu_tasks": 66,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3,
+          "seconds": 0.21480000019073486,
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      },
+      "seconds": 3.1923007909208536
+    },
+    {
+      "step": 4,
+      "samples": 192,
+      "train_loss": 2.316573734828229,
+      "update_seconds": 0.3307496667839587,
+      "worker_stats": {
+        "0": {
+          "cpu_tasks": 66,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3,
+          "seconds": 0.20359999990463257,
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      },
+      "seconds": 3.523053999990225
+    },
+    {
+      "step": 5,
+      "samples": 240,
+      "train_loss": 2.3217880928478167,
+      "update_seconds": 0.32493562484160066,
+      "worker_stats": {
+        "0": {
+          "cpu_tasks": 66,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3,
+          "seconds": 0.19940000009536743,
+          "adapter": {
+            "vendor": "apple",
+            "architecture": "metal-3",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": false,
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292
+          }
+        }
+      },
+      "evaluation": {
+        "split": "test",
+        "examples": 48,
+        "loss": 2.3120132381764567,
+        "accuracy": 0.08333333333333333
+      },
+      "seconds": 3.8732161251828074
+    }
+  ],
+  "parity": [
+    {
+      "step": 1,
+      "max_gradient_error": 5.900875481301693e-08,
+      "loss_error": 2.9846978222280995e-09
+    },
+    {
+      "step": 2,
+      "max_gradient_error": 2.3627289970351573e-07,
+      "loss_error": 2.3617183764201855e-09
+    },
+    {
+      "step": 3,
+      "max_gradient_error": 2.112885845902135e-07,
+      "loss_error": 1.8467805062982734e-10
+    },
+    {
+      "step": 4,
+      "max_gradient_error": 1.6075860108724638e-07,
+      "loss_error": 4.1740211287333295e-10
+    },
+    {
+      "step": 5,
+      "max_gradient_error": 9.090081541651696e-08,
+      "loss_error": 6.225109316915223e-10
+    }
+  ],
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "chrome": "Google Chrome 157.0.8103.79",
+  "ready_seconds": 2.1257764999754727,
+  "seconds": 3.8751822910271585,
+  "sample_sequence_sha256": "110ca80a21f6dadb2a067e8adc008b00f4cfa6a34d425bc46fd1a0bad2e6c7ea",
+  "cleanup": {
+    "browser_exit_codes": [
+      0
+    ],
+    "server_stopped": true
+  },
+  "traffic": {
+    "request_body_bytes": 419933,
+    "response_body_bytes": 2888711
+  }
+}

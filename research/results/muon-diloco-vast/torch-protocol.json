@@ -1,0 +1,67 @@
+{
+  "frozen_at": 1795484856.70419,
+  "question": "Same-model/data PyTorch MuLoCo-1 reference versus Ygaraty Tape/WebGPU; separate optimizer variant from engine",
+  "upstream": {
+    "repository": "https://github.com/bentherien/muloco-1",
+    "commit": "33cc33315eacd1bb5f179d7d5d9f85e012fe58f2",
+    "url": "https://raw.githubusercontent.com/bentherien/muloco-1/33cc33315eacd1bb5f179d7d5d9f85e012fe58f2/muloco/pytorch/muloco.py",
+    "sha256": "3f78ddb772eaa06be99d219a8b93945edd2aa8ed61cf51b41113ae42f58ebed7"
+  },
+  "harness_sha256": "260193d0e728d670ea6f1c56eba02c795cb861da8c4d01f14b5caafd1758bc0e",
+  "torch_version": "2.9.1+cu128",
+  "workers": 1,
+  "physical_gpu": "same GPU 0 as Ygaraty baselines",
+  "dataset": "Fashion-MNIST",
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "samples": 15360,
+  "batch_size": 16,
+  "local_steps": 8,
+  "eval_every_samples": 1536,
+  "eval_examples": 1024,
+  "outer_learning_rate": 0.7,
+  "outer_momentum": 0.9,
+  "inner_learning_rate": 0.02,
+  "auxiliary_adam_learning_rate": 0.001,
+  "auxiliary_betas": [
+    0.9,
+    0.999
+  ],
+  "weight_decay": 0,
+  "targets": [
+    1.5,
+    1.0
+  ],
+  "trial_order": [
+    [
+      "ygaraty-math",
+      2026
+    ],
+    [
+      "upstream",
+      2026
+    ],
+    [
+      "upstream",
+      2027
+    ],
+    [
+      "ygaraty-math",
+      2027
+    ]
+  ],
+  "trial_timeout": 300,
+  "gate": "CPU model and two-round optimizer parity <1e-8; CUDA control parity <5e-5; finite upstream training",
+  "timing": "CUDA synchronization; training includes batch generation, transfers and 1024-example evaluations. Setup additionally reported. No torch.compile, no TF32.",
+  "limitations": [
+    "upstream optimizer variant differs from Ygaraty; matched-math control isolates most of this difference",
+    "reference is one-worker MuLoCo-1, not full Meta distributed stack",
+    "no hyperparameter tuning",
+    "all runs within original rental deadline and spending cap",
+    "mathematical control is not bitwise identical: Torch FP32 versus Ygaraty FP64 host plus FP32 GPU kernels",
+    "Standalone Torch omits contributor HTTP and durable round checkpoints; timing is not a kernel-only comparison."
+  ]
+}

@@ -11,6 +11,8 @@ _build/
 .env*
 *.sqlite*
 runs/
+training-run/
+lan-session/
 /.venv-webgpu-example/
 
 # Local TURN deployment secrets and certificates
