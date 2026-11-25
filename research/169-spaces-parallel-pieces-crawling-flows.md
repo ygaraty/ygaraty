@@ -80,6 +80,8 @@ harnesses are not distributed as supported public commands.
 
 ## Conclusion
 
+**Correction (2026-11-25, report 177):** the raw checks behind "most connections crawl" measured small objects (192 B to 160 KB) downloaded in full, whose rate only reflects the time to the first byte; every large piece ran at 3–15 MB/s per connection. The slow loads (about 1 MB/s from the coordinator's byte counter) are real, but their cause is on the contributor's download path, not the route to the bucket. The conclusion below is kept as written and should be read with this correction.
+
 The question is still open: neither run finished three loads per arm. What the rerun shows is the failure mode the change was meant for, and that it does not handle it. Connections from this host to the bucket are bimodal: some run at about 12 MB/s, most crawl at bytes to a few hundred KB per second while still returning data. A 30-second no-progress timeout never fires on a crawling flow, and three speculative lanes are mostly crawling too, so P was only about 7% faster than S. A useful next design is a minimum-rate rule (abandon and re-request a piece whose rate stays below a floor, e.g. 1 MB/s over 10 s), measured on the same kind of host.
 
 ## Limits

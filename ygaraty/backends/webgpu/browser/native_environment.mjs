@@ -30,6 +30,31 @@ export function nativePeerConnection(Base) {
 
 // webrtc: the RTCPeerConnection polyfill module (node-datachannel's), for direct links (DO-97); without it the
 // contributor uses the coordinator relay.
+// DO-105: Node's built-in fetch (undici) moved large Spaces downloads at about 1 MB/s from a host where core https
+// moved 50-66 MB/s (the same object, IPv4): its receive path keeps the TCP window near 128 KB, so throughput is that
+// over the round trip. Cross-origin HTTPS GETs (the presigned piece downloads) go through core https instead,
+// returned as a standard Response around its stream; redirects are refused like `redirect: 'error'`, and an abort
+// signal destroys the request.
+export async function httpsGet(target, options = {}) {
+  const [{default: https}, {Readable}] = await Promise.all([import('node:https'), import('node:stream')]);
+  const signal = options.signal;
+  signal?.throwIfAborted();
+  return new Promise((resolve, reject) => {
+    const headers = Object.fromEntries(new Headers(options.headers || {}).entries());
+    const request = https.get(target, {headers}, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && options.redirect === 'error') {
+        res.resume(); reject(new TypeError('fetch failed: redirect')); return;
+      }
+      const out = new Headers();
+      for (const [k, v] of Object.entries(res.headers)) out.set(k, Array.isArray(v) ? v.join(', ') : String(v));
+      const body = [204, 304].includes(res.statusCode) ? null : Readable.toWeb(res);
+      resolve(new Response(body, {status: res.statusCode, statusText: res.statusMessage, headers: out}));
+    });
+    request.on('error', reject);
+    signal?.addEventListener('abort', () => { request.destroy(signal.reason); reject(signal.reason); }, {once: true});
+  });
+}
+
 export function installContributorEnvironment(value, {log = console.log, webrtc = null} = {}) {
   const url = contributorURL(value), events = new EventTarget(), pending = new Set();
   const send = globalThis.fetch.bind(globalThis);
@@ -55,7 +80,10 @@ export function installContributorEnvironment(value, {log = console.log, webrtc 
   set('setInterval', (...args) => {const id=interval(...args); intervals.add(id); return id;});
   set('fetch', (input, options) => {
     const target = typeof input === 'string' ? new URL(input, url.origin).href : input;
-    const request = send(target, options);
+    const parsed = typeof target === 'string' ? new URL(target) : null;
+    const direct = !globalThis.Deno && parsed && parsed.protocol === 'https:' && parsed.origin !== url.origin
+      && (!options?.method || options.method === 'GET') && !options?.body;
+    const request = direct ? httpsGet(target, options) : send(target, options);
     pending.add(request); request.then(()=>pending.delete(request),()=>pending.delete(request));
     return request;
   });

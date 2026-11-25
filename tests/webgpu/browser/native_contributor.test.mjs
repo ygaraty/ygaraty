@@ -98,3 +98,22 @@ test('native host offers WebRTC only when given a polyfill, and restores the glo
   await env.close();
   assert.equal(globalThis.RTCPeerConnection,before);
 });
+
+test('native host sends cross-origin HTTPS GETs through core https and returns a standard Response', async () => {
+  const {httpsGet} = await import('../../../ygaraty/backends/webgpu/browser/native_environment.mjs');
+  const https = (await import('node:https')).default;
+  const original = https.get;
+  const {PassThrough} = await import('node:stream');
+  try {
+    https.get = (target, opts, cb) => {
+      const res = new PassThrough(); res.statusCode = 200; res.statusMessage = 'OK'; res.headers = {'content-length': '5'};
+      setImmediate(() => { cb(res); res.end(Buffer.from('hello')); });
+      const req = new PassThrough(); req.destroy = () => {}; return req;
+    };
+    const r = await httpsGet('https://spaces.example/p', {headers: {'X-A': '1'}});
+    assert.equal(r.status, 200); assert.equal(r.headers.get('content-length'), '5');
+    assert.equal(new TextDecoder().decode(await r.arrayBuffer()), 'hello');
+    https.get = (target, opts, cb) => { const res = new PassThrough(); res.statusCode = 302; res.headers = {location: 'x'}; setImmediate(() => cb(res)); const req = new PassThrough(); return req; };
+    await assert.rejects(httpsGet('https://spaces.example/p', {redirect: 'error'}), /redirect/);
+  } finally { https.get = original; }
+});

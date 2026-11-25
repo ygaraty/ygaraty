@@ -43,6 +43,8 @@ Related: [169 (DO-62)](169-spaces-parallel-pieces-crawling-flows.md), [113](113-
 
 ## Conclusion
 
+**Correction (2026-11-25, report 177):** the raw checks behind "most connections crawl" measured small objects (192 B to 160 KB) downloaded in full, whose rate only reflects the time to the first byte; every large piece ran at 3–15 MB/s per connection. The slow loads (about 1 MB/s from the coordinator's byte counter) are real, but their cause is on the contributor's download path, not the route to the bucket. The conclusion below is kept as written and should be read with this correction.
+
 The floor did what it was built to do (12–13 re-requests per load, no failures from it in the two complete windows), but the re-requested pieces arrived no faster: whatever makes most flows from this host to the bucket crawl is not escaped by opening a new connection. Over a 10-minute window both arms moved about 0.9–1.0 MB/s. The design question moves from the client to the delivery path: a mirror or CDN in front of the bucket, or a different region, rather than smarter retries.
 
 ## Limits

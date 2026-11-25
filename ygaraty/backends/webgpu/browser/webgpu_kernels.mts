@@ -1171,8 +1171,24 @@ export class Gpu {
     buffer.destroy();
   }
 
+  // WS-56: bytes written with queue.writeBuffer since the queue last completed. Dawn keeps each write's staging copy
+  // until the queue has submitted and finished, so a load that submits nothing held every byte it uploaded in host
+  // memory (16 GiB for a 16.5 GB model on an NVIDIA host).
+  pendingUploadBytes = 0;
+  private uploadsSettling: Promise<unknown> | null = null;
+  // Once more than `limit` bytes of uploads are pending: flushes the queue and waits for the previous flush only, so
+  // downloads and uploads overlap while at most about 2 x limit of staging is held.
+  async settleUploads(limit = 256 * 1024 * 1024) {
+    if (this.pendingUploadBytes < limit) return;
+    this.pendingUploadBytes = 0;
+    if (this.uploadsSettling) await this.uploadsSettling;
+    this.device.queue.submit([]);
+    this.uploadsSettling = this.device.queue.onSubmittedWorkDone();
+  }
+
   upload(data: ArrayBuffer | ArrayBufferView<ArrayBuffer>) {
     const bytes = data.byteLength;
+    this.pendingUploadBytes += bytes;
     const buffer = this.buffer(bytes);
     const padded = Math.ceil(bytes / 4) * 4;
     if (padded === bytes) {

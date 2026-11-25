@@ -48,6 +48,13 @@ const headers = { "X-Key": key };
 // DO-103: `?minRate=MB/s` re-requests a Spaces piece whose rate stays below the floor (off by default).
 // WS-54 (local tests only): `?computeMs=N` makes every stage wait N ms per call, to emulate a real model's compute
 // (so connections idle between tokens as long as on rented GPUs).
+const LOAD_TRACE = new URLSearchParams(location.search).get("loadTrace") === "1";  // DO-105, see weights()
+// WS-56: with loadTrace, the process's memory every 2 s (Node only): resident, JavaScript heap, array buffers.
+if (LOAD_TRACE && typeof process !== "undefined" && process.memoryUsage) {
+  const memTimer = setInterval(() => { const m = process.memoryUsage();
+    console.log("MEM " + JSON.stringify({ at: performance.timeOrigin + performance.now(), rss: m.rss, heap: m.heapUsed, external: m.external, buffers: m.arrayBuffers })); }, 2000);
+  memTimer.unref?.();
+}
 const COMPUTE_MS = Math.min(5000, Math.max(0, Number(new URLSearchParams(location.search).get("computeMs")) || 0));
 const MIN_RATE = (() => { const v = Number(new URLSearchParams(location.search).get("minRate") ?? new URLSearchParams(location.hash.slice(1)).get("minRate") ?? 0);
   return Number.isFinite(v) && v > 0 && v <= 1000 ? v * 1e6 : 0; })();
@@ -388,12 +395,18 @@ function weights(hashes, sizes, stats, progress, delivery = 'local') {
         await c.delete(request);
       }
     }
+    // DO-105: `?loadTrace=1` logs one LOAD line per downloaded piece (absolute ms): start, descriptor answered,
+    // first byte, body done, hash done (off by default).
+    const tr = LOAD_TRACE ? { name, bytes: sizes[name], start: performance.timeOrigin + performance.now() } : null;
+    const stamp = (k) => { if (tr && tr[k] === undefined) tr[k] = performance.timeOrigin + performance.now(); };
     const data = delivery === 'spaces'
-      ? await downloadPiece(() => call(`download/${encodeURIComponent(name)}`), sizes[name], want, bytes=>progress(name,bytes), fetch,
+      ? await downloadPiece(async () => { const d = await call(`download/${encodeURIComponent(name)}`); stamp("described"); return d; }, sizes[name], want, bytes=>{ if (bytes > 0) stamp("first"); progress(name,bytes); }, fetch,
                             {signal, minRate: MIN_RATE, onSlow: () => { stats.slowRetries = (stats.slowRetries || 0) + 1; console.log(`weights_slow_retry ${name} ${stats.slowRetries}`); }})
       : await get(name, sizes[name], bytes=>progress(name,bytes));
     signal?.throwIfAborted();
+    stamp("body");
     const got = await sha256(data);
+    stamp("hashed"); if (tr) console.log("LOAD " + JSON.stringify(tr));
     if (got !== want) throw new Error(`${name}: SHA-256 ${got}, expected ${want}`);
     signal?.throwIfAborted();
     stats.downloadedBytes += data.byteLength;progress(name,data.byteLength,true);
@@ -483,6 +496,7 @@ async function session(gpu, id, a) {
     for(const [name,bytes] of Object.entries(requiredSizes))loadingTracker.update(name,bytes,true);
     connectionEvent("weights_reused");}
   else await s.load(async (name) => {
+    await gpu.settleUploads?.();  // WS-56: release the staging of what was uploaded so far (bounded host memory)
     files++;
     show(`Loading stage ${stageLabel(a.stage)}`, `${files} of ${total} files, ${((stats.downloadedBytes + stats.cachedBytes) / 1e9).toFixed(2)} GB`);
     return prefetch ? prefetch.get(name) : fetchOne(name);

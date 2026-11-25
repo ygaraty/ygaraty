@@ -299,6 +299,14 @@ class PreparedSession(SessionProtocol):
                 generate=options["capacity"],
                 stop_ids=sorted(self.stop_ids),
             )
+            # DO-86: YGARATY_DRAFT=N,K turns on exact n-gram drafting (DO-25: n-gram length N, at most K drafts
+            # checked per pass) for a one-stage, one-conversation Qwen3.5 session; off by default.
+            draft = os.environ.get("YGARATY_DRAFT")
+            if draft:
+                n, k = (int(v) for v in draft.split(","))
+                if len(self.stages) != 1 or chat_slots != 1 or self.args.batch:
+                    raise ValueError("YGARATY_DRAFT needs one stage, one chat slot and no batching")
+                fixture["draft"] = dict(n=n, k=k)
             if (
                 route != "relay"
             ):  # the first stage stops a turn by the coordinator's rule (chat_token)

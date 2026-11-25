@@ -1123,3 +1123,39 @@ number = 176
 file = "176-s5-nano-broad-code-vocabulary.md"
 title = "Counted on broad code, S5-nano's Portuguese-English-code vocabulary keeps all three: 10% smaller, faster decode, same answers"
 requires = "As report 175, plus two pinned codeparrot/github-code-clean shards (runs/experiments/M-10/tools/corpus_code.py)."
+
+[[experiment]]
+number = 177
+file = "177-spaces-cdn-and-tiny-objects.md"
+title = "The Spaces CDN gave no gain because direct downloads were not slow: the \"crawling flows\" of reports 169 and 172 were tiny objects"
+requires = "Spaces credentials that can create a bucket (or a temporary full-access key) and a DigitalOcean token for the CDN endpoint; one rented US host; runs/experiments/DO-104/tools (cdn_bucket.py, windows.py)."
+
+[[experiment]]
+number = 178
+file = "178-ngram-drafting-chat-screen.md"
+title = "Exact n-gram drafting in a one-contributor chat keeps the tokens and speeds edits up to 24%, but costs 54–69% on everything else"
+requires = "A WebGPU workstation; report 175's full S5-nano bundle; runs/experiments/M-9/tools/serve_run.sh, DO-54/tools/turns.py, DO-86/prompts.json; YGARATY_DRAFT."
+
+[[experiment]]
+number = 179
+file = "179-inkling2-split-cost-one-a100.md"
+title = "Splitting Inkling 2 in three costs only 1.14× on one A100: the 4090 sessions' slowness is the 4090 hosts, not the split"
+requires = "A WebGPU workstation with the 2304-wide tiny Inkling 2; one rented A100 with DO-101's kit, this tree and runs/experiments/WS-55/tools/a100.sh; WS-52/tools/hops.py."
+
+[[experiment]]
+number = 180
+file = "180-native-fetch-download-throughput.md"
+title = "Node's built-in fetch held contributor downloads near 1 MB/s; core https loads the 16.5 GB model in 3.5 minutes"
+requires = "One rented host with a 24 GB+ GPU on a long route to fra1; this tree; runs/experiments/DO-62/tools (host.sh, loads.py) and DO-105/tools (timeline.py, curl_order.sh, node_fetch.mjs)."
+
+[[experiment]]
+number = 181
+file = "181-rtx4090-faster-than-a100-inkling.md"
+title = "An RTX 4090 decodes Inkling 2 faster than an A100 (22 vs 36 ms per step): the slow 4090 sessions were their hosts, not the GPU"
+requires = "One rented RTX 4090 (24 GB) with DO-101's kit; runs/experiments/DO-106/tools/gpu.sh."
+
+[[experiment]]
+number = 182
+file = "182-dawn-upload-staging-memory.md"
+title = "Dawn held every uploaded byte until the queue was flushed: settling uploads cuts contributor memory 16.3 → 1.1 GiB at the same load rate"
+requires = "One rented NVIDIA host with a 24 GB+ GPU in the US; this tree; runs/experiments/DO-62/tools (host.sh, loads.py) and WS-56/tools/mem.py."
