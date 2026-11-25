@@ -34,7 +34,7 @@ class WebGPUHandle:
         self._failure = None
         self._consumed = self._closed = False
         # The deadline counts from the last text, not the request's start:
-        # a 4,096-token answer took 287 s on a Radeon 680M (2026-11-25).
+        # a 4,096-token answer took 287 s on a Radeon 680M, 357 s for the 27B.
         self._progress = session.services.clock.monotonic_seconds()
         self._task = asyncio.create_task(self._drive())
         self._watcher = asyncio.create_task(self._watch())

@@ -369,3 +369,15 @@ class MailboxTests(unittest.TestCase):
         for value in range(100):
             mailbox.put({"token": value})
         self.assertIn("error", mailbox.get(timeout=0.01))
+
+
+def test_engine_turn_and_session_share_the_idle_timeout():
+    # A long prompt sends no text while it is read; both limits must allow it.
+    import inspect
+
+    from ygaraty.backends.webgpu._legacy import prepared
+    from ygaraty.backends.webgpu.configuration import IDLE_TIMEOUT_S
+    from ygaraty.backends.webgpu.session import WebGPUSession
+
+    assert WebGPUSession.request_timeout == IDLE_TIMEOUT_S >= 600
+    assert "turn_timeout=IDLE_TIMEOUT_S" in inspect.getsource(prepared)

@@ -26,6 +26,7 @@ from ygaraty.backend_contracts.persistence import (
     StoreConflict,
 )
 
+from .configuration import IDLE_TIMEOUT_S
 from .handles import WebGPUHandle
 from .stats import SessionStats
 
@@ -35,11 +36,7 @@ def reject(code, message):
 
 
 class WebGPUSession:
-    # Seconds without new text before a request fails. Prefill sends none:
-    # an 11K-token prompt took 89 s on a Radeon 680M (2026-11-25), and slower
-    # GPUs or larger models take longer. Lost workers are caught sooner by
-    # their heartbeats.
-    request_timeout = 600
+    request_timeout = IDLE_TIMEOUT_S  # without new text
     revalidate_interval = 1
     close_timeout = 2
 

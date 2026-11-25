@@ -8,6 +8,11 @@ from ygaraty.backend_contracts.models import BackendConfiguration, Route
 
 BACKEND_ID = "webgpu"
 CONFIG_VERSION = 1
+# Seconds without new text before a request fails, in the session and in the
+# engine's turn. Reading a prompt sends none: an 11K-token prompt took 89 s on
+# a Radeon 680M (S5-Nano) and over 120 s on an RTX 3090 (Qwen3.8-27B, DO-108).
+# Lost workers are caught sooner by their heartbeats.
+IDLE_TIMEOUT_S = 600
 
 
 def integer(value: int, name: str, maximum: int = 2**31 - 1) -> None:

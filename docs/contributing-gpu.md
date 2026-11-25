@@ -44,6 +44,12 @@ do not create more capacity. A worker exiting stops the rest of its group.
 | `node` | Dawn | Node and `webgpu@0.6.2` | Coordinator relay |
 | `bun` | Dawn, experimental | Bun and `webgpu@0.6.2` | Coordinator relay |
 
+On a server with an NVIDIA GPU and no display, `headless` needs Xvfb
+(`apt install xvfb`). It then runs Chromium on a virtual display, because
+NVIDIA's driver lacks the Vulkan extension headless mode needs; without it,
+WebGPU runs on the CPU. Set `YGARATY_BROWSER_DISPLAY=headless` or `xvfb` to
+choose.
+
 `wgpu` is an alias for Deno, not a separate Rust executable. Native contributors
 reuse the browser contributor's admission, numerical self-test, verified weight
 downloads and inference kernels. They currently download weights on each run;
