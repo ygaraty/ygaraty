@@ -144,6 +144,7 @@ class Family(StrEnum):
     DENSE = "dense"
     KOLIBRI = "kolibri1"
     QWEN3MOE = "qwen3moe"
+    INKLING2 = "inkling2"  # DO-95: stage plans state boundaries only (inkling2_gpu.mts runs the layers)
 
 
 class RopePairs(StrEnum):
@@ -1196,12 +1197,74 @@ def _compile_assigned_stage(
     return expected
 
 
+def _inkling2_stage_plan(manifest: Mapping[str, Any], owner: int) -> JsonObject:
+    """An Inkling 2 stage's plan (DO-95). Its layers run in `inkling2_gpu.mts` (the looped core keeps per-visit
+    state and block streams no task chain expresses), so the plan states the stage's boundaries: the layers, and
+    the block streams plus current stream crossing in and out (`vectors` per token, `hidden` each)."""
+    from .checkpoints.inkling2_gguf import boundary_vectors, Inkling2Config
+
+    config = dict(manifest["config"])
+    c = Inkling2Config(**{k: (tuple(v) if k == "sliding" else v) for k, v in config.items() if k != "family"})
+    first, last = manifest["first"], manifest["last"]
+    if [layer["index"] for layer in manifest["layers"]] != list(range(first, last)):
+        raise ValueError("Stage layers must be contiguous")
+    if first < c.loop_end and last > c.loop_start and (first > c.loop_start or last < c.loop_end):
+        raise ValueError("A stage must hold the whole loop core or none of it")
+    if bool(manifest.get("embed")) != (first == 0) or bool(manifest.get("head")) != (last == c.layers):
+        raise ValueError("Pipeline endpoints differ from stage layers")
+    vectors_in = boundary_vectors(c, first) if first else 0
+    vectors_out = boundary_vectors(c, last) if last < c.layers else 0
+    return dict(
+        version=PLAN_VERSION,
+        family=Family.INKLING2,
+        owner=owner,
+        rows=RuntimeVar.TOKENS,
+        hidden=c.hidden,
+        layers=[first, last],
+        input=Value.TOKENS if first == 0 else f"streams_{first}",
+        output=Value.NEXT_TOKEN if last == c.layers else f"streams_{last}",
+        input_vectors=vectors_in,
+        output_vectors=vectors_out,
+    )
+
+
+def _compile_inkling2_distribution(stages: list[JsonObject]) -> JsonObject:
+    plans = []
+    for owner, stage in enumerate(stages):
+        manifest = stage["manifest"]
+        plan = _inkling2_stage_plan(manifest, owner)
+        if stage["layers"] != plan["layers"]:
+            raise ValueError("Layer assignment differs from manifest")
+        if manifest.get("plan") not in (None, plan):
+            raise ValueError("Compiled stage plan differs from its assignment")
+        plans.append(plan)
+    if plans[0]["layers"][0] != 0 or plans[-1]["output"] != Value.NEXT_TOKEN:
+        raise ValueError("Stages must cover the model")
+    transfers = []
+    for left, right in zip(plans, plans[1:]):
+        if left["output"] != right["input"] or left["output_vectors"] != right["input_vectors"]:
+            raise ValueError("Disconnected inference stage assignments")
+        transfers.append(dict(value=left["output"], source=left["owner"], destination=right["owner"],
+                              vectors=left["output_vectors"], precision=stages[left["owner"]]["fixture"]["wire"]))
+    feedback = dict(value=plans[-1]["output"], source=plans[-1]["owner"], destination=0, precision="token-id")
+    for owner, (stage, plan) in enumerate(zip(stages, plans)):
+        last = owner == len(stages) - 1
+        route = dict(next=0 if last else owner + 1, output="token" if last else "hidden")
+        if stage["fixture"].get("plan_route", route) != route:
+            raise ValueError("Compiled transfer route differs from stage")
+        stage["manifest"]["plan"] = plan
+        stage["fixture"]["plan_route"] = route
+    return dict(version=PLAN_VERSION, stages=plans, transfers=transfers, feedback=feedback)
+
+
 def compile_distribution(
     stages: list[JsonObject], *, aligned_gates: bool = True
 ) -> JsonObject:
     """Validate the full distribution before attaching plans and routes."""
     if not stages:
         raise ValueError("A distribution needs stages")
+    if (stages[0]["manifest"].get("config") or {}).get("family") == Family.INKLING2:
+        return _compile_inkling2_distribution(stages)
 
     plans = [
         _compile_assigned_stage(stage, owner, len(stages) - 1, aligned_gates)

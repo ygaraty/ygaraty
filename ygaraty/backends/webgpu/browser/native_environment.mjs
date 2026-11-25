@@ -10,7 +10,27 @@ export function contributorURL(value) {
   return url;
 }
 
-export function installContributorEnvironment(value, {log = console.log} = {}) {
+// node-datachannel passes TURN credentials to libdatachannel inside a URL (turn:USER:PASS@host), which it
+// URL-decodes; TURN REST usernames (expiry:session:slot) contain colons, so they must be percent-encoded (DO-97).
+export function nativePeerConnection(Base) {
+  const encode = (s) => s && s.username != null ? {...s, username: encodeURIComponent(s.username), credential: encodeURIComponent(s.credential)} : s;
+  return class extends Base {
+    constructor(config = {}, ...rest) { super({...config, iceServers: (config.iceServers || []).map(encode)}, ...rest); }
+    // libdatachannel's round trip is in milliseconds; WebRTC stats give seconds (DO-100).
+    async getStats(...args) {
+      const report = await super.getStats(...args);
+      report.forEach((s) => {
+        if (s.type !== 'candidate-pair') return;
+        for (const k of ['currentRoundTripTime', 'totalRoundTripTime']) if (typeof s[k] === 'number') s[k] /= 1000;
+      });
+      return report;
+    }
+  };
+}
+
+// webrtc: the RTCPeerConnection polyfill module (node-datachannel's), for direct links (DO-97); without it the
+// contributor uses the coordinator relay.
+export function installContributorEnvironment(value, {log = console.log, webrtc = null} = {}) {
   const url = contributorURL(value), events = new EventTarget(), pending = new Set();
   const send = globalThis.fetch.bind(globalThis);
   const intervals = new Set(), interval = globalThis.setInterval;
@@ -29,7 +49,9 @@ export function installContributorEnvironment(value, {log = console.log} = {}) {
     removeEventListener:events.removeEventListener.bind(events)});
   set('sessionStorage', {getItem:k=>storage.get(k) ?? null, setItem:(k,v)=>storage.set(k,String(v))});
   // Background throttling is browser-only; use the contributor's timer fallback.
-  set('Worker', undefined); set('caches', undefined); set('RTCPeerConnection', undefined);
+  set('Worker', undefined); set('caches', undefined);
+  set('RTCPeerConnection', webrtc ? nativePeerConnection(webrtc.RTCPeerConnection) : undefined);
+  if (webrtc) {set('RTCIceCandidate', webrtc.RTCIceCandidate); set('RTCSessionDescription', webrtc.RTCSessionDescription);}
   set('setInterval', (...args) => {const id=interval(...args); intervals.add(id); return id;});
   set('fetch', (input, options) => {
     const target = typeof input === 'string' ? new URL(input, url.origin).href : input;

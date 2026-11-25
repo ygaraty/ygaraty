@@ -30,6 +30,7 @@ import { readSizedResponse, requiredWeightSizes, weightProgress, prefetchWeights
 import { Gpu, Stage as QwenStage, F16 } from "./qwen35_gpu.mjs";
 import { Stage as DenseStage, isDenseManifest } from "./dense_gpu.mjs";
 import { Stage as KolibriStage, isKolibriManifest } from "./kolibri_gpu.mjs";
+import { Inkling2ContributorStage, isInkling2Manifest } from "./inkling2_gpu.mjs";
 import {contributorChat} from "./chat_direct.mjs";
 import {monitorContributorNetwork} from "./contributor_network.mjs";
 import { Peers } from "./qwen35_peer.mjs";
@@ -44,6 +45,12 @@ const stageLabel = (stage) => stage < 26 ? String.fromCharCode(65 + stage) : `S$
 const key = new URLSearchParams(location.hash.slice(1)).get("key") || "";
 const BASE = location.pathname.replace(/\/(chat|coordinator)?\/?$/, '');  // '' alone, or /sessions/<job> in the general coordinator
 const headers = { "X-Key": key };
+// DO-103: `?minRate=MB/s` re-requests a Spaces piece whose rate stays below the floor (off by default).
+// WS-54 (local tests only): `?computeMs=N` makes every stage wait N ms per call, to emulate a real model's compute
+// (so connections idle between tokens as long as on rented GPUs).
+const COMPUTE_MS = Math.min(5000, Math.max(0, Number(new URLSearchParams(location.search).get("computeMs")) || 0));
+const MIN_RATE = (() => { const v = Number(new URLSearchParams(location.search).get("minRate") ?? new URLSearchParams(location.hash.slice(1)).get("minRate") ?? 0);
+  return Number.isFinite(v) && v > 0 && v <= 1000 ? v * 1e6 : 0; })();
 const $status = document.getElementById("status");
 const $detail = document.getElementById("detail");
 const show = (status, detail = "") => {
@@ -77,7 +84,7 @@ async function call(path, body, raw = false) {
   const generation=connectionGeneration;
   const options = { headers: { ...headers }, method: body === undefined ? "GET" : "POST" };
   if (body !== undefined) options.body = body instanceof ArrayBuffer || ArrayBuffer.isView(body) || typeof body === "string" ? body : JSON.stringify(body);
-  const until = performance.now() + 120000;
+  let until = performance.now() + 120000;
   for (let wait = 500; ; wait = Math.min(wait * 2, 8000)) {
     if(generation!==connectionGeneration)throw Error("contributor_rejoin_required");
     let response;
@@ -91,6 +98,13 @@ async function call(path, body, raw = false) {
       continue;
     }
     if(generation!==connectionGeneration)throw Error('contributor_rejoin_required');
+    // WS-51 backpressure: the coordinator held this send while the next stage's mailbox was full, then asked for
+    // it again. Retried at once and without a deadline: the wait is on the server, and a reset ends it.
+    if (response.status === 429 && response.headers.get("Retry-After") !== null) {
+      await response.arrayBuffer().catch(() => {});
+      until = performance.now() + 120000;
+      continue;
+    }
     if ([502, 503, 504].includes(response.status) && performance.now() < until) {
       await new Promise((resolve) => setTimeout(resolve, wait));
       continue;
@@ -375,7 +389,8 @@ function weights(hashes, sizes, stats, progress, delivery = 'local') {
       }
     }
     const data = delivery === 'spaces'
-      ? await downloadPiece(() => call(`download/${encodeURIComponent(name)}`), sizes[name], want, bytes=>progress(name,bytes), fetch, {signal})
+      ? await downloadPiece(() => call(`download/${encodeURIComponent(name)}`), sizes[name], want, bytes=>progress(name,bytes), fetch,
+                            {signal, minRate: MIN_RATE, onSlow: () => { stats.slowRetries = (stats.slowRetries || 0) + 1; console.log(`weights_slow_retry ${name} ${stats.slowRetries}`); }})
       : await get(name, sizes[name], bytes=>progress(name,bytes));
     signal?.throwIfAborted();
     const got = await sha256(data);
@@ -416,9 +431,11 @@ async function session(gpu, id, a) {
   try {
   const stats = { downloadedBytes: 0, cachedBytes: 0, cacheErrors: [] };
   const conversations = f.conversations || 1;
-  // The stage implementation of the checkpoint's model family (dense_gpu.mjs and kolibri_gpu.mjs run on the
+  // The stage implementation of the checkpoint's model family (dense_gpu.mjs, kolibri_gpu.mjs and inkling2_gpu.mjs run on the
   // same Gpu).
-  const Stage = isDenseManifest(a.manifest) ? DenseStage : isKolibriManifest(a.manifest) ? KolibriStage : QwenStage;
+  // DO-95: Inkling 2 stages hand on `vectors` streams per token; their `hidden` is that many widths.
+  const Stage = isInkling2Manifest(a.manifest) ? Inkling2ContributorStage : isDenseManifest(a.manifest) ? DenseStage
+    : isKolibriManifest(a.manifest) ? KolibriStage : QwenStage;
   // DO-25: `draft` {n, k}: n-gram drafts checked k at a time (one conversation at a time, Qwen3.5 stages).
   const draft = f.draft || null;
   // WS-16: the matrix-vector kernel's rows per thread by token count ({single, rows, tokens}; experiment 104).
@@ -460,6 +477,7 @@ async function session(gpu, id, a) {
   const prefetchLanes = /^[1-8]$/.test(prefetchParam ?? "") ? Number(prefetchParam) : 3;
   const prefetch = !reuse && a.delivery === 'spaces' && prefetchParam !== "off" ? prefetchWeights(requiredSizes, fetchOne, {concurrency: prefetchLanes}) : null;
   connectionEvent(`weights_prefetch_${prefetch ? prefetchLanes : "off"}`);
+  if (MIN_RATE) console.log(`weights_min_rate ${MIN_RATE}`);
   setContributionPhase('loading');
   try { if(reuse){await s.reset();
     for(const [name,bytes] of Object.entries(requiredSizes))loadingTracker.update(name,bytes,true);
@@ -512,6 +530,11 @@ async function session(gpu, id, a) {
   // reports it to the coordinator (`direct`: recorded, not sent back), so no decode step waits for a round
   // trip. It stops each conversation by the coordinator's rule (`stop_ids`, the turn's `limit`), as the first
   // stage of a direct session does. Fixture `local_loop: false`, or `?loop=relay` on the page, turns it off.
+  // WS-51 (local tests only): `?slowStage=K&slowMs=N` makes stage K wait N ms before each prefill call, to emulate a
+  // slow downstream contributor behind a fast one.
+  const slowParams = new URLSearchParams(location.search);
+  const slowMs = Number(slowParams.get("slowStage")) === a.stage && slowParams.get("slowStage") !== null
+    ? Math.max(0, Number(slowParams.get("slowMs")) || 0) : 0;
   const loopParam = new URLSearchParams(location.search).get("loop") ?? new URLSearchParams(location.hash.slice(1)).get("loop");
   const selfFeed = a.stage === 0 && last && f.local_loop !== false && loopParam !== "relay"
     && Array.isArray(f.stop_ids) && Number.isSafeInteger(f.generate);
@@ -527,6 +550,7 @@ async function session(gpu, id, a) {
   // as one `tokens` report. Fixture `report_batch: false`, or `?reports=serial`, sends them one by one again.
   const reportsParam = new URLSearchParams(location.search).get("reports") ?? new URLSearchParams(location.hash.slice(1)).get("reports");
   const batchReports = f.report_batch !== false && reportsParam !== "serial";
+  console.log(`decode mode: selfFeed=${selfFeed} resident=${resident} batchReports=${batchReports}`);  // DO-85/DO-87 evidence
   const reportQueue = [];
   let reportBusy = null;  // the pump's promise while reports are in flight
   const reportDirect = (items) => {
@@ -566,10 +590,28 @@ async function session(gpu, id, a) {
     if (items?.length) { send("fed", chatSlots ? chatSlots.stamp({conv, turn:chatSlots.turns[conv], items:items.splice(0)}) : { conv, turn, ...slotMeta.get(conv), items: items.splice(0) }, ""); }
   };
   let lastPseq = null;  // [pseq, psub] of the last message taken from the previous stage, this epoch
+  // WS-53: messages from the previous stage that arrive ahead of a gap wait here (by pseq) until the gap is filled;
+  // `released` hands the next one in order back to the message loop.
+  const early = new Map(), released = [];
   const admit = (m) => {
     const e = m.meta.epoch ?? epoch;
     if (e < epoch) return null;
     if (e > epoch && m.kind !== 'reset') { held.push(m); return null; }
+    // WS-53: order first, so every numbered message moves the sequence on even if a check below drops it.
+    if (Number.isSafeInteger(m.meta.pseq) && !m.sequenced) {  // a relayed copy of a message the link did deliver: dropped
+      const at = [m.meta.pseq, m.meta.psub ?? 0];
+      if (lastPseq && (at[0] < lastPseq[0] || (at[0] === lastPseq[0] && at[1] <= lastPseq[1]))) return null;
+      if (lastPseq && at[0] > lastPseq[0] + 1) {  // ahead of a gap: kept until the messages before it arrive
+        if (!early.has(at[0])) early.set(at[0], []);
+        if (!early.get(at[0]).some((x) => (x.meta.psub ?? 0) === at[1])) early.get(at[0]).push(m);
+        if ([...early.values()].reduce((n, v) => n + v.length, 0) > 4096) throw new Error('Too many messages ahead of a missing one');
+        return null;
+      }
+      lastPseq = at;
+      m.sequenced = true;  // parked below (a later generation, a busy slot) and admitted again: already in order
+      const following = early.get(at[0] + 1);
+      if (following) { early.delete(at[0] + 1); released.push(...following.sort((x, y) => (x.meta.psub ?? 0) - (y.meta.psub ?? 0))); }
+    }
     if (Number.isSafeInteger(m.meta.generation) && m.kind !== 'reset') {
       const generation = generations.get(m.meta.conv ?? 0) ?? 0;
       if (m.meta.generation < generation) return null;
@@ -580,11 +622,6 @@ async function session(gpu, id, a) {
     }
     if (chatSlots && ['prompt','token','hidden'].includes(m.kind) && !chatSlots.admit(m, held)) return null;
     if (chatSlots && m.kind === 'reset' && m.meta.conv !== undefined && !chatSlots.admit(m, held)) return null;
-    if (Number.isSafeInteger(m.meta.pseq)) {  // a relayed copy of a message the link did deliver: dropped
-      const at = [m.meta.pseq, m.meta.psub ?? 0];
-      if (lastPseq && (at[0] < lastPseq[0] || (at[0] === lastPseq[0] && at[1] <= lastPseq[1]))) return null;
-      lastPseq = at;
-    }
     // The first stage counts every token it gets, straight or relayed (the coordinator never relays a
     // conversation's last one), and stops a conversation by the coordinator's rule.
     if ((webrtc || selfFeed) && m.kind === "token") {
@@ -649,12 +686,18 @@ async function session(gpu, id, a) {
   }
   network?.ready();
   const peerBytes = { sent: 0 };
+  // WS-52: `?hopTrace=1` stamps each hand-off with its send time (t0, absolute ms) and logs one `HOP` line per
+  // call: arrival, run start/end, read-back end and hand-on, so a hop's time can be split (off by default).
+  const hopTrace = new URLSearchParams(location.search).get("hopTrace") === "1";
+  const absNow = () => performance.timeOrigin + performance.now();
+  const hopLog = (rec) => { if (hopTrace) console.log("HOP " + JSON.stringify({ stage: a.stage, ...rec })); };
   // Hidden states to the next stage, tokens to the first: directly when the link is open.
   // A message the link could not deliver (closed before it was sent, or before the peer acknowledged it) goes
   // through the relay with its sequence number (`pseq`, so the receiver drops a copy it already has) and the
   // epoch it was made in.
   const handOn = (kind, meta, body) => {
     const kept = epoch;
+    if (hopTrace && meta && !meta.items) meta = { ...meta, t0: absNow() };
     meta = meta.items
       ? {...meta, items:meta.items.map(item=>({...item,...slotMeta.get(item.conv ?? 0)}))}
       : {...meta,...(slotMeta.get(meta.conv ?? 0) ?? chatMeta)};
@@ -672,22 +715,32 @@ async function session(gpu, id, a) {
       reportDirect(kind === "tokens" ? items.map((item) => ({ ...top, ...item, epoch: kept })) : [{ ...meta, epoch: kept }]);
       return;
     }
-    if (webrtc && !last && peers.has(next)) {
-      peerBytes.sent += body.byteLength;
+    // WS-53: through the peers whether or not the link is open right now, so every message to that stage is numbered
+    // and keeps its place behind the ones before it (the relay takes it when the link cannot).
+    if (webrtc && !last && peers) {
+      if (peers.has(next)) peerBytes.sent += body.byteLength;
       peers.send(next, kind, { ...meta, epoch: kept }, body, (pseq) => send(kind, { ...meta, epoch: kept, pseq }, body));
       return;
     }
-    if (webrtc && last && peers.has(0)) {
-      // Recorded by the coordinator, not forwarded (`direct`). Not sent on the link: relayed as usual. Sent but
-      // never acknowledged: already recorded, so only forwarded to the first stage (`resend`).
+    if (webrtc && last && peers) {
+      // Recorded by the coordinator, not forwarded (`direct`). Not sent on the link: relayed as usual, with its
+      // number. Sent but never acknowledged: already recorded, so only forwarded to the first stage (`resend`).
+      let relayed = null;
       peers.send(0, kind, { ...meta, epoch: kept }, "", (pseq, resent) => {
         if (resent) send(kind, { ...meta, epoch: kept, pseq, resend: true }, "");
+        else relayed = pseq;
         return false;
-      }).then((direct) => send(kind, direct === true ? { ...meta, direct: true } : meta, ""));
+      }).then((direct) => send(kind, direct === true ? { ...meta, direct: true } : relayed !== null ? { ...meta, pseq: relayed } : meta, ""));
       return;
     }
     send(kind, meta, body);
   };
+  // The fixture's wire: float16 (default) or, for DO-95's Inkling 2 stages, float32 (f16 rounding of the block
+  // streams can flip routing near-ties). The self-test still checks the float16 conversion.
+  if (f.wire !== undefined && f.wire !== "f16" && f.wire !== "f32") throw new Error(`Unsupported wire ${f.wire}`);
+  const encodeHidden = (x) => f.wire === "f32" ? new Float32Array(x) : toWire(x);
+  const decodeHidden = (body) => f.wire !== "f32" ? fromWire(body)
+    : new Float32Array(ArrayBuffer.isView(body) ? body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength) : body.slice(0));
   const stageName = stageLabel(a.stage);
   let index = 0;
   const progress = (emit) => {
@@ -696,21 +749,26 @@ async function session(gpu, id, a) {
   // `emit`: the call's last position is the end of a prompt or a generated
   // token, so D sends its greedy token back; the flag travels with the
   // hidden states from A to D.
-  const forward = async (input, n, waitMs, emit, conv) => {
-    const start = performance.now();
-    let digests;
+  const forward = async (input, n, waitMs, emit, conv, msg = null) => {
+    const start = performance.now(), runAt = hopTrace ? absNow() : 0;
+    let digests, readAt = 0;
+    if (COMPUTE_MS) await new Promise((resolve) => setTimeout(resolve, COMPUTE_MS));
     await s.run({ ...input, tokens: n, slot: conv });
-    const computeMs = performance.now() - start;
+    const computeMs = performance.now() - start, ranAt = hopTrace ? absNow() : 0;
     if (s.output) {
       if (emit) {
         const token = await s.next();
+        readAt = hopTrace ? absNow() : 0;
         handOn("token", { token, conv, call: index }, "");
         digests = await logitDigests(1);
       }
     } else {
       const out = await gpu.read(s.x, n * s.hidden * 4);
-      handOn("hidden", { call: index, tokens: n, emit, conv }, toWire(out));
+      readAt = hopTrace ? absNow() : 0;
+      handOn("hidden", { call: index, tokens: n, emit, conv }, encodeHidden(out));
     }
+    if (hopTrace) hopLog({ call: index, tokens: n, kind: msg?.kind ?? "prompt", peer: !!msg?.peer, from: msg?.meta?.call ?? null, pseq: msg?.meta?.pseq ?? null, sent: msg?.meta?.t0 ?? null,
+                           arrived: msg?.arrivedAt ?? null, run: runAt, ran: ranAt, read: readAt, handed: absNow() });
     calls.push({ call: index, conv, tokens: n, waitMs, computeMs, ms: performance.now() - start, ...(digests ? { digests } : {}) });
     index++;
     progress(emit);
@@ -774,7 +832,7 @@ async function session(gpu, id, a) {
       handOn("tokens", { items: tokens.map((token) => ({ conv, token })), call: index }, "");
       digests = await logitDigests(tokens.length, spec.r);
     } else {
-      handOn("hidden", { call: index, tokens: n, emit: true, conv, spec }, toWire(await gpu.read(s.x, n * s.hidden * 4)));
+      handOn("hidden", { call: index, tokens: n, emit: true, conv, spec }, encodeHidden(await gpu.read(s.x, n * s.hidden * 4)));
     }
     calls.push({ call: index, conv, tokens: n, replay: spec.r, drafts: spec.drafts.length, kept, waitMs, computeMs, ms: performance.now() - start,
                  ...(digests ? { digests } : {}) });
@@ -823,7 +881,7 @@ async function session(gpu, id, a) {
       handOn("tokens", { items: items.map((m, t) => ({ conv: m.conv, token: tokens[t] })), call: index }, "");
     } else {
       const out = await gpu.read(s.x, items.length * s.hidden * 4);
-      handOn("hiddens", { items: items.map((m) => ({ conv: m.conv, tokens: 1, emit: true })), call: index }, toWire(out));
+      handOn("hiddens", { items: items.map((m) => ({ conv: m.conv, tokens: 1, emit: true })), call: index }, encodeHidden(out));
     }
     calls.push({ call: index, convs: slots, tokens: 1, batch: items.length, waitMs, computeMs, ms: performance.now() - start });
     index++;
@@ -841,7 +899,7 @@ async function session(gpu, id, a) {
   const decodeItem = (m) => {
     const conv = m.meta.conv ?? 0;
     if (m.kind === "token") return { conv, token: m.meta.token };
-    if (m.kind === "hidden" && m.meta.tokens === 1 && m.meta.emit) return { conv, hidden: fromWire(m.body) };
+    if (m.kind === "hidden" && m.meta.tokens === 1 && m.meta.emit) return { conv, hidden: decodeHidden(m.body) };
     return null;
   };
 
@@ -874,6 +932,7 @@ async function session(gpu, id, a) {
       const waitStart = performance.now();
       messages = await recv();
       waitMs = performance.now() - waitStart;
+      if (hopTrace) { const at = absNow(); for (const x of messages) x.arrivedAt = at; }
     }
     const batch = [];
     for (let i = 0; i < messages.length; i++) {
@@ -885,6 +944,7 @@ async function session(gpu, id, a) {
         await forwardBatch(batch.splice(0), waitMs); waitMs = 0;
       }
       const m = admit(incoming);
+      if (released.length) messages.splice(i + 1, 0, ...released.splice(0));  // WS-53: the next in order, now due
       if (!m) continue;
       if (m.kind === 'prompt') chatMeta = m.meta.chat_lease ? {chat_lease:m.meta.chat_lease,chat_turn:m.meta.turn} : null;
       if (m.kind === 'hidden') chatMeta = m.meta.chat_lease ? {chat_lease:m.meta.chat_lease,chat_turn:m.meta.chat_turn} : null;
@@ -903,7 +963,7 @@ async function session(gpu, id, a) {
       if (m.kind === "token" && draft) await draftToken(m.meta.token, conv, waitMs);
       // A burst only for the last message in hand: anything after it is handled first, step by step.
       else if (solo) await forwardResident(m.meta.token, conv, waitMs);
-      else if (m.kind === "token") await forward({ ids: [m.meta.token] }, 1, waitMs, true, conv);
+      else if (m.kind === "token") await forward({ ids: [m.meta.token] }, 1, waitMs, true, conv, m);
       else if (m.kind === "prompt") {
         // A chat turn: its own answer length (`limit`) and number, for the first stage's stop rule and reports.
         turn = m.meta.turn ?? turn;
@@ -913,8 +973,11 @@ async function session(gpu, id, a) {
       }
       else if (m.kind === "unlink") peers?.unlink(m.meta.stage);  // its browser left
       else if (m.kind === "relink") peers?.relink(m.meta.stage).catch(() => {});  // a new browser holds it
-      else if (m.kind === "hidden" && draft && m.meta.spec) await forwardSpec({ hidden: fromWire(m.body) }, m.meta.tokens, checkSpec(m.meta.spec, m.meta.tokens), waitMs, conv);
-      else if (m.kind === "hidden") await forward({ hidden: fromWire(m.body) }, m.meta.tokens, waitMs, m.meta.emit, conv);
+      else if (m.kind === "hidden" && draft && m.meta.spec) await forwardSpec({ hidden: decodeHidden(m.body) }, m.meta.tokens, checkSpec(m.meta.spec, m.meta.tokens), waitMs, conv);
+      else if (m.kind === "hidden") {
+        if (slowMs && m.meta.tokens > 1) await new Promise((resolve) => setTimeout(resolve, slowMs));
+        await forward({ hidden: decodeHidden(m.body) }, m.meta.tokens, waitMs, m.meta.emit, conv, m);
+      }
       else if (m.kind === "reset") {
         await reportsIdle(); await sending;  // this stage's outputs before the reset go out under the old epoch
         if (Number.isSafeInteger(m.meta.generation)) {
@@ -935,7 +998,7 @@ async function session(gpu, id, a) {
         chatSlots?.clear();
         epoch = m.meta.epoch ?? epoch;
         generations.clear(); slotMeta.clear();
-        counts.clear(); fed.clear(); ended.clear(); drafters.clear(); lastPseq = null;
+        counts.clear(); fed.clear(); ended.clear(); drafters.clear(); lastPseq = null; early.clear(); released.length = 0;
         messages.splice(i + 1, 0, ...held.splice(0));  // peers' messages that were waiting for this epoch
         await s.reset();
         show(`Stage ${stageName} ready`, m.meta.epoch ? "a contributor left: waiting for a replacement" : "conversation reset");

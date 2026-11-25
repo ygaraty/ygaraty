@@ -18,12 +18,16 @@ from .operations import legacy_stage
 
 def validate_distribution_plan(stored: dict, compiled: dict) -> None:
     """Retain exact current and pre-contract v2 compatibility."""
+    if stored == compiled:
+        return
+    if any("tasks" not in stage for stage in compiled["stages"]):  # DO-95: inkling2 plans have no v2 form
+        raise ValueError("Stored distribution plan differs from stages")
     legacy = dict(
         compiled,
         version=2,
         stages=[legacy_stage(stage) for stage in compiled["stages"]],
     )
-    if stored != compiled and stored != legacy:
+    if stored != legacy:
         raise ValueError("Stored distribution plan differs from stages")
 
 

@@ -534,13 +534,15 @@ def run(args):
             )
     else:
         profile = PROFILES.get(args.model)
+        local_gguf = None
         if profile is None:
             if Path(args.gguf).name != args.gguf:
                 raise ValueError(
                     "--gguf must be a filename inside --checkpoint"
                 )
+            local_gguf = args.checkpoint / args.gguf
             report = inspect_checkpoint(
-                args.checkpoint / args.gguf, args.checkpoint / "config.json"
+                local_gguf, args.checkpoint / "config.json"
             )
             if not report["compatible"]:
                 raise ValueError("Checkpoint is not supported by this backend")
@@ -578,6 +580,18 @@ def run(args):
                 )
         if len(splits) - 1 != contributors:
             raise ValueError("--splits stage count must match --num-workers")
+        if local_gguf is not None:  # DO-95: looped models keep their core on one worker
+            from .checkpoints.families import FAMILIES
+            from .checkpoints.gguf_remote import read_header
+
+            family = FAMILIES.get(profile.family)
+            if hasattr(family, "placement"):
+                header = read_header(local_gguf)
+                if args.splits is None:
+                    splits = tuple(family.placement(header, contributors, capacity=args.context or 4096)["splits"])
+                errors = family.check_splits(header, splits)
+                if errors:
+                    raise ValueError("; ".join(errors))
         profile = replace(
             profile,
             splits=splits,

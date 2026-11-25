@@ -7,6 +7,7 @@ Prepared web deployments and source-distribution jobs share these methods.
 from ygaraty.inference_support.http import reply, stream
 
 import json
+import os
 import queue
 import secrets
 import threading
@@ -189,6 +190,13 @@ class SignalRejected(Exception):
     def __init__(self, status, text):
         super().__init__(text)
         self.status = status
+
+
+class SendBusy(SignalRejected):
+    """WS-51: the next stage's mailbox stayed full; the contributor sends the same numbered call again."""
+
+    def __init__(self):
+        super().__init__(429, "next stage busy; retry this send")
 
 
 def neighbours(stage, stages):
@@ -385,6 +393,8 @@ class BoundedMailbox(queue.Queue):
         super().__init__(maxsize=max_items)
         self.max_bytes = max_bytes
         self.pending_bytes = 0
+        self.peak_bytes = 0  # WS-51 evidence: the most this mailbox held
+        self.waits = 0  # sends that had to wait for room
 
     @staticmethod
     def item_size(item):
@@ -395,19 +405,41 @@ class BoundedMailbox(queue.Queue):
             + 64
         )
 
+    def room(self, size, items=1):
+        """Whether `items` more items of `size` bytes in all fit. An empty mailbox takes anything, so one call
+        larger than the bound still passes (alone). Call with `not_full` held."""
+        if self._qsize() == 0:
+            return True
+        return (
+            self._qsize() + items <= self.maxsize
+            and self.pending_bytes + size <= self.max_bytes
+        )
+
+    def wait_room(self, size, items=1, timeout=5.0):
+        """WS-51 backpressure: wait until the receiver has read enough for `items` items of `size` bytes. False
+        after `timeout` s; the sender is then told to retry the same numbered send."""
+        deadline = time.monotonic() + timeout
+        with self.not_full:
+            if not self.room(size, items):
+                self.waits += 1
+            while not self.room(size, items):
+                left = deadline - time.monotonic()
+                if left <= 0:
+                    return False
+                self.not_full.wait(left)
+            return True
+
     def put(self, item, block=True, timeout=None):
         size = self.item_size(item)
         with self.not_full:
-            if (
-                self._qsize() >= self.maxsize
-                or self.pending_bytes + size > self.max_bytes
-            ):
+            if not self.room(size):
                 raise SignalRejected(
                     429,
                     "Stage mailbox capacity reached; reconnect the contributor",
                 )
             self._put((size, item))
             self.pending_bytes += size
+            self.peak_bytes = max(self.peak_bytes, self.pending_bytes)
             self.unfinished_tasks += 1
             self.not_empty.notify()
 
@@ -417,13 +449,56 @@ class BoundedMailbox(queue.Queue):
         return item
 
 
+def mailbox_bytes(stage):
+    """A stage's relay mailbox: room for a whole-context prefill of the largest hand-offs it can receive (every
+    call of max_tokens until max_positions, plus slack), at least 32 MiB. DO-95: Inkling 2's hand-offs are several
+    vectors per token on a float32 wire (64 tokens x 4 x 2304 x 4 bytes = 2.4 MB per call), so a long prompt's
+    prefill from a faster upstream stage overran the fixed 32 MiB (and then a 64-call bound at 8k positions). The
+    relay has no backpressure: an upstream stage may finish its whole prefill before the next stage reads any."""
+    try:
+        fixture, manifest = stage["fixture"], stage["manifest"]
+        calls = -(-fixture.get("max_positions", 4096) // fixture.get("max_tokens", 64)) + 8
+        plan = manifest.get("plan") or {}
+        width = (manifest.get("config") or {}).get("hidden", 0) * max(1, plan.get("input_vectors") or 1)
+        call = fixture.get("max_tokens", 64) * width * (4 if fixture.get("wire") == "f32" else 2)
+    except (AttributeError, KeyError, TypeError):
+        call = 0
+    window = mailbox_calls()
+    if window and call:  # WS-51: senders wait for room (backpressure), so a few calls are enough
+        return window * call
+    return max(32 * 1024 * 1024, calls * call)
+
+
+def recv_wait_seconds():
+    """How long a contributor's `recv` waits for a message before an empty answer (default 20 s). WS-54: a short
+    wait (YGARATY_RECV_WAIT_MS, e.g. 100) answers every ~100 ms, so the connection that carries hidden states to the
+    next stage never idles past TCP's retransmission timeout, and a hand-off does not restart in slow start."""
+    value = os.environ.get("YGARATY_RECV_WAIT_MS")
+    if not value:
+        return 20.0
+    return min(20.0, max(0.02, float(value) / 1000))
+
+
+def mailbox_calls():
+    """WS-51: the relay mailbox holds this many of the largest hand-off calls, and a sender waits (or is told to
+    retry) while it is full. 0 restores DO-95's whole-context mailboxes with no waiting. YGARATY_MAILBOX_CALLS."""
+    import os
+
+    value = int(os.environ.get("YGARATY_MAILBOX_CALLS", "4"))
+    if value < 0:
+        raise ValueError("YGARATY_MAILBOX_CALLS must be 0 or more")
+    return value
+
+
 class SessionProtocol:
     def initialize_protocol(self, args, delayer=None):
         self.lock = threading.RLock()
         self.contributors = {}
         self.contributor_roster()
         self.owner = [None] * len(self.stages)
-        self.inbox = [BoundedMailbox() for _ in self.stages]
+        self.inbox = [
+            BoundedMailbox(max_bytes=mailbox_bytes(stage)) for stage in self.stages
+        ]
         self.conv_tokens = [[] for _ in range(self.conversations)]
         self.conv_times = [[] for _ in range(self.conversations)]
         self.conv_done = set()
@@ -807,10 +882,26 @@ class SessionProtocol:
             with self.lock:
                 if n <= c.get("sent", -1):
                     return
-                c["sent"] = n
         self.contributor_roster().touch(cid)
         k = c["stage"]
         route = self.stages[k]["fixture"]["plan_route"]
+        if (
+            kind in ("hidden", "hiddens")
+            and mailbox_calls()
+            and not getattr(self, "delayer", None)
+        ):
+            # WS-51 backpressure: hold the sender until the next stage has read enough. Its send chain is
+            # serial, so it computes ahead by at most what its own process keeps; the relay keeps a few calls.
+            items = len(meta["items"]) if kind == "hiddens" else 1
+            size = len(body) + 512 * items
+            if not self.inbox[route["next"]].wait_room(size, items):
+                self.backpressure = getattr(self, "backpressure", 0) + 1
+                raise SendBusy()
+        if n is not None:  # taken: a retry of the same number is dropped from here on
+            with self.lock:
+                if n <= c.get("sent", -1):
+                    return
+                c["sent"] = n
         if kind in ("hidden", "hiddens") and route["output"] != "hidden":
             raise ValueError(
                 "Plan does not allow hidden output from this stage"
@@ -1197,6 +1288,11 @@ class SessionProtocol:
         if first:
             return encode_ids(self.tokenizer, fmt["first"] + text)
         ids = [self.last_token]
+        if fmt.get("style") == "tagged":  # DO-95: an assistant turn closes with its end token (Inkling 2's EOS)
+            close = self.tokenizer.token_to_id(fmt["assistant_end"])
+            if self.last_token != close:
+                ids.append(close)
+            return ids + encode_ids(self.tokenizer, text)
         if self.last_token != self.im_end:  # the answer was cut at --generate
             ids.append(self.im_end)
         return ids + encode_ids(self.tokenizer, fmt["end"] + text)
@@ -1732,6 +1828,12 @@ class SessionProtocol:
                 )
                 if getattr(self, "concurrent_chats", None)
                 else len(self.turns),
+                # WS-51: each stage's relay mailbox (bound, most held, sends that waited) and retries told
+                mailboxes=[
+                    dict(bound=box.max_bytes, peak=box.peak_bytes, waits=box.waits)
+                    for box in self.inbox
+                ],
+                send_retries=getattr(self, "backpressure", 0),
                 # network: relay, or direct links (private: TURN only); links: each stage's last cleaned
                 # report (candidate types, round trip, how it ended), never addresses
                 network="relay"
@@ -2008,7 +2110,7 @@ def session_get(h, session, path, query):
             )
         box = session.inbox[k]
         try:
-            first = box.get(timeout=20)
+            first = box.get(timeout=recv_wait_seconds())
         except queue.Empty:
             return respond(h, 204)
         if "all" not in query:
@@ -2171,6 +2273,10 @@ def session_post(h, session, path, query, data):
                 return respond(h, 413, {"error": "route stats too large"})
             session.note_route(cid, json.loads(data))
             return respond(h, 200, {})
+    except SendBusy as error:
+        return respond(
+            h, error.status, {"error": str(error), "retry": True}, extra=(("Retry-After", "0"),)
+        )
     except SignalRejected as error:
         return respond(h, error.status, {"error": str(error)})
     except Exception as error:  # report to the page and the log, keep serving

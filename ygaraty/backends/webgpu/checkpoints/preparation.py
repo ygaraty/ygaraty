@@ -205,6 +205,89 @@ def read_range(source):
     return data
 
 
+def _hash_files(session):
+    for name, (path, offset, length) in session.files.items():
+        digest = hashlib.sha256()
+        with open(path, "rb") as handle:
+            handle.seek(offset)
+            remaining = length
+            while remaining:
+                block = handle.read(min(remaining, 1024 * 1024))
+                if not block:
+                    raise ValueError("Truncated weight range")
+                digest.update(block)
+                remaining -= len(block)
+        session.hashes[name] = digest.hexdigest()
+
+
+def inkling2_selftest(session, path, header):
+    """DO-95: the device self-test for Inkling 2 stages: the generic matrix kernel over the first rows of the
+    first tensor of each packed kind (Q8_0 attention, IQ4_NL experts), at 1, 3, 21 and 64 tokens, against NumPy
+    dequantization of the same bytes; and the float16 conversion check every bundle carries."""
+    import gguf
+
+    rng = np.random.default_rng(36)
+    session.test_files, cases, session.expected = {}, [], []
+    first = {}
+    for name in sorted((n for n in header.tensors if n.startswith("blk.")), key=lambda n: (int(n.split(".")[1]), n)):
+        first.setdefault(header.tensors[name].kind, name)
+    first.pop("F32", None)
+    i = 0
+    for kind, name in sorted(first.items()):
+        t = header.tensors[name]
+        cols, row_bytes = t.shape[-1], t.row_bytes
+        rows = min(256, t.nbytes // row_bytes)
+        with open(path, "rb") as handle:
+            handle.seek(t.offset)
+            raw = handle.read(rows * row_bytes)
+        W = gguf.quants.dequantize(np.frombuffer(raw, np.uint8).reshape(rows, row_bytes),
+                                   gguf.GGMLQuantizationType[kind]).astype(np.float32)
+        for tokens in (1, 3, 21, 64):
+            session.test_files[f"t{i}"] = raw
+            x = rng.standard_normal((tokens, cols)).astype(np.float32)
+            session.test_files[f"tx{i}"] = x.tobytes()
+            cases.append(dict(name=name, kind=kind, shape=[rows, cols], row_bytes=row_bytes, file=f"t{i}", x=f"tx{i}",
+                              tokens=tokens, kernel=None))
+            session.expected.append(x.astype(np.float64) @ W.astype(np.float64).T)
+            i += 1
+    session.f16_x = f16_values()
+    session.test_files["f16"] = session.f16_x.tobytes()
+    with np.errstate(over="ignore"):
+        session.f16_want = session.f16_x.astype(np.float16)
+    session.selftest = dict(cases=cases, f16="f16")
+
+
+def prepare_inkling2_session(args, header, config):
+    """DO-95: Inkling 2 stages (`inkling2_gguf.stage_manifest`, a file per tensor) on the float32 wire."""
+    from ..distribution import compile_distribution
+    from .families import FAMILIES
+    from .inkling2_gguf import config_from_header, stage_manifest
+
+    c = config_from_header(header)
+    bounds = [int(value) for value in args.splits.split(",")]
+    if bounds[0] != 0 or bounds[-1] != c.layers or any(a >= b for a, b in zip(bounds, bounds[1:])):
+        raise ValueError("Splits must cover all model layers in order")
+    errors = FAMILIES["inkling2"].check_splits(header, bounds)
+    if errors:
+        raise ValueError("; ".join(errors))
+    eos = config.get("eos_token_id")
+    settings = SimpleNamespace(capacity=args.capacity, generate=args.generate, chunk=64, kv="f32")
+    session = SimpleNamespace(args=settings, files={}, hashes={}, stages=[],
+                              eos=[eos] if isinstance(eos, int) else list(eos or []), chat_style=None)
+    for index, (first, last) in enumerate(zip(bounds, bounds[1:])):
+        manifest, files = stage_manifest(args.gguf, first, last, header=header)
+        session.files.update(files)
+        fixture = dict(chunks=[], prefill_calls=0, max_tokens=min(64, args.capacity), max_positions=args.capacity,
+                       kv="f32", wire="f32", prompts=None, conversations=1, batch=False, route="relay", ice=[],
+                       ice_policy="all", stages=len(bounds) - 1, generate=args.generate, stop_ids=sorted(session.eos),
+                       draft=None, digests=False, matvec=None)
+        session.stages.append(dict(stage=index, layers=[first, last], manifest=manifest, fixture=fixture, names=sorted(files)))
+    session.distribution_plan = compile_distribution(session.stages)
+    _hash_files(session)
+    inkling2_selftest(session, args.gguf, header)
+    return session
+
+
 def prepare_session(args):
     """Build export inputs without launching a session, browser or listener."""
     import json
@@ -212,6 +295,11 @@ def prepare_session(args):
     from ygaraty.backends.webgpu._legacy.qwen_protocol import chat_format
 
     from .families import load_model
+    from .gguf_remote import read_header
+
+    header = read_header(args.gguf)
+    if header.architecture() == "inkling2_loop":
+        return prepare_inkling2_session(args, header, json.loads(Path(args.config).read_text()))
 
     model = load_model(args.gguf, args.config, tensor_only=True)
     config = json.loads(Path(args.config).read_text())
@@ -275,17 +363,6 @@ def prepare_session(args):
     for stage in session.stages:
         stage["manifest"].pop("plan", None)
     session.distribution_plan = compile_distribution(session.stages)
-    for name, (path, offset, length) in session.files.items():
-        digest = hashlib.sha256()
-        with open(path, "rb") as handle:
-            handle.seek(offset)
-            remaining = length
-            while remaining:
-                block = handle.read(min(remaining, 1024 * 1024))
-                if not block:
-                    raise ValueError("Truncated weight range")
-                digest.update(block)
-                remaining -= len(block)
-        session.hashes[name] = digest.hexdigest()
+    _hash_files(session)
     selftest_fixture(session, model)
     return session
