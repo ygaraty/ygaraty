@@ -41,6 +41,15 @@ file: `~/.zshrc` for Zsh or `~/.bashrc` for Bash. Create the file if needed, sav
 it, then open a new terminal. If Bash starts as a login shell, make sure your
 `~/.bash_profile` sources `~/.bashrc`.
 
+Stop the server, then update without deleting models or session files:
+
+```sh
+ygaraty update
+```
+
+Restart with the same workspace. For older installations, see
+[update instructions](docs/quickstart.md#update-ygaraty).
+
 ## Launch
 
 ```sh

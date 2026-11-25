@@ -5,6 +5,11 @@ import sys
 
 def main(argv=None):
     args = list(sys.argv[1:] if argv is None else argv)
+    if args and args[0] == "update":
+        from ygaraty.update import main as update
+
+        return update(args[1:])
+
     if args and args[0] == "train":
         from ygaraty.training.__main__ import main as train
 
@@ -22,6 +27,7 @@ def main(argv=None):
             if error.code:
                 raise
         print("\nCore commands:")
+        print("  update     Update Ygaraty without deleting workspaces (update --help)")
         print("  compile    Export a saved Tape plan (compile --help)")
         print("  train      DiLoCo training (train serve --help for browser contributors)")
         return 0
