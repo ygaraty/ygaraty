@@ -114,7 +114,7 @@ publisher access issue; users should not provide Spaces credentials.
 
 On 2026-11-16 the four Qwen3.8-27B manifests were published; all 3,452
 objects they reference passed anonymous HEAD checks with matching sizes, and
-the 1-, 2- and 4-worker bundles ran on an RTX 3090 (see [TESTED.md](../TESTED.md)).
+the 1-, 2- and 4-worker bundles ran on an RTX 3090 (see [TESTED.md](https://github.com/ygaraty/ygaraty/blob/main/TESTED.md)).
 
 Manifest and object-access checks do not establish weight-hash integrity or
 GPU correctness. The installer checks hashes while downloading; each contributor
