@@ -1,9 +1,11 @@
 """Anonymous HTTPS prepared-bundle downloads with a verified local cache."""
 
+import fcntl
 import hashlib
 import json
 import re
 import shutil
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from urllib.error import HTTPError, URLError
@@ -246,6 +248,41 @@ def cached_bundle(url, output):
     if report.sha256 != source["local_sha256"]:
         raise ValueError("Cached bundle changed")
     return report.path
+
+
+def fetch_workspace_bundle(url, output, **options):
+    """Keep legacy caches and store changed URLs separately, publishing on success.
+
+    The workspace's keys/state are never moved. URL identity remains strict
+    within each cache, including when rolling back to an older bundle.
+    """
+    public_url(url)
+    output = Path(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with (output.parent / ("." + output.name + ".lock")).open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if output.exists():
+            receipt = output / ".source.json"
+            if not receipt.is_file() or receipt.stat().st_size > MANIFEST_LIMIT:
+                raise ValueError("Incomplete or unrelated download cache; choose a new workspace")
+            source = json_object(receipt.read_bytes())
+            if not isinstance(source.get("url"), str):
+                raise ValueError("Download cache has no source URL")
+            if source["url"] == url:
+                return fetch_bundle(url, output, **options)
+            # Never replace an older cache: it may still be used by a session.
+            output = (
+                output.parent / ".bundle-cache" / output.name
+                / hashlib.sha256(url.encode()).hexdigest()
+            )
+        if output.exists():
+            return fetch_bundle(url, output, **options)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix=".bundle-download-", dir=output.parent) as directory:
+            staged = Path(directory) / "bundle"
+            fetch_bundle(url, staged, **options)
+            staged.rename(output)
+        return output / "bundle.json"
 
 
 def fetch_bundle(

@@ -704,7 +704,7 @@ def fetch_public_bundle(args, contributors, memory_reports):
     """A public preset (--model NAME) or --bundle-url, checked and cached in
     the workspace; sets the context and memory budget. Shared by launch and
     serve. Returns the local bundle.json path."""
-    from .downloads import PUBLIC_PRESETS, fetch_bundle
+    from .downloads import PUBLIC_PRESETS, fetch_workspace_bundle
     from .memory import report_memory
 
     bundle_url = getattr(args, "bundle_url", None)
@@ -750,7 +750,7 @@ def fetch_public_bundle(args, contributors, memory_reports):
         + "…",
         flush=True,
     )
-    return fetch_bundle(
+    return fetch_workspace_bundle(
         url,
         args.workspace / ("model" if serve_weights else "remote-model"),
         contributors=contributors,

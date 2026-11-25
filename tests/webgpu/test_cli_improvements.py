@@ -295,7 +295,7 @@ class CommandTests(unittest.TestCase):
             with (
                 patch.dict("os.environ", {"YGARATY_WORKSPACE_ROOT": tmp}),
                 patch(
-                    "ygaraty.backends.webgpu.downloads.fetch_bundle",
+                    "ygaraty.backends.webgpu.downloads.fetch_workspace_bundle",
                     return_value=path / "bundle.json",
                 ) as fetch,
                 patch("uvicorn.run"),

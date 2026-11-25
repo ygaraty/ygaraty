@@ -137,6 +137,14 @@ are left untouched, including workspaces on an external drive. Failed downloads,
 package installation or health checks leave the previous environment active.
 Previous environments are retained under the installation's `.versions/` folder.
 
+When a model preset moves to a new public bundle version, launch downloads and
+validates it automatically in a separate cache inside the same workspace. Older
+model caches, keys and session state are retained. Failed downloads do not
+replace a working cache. Repeated launches reuse the verified version; selecting
+an older bundle URL reuses its cache. This also applies to `--serve-weights`.
+Contributors reconnect to the selected bundle and may need to fetch its weights.
+
+
 Restart with the same launch command and `--workspace`, then reconnect your
 contributors. This preserves files, not active connections or in-memory chats.
 Training checkpoint compatibility across versions is not guaranteed; finish an
