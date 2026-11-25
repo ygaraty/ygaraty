@@ -14,12 +14,12 @@ from [DiLoCo's local training rounds](distributed-training.md).
 Install the same public Ygaraty revision and Deno on every worker. Deno **2.9.5**
 is locally tested. On Linux, the GPU driver must expose Vulkan/WebGPU; installing
 CUDA alone does not establish that. Workers reject unavailable and software
-fallback adapters. A [RunPod RTX 4090 preflight](../research/runpod-native-preflight.md)
+fallback adapters. A [RunPod RTX 4090 preflight](https://github.com/ygaraty/ygaraty/blob/main/research/runpod-native-preflight.md)
 passed on Ubuntu 24.04 with Deno 2.9.5. A
-[one-versus-four physical RTX 3060 comparison](../research/vast-native-one-vs-four.md)
+[one-versus-four physical RTX 3060 comparison](https://github.com/ygaraty/ygaraty/blob/main/research/vast-native-one-vs-four.md)
 also passed numerical checks: learning quality stayed close, but four workers
 were slower over the tested internet links. Low-latency LAN scaling remains
-unmeasured; see also the [local pilot](../research/native-peer-tree.md).
+unmeasured; see also the [local pilot](https://github.com/ygaraty/ygaraty/blob/main/research/native-peer-tree.md).
 
 On a minimal Ubuntu GPU container, install `libvulkan1`, `vulkan-tools` and
 `libegl1` alongside the injected NVIDIA graphics libraries. Our initial container
@@ -226,12 +226,12 @@ the existing execution path. Buffers are scoped to a block, not cached across st
 
 Run `PYTHONPATH=. python tools/benchmark_muon.py --output /tmp/muon.json` for local
 numerical checks and paired timings. See the
-[local results](../research/muon-resident-local.md) and
-[NVIDIA results](../research/muon-resident-nvidia.md) for the earlier Muon-only measurements and reproduction commands.
-The [full-round comparison](../research/resident-training-local.md) measures the
+[local results](https://github.com/ygaraty/ygaraty/blob/main/research/muon-resident-local.md) and
+[NVIDIA results](https://github.com/ygaraty/ygaraty/blob/main/research/muon-resident-nvidia.md) for the earlier Muon-only measurements and reproduction commands.
+The [full-round comparison](https://github.com/ygaraty/ygaraty/blob/main/research/resident-training-local.md) measures the
 additional benefit of keeping forward/backward and state on GPU.
 
-The [full-round NVIDIA comparison](../research/resident-training-nvidia.md)
+The [full-round NVIDIA comparison](https://github.com/ygaraty/ygaraty/blob/main/research/resident-training-nvidia.md)
 checks one/four physical RTX 3060 GPUs against upstream MuLoCo-1 across three seeds.
 
 ### Coordinator profiling
@@ -244,5 +244,5 @@ worker, and cleared on commit or rollback. Checkpoint durability is unchanged.
 Use `tools/profile_training_coordinator.py` for phase timers or its separate
 `--preparation-only` CPU profile. Use `tools/benchmark_training_coordinator.py`
 with a baseline checkout for unprofiled comparisons. The
-[local report and reproduction commands](../research/coordinator-overhead-local.md)
+[local report and reproduction commands](https://github.com/ygaraty/ygaraty/blob/main/research/coordinator-overhead-local.md)
 include source hashes, retry/recovery checks and all three-seed measurements.

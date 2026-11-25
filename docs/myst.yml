@@ -1,0 +1,38 @@
+version: 1
+project:
+  id: ygaraty-public-docs
+  title: Ygaraty — User Guide
+  description: Run models across contributed GPUs with Ygaraty.
+  github: https://github.com/ygaraty/ygaraty
+  toc:
+    - file: index.md
+    - title: Get started
+      children:
+        - file: quickstart.md
+        - file: public-bundles.md
+        - file: contributing-gpu.md
+        - file: api.md
+    - title: Inference
+      children:
+        - file: advanced.md
+        - file: kyse.md
+        - file: model-bundles.md
+        - file: turn.md
+        - file: troubleshooting.md
+    - title: Training and development
+      children:
+        - file: distributed-training.md
+        - file: native-training.md
+        - file: python-api.md
+site:
+  template: book-theme
+  title: Ygaraty
+  options:
+    logo: assets/logo.svg
+    logo_dark: assets/logo-dark.svg
+    logo_alt: Ygaraty
+    favicon: assets/favicon.ico
+    style: assets/style.css
+    folders: true
+    hide_authors: true
+    outline_maxdepth: 2

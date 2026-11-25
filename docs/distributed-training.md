@@ -9,12 +9,13 @@ is needed for Ygaraty training; PyTorch is used only for independent comparisons
 This guide describes experimental training on `main`, including the GPU-resident
 executor and coordinator optimizations. Install from a current source checkout;
 historical benchmark results identify their own tested snapshots. See [measured results](#measured-results) and
-[implementation reference](../ygaraty/training/README.md) for scope and code locations.
+[implementation reference](https://github.com/ygaraty/ygaraty/blob/main/ygaraty/training/README.md) for scope and code locations.
 
 [Start a session](#start-a-browser-session) · [How rounds work](#how-a-diloco-round-works) ·
 [GPU execution](#gpu-residency-and-coordination) · [Muon](#experimental-muon-local-optimizer) ·
 [Results](#measured-results) · [Recovery](#resume-and-replace-a-contributor)
 
+(start-a-browser-session)=
 ## Start a browser session
 
 From this source checkout, install `python -m pip install -e '.[server]'`.
@@ -65,6 +66,7 @@ to evaluate every N rounds; the final round is always evaluated. Evaluation uses
 256 test examples; choose `--eval-examples 10000` for the complete test split.
 Small subsets and short runs are functional checks, not convergence evidence.
 
+(how-a-diloco-round-works)=
 ## How a DiLoCo round works
 
 1. The coordinator assigns the same committed global weights to every logical
@@ -86,6 +88,7 @@ sharding and the number of outer updates, so learning curves need not match.
 Each worker must fit the **whole model and its training state**. Inference's
 layer partitioning does not make this training path model-parallel.
 
+(gpu-residency-and-coordination)=
 ## GPU residency and coordination
 
 Weights and optimizer moments upload once per local round; batches upload as
@@ -112,6 +115,7 @@ runs **Deno/wgpu contributors without Chromium**; see [native DiLoCo experiments
 command. The small `ygaraty train --workers ...` example is a sequential local
 CPU demonstration, not a distributed GPU run.
 
+(experimental-muon-local-optimizer)=
 ## Experimental Muon local optimizer
 
 Use `--optimizer muon` to apply Muon to convolution weight matrices while
@@ -135,7 +139,7 @@ requires the original optimizer and settings.
 The compiler expresses momentum, normalization and the Newton–Schulz matrix
 iterations as Tape operations after the model's backward pass. The resident
 executor keeps those operations on GPU, including momentum and normalization.
-Our [Muon implementation](../ygaraty/compiler/muon.py) uses compensated arithmetic
+Our [Muon implementation](https://github.com/ygaraty/ygaraty/blob/main/ygaraty/compiler/muon.py) uses compensated arithmetic
 rather than the upstream MuLoCo-1 reference's BF16 Newton–Schulz iteration;
 its momentum and scaling also differ. This is not a bitwise reproduction of
 upstream MuLoCo-1. No PyTorch runtime is involved. Muon uses one momentum tensor
@@ -161,6 +165,7 @@ They omit `optimizer_seconds`: GPU timestamps are not collected, so optimizer-on
 time cannot be separated reliably. Older per-task reports contain that field.
 Summed worker times overlap for multiple contributors and are not wall-clock time.
 
+(measured-results)=
 ## Measured results
 
 ### Physical GPUs: GPU residency, before the latest coordinator fixes
@@ -186,7 +191,7 @@ optimizer-superiority claim.
 
 Ygaraty timing includes contributor startup, training and evaluation; PyTorch
 reports setup separately. Dataset loading and initial Ygaraty evaluation are
-excluded. [All trials, timing definitions and reproduction commands](../research/resident-training-nvidia.md).
+excluded. [All trials, timing definitions and reproduction commands](https://github.com/ygaraty/ygaraty/blob/main/research/resident-training-nvidia.md).
 
 ### Latest coordinator fixes: local validation only
 
@@ -203,7 +208,7 @@ All recorded local-step losses, evaluation losses and accuracies matched exactly
 The four processes share one GPU: this is an execution-path comparison, not
 four-GPU scaling. **The updated coordinator has not been benchmarked on NVIDIA.**
 Do not apply these multipliers to the remote times above.
-[Profile, correctness checks and exact baseline reconstruction](../research/coordinator-overhead-local.md).
+[Profile, correctness checks and exact baseline reconstruction](https://github.com/ygaraty/ygaraty/blob/main/research/coordinator-overhead-local.md).
 
 ### What remains open
 
@@ -218,8 +223,9 @@ Do not apply these multipliers to the remote times above.
 Protocol checks validate shapes, finite values and session identity; they do not
 prove that a trusted contributor computed honest updates. Older research reports
 may test other models or transports; their results do not validate every current
-path. [Browse the public DiLoCo experiments](../research/README.md#diloco-training).
+path. [Browse the public DiLoCo experiments](https://github.com/ygaraty/ygaraty/blob/main/research/README.md#diloco-training).
 
+(resume-and-replace-a-contributor)=
 ## Resume and replace a contributor
 
 Repeat the **same command and configuration**, adding `--resume`:
@@ -273,7 +279,7 @@ runners. Real GPU checks can be run locally or on provisioned GPU hosts.
 This is trusted-contributor open research. Protocol validation does not prove
 that a participant computed honest gradients. Multi-machine throughput,
 heterogeneous GPU stability and time to a target accuracy remain separate
-experiments; see the [public research list](../research/README.md#diloco-training).
+experiments; see the [public research list](https://github.com/ygaraty/ygaraty/blob/main/research/README.md#diloco-training).
 Dataset sources and published checksums:
 [MNIST resources](https://github.com/pytorch/vision/blob/main/torchvision/datasets/mnist.py)
 and [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist).
