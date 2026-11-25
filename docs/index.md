@@ -1,7 +1,23 @@
 # Use Ygaraty
 
-Ygaraty runs a model across contributors' browser GPUs. You host the coordinator,
-share a contributor link, and use the model through chat or an API.
+**Ygaraty is an open-source framework for distributed computation.** We aim to
+provide the building blocks for any kind of mathematical computation to run
+across heterogeneous devices and networks, with compute contributed by one
+person or many collaborators.
+
+The compiler, analyzer, Tape and execution engine are reusable pieces for
+describing, planning and running computations. The [Python API](python-api.md)
+lets you work with these pieces directly.
+
+Today, Ygaraty supports **inference with or without distribution** through
+browser or native WebGPU workers. **Distributed training is ongoing research**,
+including [DiLoCo and other training experiments](distributed-training.md).
+These are current applications of the framework; support for arbitrary
+mathematical workloads remains a goal.
+
+To start with inference, host a coordinator and use the model through chat or
+an API. Run a contributor yourself, or share the contributor link to invite
+others to provide compute.
 
 Choose [S5-Nano or Qwen3.5-9B from public Spaces](public-bundles.md), then:
 
