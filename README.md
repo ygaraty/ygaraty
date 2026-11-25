@@ -2,6 +2,8 @@
   <img src="assets/ygaraty-horizontal-black.svg" alt="Ygaraty" width="640">
 </p>
 
+[Documentation](https://ygaraty.github.io/ygaraty/)
+
 **Ygaraty is an open-source project working toward seamless use of heterogeneous
 compute clusters.** Our goal is to bring different GPUs, devices and networks
 together so people can run and build models with the compute they already have.
