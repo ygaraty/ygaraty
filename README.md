@@ -153,7 +153,7 @@ using our Tape, compiler and WebGPU engine. Each worker holds the full model,
 runs local Adam or Muon steps, then synchronizes through the coordinator.
 Supported local rounds keep forward/backward tensors and optimizer state on GPU.
 
-From this DiLoCo research checkout (experimental, not the main-branch installer):
+From a source checkout (training remains experimental):
 
 ```sh
 python -m pip install -e '.[server]'
@@ -190,3 +190,19 @@ retested on NVIDIA**; the two measurements cannot be multiplied together.
 [Troubleshooting](docs/troubleshooting.md) · [Python API & training](docs/python-api.md)
 
 Experimental · [MIT licensed](LICENSE)
+
+## Latest improvements
+
+**November 2026 · now on main; training remains experimental**
+
+- **DiLoCo training with Adam or Muon:** browser and native WebGPU contributors
+  train through our Tape and compiler. [Training guide](docs/distributed-training.md).
+- **GPU-resident local training:** supported rounds keep forward/backward tensors,
+  weights and optimizer state on GPU. [Implementation and results](research/resident-training-local.md).
+- **Less coordinator overhead:** cached assignments and long polling delivered
+  **1.63× / 2.38×** local speedups with one/four contributors sharing an M1 GPU,
+  with identical losses. NVIDIA validation is still pending.
+  [Measurements](research/coordinator-overhead-local.md).
+- **Reproducible public benchmarks:** one-versus-four NVIDIA GPU results and a
+  MuLoCo-1 comparison include trial data, correctness checks and source hashes.
+  [Results and limitations](research/resident-training-nvidia.md).
