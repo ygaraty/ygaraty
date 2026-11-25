@@ -996,3 +996,130 @@ number = 155
 file = "155-chat-recovery-local.md"
 title = "A chat session recovers from a cancelled turn, a killed contributor and a broken direct link, with turns identical to an undisturbed session"
 requires = "A WebGPU workstation with the S5-nano model, the panel environment, Playwright and Go (WS-24's local pion/turn): runs/experiments/WS-28/go.sh, go2.sh and gate.py."
+
+[[experiment]]
+number = 156
+file = "156-inkling2-mini-one-gpu-three-contributors.md"
+title = "Inkling 2 Mini runs on Ygaraty with the reference's tokens, on one rented A100 and as three WebGPU contributors split 0–5 | 6–17 | 18–23"
+requires = "The Inkling-2-Mini-IQ4_NL GGUF and its Hugging Face config/tokenizer; a workstation for the NumPy reference (runs/experiments/DO-95/tools/real_ref.py, pack_gate.py, greedy_check.py); one rented GPU with at least 24 GB for arm A (tools/armA.sh) and three with at least 12 GB for arm B (armB-kit/armB.sh, client.py)."
+
+[[experiment]]
+number = 157
+file = "157-relay-backpressure-local.md"
+title = "Relay backpressure keeps a near-full-context prefill safe with 4-call mailboxes, at the same speed and with the same tokens"
+requires = "A WebGPU workstation with Node, Dawn webgpu@0.6.2 and the tiny Inkling GGUF (runs/experiments/DO-95/tools/tiny_gguf.py): runs/experiments/WS-51/tools/arm.py, batch.sh and gate.py."
+
+[[experiment]]
+number = 158
+file = "158-own-token-loop-production.md"
+title = "Keeping a one-contributor session's token loop on the contributor halves production decode time per token, with the same text"
+requires = "Part 1: a WebGPU workstation with S5-nano and the pre-refactor harness (yga_old/runs/experiments/DO-61/go.sh, drive.py, gate.py). Part 2: the production coordinator before the 2026-11-15 refactor and one rented A100 contributor."
+
+[[experiment]]
+number = 159
+file = "159-inkling2-decode-kernels-a100.md"
+title = "New one-token kernels make Inkling 2 Mini decode a third faster on an A100 with the same tokens; the rest is per-dispatch cost"
+requires = "The Inkling-2-Mini-IQ4_NL GGUF; a WebGPU workstation for runs/experiments/DO-96/tools/step.sh; one rented GPU with at least 24 GB for tools/a100.sh (kit from tools/make_kit.sh); tools/gate.py."
+
+[[experiment]]
+number = 160
+file = "160-batched-token-reports-remote.md"
+title = "Batched token reports let a one-contributor chat stream at a quarter of the serial time per token across a 250 ms link"
+requires = "A rented Ubuntu coordinator and one rented GPU (Vast.ai A100): runs/experiments/DO-87/tools (coord.sh, contrib.sh, proxy.py, prefetch.sh, load.py, drive.sh, gate_remote.py) and the pinned Qwen3-Coder-30B-A3B Q4_K_M GGUF."
+
+[[experiment]]
+number = 161
+file = "161-resident-loop-remote.md"
+title = "The resident token loop halves a lone chat's time per token on a rented A100 and keeps 8-chat throughput, with the same text"
+requires = "As report 160 (same run): a rented coordinator, one rented A100 and runs/experiments/DO-87/tools."
+
+[[experiment]]
+number = 162
+file = "162-inkling2-fewer-dispatches-a100.md"
+title = "Fewer dispatches and pipelined submission bring Inkling 2 Mini's A100 decode to 75 ms per token, with the same tokens"
+requires = "The Inkling-2-Mini-IQ4_NL GGUF; a WebGPU workstation for runs/experiments/DO-96/tools/step.sh; one rented GPU with at least 24 GB for runs/experiments/DO-98/tools (make_kit.sh, a100.sh); DO-96/tools/gate.py."
+
+[[experiment]]
+number = 163
+file = "163-inkling2-english-vocabulary.md"
+title = "An English-and-code vocabulary makes Inkling 2 Mini 4% smaller and about 7% faster with the same chat answers, but costs English text 3.4% bits per byte"
+requires = "The Inkling-2-Mini-IQ4_NL GGUF and its Hugging Face tokenizer; Kyse's corpus (runs/experiments/M-8/tools/corpus.py); a WebGPU workstation for tools/qual.sh; one rented GPU for the speed item (DO-98's kit)."
+
+[[experiment]]
+number = 164
+file = "164-inkling2-direct-links-three-contributors.md"
+title = "Direct links between Inkling 2's three contributors keep the tokens but do not halve time per token in one region: the GPUs, not the hops, set the pace"
+requires = "A coordinator with a public IP and coturn; three rented GPUs with at least 16 GB (Vast.ai, ubuntu:22.04); runs/experiments/DO-97/tools (make_kit.sh, coord.sh, contrib.sh, drive.sh, gate.py); node-datachannel 0.29.0 on the contributors."
+
+[[experiment]]
+number = 165
+file = "165-inkling2-decode-attention-not-host.md"
+title = "At 1k positions Inkling 2 Mini's A100 decode waits on the GPU's attention kernel, not on host encoding: a cheaper host path saves 1%"
+requires = "The Inkling-2-Mini-IQ4_NL GGUF; a WebGPU workstation for runs/experiments/DO-99/tools/host_profile.mjs and DO-96/tools/check.sh; one rented A100 with DO-98's kit plus DO-99's tools (prof.sh, steady.sh, steady2.sh, decode_profile.mjs)."
+
+[[experiment]]
+number = 166
+file = "166-inkling2-split-decode-attention.md"
+title = "Splitting single-token attention over position blocks halves Inkling 2 Mini's A100 decode at 1k and cuts it to a third at 8k, with the same tokens"
+requires = "The Inkling-2-Mini-IQ4_NL GGUF; a WebGPU workstation for runs/experiments/DO-96/tools/check.sh and DO-101/tools/long_check.sh; one rented A100 with DO-98's kit plus DO-99's tools and DO-101/tools/a100.sh; DO-101/tools/gate.py."
+
+[[experiment]]
+number = 167
+file = "167-inkling2-fast-stages-relay-vs-turn.md"
+title = "With fast stages, Inkling 2's three-contributor tokens cost about 60 ms per hop over the relay, and TURN-relayed data channels were no faster"
+requires = "A coordinator with a public IP and coturn; three rented GPUs with at least 24 GB (Vast.ai, ubuntu:22.04), on providers without a proxy in front; runs/experiments/DO-97/tools (make_kit.sh, coord.sh, contrib.sh, drive.sh)."
+
+[[experiment]]
+number = 168
+file = "168-link-pieces-transatlantic-native.md"
+title = "On native contributors, WS-26's piece schedule makes no difference on a real transatlantic TURN link: both arms take about 328 ms per token"
+requires = "A coordinator with a public IP and coturn in Europe; two rented GPUs (one in Europe, one in North America); the Phi-4 Q4_K GGUF; runs/experiments/DO-54/tools (coord.sh, drive.sh, turns.py, prompts.json) and DO-97's contrib.sh."
+
+[[experiment]]
+number = 169
+file = "169-spaces-parallel-pieces-crawling-flows.md"
+title = "Parallel piece downloads did not speed a cold load from Spaces on a host whose connections to it mostly crawl; loads too slow to finish the gate"
+requires = "One rented GPU with at least 24 GB outside the bucket's region; the public qwen3.8-27b 1-worker bundle; runs/experiments/DO-62/tools (host.sh, loads.py)."
+
+[[experiment]]
+number = 170
+file = "170-relay-hop-cost-and-proxy-nagle.md"
+title = "A relayed hop costs one round trip plus about 3 ms; reports 164 and 167's extra 40 ms per hop came from the test proxy's Nagle stall"
+requires = "A WebGPU workstation with Node + Dawn; the tiny Inkling 2 GGUF prepared in 3 stages (DO-97's local check directory); runs/experiments/WS-52/tools (session.sh, delayproxy.py, hops.py)."
+
+[[experiment]]
+number = 171
+file = "171-direct-links-fallback-and-relay-slow-start.md"
+title = "Direct links gave a wrong long answer after falling back to the relay; the relay's remaining hop cost is TCP slow start after idle"
+requires = "A coordinator with a public IP and coturn (root, to set net.ipv4.tcp_slow_start_after_idle); three rented GPUs with at least 24 GB in one region; runs/experiments/DO-97/tools and WS-52/tools/hops.py."
+
+[[experiment]]
+number = 172
+file = "172-spaces-rate-floor-crawling.md"
+title = "Re-requesting crawling pieces did not speed a cold load from Spaces: new connections crawled too"
+requires = "One rented GPU with at least 24 GB whose route to the bucket shows crawling flows; the public qwen3.8-27b 1-worker bundle; runs/experiments/DO-62/tools (host.sh, loads.py)."
+
+[[experiment]]
+number = 173
+file = "173-direct-link-fallback-ordering.md"
+title = "A link dying mid-transfer let later chunks overtake earlier ones and changed the answer; one ordered chain per neighbour fixes it"
+run = "bash runs/experiments/WS-53/tools/gate.sh fixed"
+requires = "A WebGPU workstation with Node + Dawn and node-datachannel (runs/tools/webrtc); the tiny Inkling 2 bundle in runs/experiments/DO-97/omarchy-20261124-local with its relay answers."
+
+[[experiment]]
+number = 174
+file = "174-relay-recv-wait-slow-start.md"
+title = "A 100 ms recv wait keeps relay connections out of slow start: 22% less time per token for Inkling 2's three contributors, no system setting"
+requires = "Local: a WebGPU workstation, unshare/tc (network namespace with netem), the 2304-wide tiny Inkling 2 bundle (runs/experiments/WS-54/tools/tiny_wide.py). Remote: a coordinator and three GPUs in one region with DO-97's tools; runs/experiments/WS-54/tools/gate_remote.py."
+
+[[experiment]]
+number = 175
+file = "175-s5-nano-portuguese-english-code-vocabulary.md"
+title = "A Portuguese-English-code vocabulary makes S5-nano 13% smaller and about 13% faster, keeps Portuguese and English, but costs code"
+requires = "The S5-nano Q4_K_M GGUF with its config and tokenizer; the pinned Portuguese Wikipedia shard and Alpaca-PT parquet files; Kyse's English corpus; a WebGPU workstation; runs/experiments/M-9/tools and M-8/tools."
+
+[[experiment]]
+number = 176
+file = "176-s5-nano-broad-code-vocabulary.md"
+title = "Counted on broad code, S5-nano's Portuguese-English-code vocabulary keeps all three: 10% smaller, faster decode, same answers"
+requires = "As report 175, plus two pinned codeparrot/github-code-clean shards (runs/experiments/M-10/tools/corpus_code.py)."

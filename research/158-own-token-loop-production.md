@@ -1,17 +1,17 @@
-# Does keeping a one-contributor session's token loop on the contributor bring production decode to its on-machine time?
+# Keeping a one-contributor session's token loop on the contributor halves production decode time per token, with the same text
 
 | | |
 |---|---|
-| **Conclusion** | Part 1 Works: own-token loop 83.5 ms/token against 233.5 through a 140 ms relay, tokens identical (measured, workstation) |
-| **Status** | ongoing |
-| **ID** | DO-61 |
+| **Conclusion** | Works: own-token loop 133 vs 256 ms per token through production's relay on an A100, texts identical (measured, Vast.ai, 3 blocks per arm) |
+| **Status** | executed |
+| **ID** | DO-61 (report 158) |
 | **Category** | browser |
 | **Where** | remote |
 | **Priority** | high |
-| **Date** | Added 2026-11-12 |
+| **Date** | Added 2026-11-12; part 1 2026-11-12; part 2 2026-11-14; closed 2026-11-24 |
 | **Path** | Kolibri-1 one-contributor bundle (or the smaller Qwen3.5-9B bundle) on one rented GPU, production coordinator far away (relay), arms: current (each token through the coordinator) vs local loop (the contributor feeds its own token back and streams tokens to the coordinator without waiting) |
 | **Result** | Part 1 (workstation, S5-nano, one stage, 140 ms emulated relay, 3 runs per arm): local loop 83.5 ms per token, relay 233.5, no delay 86.4; tokens identical in all 9 runs. Part 2 subsequently passed: 133.3 vs 255.9 ms/token, identical text in all six blocks (see log). |
-| **Evidence** | `runs/experiments/DO-61/omarchy-20261112-1242/` (gate.json, per-run reports and logs); drivers `runs/experiments/DO-61/{drive.py,go.sh,gate.py}` |
+| **Evidence** | measured-local (part 1) and measured-remote (part 2): `yga_old/runs/experiments/DO-61/omarchy-20261112-1242/` (gate.json, per-run reports and logs); drivers `runs/experiments/DO-61/{drive.py,go.sh,gate.py}` |
 
 ## Question
 
@@ -79,7 +79,12 @@ Code first (coordinator and contributor page: a one-stage local loop with stream
 - 2026-11-14 02:20–02:48: part 2 run, blocks L R R L L R (Qwen3-Coder, A100 80 GB Texas, relay route, round trip to the coordinator about 120 ms connect / 420 ms first byte): L 133.3 / 138.6 / 132.9 ms per token, R 251.3 / 262.8 / 255.9; medians **133.3 vs 255.9 (ratio 0.52, gate ≤ 0.7)**, all six texts identical (244 tokens): by the frozen gate **Works**. Against the on-machine 24.3–24.8 ms, L is still about 5× slower: a token reaches the coordinator about once per round trip. Likely cause (not yet tested): the page's `send` chain is serial (`sending = sending.then(...)`), so the background `direct` token reports go one per HTTP round trip; batching the reports that wait behind an in-flight send should let the stream follow the GPU. Evidence `runs/experiments/DO-62/a100-20261114-0136/` (gate.json by `runs/experiments/DO-62/gate.py`).
 - Shared measured compute cost for DO-61, DO-62 and DO-80: about $1.70 (86 minutes at $1.18/h).
 
+- 2026-11-24: Closed at the user's choice ("close it as finished") from the part 2 result above, which passed its frozen gate on 2026-11-14 (ratio 0.52 against 0.7). Not rerun. Its run directories live in the pre-refactor tree (`yga_old/runs/experiments/DO-61/`). DO-87's remote O arm (2026-11-24) re-measures the same path with DO-85's batched reports on a rented coordinator.
+
 ## Limits
+
+- Part 2 ran against production at revision ce3fb50, before the 2026-11-15 refactor; the drivers import pre-refactor modules and are not runnable from this tree as they are.
+- The local loop still left about 5× the on-machine time per token (133 against 24–25 ms): reports went one per round trip on the serial send chain, which DO-85 addresses.
 
 These results cover the stated hardware, network and run counts only. They do
 not establish performance on arbitrary devices or networks. Historical private
