@@ -117,3 +117,19 @@ npm run check                             # generated files match their sources
 ```
 
 Commit both the `.mts` source and the generated `.mjs`.
+
+## Documentation website
+
+Edit user guides in `docs/`. GitHub Actions validates the site on pull requests
+and publishes main to https://ygaraty.github.io/ygaraty/ through GitHub Pages.
+Research and source references link to GitHub; internal READMEs stay in their
+source folders. To build locally:
+
+```sh
+python -m pip install -r tools/docs-requirements.txt
+python tools/build_docs.py
+python -m http.server --directory _build/site 8000
+```
+
+The generated `_build/` directory is ignored. Update `mkdocs.yml` navigation
+when adding guides. Pages must use GitHub Actions as its publishing source.
