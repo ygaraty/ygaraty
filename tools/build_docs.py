@@ -13,6 +13,7 @@ def main():
     if STAGING.exists():
         shutil.rmtree(STAGING)
     STAGING.mkdir(parents=True)
+    shutil.copytree(ROOT / "docs" / "assets", STAGING / "assets")
     for source in sorted((ROOT / "docs").glob("*.md")):
         text = source.read_text()
         # Links outside docs are source/research references, not website pages.
