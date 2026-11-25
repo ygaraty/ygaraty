@@ -16,9 +16,16 @@ Environment:
                 chromium-browser, google-chrome-stable, google-chrome)
   PROFILE_ROOT  Parent of per-contributor profiles and logs
                 (default: ${XDG_CACHE_HOME:-~/.cache}/ygaraty/contributors)
+  YGARATY_BROWSER_DISPLAY
+                auto (default), xvfb or headless. auto uses a virtual X
+                display (Xvfb) on NVIDIA GPUs when there is no display, and
+                headless mode otherwise.
 
 WebGPU uses the real GPU through Vulkan. Without these flags headless Chromium
-has no adapter or falls back to SwiftShader on the CPU.
+has no adapter or falls back to SwiftShader on the CPU. Headless mode needs
+the Vulkan extension VK_EXT_headless_surface, which Mesa drivers (AMD, Intel)
+have and NVIDIA's driver does not: there Chromium runs on an Xvfb display
+instead (DO-111: same speed as the native worker; install the xvfb package).
 EOF
 }
 
@@ -45,13 +52,52 @@ if [[ -z $browser ]]; then
 fi
 [[ -n $browser ]] || { echo "Chromium not found; set CHROMIUM" >&2; exit 1; }
 
+# Headless mode or a virtual X display (see the usage text).
+display_mode=${YGARATY_BROWSER_DISPLAY:-auto}
+case $display_mode in
+auto)
+    display_mode=headless
+    if [[ -z ${DISPLAY:-} ]] && command -v nvidia-smi >/dev/null &&
+        nvidia-smi -L >/dev/null 2>&1; then
+        if command -v Xvfb >/dev/null; then
+            display_mode=xvfb
+        else
+            echo "NVIDIA GPU without a display: headless Chromium would run" \
+                "WebGPU on the CPU. Install Xvfb (apt install xvfb)." >&2
+        fi
+    fi;;
+xvfb | headless) ;;
+*) echo "YGARATY_BROWSER_DISPLAY must be auto, xvfb or headless" >&2; exit 2;;
+esac
+mode_flags=(--headless=new)
+xvfb_pid=''
+if [[ $display_mode == xvfb ]]; then
+    command -v Xvfb >/dev/null || { echo "Xvfb not found" >&2; exit 1; }
+    number=99
+    while [[ -e /tmp/.X$number-lock ]]; do number=$((number + 1)); done
+    Xvfb ":$number" -screen 0 1280x800x24 -nolisten tcp >/dev/null 2>&1 &
+    xvfb_pid=$!
+    export DISPLAY=":$number"
+    sleep 1
+    mode_flags=(--ozone-platform=x11)
+    echo "Using a virtual display ($DISPLAY) for WebGPU on the NVIDIA GPU."
+fi
+
+# Chromium refuses to run as root with its sandbox (containers often run as
+# root); there the only way is without it.
+if [[ $EUID -eq 0 ]]; then
+    mode_flags+=(--no-sandbox)
+    echo "Running as root: Chromium starts without its sandbox." >&2
+fi
+
 root=${PROFILE_ROOT:-${XDG_CACHE_HOME:-$HOME/.cache}/ygaraty/contributors}
 mkdir -p "$root"
 pids=()
 stop() {
     trap - INT TERM EXIT
     [[ ${#pids[@]} -gt 0 ]] && kill "${pids[@]}" 2>/dev/null || true
-    wait 2>/dev/null || true
+    wait "${pids[@]}" 2>/dev/null || true
+    [[ -n $xvfb_pid ]] && kill "$xvfb_pid" 2>/dev/null || true
     echo "Stopped ${#pids[@]} contributor(s)."
 }
 trap stop EXIT
@@ -74,7 +120,7 @@ for ((i = 1; i <= count; i++)); do
         in_use "$profile" || [[ " ${taken:-} " == *" $slot "* ]] || break
     done
     taken="${taken:-} $slot"
-    "$browser" --headless=new \
+    "$browser" "${mode_flags[@]}" \
         --enable-unsafe-webgpu --enable-features=Vulkan --use-angle=vulkan \
         --disable-background-timer-throttling --no-first-run \
         --no-default-browser-check \

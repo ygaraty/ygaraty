@@ -94,12 +94,12 @@ concurrency level and the earlier runs across real networks.
 
 Limits that apply to every model today:
 
-- **Context:** 4,096 tokens per conversation, prompt and replies together. The
-  published bundles are prepared for that size; `--context` can only lower it.
+- **Context:** 16,384 tokens per conversation, prompt and replies together.
+  `--context` can lower it to save GPU memory.
 - **Concurrency:** one chat at a time by default. `--slots N` serves up to N
   conversations at once (1–16 accepted; up to 4 tested). Each slot adds memory
   and the chats share the GPUs, so per-chat speed drops as more run.
-- **Replies:** at most 256 tokens each; requests can lower it with `max_tokens`.
+- **Replies:** at most 4,096 tokens each; requests can lower it with `max_tokens`.
 - **Text only:** image and video inputs are not supported, and Qwen thinking
   mode is off.
 - **Workers:** 1–4 per model, from the published bundles.

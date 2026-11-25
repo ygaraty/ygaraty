@@ -86,7 +86,7 @@ main() {
     printf '  ~/.zshrc for Zsh, or ~/.bashrc for Bash, then open a new terminal.\n'
     printf 'For Bash login shells, ensure ~/.bash_profile sources ~/.bashrc.\n\n'
     if [[ "$install_only" == true ]]; then
-        printf 'Run: %q launch --num-workers 2 --workspace %q\n' "$executable" "$root/workspaces/qwen3.5-9b"
+        printf 'Run: %q launch --model qwen3.5-9b --num-workers 2 --workspace %q\n' "$executable" "$root/workspaces/qwen3.5-9b"
         return
     fi
     export YGARATY_WORKSPACE_ROOT=${YGARATY_WORKSPACE_ROOT:-"$root/workspaces"}

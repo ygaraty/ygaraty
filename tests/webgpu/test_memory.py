@@ -18,7 +18,7 @@ SMALL = dict(  # Qwen3.5-0.8B's layout (9B defaults otherwise)
 )
 
 
-def bundle(workers=2, geometry=None):
+def bundle(workers=2, geometry=None, max_positions=4096):
     files = {}
     layer_count = (geometry or {}).get("layers", 32)
     value_heads = (geometry or {}).get("linear_v_heads", 32)
@@ -81,7 +81,9 @@ def bundle(workers=2, geometry=None):
             dict(
                 layers=[start, end],
                 manifest=m,
-                fixture=dict(max_tokens=64, max_positions=4096, kv="f16"),
+                fixture=dict(
+                    max_tokens=64, max_positions=max_positions, kv="f16"
+                ),
             )
         )
     return dict(stages=stages, files=files)

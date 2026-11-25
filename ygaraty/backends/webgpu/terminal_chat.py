@@ -8,6 +8,7 @@ is waiting for input.
 
 import asyncio
 import json
+import os
 import sys
 import threading
 import time
@@ -15,8 +16,11 @@ import uuid
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from .session_view import workers_text
+
 HELP = """Type a message and press Enter. Commands:
   /reset   start a new conversation
+  /stats   show this session's tokens, speed and chats
   /net     show the links between workers (WebRTC or relay)
   /quit    stop the server (same as Ctrl-C)
   /help    show this list
@@ -215,6 +219,228 @@ def network_summary(status, detail=False):
     return f"{route}: " + "; ".join(texts)
 
 
+def session_details(base, key, opener=urlopen):
+    """This server's session status (state plus `details`), or None."""
+    request = Request(
+        base + "/v1/session", headers={"Authorization": f"Bearer {key}"}
+    )
+    try:
+        with opener(request, timeout=5) as response:
+            data = json.loads(response.read() or b"{}")
+    except (HTTPError, URLError, OSError, ValueError):
+        return None
+    details = data.get("details") if isinstance(data, dict) else None
+    return details if isinstance(details, dict) else None
+
+
+def _number(value):
+    return "–" if value is None else f"{value:,}"
+
+
+def _connectivity(details):
+    if details.get("network"):
+        return details["network"]
+    return {
+        "relay": "relay",
+        "direct": "WebRTC",
+        "private_turn": "WebRTC (TURN only)",
+    }.get(details.get("route"), details.get("route") or "–")
+
+
+def bar_text(details):
+    """One status line: state, tokens, speed, TTFT, context, chats, network."""
+    if not details:
+        return "Ygaraty · server unavailable"
+    stats = details.get("stats") or {}
+    state = details.get("state")
+    if state == "ready":
+        state_text = "ready"
+    else:
+        need = details.get("workers_required")
+        state_text = (
+            f"waiting for workers ({details.get('workers_ready') or 0}/{need})"
+            if need
+            else str(state or "?")
+        )
+    rate = (stats.get("tokens_per_s") or {}).get("average")
+    ttft = (stats.get("ttft_s") or {}).get("average")
+    parts = [
+        f"Ygaraty {details.get('model') or ''}".rstrip(),
+        state_text,
+        f"{_number(stats.get('total_tokens'))} tokens",
+        "avg " + ("–" if rate is None else f"{rate:.1f} tok/s"),
+        "TTFT " + ("–" if ttft is None else f"{ttft:.2f} s"),
+        f"context {_number(details.get('context_tokens'))}",
+        f"{_number(stats.get('active_requests'))}/"
+        f"{_number(details.get('slots'))} chats",
+    ]
+    workers = workers_text(details.get("workers"))
+    if workers:
+        parts.append(f"workers {workers}")
+    parts.append(_connectivity(details))
+    return " · ".join(parts)
+
+
+def stats_text(details):
+    """The /stats answer: several lines, for any output."""
+    if not details:
+        return "Session status unavailable."
+    stats = details.get("stats") or {}
+    requests = stats.get("requests") or {}
+    rate = stats.get("tokens_per_s") or {}
+    ttft = stats.get("ttft_s") or {}
+
+    def seconds(value):
+        return "–" if value is None else f"{value:.2f} s"
+
+    def speed(value):
+        return "–" if value is None else f"{value:.1f} tok/s"
+
+    lines = [
+        bar_text(details),
+        f"  Tokens: {_number(stats.get('prompt_tokens'))} prompt + "
+        f"{_number(stats.get('generated_tokens'))} generated",
+        f"  Decode speed: average {speed(rate.get('average'))}, "
+        f"best {speed(rate.get('best'))}; last minute "
+        f"{stats.get('throughput_tokens_per_s', 0):g} tok/s",
+        f"  Time to first token: average {seconds(ttft.get('average'))}, "
+        f"best {seconds(ttft.get('best'))}",
+        f"  Answers: {requests.get('completed', 0)} completed, "
+        f"{requests.get('failed', 0)} failed, "
+        f"{requests.get('cancelled', 0)} cancelled; "
+        f"most chats at once {stats.get('peak_active_requests', 0)}",
+    ]
+    for worker in details.get("workers") or []:
+        lines.append("  " + worker_line(worker))
+    return "\n".join(lines)
+
+
+def worker_line(worker):
+    """'Worker B: downloading 45%; coordinator connected; A: direct udp'."""
+    state = worker.get("state") or "?"
+    if state == "downloading":
+        state += f" {worker.get('percent', 0):.0f}%"
+    elif state == "waiting":
+        state = "waiting for someone to open the link"
+    text = f"Worker {worker.get('stage', '?')}: {state}"
+    if worker.get("coordinator") == "late":
+        text += (
+            "; coordinator late (last heard "
+            f"{worker.get('heartbeat_age_s', 0):.0f} s ago)"
+        )
+    elif worker.get("coordinator"):
+        text += "; coordinator connected"
+    links = worker.get("links")
+    if links:
+        described = []
+        for link in links:
+            words = [link.get("path") or link.get("state") or "?"]
+            if link.get("protocol"):
+                words.append(link["protocol"])
+            if link.get("rtt_ms") is not None:
+                words.append(f"{link['rtt_ms']:g} ms")
+            described.append(f"{link.get('peer') or '?'}: {' '.join(words)}")
+        text += "; links " + ", ".join(described)
+    elif links is not None and worker.get("route"):
+        text += f"; {worker['route']}"
+    return text
+
+
+class StatusBar:
+    """A status line pinned to the top row of a terminal.
+
+    The rest of the screen scrolls below it (a scroll region from row 2), so
+    the prompt and answers never overwrite it. Every write saves and restores
+    the cursor, so typing and streaming continue where they were. stop()
+    gives the whole screen back.
+    """
+
+    def __init__(self, out=None, size=None):
+        import shutil
+
+        self.out = out or sys.stdout
+        self.size = size or shutil.get_terminal_size
+        self.active = False
+        self.text = ""
+
+    def start(self):
+        rows = self.size().lines
+        if rows < 4:
+            return False
+        # Make room so the region change does not cover the last line.
+        self.out.write("\n\0337" + f"\033[2;{rows}r" + "\0338")
+        self.out.flush()
+        self.active = True
+        if self.text:
+            self.draw(self.text, force=True)
+        return True
+
+    def resize(self):
+        if self.active:
+            rows = self.size().lines
+            self.out.write("\0337" + f"\033[2;{rows}r" + "\0338")
+            self.draw(self.text, force=True)
+
+    def draw(self, text, force=False):
+        changed = text != self.text
+        self.text = text
+        if not self.active or not text or not (changed or force):
+            return
+        columns = max(10, self.size().columns)
+        line = text if len(text) <= columns - 1 else text[: columns - 2] + "…"
+        self.out.write(
+            "\0337\033[1;1H\033[2K\033[7m " + line + " \033[0m\0338"
+        )
+        self.out.flush()
+
+    def stop(self):
+        if not self.active:
+            return
+        self.active = False
+        self.out.write("\0337\033[r\033[1;1H\033[2K\0338")
+        self.out.flush()
+
+
+def wants_status_bar(out=None):
+    out = out or sys.stdout
+    if os.environ.get("TERM") == "dumb" or os.environ.get(
+        "YGARATY_NO_STATUS_BAR"
+    ):
+        return False
+    try:
+        return out.isatty()
+    except (AttributeError, ValueError):
+        return False
+
+
+async def keep_status_bar(bar, fetch, interval=2.0):
+    """Redraw the bar from fetch() (run in a thread) until cancelled."""
+    loop = asyncio.get_running_loop()
+    resized = False
+    try:
+        import signal
+
+        loop.add_signal_handler(signal.SIGWINCH, bar.resize)
+        resized = True
+    except (
+        ImportError,
+        AttributeError,
+        NotImplementedError,
+        RuntimeError,
+        ValueError,
+    ):
+        pass
+    try:
+        while True:
+            bar.draw(bar_text(await in_daemon_thread(fetch)))
+            await asyncio.sleep(interval)
+    finally:
+        if resized:
+            import signal
+
+            loop.remove_signal_handler(signal.SIGWINCH)
+
+
 def error_text(error):
     if isinstance(error, HTTPError):
         try:
@@ -228,7 +454,14 @@ def error_text(error):
 
 
 async def terminal_chat(
-    base, key, *, read=input, write=print, opener=urlopen, status=None
+    base,
+    key,
+    *,
+    read=input,
+    write=print,
+    opener=urlopen,
+    status=None,
+    status_bar=None,
 ):
     """Prompt, send each line, stream the answer; keep one conversation.
 
@@ -241,6 +474,32 @@ async def terminal_chat(
     """
     dim = write is print and sys.stdout.isatty()
     messages, conversation = [], str(uuid.uuid4())
+    if status_bar is None:
+        status_bar = write is print and wants_status_bar()
+    bar = keeper = None
+    if status_bar:
+        bar = StatusBar()
+        if bar.start():
+            keeper = asyncio.create_task(
+                keep_status_bar(
+                    bar, lambda: session_details(base, key, opener)
+                )
+            )
+    try:
+        return await _chat_loop(
+            base, key, read, write, opener, status, dim, messages, conversation
+        )
+    finally:
+        if keeper is not None:
+            keeper.cancel()
+            await asyncio.gather(keeper, return_exceptions=True)
+        if bar is not None:
+            bar.stop()
+
+
+async def _chat_loop(
+    base, key, read, write, opener, status, dim, messages, conversation
+):
     while True:
         try:
             line = await in_daemon_thread(read, "> ")
@@ -260,6 +519,13 @@ async def terminal_chat(
         if text in ("/quit", "/exit"):
             write("Stopping the server…")
             return "quit"
+        if text == "/stats":
+            write(
+                stats_text(
+                    await in_daemon_thread(session_details, base, key, opener)
+                )
+            )
+            continue
         if text == "/net":
             write(
                 network_summary(status() if status else None, detail=True)

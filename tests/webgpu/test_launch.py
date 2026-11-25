@@ -4,6 +4,7 @@ import asyncio
 import contextlib
 import io
 import json
+import math
 import tempfile
 import unittest
 from pathlib import Path
@@ -12,10 +13,14 @@ from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlsplit
 
 from test_memory import bundle
-from ygaraty.backend_contracts.models import SessionState
 
+from ygaraty.backend_contracts.models import SessionState
 from ygaraty.backends.webgpu.cli import main
-from ygaraty.backends.webgpu.launch import announce, connection_details, public_origin
+from ygaraty.backends.webgpu.launch import (
+    announce,
+    connection_details,
+    public_origin,
+)
 
 
 class LaunchTests(unittest.TestCase):
@@ -34,7 +39,9 @@ class LaunchTests(unittest.TestCase):
         self.prepare.return_value = SimpleNamespace(
             bundle=self.prepared_bundle
         )
-        self.serve = self.enterContext(patch("ygaraty.backends.webgpu.cli.serve"))
+        self.serve = self.enterContext(
+            patch("ygaraty.backends.webgpu.cli.serve")
+        )
 
     def command(self, *extra):
         return main(
@@ -46,6 +53,8 @@ class LaunchTests(unittest.TestCase):
                 str(self.root / "input"),
                 "--workspace",
                 str(self.workspace),
+                "--model",
+                "qwen3.5-9b",
                 *extra,
             ]
         )
@@ -189,6 +198,8 @@ class LaunchTests(unittest.TestCase):
                     str(self.root / "bundle.json"),
                     "--workspace",
                     str(self.workspace),
+                    "--model",
+                    "qwen3.5-9b",
                     *extra,
                 ]
             )
@@ -198,10 +209,12 @@ class LaunchTests(unittest.TestCase):
             patch.dict("os.environ", {}, clear=True),
             patch("ygaraty.backends.webgpu.bundles.validate_bundle"),
             patch(
-                "ygaraty.backends.webgpu.lan.lan_address", return_value="192.168.2.120"
+                "ygaraty.backends.webgpu.lan.lan_address",
+                return_value="192.168.2.120",
             ),
             patch(
-                "ygaraty.backends.webgpu.lan.lan_certificate", return_value=cert
+                "ygaraty.backends.webgpu.lan.lan_certificate",
+                return_value=cert,
             ) as make,
         ):
             served = launch("--lan")
@@ -262,7 +275,9 @@ class LaunchTests(unittest.TestCase):
                 patch(
                     "ygaraty.backends.webgpu.downloads.fetch_bundle",
                     side_effect=lambda url, output, **kw: (
-                        kw["on_manifest"](bundle(workers)),
+                        kw["on_manifest"](
+                            bundle(workers, max_positions=16384)
+                        ),
                         self.prepared_bundle,
                     )[1],
                 ) as fetch,
@@ -296,9 +311,17 @@ class LaunchTests(unittest.TestCase):
                 self.assertFalse(fetch.call_args.kwargs["weights"])
                 self.assertEqual(fetch.call_args.args[1].name, "remote-model")
                 served = self.serve.call_args.args[0]
+                from ygaraty.backends.webgpu.memory import estimate_memory
+
+                largest = max(
+                    report["recommended"]
+                    for report in estimate_memory(
+                        bundle(workers, max_positions=16384), 16384, 1
+                    )
+                )
                 self.assertEqual(
                     (served.memory_gb, served.context, served.slots),
-                    (1, 4096, 1),
+                    (math.ceil(largest / 1024**3), 16384, 1),
                 )
                 self.assertEqual(
                     served.keys,
@@ -381,7 +404,9 @@ class LaunchTests(unittest.TestCase):
             "--model",
             "custom",
         ]
-        with patch("ygaraty.backends.webgpu.bundles.validate_bundle") as validate:
+        with patch(
+            "ygaraty.backends.webgpu.bundles.validate_bundle"
+        ) as validate:
             main(args)
             owner = self.workspace / "keys/owner.key"
             initial = owner.read_bytes()
@@ -490,7 +515,10 @@ class AnnouncementTests(unittest.IsolatedAsyncioTestCase):
         )
         output = io.StringIO()
         with (
-            patch("ygaraty.backends.webgpu.launch.asyncio.sleep", side_effect=tick),
+            patch(
+                "ygaraty.backends.webgpu.launch.asyncio.sleep",
+                side_effect=tick,
+            ),
             patch(
                 "ygaraty.backends.webgpu.launch.connection_details",
                 return_value={
@@ -589,7 +617,9 @@ class RequestLogTests(unittest.TestCase):
                 patch("ygaraty.backends.webgpu.cli.LocalAccess"),
                 patch("ygaraty.backends.webgpu.cli.WebGPUFactory"),
                 patch("ygaraty.backends.webgpu.server.create_app"),
-                patch("ygaraty.backends.webgpu.sharing.serve_launch", new=Mock()),
+                patch(
+                    "ygaraty.backends.webgpu.sharing.serve_launch", new=Mock()
+                ),
                 patch("ygaraty.backends.webgpu.cli.asyncio", create=True),
                 patch("asyncio.run"),
                 patch.object(Path, "read_text", return_value="key"),

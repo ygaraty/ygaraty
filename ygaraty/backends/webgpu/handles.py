@@ -33,6 +33,9 @@ class WebGPUHandle:
         self._status = CancelStatus.REQUESTED
         self._failure = None
         self._consumed = self._closed = False
+        # The deadline counts from the last text, not the request's start:
+        # a 4,096-token answer took 287 s on a Radeon 680M, 357 s for the 27B.
+        self._progress = session.services.clock.monotonic_seconds()
         self._task = asyncio.create_task(self._drive())
         self._watcher = asyncio.create_task(self._watch())
 
@@ -79,6 +82,10 @@ class WebGPUHandle:
                     )
                     break
                 if event.get("text"):
+                    self._progress = (
+                        self.session.services.clock.monotonic_seconds()
+                    )
+                    self.session.stats.first_text(self.request_id)
                     self._put(event["text"])
                 if event.get("done"):
                     terminal = dict(
@@ -121,6 +128,13 @@ class WebGPUHandle:
             EventKind.CANCELLED: RequestOutcome.CANCELLED,
             EventKind.FAILED: RequestOutcome.FAILED,
         }[terminal["kind"]]
+        used = terminal.get("usage")
+        self.session.stats.finished(
+            self.request_id,
+            terminal["kind"].value,
+            used.prompt_tokens if used else 0,
+            used.output_tokens if used else 0,
+        )
         try:
             await asyncio.wait_for(
                 self.session.services.requests.finish(self.key, outcome), 2
@@ -138,11 +152,11 @@ class WebGPUHandle:
 
     async def _watch(self):
         clock = self.session.services.clock
-        deadline = clock.monotonic_seconds() + self.session.request_timeout
         try:
             while not self._closed:
                 await asyncio.sleep(self.session.revalidate_interval)
-                if clock.monotonic_seconds() >= deadline:
+                idle = clock.monotonic_seconds() - self._progress
+                if idle >= self.session.request_timeout:
                     self._failure = Failure(
                         ErrorCode.DEADLINE_EXCEEDED,
                         "Request deadline exceeded",

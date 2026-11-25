@@ -19,7 +19,8 @@ def add_network_arguments(parser):
         "--route",
         choices=("auto", *ROUTES),
         default="auto",
-        help="auto: WebRTC with configured TURN, otherwise coordinator relay",
+        help="auto: WebRTC when TURN is configured or links stay on this "
+        "computer or network, otherwise coordinator relay",
     )
     parser.add_argument(
         "--turn-host", help="TURN hostname (or YGARATY_TURN_HOST)"

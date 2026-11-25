@@ -9,6 +9,8 @@ body{margin:0;font:16px/1.5 system-ui,sans-serif;background:var(--bg);color:var(
 header,main,footer{width:100%;max-width:48rem;margin:0 auto;padding:0 1rem}
 header{padding-top:1rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
 h1{font-size:1.15rem;margin:0}
+#session-bar{width:100%;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;border:1px solid var(--line);border-radius:.6rem;background:var(--panel);padding:.3rem .7rem;white-space:nowrap;overflow-x:auto}
+#session-bar a{color:inherit}
 #model-name{color:var(--muted);font-size:.9rem}
 #status{margin-left:auto;font-size:.85rem;color:var(--muted)}
 #status::before{content:"";display:inline-block;width:.55rem;height:.55rem;border-radius:50%;background:var(--muted);margin-right:.4rem;vertical-align:.05rem}
@@ -44,6 +46,7 @@ button:disabled{opacity:.45;cursor:default}
 <header>
   <h1>Chat <span id="model-name"></span></h1>
   <span id="status" role="status">Connecting to your server…</span>
+  <div id="session-bar" aria-label="Session status" title="Tokens so far, average decode speed, average time to first token, context size, chats now / at a time, network">–</div>
   <details>
     <summary>API key and settings for other apps</summary>
     <div class="field"><label for="key">API key</label><input id="key" type="password" autocomplete="off" placeholder="Owner key"><button type="button" id="show-key">Show</button><button type="button" id="copy-key">Copy</button></div>

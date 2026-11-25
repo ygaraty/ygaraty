@@ -20,6 +20,7 @@ from .qwen_protocol import (
 )
 
 
+from ..configuration import IDLE_TIMEOUT_S
 from .model_artifacts import local_file
 
 
@@ -206,6 +207,8 @@ class PreparedSession(SessionProtocol):
                 )
             # One stage (DO-51): no links between stages, only the chat browser's link to that contributor.
         self.turn_config = turn
+        # The bundle's output limit: the default and maximum max_tokens.
+        self.max_output = options["generate"]
         self.args = SimpleNamespace(
             out=self.out,
             chat=True,
@@ -213,7 +216,7 @@ class PreparedSession(SessionProtocol):
             capacity=options["capacity"],
             generate=options["capacity"],
             chunk=options["chunk"],
-            turn_timeout=120,
+            turn_timeout=IDLE_TIMEOUT_S,  # as the session's request_timeout
             route="relay" if route == "relay" else "webrtc",
             ice="",
             ice_policy="relay" if route == "private" else "all",

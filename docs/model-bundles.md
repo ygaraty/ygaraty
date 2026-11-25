@@ -1,6 +1,7 @@
 # Prepare and serve model bundles
 
-Most users should start with [`ygaraty launch --num-workers 2`](advanced.md). These lower-level
+Most users should start with [`ygaraty launch --model NAME --num-workers 2`](advanced.md); see
+[launch or serve](commands.md#launch-or-serve) for when `serve` fits better. These lower-level
 commands let you inspect, prepare and validate bundles separately.
 
 ## Start one session
@@ -53,21 +54,37 @@ print(report.path, report.sha256)
 Once prepared, start the host:
 
 ```bash
-ygaraty init --directory ./keys
-ygaraty serve --bundle ./model/bundle.json --model-id my-model \
-  --keys ./keys --state-dir ./state --slots 8 --memory-gb 8 \
-  --host 127.0.0.1 --port 8765
+ygaraty serve --bundle ./model/bundle.json --model my-model
 ```
 
-`init` creates distinct owner and contributor keys with mode 0600 and refuses
-to overwrite existing keys. `--context` optionally overrides bundle capacity;
-`--slots` defaults to eight (maximum sixteen). The memory flag bounds declared
-stage weights, not total browser/GPU memory. Each launch creates a new session
-ID and epoch. Logs/artifact state go in that epoch's state directory; chat
-history and the request ledger do not survive a restart.
+`serve` can also download a supported model, like `launch`:
 
-Open `/` in a WebGPU-capable browser, enter the **contributor** key and accept
-contribution. Open `/chat`, enter the **owner** key and send a message. The host
+```bash
+ygaraty serve --model s5-nano --num-workers 2
+ygaraty serve --bundle-url https://example.com/my-model/bundle.json --model my-model --num-workers 2
+```
+
+It prints the contributor link to share, the session page, the web chat and the
+API address. Options mean the same as in `launch`:
+
+- `--workspace DIR`: keys and state, default `runs/MODEL/N-workers`. Keys are
+  created on first start and reused.
+- `--slots N`: chats at once, default 1, at most 16.
+- `--context N`: default the bundle's context.
+- `--host`, `--port`: default `127.0.0.1:8765`.
+- `--public-url URL`: the address in the printed links, when a proxy serves
+  this host.
+- `--keys DIR`, `--state-dir DIR`: your own directories instead
+  (`ygaraty init --directory DIR` creates keys).
+
+The memory flag bounds declared stage weights, not total browser/GPU memory.
+Each start creates a new session ID and epoch. Logs/artifact state go in that
+epoch's state directory; chat history and the request ledger do not survive a
+restart.
+
+Open the contributor link in a WebGPU-capable browser and accept
+contribution. The same page shows the model, the workers and live statistics.
+Open `/chat`, enter the **owner** key and send a message. The host
 becomes ready only after the required contributors finish preparation. The keys
 are separate scopes: a contributor cannot call owner chat endpoints, and the
 owner key is not a contributor credential. Use HTTPS when exposing the host
