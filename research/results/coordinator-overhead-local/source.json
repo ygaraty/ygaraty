@@ -1,0 +1,10 @@
+{
+  "base_commit": "9867b7e96a9c6c265bd84c2255bf5bb5127bd469",
+  "coordinator_patch_sha256": "d12944e8a42f3a82a2c0d08976a94dd0ca629116ca12c3b9bc91fa863762dc94",
+  "source_sha256": {
+    "baseline": "076e5a5872710c62ccba62e1cee4f6724de20f28959589e9e2ab5586f64bec2b",
+    "candidate": "9ded0e3f074bea0e0fe5c3fc6ee2ff5e9ff3ac4b86b6e0d83a88f5c0c6b6ffdb"
+  },
+  "scope": "Coordinator-only patch; baseline already includes full GPU residency. Reversing this patch in a copy of the candidate reconstructs the measured baseline production files.",
+  "remote_resources_used": false
+}

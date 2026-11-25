@@ -1,0 +1,5 @@
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+main { max-width: 48rem; margin: 4rem auto; padding: 0 1.5rem; }
+p { line-height: 1.6; }
+button { padding: .75rem 1rem; cursor: pointer; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .9rem; }

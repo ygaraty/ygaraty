@@ -1,0 +1,77 @@
+{
+  "question": "GPU-resident Ygaraty one/four GPUs versus pinned upstream MuLoCo-1 and PyTorch equation control",
+  "dataset": "Fashion-MNIST",
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "samples_per_trial": 15360,
+  "batch_size": 16,
+  "local_steps": 8,
+  "rounds": {
+    "one_worker": 120,
+    "four_workers": 30
+  },
+  "evaluation_examples": 1024,
+  "evaluation_every_samples": 1536,
+  "loss_targets": [
+    1.5,
+    1.0
+  ],
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "trial_order": [
+    [
+      "resident-1",
+      "resident-4",
+      "torch-upstream-1",
+      "torch-control-1"
+    ],
+    [
+      "torch-control-1",
+      "torch-upstream-1",
+      "resident-4",
+      "resident-1"
+    ],
+    [
+      "resident-4",
+      "torch-upstream-1",
+      "resident-1",
+      "torch-control-1"
+    ]
+  ],
+  "training_execution": "resident",
+  "gates": [
+    "19 GPU numerical cases",
+    "one/four-worker CPU-reference weight error <=5e-5",
+    "resident round counters: zero CPU tensor tasks and one readback",
+    "verify source, dataset and upstream hashes"
+  ],
+  "trial_timeout_seconds": 1500,
+  "limits": [
+    "No inference of NVIDIA speed from M1 timings",
+    "One host, not WAN or heterogeneous scaling",
+    "Report allocated four-GPU host cost separately from normalized GPU cost",
+    "Worker counts change sharding and outer-update count",
+    "Preserve failures; budget/deadline can truncate trials"
+  ],
+  "muon_learning_rate": 0.02,
+  "muon_momentum": 0.95,
+  "muon_steps": 5,
+  "auxiliary_adam_learning_rate": 0.001,
+  "outer_learning_rate": 0.7,
+  "outer_momentum": 0.9,
+  "cpu_library_threads": 1,
+  "source": {
+    "base_commit": "9867b7e96a9c6c265bd84c2255bf5bb5127bd469",
+    "patch_sha256": "f60df64e79937cab1723f6af3553f9a1b2b72de1aacea0af1bf9e08704392cb7",
+    "archive_sha256": "5c997c103e7ee333256cf0b57582599a68a7f27aaf8e1fd44eb87336eeb3fbea"
+  },
+  "runtime": "Deno 2.9.5 Vulkan; PyTorch 2.9.1 CUDA 12.8",
+  "hardware": "Four RTX 3060 12 GiB on one host",
+  "timing": "Contributor launch/training/evaluation for Ygaraty; training/evaluation plus separately reported setup for PyTorch. Initial Ygaraty coordinator evaluation and dataset loading excluded. First observed loss crossings, no interpolation. No thermal/cache reset."
+}

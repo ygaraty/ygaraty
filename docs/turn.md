@@ -56,7 +56,7 @@ Use a Linux host with a public address, coturn installed, and a DNS name such as
 `turn.example.org`. Obtain a TLS certificate for that name through your existing
 certificate management process.
 
-1. Copy [turnserver.conf.example](../deploy/turn/turnserver.conf.example) to
+1. Copy [turnserver.conf.example](https://github.com/ygaraty/ygaraty/blob/main/deploy/turn/turnserver.conf.example) to
    `/etc/turnserver.conf`. Keep it readable only by the service account (0600).
 2. Replace the example public IP, realm, server name and certificate paths.
    Generate a shared secret with `openssl rand -hex 32` and replace `CHANGE-ME`.

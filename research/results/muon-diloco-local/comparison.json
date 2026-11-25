@@ -1,0 +1,246 @@
+{
+  "trials": [
+    {
+      "file": "seed-2026-1w-adam.json",
+      "optimizer": "adam",
+      "workers": 1,
+      "seed": 2026,
+      "seconds": 169.3480390831828,
+      "samples": 15360,
+      "final_loss": 0.8165424977982644,
+      "accuracy": 0.6962890625,
+      "worker_compute_seconds": 120.99460000133514,
+      "optimizer_seconds": 1.3692000141143799,
+      "traffic": {
+        "request_body_bytes": 29021082,
+        "response_body_bytes": 203613336
+      },
+      "time_to_loss": {
+        "1.5": 31.22557345824316,
+        "1.0": 76.50829045800492
+      }
+    },
+    {
+      "file": "seed-2026-1w-muon.json",
+      "optimizer": "muon",
+      "workers": 1,
+      "seed": 2026,
+      "seconds": 341.7482512081042,
+      "samples": 15360,
+      "final_loss": 1.2362607187118146,
+      "accuracy": 0.5087890625,
+      "worker_compute_seconds": 254.84079999446868,
+      "optimizer_seconds": 91.9811000361442,
+      "traffic": {
+        "request_body_bytes": 20568599,
+        "response_body_bytes": 240046340
+      },
+      "time_to_loss": {
+        "1.5": 53.39533849991858,
+        "1.0": null
+      }
+    },
+    {
+      "file": "seed-2026-3w-adam.json",
+      "optimizer": "adam",
+      "workers": 3,
+      "seed": 2026,
+      "seconds": 187.12227174965665,
+      "samples": 15360,
+      "final_loss": 0.9703689336666916,
+      "accuracy": 0.64453125,
+      "worker_compute_seconds": 265.2341000027657,
+      "optimizer_seconds": 3.252099975109101,
+      "traffic": {
+        "request_body_bytes": 30255044,
+        "response_body_bytes": 203974741
+      },
+      "time_to_loss": {
+        "1.5": 95.87128329183906,
+        "1.0": 187.12226366670802
+      }
+    },
+    {
+      "file": "seed-2026-3w-muon.json",
+      "optimizer": "muon",
+      "workers": 3,
+      "seed": 2026,
+      "seconds": 274.4716108329594,
+      "samples": 15360,
+      "final_loss": 0.7785639008135217,
+      "accuracy": 0.724609375,
+      "worker_compute_seconds": 408.9088999986649,
+      "optimizer_seconds": 151.20989994382865,
+      "traffic": {
+        "request_body_bytes": 20402597,
+        "response_body_bytes": 240554989
+      },
+      "time_to_loss": {
+        "1.5": 76.05193304177374,
+        "1.0": 104.33492937497795
+      }
+    },
+    {
+      "file": "seed-2027-1w-muon.json",
+      "optimizer": "muon",
+      "workers": 1,
+      "seed": 2027,
+      "seconds": 422.5131986248307,
+      "samples": 15360,
+      "final_loss": 1.3162947693567242,
+      "accuracy": 0.5654296875,
+      "worker_compute_seconds": 315.93320000314714,
+      "optimizer_seconds": 115.8062000288963,
+      "traffic": {
+        "request_body_bytes": 20577989,
+        "response_body_bytes": 240178731
+      },
+      "time_to_loss": {
+        "1.5": 64.73343258304521,
+        "1.0": 359.3461863747798
+      }
+    },
+    {
+      "file": "seed-2027-1w-adam.json",
+      "optimizer": "adam",
+      "workers": 1,
+      "seed": 2027,
+      "seconds": 324.7096990002319,
+      "samples": 15360,
+      "final_loss": 0.8183980764894072,
+      "accuracy": 0.6669921875,
+      "worker_compute_seconds": 231.4832999997139,
+      "optimizer_seconds": 2.478499987602234,
+      "traffic": {
+        "request_body_bytes": 27201953,
+        "response_body_bytes": 203734004
+      },
+      "time_to_loss": {
+        "1.5": 73.91447870898992,
+        "1.0": 223.00411162525415
+      }
+    },
+    {
+      "file": "seed-2027-3w-muon.json",
+      "optimizer": "muon",
+      "workers": 3,
+      "seed": 2027,
+      "seconds": 307.93882699962705,
+      "samples": 15360,
+      "final_loss": 0.7683024162201119,
+      "accuracy": 0.7275390625,
+      "worker_compute_seconds": 452.9402999992371,
+      "optimizer_seconds": 173.14569995737085,
+      "traffic": {
+        "request_body_bytes": 20399933,
+        "response_body_bytes": 240142630
+      },
+      "time_to_loss": {
+        "1.5": 54.698388832621276,
+        "1.0": 130.53877633297816
+      }
+    },
+    {
+      "file": "seed-2027-3w-adam.json",
+      "optimizer": "adam",
+      "workers": 3,
+      "seed": 2027,
+      "seconds": 206.61504816729575,
+      "samples": 15360,
+      "final_loss": 1.0202584780682498,
+      "accuracy": 0.580078125,
+      "worker_compute_seconds": 285.36460000085833,
+      "optimizer_seconds": 3.2576999850273136,
+      "traffic": {
+        "request_body_bytes": 30451664,
+        "response_body_bytes": 203401768
+      },
+      "time_to_loss": {
+        "1.5": 75.03913904214278,
+        "1.0": null
+      }
+    }
+  ],
+  "aggregates": [
+    {
+      "workers": 1,
+      "optimizer": "adam",
+      "targets": {
+        "1.5": {
+          "reached": 2,
+          "trials": 2,
+          "median_seconds": 52.57002608361654
+        },
+        "1.0": {
+          "reached": 2,
+          "trials": 2,
+          "median_seconds": 149.75620104162954
+        }
+      },
+      "median_seconds": 247.02886904170737,
+      "median_final_loss": 0.8174702871438357,
+      "median_accuracy": 0.681640625,
+      "optimizer_share_of_worker_execution": 0.010916145385867207
+    },
+    {
+      "workers": 1,
+      "optimizer": "muon",
+      "targets": {
+        "1.5": {
+          "reached": 2,
+          "trials": 2,
+          "median_seconds": 59.0643855414819
+        },
+        "1.0": {
+          "reached": 1,
+          "trials": 2,
+          "median_seconds": null
+        }
+      },
+      "median_seconds": 382.13072491646744,
+      "median_final_loss": 1.2762777440342694,
+      "median_accuracy": 0.537109375,
+      "optimizer_share_of_worker_execution": 0.3640447884204754
+    },
+    {
+      "workers": 3,
+      "optimizer": "adam",
+      "targets": {
+        "1.5": {
+          "reached": 2,
+          "trials": 2,
+          "median_seconds": 85.45521116699092
+        },
+        "1.0": {
+          "reached": 1,
+          "trials": 2,
+          "median_seconds": null
+        }
+      },
+      "median_seconds": 196.8686599584762,
+      "median_final_loss": 0.9953137058674707,
+      "median_accuracy": 0.6123046875,
+      "optimizer_share_of_worker_execution": 0.011823129913117425
+    },
+    {
+      "workers": 3,
+      "optimizer": "muon",
+      "targets": {
+        "1.5": {
+          "reached": 2,
+          "trials": 2,
+          "median_seconds": 65.3751609371975
+        },
+        "1.0": {
+          "reached": 2,
+          "trials": 2,
+          "median_seconds": 117.43685285397805
+        }
+      },
+      "median_seconds": 291.20521891629323,
+      "median_final_loss": 0.7734331585168168,
+      "median_accuracy": 0.72607421875,
+      "optimizer_share_of_worker_execution": 0.3763484376408183
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "kind": "torch-muloco-reference",
+  "arm": "ygaraty-math",
+  "seed": 2027,
+  "samples": 15360,
+  "workers": 1,
+  "seconds": 14.367296712007374,
+  "setup_seconds": 2.6256843650480732,
+  "seconds_with_setup": 16.992985996999778,
+  "curve": [
+    {
+      "samples": 0,
+      "seconds": 0.0,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 2.3298397813826552,
+        "accuracy": 0.0888671875
+      }
+    },
+    {
+      "samples": 1536,
+      "seconds": 1.779530256986618,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.5861184237438704,
+        "accuracy": 0.48046875
+      }
+    },
+    {
+      "samples": 3072,
+      "seconds": 3.1758648050017655,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.3086639486431948,
+        "accuracy": 0.5966796875
+      }
+    },
+    {
+      "samples": 4608,
+      "seconds": 4.567688207956962,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.1572681879736486,
+        "accuracy": 0.5732421875
+      }
+    },
+    {
+      "samples": 6144,
+      "seconds": 5.957243538927287,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.2007038042445384,
+        "accuracy": 0.5869140625
+      }
+    },
+    {
+      "samples": 7680,
+      "seconds": 7.363528689020313,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.0032246491730836,
+        "accuracy": 0.658203125
+      }
+    },
+    {
+      "samples": 9216,
+      "seconds": 8.774838394951075,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.298482997552577,
+        "accuracy": 0.611328125
+      }
+    },
+    {
+      "samples": 10752,
+      "seconds": 10.172893126960844,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.2609471654309208,
+        "accuracy": 0.5810546875
+      }
+    },
+    {
+      "samples": 12288,
+      "seconds": 11.577298416988924,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.2971270167749243,
+        "accuracy": 0.5673828125
+      }
+    },
+    {
+      "samples": 13824,
+      "seconds": 12.977085102000274,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.1767912011354362,
+        "accuracy": 0.572265625
+      }
+    },
+    {
+      "samples": 15360,
+      "seconds": 14.366784009966068,
+      "evaluation": {
+        "split": "test",
+        "examples": 1024,
+        "loss": 1.318428071058642,
+        "accuracy": 0.6279296875
+      }
+    }
+  ],
+  "dataset": {
+    "name": "fashion-mnist",
+    "sha256": "97d0ae5aecca304875b4cf15d34f9339ddef82259c31841e28aea88fdfa48aee"
+  },
+  "source_sha256": "076e5a5872710c62ccba62e1cee4f6724de20f28959589e9e2ab5586f64bec2b",
+  "torch_version": "2.9.1+cu128",
+  "upstream_commit": "33cc33315eacd1bb5f179d7d5d9f85e012fe58f2",
+  "upstream_sha256": "3f78ddb772eaa06be99d219a8b93945edd2aa8ed61cf51b41113ae42f58ebed7",
+  "device": "cuda:0",
+  "dtype": "float32",
+  "arithmetic_note": "Torch uses FP32 tensors on CUDA; resident Ygaraty uses FP32 convolutions and compensated FP32 pairs for other GPU ops. Outer updates use the host. Control is not bitwise exact.",
+  "tf32": false,
+  "optimizer": {
+    "inner_lr": 0.02,
+    "auxiliary_lr": 0.001,
+    "outer_lr": 0.7,
+    "outer_momentum": 0.9,
+    "local_steps": 8,
+    "weight_decay": 0,
+    "auxiliary_betas": [
+      0.9,
+      0.999
+    ]
+  },
+  "differences": [],
+  "timing": "training, batch preparation/transfers and evaluation; separate setup timing"
+}

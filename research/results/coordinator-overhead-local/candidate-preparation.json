@@ -1,0 +1,334 @@
+{
+  "kind": "sequential-assignment-cpu-profile",
+  "workers": 4,
+  "batch_size": 16,
+  "local_steps": 8,
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "cpu_hotspots": [
+    {
+      "file": "session.py",
+      "line": 382,
+      "function": "assignment_bytes",
+      "calls": 4,
+      "self_seconds": 4.7628000000000005e-05,
+      "cumulative_seconds": 0.632283499
+    },
+    {
+      "file": "session.py",
+      "line": 341,
+      "function": "_assignment",
+      "calls": 4,
+      "self_seconds": 4.2623e-05,
+      "cumulative_seconds": 0.50545929
+    },
+    {
+      "file": "convnet_webgpu.py",
+      "line": 277,
+      "function": "round_bundle",
+      "calls": 4,
+      "self_seconds": 0.0031428750000000003,
+      "cumulative_seconds": 0.505113166
+    },
+    {
+      "file": "transformer.py",
+      "line": 37,
+      "function": "describe",
+      "calls": 32,
+      "self_seconds": 0.0020391230000000003,
+      "cumulative_seconds": 0.37463991500000005
+    },
+    {
+      "file": "tasks.py",
+      "line": 35,
+      "function": "describe",
+      "calls": 14176,
+      "self_seconds": 0.0027706510000000003,
+      "cumulative_seconds": 0.36814653900000005
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1299,
+      "function": "asdict",
+      "calls": 14176,
+      "self_seconds": 0.004645106,
+      "cumulative_seconds": 0.36537588800000004
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1323,
+      "function": "_asdict_inner",
+      "calls": 343680,
+      "self_seconds": 0.20479834000000002,
+      "cumulative_seconds": 0.35703557
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1364,
+      "function": "<genexpr>",
+      "calls": 198816,
+      "self_seconds": 0.032714991,
+      "cumulative_seconds": 0.169203655
+    },
+    {
+      "file": "__init__.py",
+      "line": 183,
+      "function": "dumps",
+      "calls": 4,
+      "self_seconds": 1.2293e-05,
+      "cumulative_seconds": 0.126188
+    },
+    {
+      "file": "encoder.py",
+      "line": 183,
+      "function": "encode",
+      "calls": 4,
+      "self_seconds": 1.4041000000000002e-05,
+      "cumulative_seconds": 0.126173624
+    },
+    {
+      "file": "encoder.py",
+      "line": 205,
+      "function": "iterencode",
+      "calls": 4,
+      "self_seconds": 0.126154541,
+      "cumulative_seconds": 0.126154541
+    },
+    {
+      "file": "convnet_webgpu.py",
+      "line": 145,
+      "function": "compile",
+      "calls": 32,
+      "self_seconds": 0.005493309,
+      "cumulative_seconds": 0.121701293
+    },
+    {
+      "file": "plan.py",
+      "line": 37,
+      "function": "split",
+      "calls": 32,
+      "self_seconds": 0.030393016000000002,
+      "cumulative_seconds": 0.070363754
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1373,
+      "function": "<genexpr>",
+      "calls": 52672,
+      "self_seconds": 0.01475092,
+      "cumulative_seconds": 0.068251396
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1269,
+      "function": "fields",
+      "calls": 34592,
+      "self_seconds": 0.032348167000000004,
+      "cumulative_seconds": 0.049831125000000004
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1287,
+      "function": "_is_dataclass_instance",
+      "calls": 120960,
+      "self_seconds": 0.020441271,
+      "cumulative_seconds": 0.030087891000000002
+    },
+    {
+      "file": "muon.py",
+      "line": 24,
+      "function": "append_muon",
+      "calls": 32,
+      "self_seconds": 0.0016242670000000002,
+      "cumulative_seconds": 0.016050918
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.isinstance>",
+      "calls": 166160,
+      "self_seconds": 0.015538008,
+      "cumulative_seconds": 0.015538008
+    },
+    {
+      "file": "plan.py",
+      "line": 1024,
+      "function": "admit_plan",
+      "calls": 32,
+      "self_seconds": 6.563000000000001e-05,
+      "cumulative_seconds": 0.015478208
+    },
+    {
+      "file": "plan.py",
+      "line": 1018,
+      "function": "admit",
+      "calls": 32,
+      "self_seconds": 4.2407e-05,
+      "cumulative_seconds": 0.015377246
+    },
+    {
+      "file": "tape.py",
+      "line": 89,
+      "function": "_op",
+      "calls": 6688,
+      "self_seconds": 0.004696826,
+      "cumulative_seconds": 0.014789822000000001
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.getattr>",
+      "calls": 153184,
+      "self_seconds": 0.013637544000000001,
+      "cumulative_seconds": 0.013637544000000001
+    },
+    {
+      "file": "plan.py",
+      "line": 821,
+      "function": "resolve_assemblies",
+      "calls": 32,
+      "self_seconds": 0.008619809,
+      "cumulative_seconds": 0.012948417
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.max>",
+      "calls": 224,
+      "self_seconds": 0.0012476540000000002,
+      "cumulative_seconds": 0.012743714000000001
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.hasattr>",
+      "calls": 149316,
+      "self_seconds": 0.012579656000000002,
+      "cumulative_seconds": 0.012579656000000002
+    },
+    {
+      "file": "plan.py",
+      "line": 1021,
+      "function": "<genexpr>",
+      "calls": 14208,
+      "self_seconds": 0.002388283,
+      "cumulative_seconds": 0.01149606
+    },
+    {
+      "file": "dataclasses.py",
+      "line": 1284,
+      "function": "<genexpr>",
+      "calls": 146304,
+      "self_seconds": 0.010456372,
+      "cumulative_seconds": 0.010456372
+    },
+    {
+      "file": "sequence_views.py",
+      "line": 91,
+      "function": "prune",
+      "calls": 32,
+      "self_seconds": 0.002894021,
+      "cumulative_seconds": 0.010296709000000001
+    },
+    {
+      "file": "tape.py",
+      "line": 56,
+      "function": "_name",
+      "calls": 7424,
+      "self_seconds": 0.0033344430000000003,
+      "cumulative_seconds": 0.009720273
+    },
+    {
+      "file": "plan.py",
+      "line": 988,
+      "function": "check",
+      "calls": 14176,
+      "self_seconds": 0.005849053000000001,
+      "cumulative_seconds": 0.009107777000000001
+    },
+    {
+      "file": "tasks.py",
+      "line": 21,
+      "function": "dependencies",
+      "calls": 13216,
+      "self_seconds": 0.005745017000000001,
+      "cumulative_seconds": 0.007393978000000001
+    },
+    {
+      "file": "__init__.py",
+      "line": 169,
+      "function": "fullmatch",
+      "calls": 7424,
+      "self_seconds": 0.002129211,
+      "cumulative_seconds": 0.00638583
+    },
+    {
+      "file": "datasets.py",
+      "line": 117,
+      "function": "batches",
+      "calls": 36,
+      "self_seconds": 0.00027466000000000003,
+      "cumulative_seconds": 0.005467539
+    },
+    {
+      "file": "datasets.py",
+      "line": 92,
+      "function": "indices",
+      "calls": 32,
+      "self_seconds": 0.004557119,
+      "cumulative_seconds": 0.005166589
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'append' of 'list' objects>",
+      "calls": 46880,
+      "self_seconds": 0.004869339,
+      "cumulative_seconds": 0.004869339
+    },
+    {
+      "file": "tape.py",
+      "line": 284,
+      "function": "scale",
+      "calls": 1920,
+      "self_seconds": 0.0006351470000000001,
+      "cumulative_seconds": 0.004775683
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'tolist' of 'numpy.ndarray' objects>",
+      "calls": 160,
+      "self_seconds": 0.004598672000000001,
+      "cumulative_seconds": 0.004598672000000001
+    },
+    {
+      "file": "tape.py",
+      "line": 633,
+      "function": "backward",
+      "calls": 32,
+      "self_seconds": 0.0017686470000000001,
+      "cumulative_seconds": 0.004519833
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'values' of 'dict' objects>",
+      "calls": 34720,
+      "self_seconds": 0.003966094,
+      "cumulative_seconds": 0.003966094
+    },
+    {
+      "file": "tape.py",
+      "line": 95,
+      "function": "matmul",
+      "calls": 1536,
+      "self_seconds": 0.000482352,
+      "cumulative_seconds": 0.003835831
+    }
+  ],
+  "source_sha256": "9ded0e3f074bea0e0fe5c3fc6ee2ff5e9ff3ac4b86b6e0d83a88f5c0c6b6ffdb"
+}

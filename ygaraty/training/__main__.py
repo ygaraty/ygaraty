@@ -7,6 +7,7 @@ distributed throughput. No database, server, PyTorch or downloads are required.
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -21,6 +22,15 @@ from ygaraty.training import (
 
 
 def main(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0] == "lan":
+        from .lan import main as lan
+
+        return lan(argv[1:])
+    if argv and argv[0] == "serve":
+        from .launch import main as serve
+
+        return serve(argv[1:])
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rounds", type=int, default=2)
     parser.add_argument("--workers", type=int, default=2)

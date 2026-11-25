@@ -1,0 +1,22 @@
+{
+  "rows": [
+    {
+      "seed": 2026,
+      "tasks_seconds": 61.25536616705358,
+      "resident_seconds": 28.680274082813412,
+      "speedup": 2.1358012824487167,
+      "tasks_loss": 1.6758137140314417,
+      "resident_loss": 1.6758137140314344
+    },
+    {
+      "seed": 2027,
+      "tasks_seconds": 61.7171408329159,
+      "resident_seconds": 28.89733170811087,
+      "speedup": 2.135738394683451,
+      "tasks_loss": 1.4983604344425203,
+      "resident_loss": 1.4983604344425137
+    }
+  ],
+  "median_speedup": 2.1357697200280796,
+  "max_final_loss_difference": 7.327471962526033e-15
+}

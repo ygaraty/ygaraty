@@ -1,0 +1,63 @@
+{
+  "frozen_at": 1795482060.7856,
+  "source": {
+    "base_commit": "5441492d12651021ca345715d12d5e536fc3c410",
+    "patch_sha256": "40a05856cbaa65055d0f7bca2daccbd3229fc0ee56628e3c381babcb55444e2c",
+    "wheel_sha256": "dc8bdb6287c2216a56c9923c82b2a81b1da587b5404f56dbee3189f09746ea05",
+    "tools": {
+      "training_e2e.py": "41ffbd467555454cc12a937ddebe6875c44b339ccd1802b452d4e753d4a81ebc",
+      "compare_training.py": "57c5710c54ca1589e63cfb8b15761a984a5ef2bf96a85507791ba97aa5e531f5",
+      "probe_training_gpus.py": "f1fd776f20b21e13860463d5fc52172fe9f9a3d8c6c604b28464e3a9cefd70be"
+    }
+  },
+  "question": "Muon DiLoCo one versus four physical GPUs on one host",
+  "hardware": "4 RTX 3060 12GiB, single host",
+  "runtime": "Deno 2.9.5 Vulkan",
+  "transport": "loopback HTTP, JSON tensors",
+  "dataset": "Fashion-MNIST",
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "batch_size": 16,
+  "local_steps": 8,
+  "optimizer": "muon",
+  "muon_learning_rate": 0.02,
+  "muon_momentum": 0.95,
+  "muon_steps": 5,
+  "auxiliary_adam_learning_rate": 0.001,
+  "outer_optimizer": "Nesterov",
+  "outer_learning_rate": 0.7,
+  "outer_momentum": 0.9,
+  "samples_per_trial": 15360,
+  "eval_examples": 1024,
+  "eval_every_samples": 1536,
+  "targets": [
+    1.5,
+    1.0
+  ],
+  "trial_order": [
+    [
+      2026,
+      1
+    ],
+    [
+      2026,
+      4
+    ],
+    [
+      2027,
+      4
+    ],
+    [
+      2027,
+      1
+    ]
+  ],
+  "numerical_gate_max_abs_error": 5e-05,
+  "trial_timeout_seconds": 1500,
+  "measurement": "wall time from contributor launch including startup and evaluation; first observed loss crossing",
+  "limits": "same host, no WAN; different worker count changes sharding and outer update count; baseline rents all four GPUs",
+  "cpu_threads_per_library": 1
+}

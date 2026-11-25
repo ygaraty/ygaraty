@@ -1,0 +1,44 @@
+{
+  "provider": "Vast.ai",
+  "workers": [
+    1,
+    4
+  ],
+  "dataset": "fashion-mnist",
+  "channels": [
+    8,
+    16,
+    16
+  ],
+  "global_batch": 40,
+  "steps": 256,
+  "seed": 2026,
+  "eval_examples": 1024,
+  "eval_interval": 32,
+  "target_loss": 1.5,
+  "repetitions": 2,
+  "order": [
+    1,
+    4,
+    4,
+    1
+  ],
+  "preflight": "verify distinct physical GPU identities, native Vulkan/WebGPU hardware adapters, peer connectivity and initial 3-step CPU parity <= 2e-5",
+  "metrics": [
+    "wall time",
+    "examples/sec",
+    "evaluation loss and accuracy",
+    "first observed time to loss <= 1.5",
+    "peer tensor bytes",
+    "latency and bandwidth"
+  ],
+  "total_cap_usd": 11.48,
+  "terminate_after_minutes": 120,
+  "source_base": "5441492d12651021ca345715d12d5e536fc3c410",
+  "runtime_sha256": "14f4648635ae5642fff90a60c122cef95f7a51dc51620207e6d714eed43d200e",
+  "tracked_patch_sha256": "58140e22b54869d5d048f631501218080a787a59fe4103d8dc6671e9e879c79b",
+  "source_patch_sha256": "76c2ae30aaee08334db84c7c2352a88b56ec7658f91a79221ddf27a696444fe9",
+  "wheel_sha256": "4ed9174d60aa8a425f6e6876ceada598142d757b731ebcfb25abfee16115448a",
+  "protocol_amendment": "Before any completed timed trial, reduce 640 to 256 updates for all six repetitions after initial throughput near 2.1 seconds/update implied the original schedule could exceed the two-hour rental deadline. Retain initial interrupted run as sizing-only, excluded from comparison. Target and evaluation cadence unchanged. Four-GPU preflight took 22.4s for three checked updates. Before starting accepted timed trials, use two repetitions per arm in order 1,4,4,1, keeping 256 updates, and allow 2400s per four-worker trial. This reserves cleanup time within the original two-hour deadline.",
+  "transport": "Direct encrypted worker-to-worker SSH forwarding across distinct public networks: Poland, Poland, Spain, Quebec. No coordinator gradient relay. Not a LAN benchmark."
+}

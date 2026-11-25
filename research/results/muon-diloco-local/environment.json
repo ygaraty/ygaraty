@@ -1,0 +1,12 @@
+{
+  "cpu": "Apple M1",
+  "physical_gpus": 1,
+  "host_ram_bytes": 17179869184,
+  "chrome": "158.0.8127.37",
+  "python": "3.12.2",
+  "node": "26.12.1",
+  "precision": "compensated WebGPU matmul; float64 JavaScript elementwise",
+  "source_base": "5441492d12651021ca345715d12d5e536fc3c410",
+  "date": "2026-11-24",
+  "timezone": "Europe/Berlin"
+}

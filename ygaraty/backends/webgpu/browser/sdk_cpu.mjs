@@ -1,3 +1,4 @@
+import {inverseNorm} from './optimizer_math.mjs';
 import {tensor} from './sdk_tensor.mjs';
 import {CONV_OPS, convolutionCPU} from './convolution.mjs';
 const sigmoid=x=>{const z=Math.exp(-Math.abs(x));return x>=0?1/(1+z):z/(1+z);};
@@ -168,7 +169,7 @@ export function executeCPU(op, inputs, attrs = {}, shape) {
   } else if(op==='assemble') {
     inputs.forEach((x,k)=>{const [r,,c]=attrs.blocks[k];for(let i=0;i<x.shape[0];i++)for(let j=0;j<x.shape[1];j++)out[(r+i)*n+c+j]=x.data[i*x.shape[1]+j];});
   } else {
-    const known=new Set(['add','add_bias','mul','relu','relu_backward','sigmoid','tanh','sigmoid_backward','tanh_backward','scale','broadcast','clip_gradient','sgd','adam_m','adam_v','adam_update']);
+    const known=new Set(['inverse_norm','add','add_bias','mul','relu','relu_backward','sigmoid','tanh','sigmoid_backward','tanh_backward','scale','broadcast','clip_gradient','sgd','adam_m','adam_v','adam_update']);
     if(!known.has(op)) throw Error(`Unsupported operation: ${op}`);
     for(let i=0;i<m;i++) for(let j=0;j<n;j++) {
       const x=at(a,i,j), y=b?at(b,i,j):0; let v;
@@ -181,6 +182,7 @@ export function executeCPU(op, inputs, attrs = {}, shape) {
         case 'tanh':v=Math.tanh(x);break;
         case 'sigmoid_backward':v=y*x*(1-x);break;
         case 'tanh_backward':v=y*(1-x*x);break;
+        case 'inverse_norm':v=inverseNorm(x,attrs.epsilon);break;
         case 'scale':v=x*attrs.factor;break;
         case 'broadcast':v=x;break;
         case 'clip_gradient':{const norm=Math.sqrt(b.data[0]);v=x*(norm?Math.min(1,attrs.clip_norm/norm):1);break;}

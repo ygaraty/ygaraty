@@ -1,0 +1,11 @@
+{
+  "provider_record_count": 0,
+  "provider_recorded_total_usd": 0,
+  "compute_estimate": {
+    "compute_estimate_usd": 0.1550876034286287,
+    "basis": "Pod hourly price times creation-to-delete elapsed time; excludes storage and tax",
+    "target_usd": 7.12,
+    "cap_usd": 15
+  },
+  "note": "Billing can lag termination; estimate excludes storage and tax."
+}

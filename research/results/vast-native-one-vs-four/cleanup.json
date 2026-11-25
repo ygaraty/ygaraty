@@ -1,0 +1,9 @@
+{
+  "verified_at": 1795202636.776858,
+  "experiment_instances_remaining": 0,
+  "all_account_instances_remaining": 0,
+  "persistent_volumes_created": 0,
+  "provider_volume_inventory_count": 0,
+  "instance_disks": "Deleted with their instances",
+  "watchdog": "Independent before provisioning; explicit deletion before deadline"
+}

@@ -22,5 +22,7 @@ __all__ = [
 
 from .convnet_webgpu import ConvBatch, ConvNetRecipe
 from .mlp import ImageBatch, MLPRecipe
+from .session import TrainingConfig, TrainingSession
 
 __all__ += ["ImageBatch", "MLPRecipe", "ConvBatch", "ConvNetRecipe"]
+__all__ += ["TrainingConfig", "TrainingSession"]

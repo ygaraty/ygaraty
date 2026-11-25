@@ -23,6 +23,6 @@ def main(argv=None):
                 raise
         print("\nCore commands:")
         print("  compile    Export a saved Tape plan (compile --help)")
-        print("  train      Run local DiLoCo training (train --help)")
+        print("  train      DiLoCo training (train serve --help for browser contributors)")
         return 0
     return server(args)

@@ -1,3 +1,5 @@
+import {residentTrainingGPU} from './resident_training.mjs';
+import {muonBlockGPU} from './muon_gpu.mjs';
 import {denseMatmulGPU} from './training_gpu.mjs';
 import {executeCPU} from './sdk_cpu.mjs';
 import {CONV_OPS, convolutionGPU} from './convolution.mjs';
@@ -20,6 +22,14 @@ export class ComputeSDK {
   async matmul(a,b,shape,arithmetic='float32'){
     if(!this.device)throw Error('Dense matmul requires a GPU device');
     return denseMatmulGPU(this.device,a,b,shape,arithmetic);
+  }
+  async executeTrainingRound(request,arithmetic){
+    if(!this.device)return null;
+    return residentTrainingGPU(this.device,request,arithmetic);
+  }
+  async executeMuonBlock(tasks,inputs,outputs,arithmetic){
+    if(!this.device)return null;
+    return muonBlockGPU(this.device,tasks,inputs,outputs,arithmetic);
   }
   async execute(task,inputs){
     if(CONV_OPS.includes(task.op)&&task.precision==='webgpu'){

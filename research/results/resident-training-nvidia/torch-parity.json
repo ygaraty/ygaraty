@@ -1,0 +1,10 @@
+{
+  "logits_error": 3.924093672225126e-08,
+  "weight_errors": [
+    1.2287011207090526e-07,
+    2.1635394887274673e-07
+  ],
+  "tolerance": 5e-05,
+  "device": "cuda:0",
+  "passed": true
+}

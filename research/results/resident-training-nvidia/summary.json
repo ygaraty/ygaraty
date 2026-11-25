@@ -1,0 +1,182 @@
+[
+  {
+    "seed": 2026,
+    "arm": "resident-1",
+    "seconds": 239.07687891600654,
+    "setup_seconds": null,
+    "loss": 1.236259301783144,
+    "accuracy": 0.5087890625,
+    "time_to_loss": {
+      "1.5": 47.93076622497756,
+      "1.0": null
+    },
+    "worker_seconds": 112.87324261800012,
+    "readbacks": 120,
+    "max_gpu_buffer_bytes": 12253224
+  },
+  {
+    "seed": 2026,
+    "arm": "resident-4",
+    "seconds": 163.09133594995365,
+    "setup_seconds": null,
+    "loss": 0.7709529442959926,
+    "accuracy": 0.736328125,
+    "time_to_loss": {
+      "1.5": 53.53745615296066,
+      "1.0": 85.83234454598278
+    },
+    "worker_seconds": 118.27099368000005,
+    "readbacks": 120,
+    "max_gpu_buffer_bytes": 12253224
+  },
+  {
+    "seed": 2026,
+    "arm": "torch-upstream-1",
+    "seconds": 15.052220587967895,
+    "setup_seconds": 2.6821246159961447,
+    "loss": 1.1392839053479518,
+    "accuracy": 0.578125,
+    "time_to_loss": {
+      "1.5": 3.532556443940848,
+      "1.0": 9.281253498978913
+    },
+    "worker_seconds": null,
+    "readbacks": null,
+    "max_gpu_buffer_bytes": null
+  },
+  {
+    "seed": 2026,
+    "arm": "torch-control-1",
+    "seconds": 14.805902129039168,
+    "setup_seconds": 2.549986936035566,
+    "loss": 1.1785777498426693,
+    "accuracy": 0.6044921875,
+    "time_to_loss": {
+      "1.5": 3.343522645998746,
+      "1.0": null
+    },
+    "worker_seconds": null,
+    "readbacks": null,
+    "max_gpu_buffer_bytes": null
+  },
+  {
+    "seed": 2027,
+    "arm": "resident-1",
+    "seconds": 239.57090324291494,
+    "setup_seconds": null,
+    "loss": 1.2199504860090145,
+    "accuracy": 0.6005859375,
+    "time_to_loss": {
+      "1.5": 48.237238524947315,
+      "1.0": null
+    },
+    "worker_seconds": 112.91664782500003,
+    "readbacks": 120,
+    "max_gpu_buffer_bytes": 12253224
+  },
+  {
+    "seed": 2027,
+    "arm": "resident-4",
+    "seconds": 173.0424961349927,
+    "setup_seconds": null,
+    "loss": 0.7968212638494468,
+    "accuracy": 0.7216796875,
+    "time_to_loss": {
+      "1.5": 39.31153164897114,
+      "1.0": 107.75072885595728
+    },
+    "worker_seconds": 119.55267309699998,
+    "readbacks": 120,
+    "max_gpu_buffer_bytes": 12253224
+  },
+  {
+    "seed": 2027,
+    "arm": "torch-upstream-1",
+    "seconds": 14.505035709007643,
+    "setup_seconds": 2.5947231670143083,
+    "loss": 1.2308439370493467,
+    "accuracy": 0.59375,
+    "time_to_loss": {
+      "1.5": 4.805606590001844,
+      "1.0": null
+    },
+    "worker_seconds": null,
+    "readbacks": null,
+    "max_gpu_buffer_bytes": null
+  },
+  {
+    "seed": 2027,
+    "arm": "torch-control-1",
+    "seconds": 14.367296712007374,
+    "setup_seconds": 2.6256843650480732,
+    "loss": 1.318428071058642,
+    "accuracy": 0.6279296875,
+    "time_to_loss": {
+      "1.5": 3.1758648050017655,
+      "1.0": null
+    },
+    "worker_seconds": null,
+    "readbacks": null,
+    "max_gpu_buffer_bytes": null
+  },
+  {
+    "seed": 2028,
+    "arm": "resident-1",
+    "seconds": 242.8202778790146,
+    "setup_seconds": null,
+    "loss": 1.066306902823969,
+    "accuracy": 0.6689453125,
+    "time_to_loss": {
+      "1.5": 25.257045887992717,
+      "1.0": 96.73665705008898
+    },
+    "worker_seconds": 111.20954898000005,
+    "readbacks": 120,
+    "max_gpu_buffer_bytes": 12253224
+  },
+  {
+    "seed": 2028,
+    "arm": "resident-4",
+    "seconds": 171.27009940799326,
+    "setup_seconds": null,
+    "loss": 0.7323096442010252,
+    "accuracy": 0.7333984375,
+    "time_to_loss": {
+      "1.5": 56.65329276805278,
+      "1.0": 72.75927414698526
+    },
+    "worker_seconds": 120.1087828129999,
+    "readbacks": 120,
+    "max_gpu_buffer_bytes": 12253224
+  },
+  {
+    "seed": 2028,
+    "arm": "torch-upstream-1",
+    "seconds": 15.31001787702553,
+    "setup_seconds": 2.9751968199852854,
+    "loss": 0.9546147447928871,
+    "accuracy": 0.7158203125,
+    "time_to_loss": {
+      "1.5": 2.1644119820557535,
+      "1.0": 13.855655919061974
+    },
+    "worker_seconds": null,
+    "readbacks": null,
+    "max_gpu_buffer_bytes": null
+  },
+  {
+    "seed": 2028,
+    "arm": "torch-control-1",
+    "seconds": 14.51845972391311,
+    "setup_seconds": 2.635426716064103,
+    "loss": 1.461534818005854,
+    "accuracy": 0.57421875,
+    "time_to_loss": {
+      "1.5": 1.7768219399731606,
+      "1.0": null
+    },
+    "worker_seconds": null,
+    "readbacks": null,
+    "max_gpu_buffer_bytes": null
+  }
+]

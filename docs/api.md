@@ -1,5 +1,32 @@
 # Connect apps and use the API
 
+## Start a server
+
+After [installing Ygaraty](quickstart.md), launch a session:
+
+```sh
+ygaraty launch --model qwen3.5-9b --num-workers 2 \
+  --workspace runs/api-session --public --open-chat
+```
+
+Launch prints the RAM required per worker, a contributor link, your private chat
+link and the OpenAI-compatible URL ending in `/v1`. Public sharing requires
+`cloudflared` ([setup](advanced.md)); omit `--public` for local-only access.
+Open the contributor link yourself or share it with others, and wait for both
+workers to load their weights. Keep the server and contributors running.
+
+In a second terminal, from the same directory, configure your connection:
+
+```sh
+# Replace this with the /v1 URL printed by launch.
+export OPENAI_BASE_URL="https://random-words.trycloudflare.com/v1"
+export OPENAI_API_KEY="$(cat runs/api-session/keys/owner.key)"
+```
+
+Keep the owner key and private chat link private; share only the contributor link.
+
+## Connect an app
+
 In an app that supports a custom OpenAI-compatible Chat Completions provider, set:
 
 | Setting | Value |
@@ -25,8 +52,6 @@ app**. Contributor keys cannot call the chat API. Owner keys cannot contribute.
 ## Discover the model
 
 ```sh
-export OPENAI_BASE_URL=https://ai.example.com/v1
-export OPENAI_API_KEY="$(cat /srv/ygaraty/session/keys/owner.key)"
 curl "$OPENAI_BASE_URL/models" -H "Authorization: Bearer $OPENAI_API_KEY"
 ```
 

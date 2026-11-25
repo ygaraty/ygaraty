@@ -1,0 +1,168 @@
+{
+  "kind": "native-peer-tree",
+  "status": "passed",
+  "source_sha256": "14f4648635ae5642fff90a60c122cef95f7a51dc51620207e6d714eed43d200e",
+  "dataset": {
+    "name": "fashion-mnist",
+    "sha256": "97d0ae5aecca304875b4cf15d34f9339ddef82259c31841e28aea88fdfa48aee"
+  },
+  "config": {
+    "num_workers": 1,
+    "dataset": "fashion-mnist",
+    "steps": 3,
+    "global_batch": 40,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "seed": 2026,
+    "eval_examples": 16,
+    "eval_interval": 1,
+    "verify_steps": 3,
+    "timeout": 300
+  },
+  "topology": "binary heap; peer gradient reduction and weight broadcast; root Adam",
+  "model": {
+    "in_channels": 1,
+    "height": 28,
+    "width": 28,
+    "channels": [
+      8,
+      16,
+      16
+    ],
+    "classes": 10,
+    "residual": true
+  },
+  "learning_rate": 0.001,
+  "optimizer": {
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-08,
+    "clip_norm": 0.0
+  },
+  "precision": "webgpu",
+  "metrics": [
+    {
+      "step": 0,
+      "seconds": 0,
+      "samples": 0,
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.2955267048037533,
+        "accuracy": 0.125
+      }
+    },
+    {
+      "step": 1,
+      "samples": 40,
+      "loss": 2.295998196793636,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 40,
+          "seconds": 1.1796153340000002,
+          "cpu_tasks": 66,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.299184855349238,
+        "accuracy": 0.125
+      },
+      "seconds": 2.1511250832118094
+    },
+    {
+      "step": 2,
+      "samples": 80,
+      "loss": 2.3104696287365334,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 40,
+          "seconds": 0.9607234169999992,
+          "cpu_tasks": 66,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.2954680987934437,
+        "accuracy": 0.125
+      },
+      "seconds": 3.343773541972041
+    },
+    {
+      "step": 3,
+      "samples": 120,
+      "loss": 2.3237760278199002,
+      "nodes": [
+        {
+          "rank": 0,
+          "samples": 40,
+          "seconds": 0.990784458,
+          "cpu_tasks": 66,
+          "gpu_tasks": 20,
+          "matmul_tasks": 3
+        }
+      ],
+      "evaluation": {
+        "split": "test",
+        "examples": 16,
+        "loss": 2.292817879948101,
+        "accuracy": 0.125
+      },
+      "seconds": 4.658301542047411
+    }
+  ],
+  "parity": [
+    {
+      "step": 1,
+      "max_weight_error": 7.403687785345614e-07
+    },
+    {
+      "step": 2,
+      "max_weight_error": 7.406069140458715e-07
+    },
+    {
+      "step": 3,
+      "max_weight_error": 7.408614726700513e-07
+    }
+  ],
+  "workers": [
+    {
+      "rank": 0,
+      "version": 3,
+      "failed": false,
+      "precision": "webgpu",
+      "runtime": {
+        "deno": "2.9.5",
+        "v8": "15.0.245.2-rusty",
+        "typescript": "6.0.3"
+      },
+      "children": [],
+      "adapter": {
+        "vendor": "0",
+        "architecture": "",
+        "device": "0",
+        "description": "Apple M1",
+        "isFallbackAdapter": false,
+        "maxBufferSize": 9534832640,
+        "maxStorageBufferBindingSize": 4294967292
+      },
+      "peer_sent_bytes": 0,
+      "peer_received_bytes": 0
+    }
+  ],
+  "seconds": 4.847444667015225,
+  "sample_sequence_sha256": "074e4df8ce1c79b7de654f0e84cff056f860c009f5404f45800d16af97e1515b",
+  "coordinator_sent_bytes": 869075,
+  "coordinator_received_bytes": 93279
+}

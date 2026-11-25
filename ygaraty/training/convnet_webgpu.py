@@ -10,8 +10,11 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from ygaraty.compiler.muon import append_muon, muon_options
 from ygaraty.compiler.optimizer import adam_options, with_optimizer
-from ygaraty.compiler.plan import Input, Task, admit_plan
+from ygaraty.compiler.plan import admit_plan, split
+from ygaraty.compiler.sequence import resolve_views
+from ygaraty.compiler.shapes import ShapeTape
 from ygaraty.training.transformer import StepPlan
 
 
@@ -30,6 +33,10 @@ class ConvNetRecipe:
         *,
         learning_rate=0.001,
         optimizer=None,
+        optimizer_kind="adam",
+        muon_learning_rate=0.02,
+        muon_momentum=0.95,
+        muon_steps=5,
         tile_size=512,
         max_batch=16,
     ):
@@ -42,6 +49,7 @@ class ConvNetRecipe:
             width=32,
             channels=[32, 64, 128],
             classes=10,
+            residual=False,
         )
         if config:
             if set(config) - set(c):
@@ -67,6 +75,12 @@ class ConvNetRecipe:
             raise ValueError(
                 "Expected three positive channel counts up to 128"
             )
+        if type(c["residual"]) is not bool or (
+            c["residual"] and c["channels"][1] != c["channels"][2]
+        ):
+            raise ValueError(
+                "Residual block requires equal final channel counts"
+            )
         if (
             type(learning_rate) not in (int, float)
             or not math.isfinite(learning_rate)
@@ -78,6 +92,17 @@ class ConvNetRecipe:
         self.config = dict(c, channels=list(c["channels"]))
         self.learning_rate = learning_rate
         self.optimizer = adam_options(optimizer or {})
+        if optimizer_kind not in ("adam", "muon"):
+            raise ValueError("Unknown local optimizer")
+        if (
+            type(muon_learning_rate) not in (int, float)
+            or not math.isfinite(muon_learning_rate)
+            or muon_learning_rate <= 0
+        ):
+            raise ValueError("Invalid Muon learning rate")
+        self.optimizer_kind = optimizer_kind
+        self.muon_learning_rate = muon_learning_rate
+        self.muon_options = muon_options(muon_momentum, muon_steps)
         self.tile_size = tile_size
         self.specs = {}
         channels = c["in_channels"]
@@ -95,6 +120,20 @@ class ConvNetRecipe:
         self.specs["head.bias"] = dict(
             shape=(1, c["classes"]), bound=1 / math.sqrt(channels)
         )
+
+    def moment_names(self):
+        return {
+            "m": list(self.specs),
+            "v": [
+                n
+                for n in self.specs
+                if not (
+                    self.optimizer_kind == "muon"
+                    and n.startswith("conv")
+                    and n.endswith(".weight")
+                )
+            ],
+        }
 
     def initial_weights(self, seed=2026):
         rng = np.random.default_rng(seed)
@@ -127,154 +166,113 @@ class ConvNetRecipe:
         if type(step) is not int or step < 1:
             raise ValueError("Invalid optimizer step")
         n = len(images)
-        parameters = {name: name.replace(".", "_") for name in self.specs}
-        shapes = {
-            parameters[name]: s["shape"] for name, s in self.specs.items()
-        }
-        constants = {
-            "images": (images.astype(np.float64) / 127.5 - 1).reshape(n, -1),
-            "one": np.ones((1, 1)),
-        }
-        shapes.update({name: a.shape for name, a in constants.items()})
-        tasks = []
-
-        def add(name, op, refs, shape, attrs=None):
-            tasks.append(
-                Task(
-                    name, op, [Input(ref) for ref in refs], shape, attrs or {}
-                )
+        tape = ShapeTape()
+        x = tape.declare(
+            "images",
+            (n, c["in_channels"] * c["height"] * c["width"]),
+            dict(kind="zeros"),
+        )
+        parameters = {
+            name: tape.declare(
+                name.replace(".", "_"),
+                spec["shape"],
+                dict(kind="zeros"),
+                parameter=True,
             )
-            shapes[name] = shape
-            return name
-
-        x = "images"
-        channels = c["in_channels"]
-        h, w = c["height"], c["width"]
-        history = []
+            for name, spec in self.specs.items()
+        }
+        channels, h, w = c["in_channels"], c["height"], c["width"]
         for index, out in enumerate(c["channels"]):
-            attrs = dict(
-                batch=n,
-                in_channels=channels,
-                height=h,
-                width=w,
-                out_channels=out,
-                kernel=3,
-            )
-            weight, bias = (
+            skip = x
+            x = tape.conv2d(
+                x,
                 parameters[f"conv{index}.weight"],
                 parameters[f"conv{index}.bias"],
+                channels=channels,
+                height=h,
+                width=w,
             )
-            pre = add(
-                f"conv{index}",
-                "conv2d",
-                [x, weight, bias],
-                (n, out * h * w),
-                attrs,
-            )
-            active = add(f"relu{index}", "relu", [pre], shapes[pre])
-            poolattrs = dict(batch=n, in_channels=out, height=h, width=w)
-            history.append(
-                (x, pre, active, attrs, poolattrs, weight, bias, index < 2)
-            )
-            x = (
-                add(
-                    f"pool{index}",
-                    "maxpool2d",
-                    [active],
-                    (n, out * (h // 2) * (w // 2)),
-                    poolattrs,
-                )
-                if index < 2
-                else active
-            )
-            if index < 2:
-                h //= 2
-                w //= 2
+            if index == 2 and c["residual"]:
+                x = tape.add(x, skip)
+            x = tape.relu(x)
             channels = out
-        avgattrs = dict(batch=n, in_channels=channels, height=h, width=w)
-        features = add("features", "avgpool2d", [x], (n, channels), avgattrs)
-        head, bias = parameters["head.weight"], parameters["head.bias"]
-        logits = add(
-            "logits",
-            "add_bias",
-            [
-                add("linear", "matmul", [features, head], (n, c["classes"])),
-                bias,
-            ],
-            (n, c["classes"]),
+            if index < 2:
+                x = tape.pool2d(x, channels=channels, height=h, width=w)
+                h, w = h // 2, w // 2
+        x = tape.pool2d(x, channels=channels, height=h, width=w, average=True)
+        logits = tape.add_bias(
+            tape.matmul(x, parameters["head.weight"]), parameters["head.bias"]
         )
-        ce = dict(targets=labels.astype(int).tolist(), count=n)
-        loss = add("loss", "cross_entropy", [logits], (1, 1), ce)
-        dy = add(
-            "d_logits", "ce_backward", [logits, "one"], shapes[logits], ce
+        tape.backward(tape.cross_entropy(logits, labels))
+        muon = [
+            p
+            for n, p in parameters.items()
+            if self.optimizer_kind == "muon"
+            and n.startswith("conv")
+            and n.endswith(".weight")
+        ]
+        aux = [p for p in tape.parameters if p not in muon]
+        muon_updates = append_muon(
+            tape, muon, self.muon_learning_rate, **self.muon_options
         )
-        gradients = {}
-        ft = add("features_t", "transpose", [features], (channels, n))
-        gradients[head] = add("grad_head", "matmul", [ft, dy], shapes[head])
-        gradients[bias] = add(
-            "grad_head_bias", "reduce_rows", [dy], shapes[bias]
-        )
-        ht = add("head_t", "transpose", [head], (c["classes"], channels))
-        df = add("d_features", "matmul", [dy, ht], shapes[features])
-        dy = add("d_avg", "avgpool2d_grad", [df], shapes[x], avgattrs)
-        for index in range(2, -1, -1):
-            before, pre, active, attrs, poolattrs, weight, bias, pooled = (
-                history[index]
-            )
-            if pooled:
-                dy = add(
-                    f"d_pool{index}",
-                    "maxpool2d_grad",
-                    [active, dy],
-                    shapes[active],
-                    poolattrs,
-                )
-            dy = add(f"d_relu{index}", "relu_backward", [pre, dy], shapes[pre])
-            gradients[weight] = add(
-                f"grad_conv{index}",
-                "conv2d_weight_grad",
-                [before, dy],
-                shapes[weight],
-                attrs,
-            )
-            gradients[bias] = add(
-                f"grad_bias{index}",
-                "conv2d_bias_grad",
-                [dy],
-                shapes[bias],
-                attrs,
-            )
-            if index:
-                dy = add(
-                    f"d_conv{index}",
-                    "conv2d_input_grad",
-                    [dy, weight],
-                    shapes[before],
-                    attrs,
-                )
-        leaves = {
-            name: shapes[name] for name in [*constants, *parameters.values()]
-        }
-        for p in parameters.values():
-            for kind in ("m", "v"):
-                shapes[f"adam_{kind}_{p}"] = shapes[p]
-                leaves[f"adam_{kind}_{p}"] = shapes[p]
+        state_parameters = {"m": {}, "v": {}}
+        for name, p in parameters.items():
+            if p in muon:
+                state_parameters["m"][name] = f"muon_m_{p}"
+            else:
+                for kind in ("m", "v"):
+                    state = f"adam_{kind}_{p}"
+                    tape.declare(state, tape.shapes[p], dict(kind="zeros"))
+                    state_parameters[kind][name] = state
         tasks, updates = with_optimizer(
-            tasks,
-            shapes,
-            list(parameters.values()),
-            gradients,
+            split(tape, self.tile_size),
+            tape.shapes,
+            aux,
+            tape.gradients,
             self.tile_size,
             self.learning_rate,
             "adam",
             step,
             self.optimizer,
         )
-        admit_plan(tasks, leaves, 256 << 20)
-        plan = StepPlan(tasks, constants, parameters, updates, loss, step)
-        plan.gradients = gradients
+        updates.update(muon_updates)
+        optimizer_nodes = {
+            n.id for n in tape.nodes if n.attrs.get("optimizer")
+        }
+        for task in tasks:
+            if task.id.split("/")[0] in optimizer_nodes or task.id.startswith(
+                ("update/", "updated/")
+            ):
+                task.attrs["optimizer"] = True
+        tasks = resolve_views(tape, tasks)
+        constants = {
+            k: np.asarray(v["data"], dtype=np.float64).reshape(v["shape"])
+            for k, v in tape.values.items()
+            if v.get("kind") == "constant"
+        }
+        constants["images"] = (images.astype(np.float64) / 127.5 - 1).reshape(
+            n, -1
+        )
+        admit_plan(tasks, {k: tape.shapes[k] for k in tape.values}, 256 << 20)
+        plan = StepPlan(tasks, constants, parameters, updates, tape.loss, step)
+        plan.state_parameters = state_parameters
+        plan.gradients = tape.gradients
         plan.logits = logits
         return plan
+
+    def predict(self, weights, images):
+        """Run just the compiled forward graph for held-out evaluation."""
+        from ygaraty.inference.shared import ancestors
+        from ygaraty.runtime.local import execute_plan
+
+        plan = self.compile(
+            ConvBatch(images, np.zeros(len(images), dtype=np.int64)), 1
+        )
+        needed = ancestors(plan.tasks, plan.logits)
+        tasks = [task for task in plan.tasks if task.id in needed]
+        inputs = dict(plan.constants)
+        inputs.update({plan.parameters[n]: w for n, w in weights.items()})
+        return execute_plan(tasks, inputs, [plan.logits])[plan.logits]
 
     def round_bundle(self, assignment, batches, *, start_step=0):
         plans = [

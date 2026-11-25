@@ -1,0 +1,69 @@
+{
+  "source_sha256": "78240961f48bcb8d69a49f01d18f9573b357d1fe54223136c98b80bcdba8bf12",
+  "total_seconds": 8.294912790879607,
+  "cpu_profile": false,
+  "scopes": {
+    "recipe.compile": {
+      "calls": 128,
+      "seconds": 0.76736692013219,
+      "max_seconds": 0.05712745897471905
+    },
+    "recipe.predict": {
+      "calls": 32,
+      "seconds": 0.36164608178660274,
+      "max_seconds": 0.013572165742516518
+    },
+    "evaluation": {
+      "calls": 2,
+      "seconds": 0.36339808302000165,
+      "max_seconds": 0.20245333295315504
+    },
+    "checkpoint.save": {
+      "calls": 4,
+      "seconds": 0.08924937294796109,
+      "max_seconds": 0.030233665835112333
+    },
+    "session._save": {
+      "calls": 4,
+      "seconds": 0.09189987415447831,
+      "max_seconds": 0.03080300008878112
+    },
+    "http.json_render": {
+      "calls": 38,
+      "seconds": 1.1273972485214472,
+      "max_seconds": 0.1262123752385378
+    },
+    "session.status": {
+      "calls": 22,
+      "seconds": 0.004131462424993515,
+      "max_seconds": 0.0005178339779376984
+    },
+    "recipe.round_bundle": {
+      "calls": 12,
+      "seconds": 1.9245539992116392,
+      "max_seconds": 0.2992545417509973
+    },
+    "session.assignment": {
+      "calls": 22,
+      "seconds": 7.721641750540584,
+      "max_seconds": 1.3712750836275518
+    },
+    "session.submit": {
+      "calls": 12,
+      "seconds": 4.926013374701142,
+      "max_seconds": 1.2557776672765613
+    },
+    "checkpoint.load": {
+      "calls": 3,
+      "seconds": 0.028949459083378315,
+      "max_seconds": 0.013807792216539383
+    },
+    "session._commit": {
+      "calls": 3,
+      "seconds": 0.35666829301044345,
+      "max_seconds": 0.25308995926752687
+    }
+  },
+  "cpu_hotspots": [],
+  "note": "Inclusive scopes overlap. cProfile and timing wrappers perturb wall time; use unprofiled paired trials for speedups."
+}

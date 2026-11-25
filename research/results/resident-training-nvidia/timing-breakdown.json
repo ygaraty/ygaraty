@@ -1,0 +1,42 @@
+{
+  "1": [
+    {
+      "seed": 2026,
+      "round_seconds": 216.14285727858078,
+      "slowest_worker_seconds": 112.87324261800012,
+      "http_body_bytes": 267381705
+    },
+    {
+      "seed": 2027,
+      "round_seconds": 216.61841846664902,
+      "slowest_worker_seconds": 112.91664782500003,
+      "http_body_bytes": 267504513
+    },
+    {
+      "seed": 2028,
+      "round_seconds": 218.3677186545683,
+      "slowest_worker_seconds": 111.20954898000005,
+      "http_body_bytes": 267116045
+    }
+  ],
+  "4": [
+    {
+      "seed": 2026,
+      "round_seconds": 145.5905124481069,
+      "slowest_worker_seconds": 30.95365901500003,
+      "http_body_bytes": 267418656
+    },
+    {
+      "seed": 2027,
+      "round_seconds": 154.48903057782445,
+      "slowest_worker_seconds": 31.602462948000014,
+      "http_body_bytes": 267427616
+    },
+    {
+      "seed": 2028,
+      "round_seconds": 152.89311230171006,
+      "slowest_worker_seconds": 31.45797113099994,
+      "http_body_bytes": 267014168
+    }
+  ]
+}

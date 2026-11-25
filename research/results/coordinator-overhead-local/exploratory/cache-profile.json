@@ -1,0 +1,79 @@
+{
+  "source_sha256": "b37d054fdb220ee28c65cf6af418ea6b750d271ba75a5975f4fb447461a2fd61",
+  "total_seconds": 3.572964916937053,
+  "cpu_profile": false,
+  "scopes": {
+    "json.encode": {
+      "calls": 69,
+      "seconds": 0.6195472022518516,
+      "max_seconds": 0.049110082909464836
+    },
+    "recipe.compile": {
+      "calls": 128,
+      "seconds": 0.41401811921969056,
+      "max_seconds": 0.038777082692831755
+    },
+    "recipe.predict": {
+      "calls": 32,
+      "seconds": 0.24239041423425078,
+      "max_seconds": 0.012652624864131212
+    },
+    "evaluation": {
+      "calls": 2,
+      "seconds": 0.24352374905720353,
+      "max_seconds": 0.12856666604056954
+    },
+    "checkpoint.save": {
+      "calls": 4,
+      "seconds": 0.05019925022497773,
+      "max_seconds": 0.016948082949966192
+    },
+    "session._save": {
+      "calls": 4,
+      "seconds": 0.05161183374002576,
+      "max_seconds": 0.017294375225901604
+    },
+    "http.json_render": {
+      "calls": 16,
+      "seconds": 0.00020512519404292107,
+      "max_seconds": 3.729201853275299e-05
+    },
+    "session.status": {
+      "calls": 25,
+      "seconds": 0.00029637105762958527,
+      "max_seconds": 4.833284765481949e-05
+    },
+    "recipe.round_bundle": {
+      "calls": 12,
+      "seconds": 0.9281967086717486,
+      "max_seconds": 0.12227929104119539
+    },
+    "session._assignment": {
+      "calls": 25,
+      "seconds": 0.9370448724366724,
+      "max_seconds": 0.12343966588377953
+    },
+    "session.assignment_bytes": {
+      "calls": 16,
+      "seconds": 5.743257544003427,
+      "max_seconds": 0.5237322081811726
+    },
+    "session.submit": {
+      "calls": 12,
+      "seconds": 0.4426782107912004,
+      "max_seconds": 0.1538344998843968
+    },
+    "checkpoint.load": {
+      "calls": 3,
+      "seconds": 0.017954749520868063,
+      "max_seconds": 0.008374541997909546
+    },
+    "session._commit": {
+      "calls": 3,
+      "seconds": 0.2040630839765072,
+      "max_seconds": 0.14840675005689263
+    }
+  },
+  "cpu_hotspots": [],
+  "note": "Inclusive scopes overlap. cProfile and timing wrappers perturb wall time; use unprofiled paired trials for speedups."
+}

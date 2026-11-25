@@ -118,6 +118,55 @@ class Tape:
     def relu(self, a, name=None):
         return self._op("relu", [a], self.shapes[a], name=name)
 
+    def conv2d(self, x, weight, bias, *, channels, height, width, name=None):
+        """Stride-one, same-padded 3x3 convolution on flattened NCHW rows."""
+        batch, size = self.shapes[x]
+        out, kernel_size = self.shapes[weight]
+        if (
+            any(type(n) is not int or n < 1 for n in (channels, height, width))
+            or size != channels * height * width
+            or kernel_size != channels * 9
+            or self.shapes[bias] != (1, out)
+        ):
+            raise ValueError("Invalid flattened convolution shapes")
+        return self._op(
+            "conv2d",
+            [x, weight, bias],
+            (batch, out * height * width),
+            dict(
+                batch=batch,
+                in_channels=channels,
+                height=height,
+                width=width,
+                out_channels=out,
+                kernel=3,
+            ),
+            name,
+        )
+
+    def pool2d(self, x, *, channels, height, width, average=False, name=None):
+        """2x2 max pooling, or global average pooling, on NCHW rows."""
+        batch, size = self.shapes[x]
+        if (
+            any(type(n) is not int or n < 1 for n in (channels, height, width))
+            or size != channels * height * width
+            or (not average and (height % 2 or width % 2))
+        ):
+            raise ValueError("Invalid flattened pooling shapes")
+        shape = (
+            batch,
+            channels if average else channels * (height // 2) * (width // 2),
+        )
+        return self._op(
+            "avgpool2d" if average else "maxpool2d",
+            [x],
+            shape,
+            dict(
+                batch=batch, in_channels=channels, height=height, width=width
+            ),
+            name,
+        )
+
     def embedding(self, table, ids, name=None, padding_idx=None):
         ids = np.asarray(ids)
         if (
@@ -784,6 +833,24 @@ class Tape:
                     start += width
             elif node.op == "relu":
                 acc(a, self._op("relu_backward", [a, g], self.shapes[a]))
+            elif node.op == "conv2d":
+                for value, op, refs in (
+                    (a, "conv2d_input_grad", [g, b]),
+                    (b, "conv2d_weight_grad", [a, g]),
+                    (node.inputs[2], "conv2d_bias_grad", [g]),
+                ):
+                    acc(
+                        value,
+                        self._op(op, refs, self.shapes[value], node.attrs),
+                    )
+            elif node.op in ("maxpool2d", "avgpool2d"):
+                refs = [a, g] if node.op == "maxpool2d" else [g]
+                acc(
+                    a,
+                    self._op(
+                        node.op + "_grad", refs, self.shapes[a], node.attrs
+                    ),
+                )
             elif node.op == "embedding":
                 acc(
                     a,

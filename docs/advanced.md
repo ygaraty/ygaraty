@@ -85,7 +85,7 @@ Cloudflare gives no uptime guarantee. Weights do not go through the tunnel
 (contributors download them from public storage); pages, model traffic and API
 requests do, so workers use the coordinator relay. Measured with Qwen3.5-0.8B
 and two workers: 6.5 tokens/s against 54 on the local network
-([TESTED.md](../TESTED.md)). Cloudflare terminates HTTPS and forwards requests,
+([TESTED.md](https://github.com/ygaraty/ygaraty/blob/main/TESTED.md)). Cloudflare terminates HTTPS and forwards requests,
 including API credentials; your model server and keys stay on your machine.
 Without `--public`, no traffic goes through a tunnel service.
 

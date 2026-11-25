@@ -9,9 +9,11 @@ true today, from measured runs only.
   TwIL-8B and Kolibri-1) run as WebGPU pipelines across browser and native
   contributors, with answers checked against reference implementations.
 - **In progress: training.** The Tape compiler and DiLoCo rounds run locally
-  and in tests (including a real Chromium WebGPU round), but no distributed
-  training run of the current code has been timed. Training results live with
-  the research reports, not here.
+  and in tests (including a real Chromium WebGPU round). Experimental native
+  workers have also completed a
+  [one-versus-four physical-GPU peer-tree comparison](research/vast-native-one-vs-four.md).
+  That synchronous shared-Adam experiment is distinct from DiLoCo. Training
+  measurements and limitations live in the research reports, not here.
 
 Every number below comes from a run, its log or its report. A dash (—) means
 **not collected**, not zero. "Not collected yet" at the end lists the gaps.

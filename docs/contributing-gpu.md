@@ -18,6 +18,10 @@ API key. Ask the owner for authorized chat access separately.
 
 ## Contributors from command line
 
+For experimental **native training** workers with direct LAN peer reduction,
+see [Native training contributors](native-training.md). The commands below are
+for inference contributors.
+
 After [installing Ygaraty](quickstart.md), choose a runtime and pass the exact
 contributor link printed by `ygaraty launch`. Run this on each machine that will
 contribute GPU capacity:

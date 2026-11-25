@@ -1,0 +1,11 @@
+{
+  "method": "one-byte HTTP POST echo through direct encrypted SSH forwarding; individual diagnostic observations, not a stable latency distribution",
+  "root_to_worker_seconds": {
+    "1": 0.428782,
+    "2": 0.12183,
+    "3": 0.232975
+  },
+  "earlier_worker_1_seconds": 2.776984,
+  "bandwidth_measurement": "Inconclusive: repeated payload probes exceeded the timeout. No bandwidth estimate reported.",
+  "lan": false
+}

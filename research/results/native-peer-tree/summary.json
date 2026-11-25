@@ -1,0 +1,42 @@
+[
+  {
+    "workers": 1,
+    "seconds": 4.847444667015225,
+    "max_weight_error": 7.408614726700513e-07,
+    "final_loss": 2.292817879948101,
+    "gpu_tasks_per_worker_per_step": [
+      20
+    ],
+    "peer_body_bytes": 0
+  },
+  {
+    "workers": 2,
+    "seconds": 6.873264166992158,
+    "max_weight_error": 2.941490115371259e-07,
+    "final_loss": 2.292817880510611,
+    "gpu_tasks_per_worker_per_step": [
+      20
+    ],
+    "peer_body_bytes": 214883
+  },
+  {
+    "workers": 4,
+    "seconds": 4.189828167203814,
+    "max_weight_error": 1.394257875250715e-06,
+    "final_loss": 2.292817881757049,
+    "gpu_tasks_per_worker_per_step": [
+      20
+    ],
+    "peer_body_bytes": 644968
+  },
+  {
+    "workers": 10,
+    "seconds": 5.3487410000525415,
+    "max_weight_error": 4.45638189655595e-07,
+    "final_loss": 2.29281788032331,
+    "gpu_tasks_per_worker_per_step": [
+      20
+    ],
+    "peer_body_bytes": 1936872
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "rows": [
+    {
+      "seed": 2026,
+      "tasks_seconds": 68.80302953300998,
+      "resident_seconds": 41.65756391198374,
+      "speedup": 1.6516335347496693,
+      "tasks_loss": 1.675813714031442,
+      "resident_loss": 1.6758137140314344,
+      "accuracy": 0.42578125
+    },
+    {
+      "seed": 2027,
+      "tasks_seconds": 69.13999825902283,
+      "resident_seconds": 40.789531262009405,
+      "speedup": 1.6950427259118448,
+      "tasks_loss": 1.49836043444252,
+      "resident_loss": 1.4983604344425137,
+      "accuracy": 0.39453125
+    }
+  ],
+  "median_tasks_seconds": 68.9715138960164,
+  "median_resident_seconds": 41.223547586996574,
+  "max_final_loss_difference": 7.549516567451064e-15,
+  "median_speedup": 1.673109616547717
+}

@@ -2,20 +2,23 @@
   <img src="assets/ygaraty-horizontal-black.svg" alt="Ygaraty" width="640">
 </p>
 
-**Ygaraty is an open-source project working toward seamless use of heterogeneous
-compute clusters.** Our goal is to bring different GPUs, devices and networks
-together so people can run and build models with the compute they already have.
-Launch, share a link, and put contributed GPUs to work.
+[Documentation](https://ygaraty.github.io/ygaraty/)
 
-Today, Ygaraty compiles a computation into a distribution plan and runs it across
-browser or native WebGPU workers. **Inference is verified**: chat from your
-terminal, browser, or an OpenAI-compatible app or SDK. [TESTED.md](TESTED.md)
-records measured runs and what remains unverified.
+**Ygaraty is an open-source framework for distributed computation.** We aim to
+provide the building blocks for any kind of mathematical computation to run
+across heterogeneous devices and networks, with compute contributed by one
+person or many collaborators.
 
-**Training is ongoing open research**, focused on DiLoCo and our own distributed
-compute compiler and execution engine. We are exploring how to train across
-heterogeneous devices and networks. Follow our [public list of experiments](research/README.md#reports)
-for methods, results and limitations, and help reproduce or extend the work.
+Our compiler, analyzer, Tape and execution engine turn that goal into reusable
+pieces for describing, planning and running computations. **Today, Ygaraty
+supports inference with or without distribution** through browser or native
+WebGPU workers. Chat from your terminal, browser, or an OpenAI-compatible app
+or SDK. [TESTED.md](TESTED.md) records measured configurations and limitations.
+
+**[Distributed training is ongoing open research](#training-diloco-open-research)**,
+including DiLoCo and experiments with our compiler and execution engine. Follow
+our [public experiments](research/README.md#reports) for methods, results and
+limitations, and help reproduce or extend the work.
 
 We build in the open: compiler, analyzer, runtime, tape, training code and
 [research](research/README.md). Bring an experiment, a new backend, a benchmark,
@@ -146,8 +149,63 @@ See [runtime setup, GPU checks and per-runtime scripts](docs/contributing-gpu.md
 Keep the server and contributors running. Share only the contributor link;
 keep the private chat link and owner key private.
 
+## Training: DiLoCo open research
+
+Train a small residual ConvNet on MNIST or Fashion-MNIST with **1–4 contributors**,
+using our Tape, compiler and WebGPU engine. Each worker holds the full model,
+runs local Adam or Muon steps, then synchronizes through the coordinator.
+Supported local rounds keep forward/backward tensors and optimizer state on GPU.
+
+From a source checkout (training remains experimental):
+
+```sh
+python -m pip install -e '.[server]'
+ygaraty train serve --dataset fashion-mnist --num-workers 2 \
+  --optimizer muon --local-steps 8 --batch-size 16 --rounds 10 \
+  --run-dir runs/fashion-muon --open-browser
+```
+
+Open the printed link in two browser tabs and click **Start contributing**, or
+share it with another contributor using `--share` ([setup](docs/distributed-training.md)).
+
+**Earlier GPU-resident benchmark:** three-seed medians, 15,360 Fashion-MNIST
+samples, RTX 3060 GPUs on one host (before the latest coordinator fixes):
+
+| Implementation | GPUs | Training time | Final loss |
+|---|---:|---:|---:|
+| Ygaraty DiLoCo + Muon | 1 | 239.6 s | 1.220 |
+| Ygaraty DiLoCo + Muon | 4 | 171.3 s | 0.771 |
+| PyTorch MuLoCo-1 reference | 1 | 15.1 s | 1.139 |
+
+Four workers improved final loss and total runtime, but **did not beat MuLoCo-1**.
+Ygaraty includes startup and evaluation; PyTorch reports setup separately.
+See [method and limits](research/resident-training-nvidia.md).
+Later coordinator fixes measured **1.63× / 2.38×** improvements with one/four
+contributors on one M1 GPU, with identical losses. Those fixes have **not been
+retested on NVIDIA**; the two measurements cannot be multiplied together.
+
+[DiLoCo guide, implementation and results](docs/distributed-training.md) ·
+[Local optimization evidence](research/coordinator-overhead-local.md) ·
+[Open training experiments](research/README.md#diloco-training)
+
 [Quickstart](docs/quickstart.md) · [Models & RAM](docs/public-bundles.md) ·
 [Advanced settings](docs/advanced.md) · [WebRTC & TURN](docs/turn.md) ·
 [Troubleshooting](docs/troubleshooting.md) · [Python API & training](docs/python-api.md)
 
 Experimental · [MIT licensed](LICENSE)
+
+## Latest improvements
+
+**November 2026 · now on main; training remains experimental**
+
+- **DiLoCo training with Adam or Muon:** browser and native WebGPU contributors
+  train through our Tape and compiler. [Training guide](docs/distributed-training.md).
+- **GPU-resident local training:** supported rounds keep forward/backward tensors,
+  weights and optimizer state on GPU. [Implementation and results](research/resident-training-local.md).
+- **Less coordinator overhead:** cached assignments and long polling delivered
+  **1.63× / 2.38×** local speedups with one/four contributors sharing an M1 GPU,
+  with identical losses. NVIDIA validation is still pending.
+  [Measurements](research/coordinator-overhead-local.md).
+- **Reproducible public benchmarks:** one-versus-four NVIDIA GPU results and a
+  MuLoCo-1 comparison include trial data, correctness checks and source hashes.
+  [Results and limitations](research/resident-training-nvidia.md).

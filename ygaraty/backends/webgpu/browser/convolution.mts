@@ -6,7 +6,7 @@ export {CONV_OPS} from './webgpu_contracts.mjs';
 import type {ConvolutionOp, ConvolutionAttrs, Tensor} from './webgpu_contracts.mjs';
 import {BufferScope, compileProgram, runReadback, checkedGPU} from './webgpu_kernels.mjs';
 
-export function convolutionContract(op: ConvolutionOp,attrs: ConvolutionAttrs,inputs: Tensor[],shape: number[]){
+export function convolutionShapeContract(op: ConvolutionOp,attrs: ConvolutionAttrs,inputs: number[][],shape: number[]){
   const index=CONV_OPS.indexOf(op);if(index<0)throw Error('Unknown convolution operation');
   const keys=['batch','in_channels','height','width'] as const,limits=[64,256,128,128];
   const dims=keys.map((key,i)=>{const v=attrs[key];if(!Number.isSafeInteger(v)||v<1||v>limits[i])throw Error('Invalid '+key);return v;});
@@ -25,10 +25,16 @@ export function convolutionContract(op: ConvolutionOp,attrs: ConvolutionAttrs,in
   if(!same(shape,out)||inputs.length!==expected.length)throw Error('Convolution input/output contract mismatch');
   for(let i=0;i<inputs.length;i++){
     const v=inputs[i],s=expected[i];
-    if(!v||!same(v.shape,s)||v.data?.length!==s[0]*s[1]||!Array.from(v.data).every(Number.isFinite))throw Error('Invalid convolution input');
+    if(!v||!same(v,s))throw Error('Invalid convolution input shape');
   }
   if([...expected,out].some(s=>s[0]*s[1]*8>64*1024*1024))throw Error('Convolution tensor exceeds 64 MiB');
   return [n,c,h,w,o,k,index,out[0]*out[1]];
+}
+
+export function convolutionContract(op: ConvolutionOp,attrs: ConvolutionAttrs,inputs: Tensor[],shape: number[]){
+  const dims=convolutionShapeContract(op,attrs,inputs.map(v=>v.shape),shape);
+  for(const v of inputs)if(v.data?.length!==v.shape[0]*v.shape[1]||!v.data.every(Number.isFinite))throw Error('Invalid convolution input');
+  return dims;
 }
 
 export function convolutionCPU(op: ConvolutionOp,inputs: Tensor[],attrs: ConvolutionAttrs,shape: number[]): Tensor{

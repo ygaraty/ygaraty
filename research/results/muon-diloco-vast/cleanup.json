@@ -1,0 +1,10 @@
+{
+  "created_instances_destroyed": 2,
+  "remaining_experiment_instances": 0,
+  "persistent_volumes_remaining": 0,
+  "temporary_account_ssh_key_removed": true,
+  "local_temporary_private_key_removed": true,
+  "elapsed_minutes": 85.77516128619511,
+  "within_two_hour_deadline": true,
+  "provider_reported_cost_usd": 0.598
+}

@@ -117,3 +117,9 @@ npm run check                             # generated files match their sources
 ```
 
 Commit both the `.mts` source and the generated `.mjs`.
+
+## Documentation website
+
+The standalone MyST project lives in `docs/`. See [its maintainer guide](docs/README.md)
+for local preview and strict builds. GitHub Actions checks pull requests and
+publishes main to https://ygaraty.github.io/ygaraty/.

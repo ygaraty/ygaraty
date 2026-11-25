@@ -1,0 +1,30 @@
+{
+  "attempts": [
+    {
+      "stage": "initial provider response",
+      "outcome": "Instance credential unexpectedly returned; instance destroyed and inventory verified empty before current authorized retry. API now drops sensitive fields and suppresses raw error bodies."
+    },
+    {
+      "stage": "initial cluster placement",
+      "outcome": "Four distinct machines behind one public address. Cross-subnet private routes and public hairpin routes failed. Provider SSH fallback worked but measured ~0.55\u20130.57s one-byte round trips. Three hosts released and replaced."
+    },
+    {
+      "stage": "replacement capacity",
+      "outcome": "One Spanish marketplace offer was stale; final fourth host placed in Quebec."
+    },
+    {
+      "stage": "replacement installation",
+      "outcome": "One Deno download was partial; bounded retry succeeded."
+    },
+    {
+      "stage": "direct-network bandwidth probe",
+      "outcome": "Payload probe timed out; no bandwidth estimate claimed. Individual one-byte checks and successful training collective establish reachability."
+    },
+    {
+      "stage": "640-update sizing run",
+      "outcome": "Interrupted after 52 completed updates at 110.44 seconds to fit a balanced schedule within original teardown deadline. Excluded from accepted comparison."
+    }
+  ],
+  "preflight": "1 and 4 workers passed three-update CPU parity <=2e-5",
+  "protocol_adjustment": "256 updates and two repetitions per arm, order 1,4,4,1, declared before any accepted timed trial completed."
+}

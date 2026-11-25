@@ -1,0 +1,78 @@
+{
+  "pairs": [
+    {
+      "workers": 1,
+      "seed": 2026,
+      "baseline_seconds": 11.21618983335793,
+      "candidate_seconds": 6.979760833084583,
+      "speedup": 1.6069590493978476,
+      "max_loss_difference": 0.0,
+      "final_loss": 1.0524852415391466,
+      "accuracy": 0.57421875
+    },
+    {
+      "workers": 1,
+      "seed": 2027,
+      "baseline_seconds": 11.214087165892124,
+      "candidate_seconds": 6.8849056656472385,
+      "speedup": 1.6287931469919286,
+      "max_loss_difference": 0.0,
+      "final_loss": 1.2643063084863981,
+      "accuracy": 0.578125
+    },
+    {
+      "workers": 1,
+      "seed": 2028,
+      "baseline_seconds": 11.120522750075907,
+      "candidate_seconds": 6.818779666908085,
+      "speedup": 1.6308670016197206,
+      "max_loss_difference": 0.0,
+      "final_loss": 1.0065044186637435,
+      "accuracy": 0.6015625
+    },
+    {
+      "workers": 4,
+      "seed": 2026,
+      "baseline_seconds": 9.341201707720757,
+      "candidate_seconds": 3.951638082973659,
+      "speedup": 2.3638808796708886,
+      "max_loss_difference": 0.0,
+      "final_loss": 1.447397095331722,
+      "accuracy": 0.47265625
+    },
+    {
+      "workers": 4,
+      "seed": 2027,
+      "baseline_seconds": 9.061184624675661,
+      "candidate_seconds": 3.8837937912903726,
+      "speedup": 2.333075624405158,
+      "max_loss_difference": 0.0,
+      "final_loss": 1.350752771327051,
+      "accuracy": 0.5078125
+    },
+    {
+      "workers": 4,
+      "seed": 2028,
+      "baseline_seconds": 10.286347958724946,
+      "candidate_seconds": 3.9317607497796416,
+      "speedup": 2.616219198816065,
+      "max_loss_difference": 0.0,
+      "final_loss": 1.5643351150963327,
+      "accuracy": 0.37890625
+    }
+  ],
+  "medians": [
+    {
+      "workers": 1,
+      "baseline_seconds": 11.214087165892124,
+      "candidate_seconds": 6.8849056656472385,
+      "speedup": 1.6287931469919286
+    },
+    {
+      "workers": 4,
+      "baseline_seconds": 9.341201707720757,
+      "candidate_seconds": 3.9317607497796416,
+      "speedup": 2.3758316698808013
+    }
+  ]
+}
