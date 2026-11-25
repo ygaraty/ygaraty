@@ -113,7 +113,7 @@ learning, not whether it is more accurate than DiLoCo.
 
 Runtime source SHA-256: `5dad343f8d965f4135ab6ae70b982ab69fa579b82d9301455a785ee6e02424e1`.
 Identical sample-sequence SHA-256: `e9be7415fcde7f331390a13a767e822a80da9fead7e843bc963d271d29a064d7`.
-The source is the uncommitted `feature/public-diloco-training` branch based on
+The tested source was an uncommitted snapshot before the DiLoCo merge into `main`, based on
 `5441492d12651021ca345715d12d5e536fc3c410`, not a released version.
 All four GPU runs (two probes and two training arms) completed. No paid resources
 were used. Experiment browser processes and HTTP servers were stopped.

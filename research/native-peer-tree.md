@@ -27,7 +27,7 @@ parallelism, separate from DiLoCo's local-update/outer-optimizer algorithm.
 
 ## Protocol
 
-- Public source on `feature/public-diloco-training`, base
+- Historical public snapshot before the DiLoCo merge into `main`, base
   `5441492d12651021ca345715d12d5e536fc3c410`, with uncommitted changes.
 - Final runtime SHA-256:
   `14f4648635ae5642fff90a60c122cef95f7a51dc51620207e6d714eed43d200e`.

@@ -4,7 +4,7 @@
 comparison could not start because RunPod rejected additional matching Pods for
 capacity. All experiment Pods were deleted and inventory cleanup was verified.
 
-The public wheel from `feature/public-diloco-training` was installed on Ubuntu
+A public wheel built before the DiLoCo merge into `main` was installed on Ubuntu
 24.04.5 with Python 3.12.3, NumPy 2.5.5 and Deno 2.9.5. Runtime source hash:
 `14f4648635ae5642fff90a60c122cef95f7a51dc51620207e6d714eed43d200e`.
 The base commit and uncommitted-source status are in the

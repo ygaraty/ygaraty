@@ -84,7 +84,8 @@ rerun after observing only completed session transactions; their final model
 loss/accuracy matched the initial trials exactly. This does not constitute
 independent-seed statistical evidence.
 
-The source is the uncommitted public branch `feature/public-diloco-training`,
+The tested source was an uncommitted public snapshot before the DiLoCo merge into
+`main`,
 base commit `5441492d12651021ca345715d12d5e536fc3c410`. Runtime source hashes and
 configuration are in each raw report; the runner correction has a separate
 hash in the amendment. No private runtime dependency or paid compute was used.

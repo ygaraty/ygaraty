@@ -1,6 +1,6 @@
 # Muon versus Adam inside local DiLoCo
 
-November 24, 2026. Branch `feature/public-diloco-training`, public Ygaraty
+November 24, 2026. Historical snapshot before the DiLoCo merge into `main`, public Ygaraty
 Tape/compiler and Chromium WebGPU execution, one Apple M1 GPU with 16 GiB
 unified memory. Eight successful runs: two seeds, one/three contributors,
 Adam/Muon. **This is same-host concurrency, not physical multi-GPU scaling.**
@@ -113,7 +113,8 @@ an optimizer advantage. A controlled physical-GPU comparison remains untested.
 ## Reproduce and inspect
 
 See the [Muon command-line guide](../docs/distributed-training.md#experimental-muon-local-optimizer).
-From this branch with server dependencies and Chromium installed:
+From a current `main` source checkout with server dependencies and Chromium installed
+(the historical measurements above retain their recorded source hashes):
 
 ```sh
 PYTHONPATH=. python tools/muon_experiment.py --seeds 2026 2027 \
