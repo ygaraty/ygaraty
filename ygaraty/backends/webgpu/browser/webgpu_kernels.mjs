@@ -13,6 +13,12 @@ export function positiveInteger(value, label) {
     if (typeof value !== "number" || !Number.isSafeInteger(value) || value < 1 || value > 0xffffffff)
         throw new Error(`Invalid positive integer: ${label}`);
 }
+/** A packed kind's WGSL element decoder `deq(base_byte, element)` over `w: array<u32>` (needs BYTES). */
+export function deqSource(kind) {
+    if (!Object.hasOwn(DEQ, kind))
+        throw new Error(`Unsupported packed matrix type: ${kind}`);
+    return DEQ[kind];
+}
 export function isPackedKind(value) {
     return typeof value === "string" && Object.hasOwn(DEQ, value);
 }
@@ -60,6 +66,14 @@ const DEQ = {
     let b = base + (e / 32u) * 18u; let j = e % 32u;
     let q = (byte_at(b + 2u + j % 16u) >> ((j / 16u) * 4u)) & 15u;
     return half_at(b) * (f32(q) - 8.0);
+  }`,
+    // DO-95: IQ4_NL is Q4_0's 18-byte block (f16 scale, 16 nibble bytes) with ggml's 16-level non-linear table.
+    IQ4_NL: /* wgsl */ `var<private> IQ4NL: array<f32, 16> = array<f32, 16>(-127.0, -104.0, -83.0, -65.0, -49.0, -35.0, -22.0, -10.0,
+    1.0, 13.0, 25.0, 38.0, 53.0, 69.0, 89.0, 113.0);
+  fn deq(base: u32, e: u32) -> f32 {
+    let b = base + (e / 32u) * 18u; let j = e % 32u;
+    let q = (byte_at(b + 2u + j % 16u) >> ((j / 16u) * 4u)) & 15u;
+    return half_at(b) * IQ4NL[q];
   }`,
     F16: /* wgsl */ `fn deq(base: u32, e: u32) -> f32 {
     let v = unpack2x16float(w[(base >> 2u) + (e >> 1u)]);
@@ -1034,6 +1048,14 @@ export class Gpu {
     // Host-side caches (DO-65): checked plan tasks (inference_plan.mts) and bind groups by pipeline and entries
     // (with the uniform pool a dispatch binds the same buffers at the same offsets every token). false: neither.
     hostCache = true;
+    // DO-99: cheaper host path per dispatch (bind groups reused per dispatch slot, uniforms written in place,
+    // repeated setPipeline skipped). false: the previous path.
+    fastHost = true;
+    slot = 0;
+    slots = [];
+    lastPipeline;
+    uniformU32;
+    uniformF32;
     // WS-32: end() submits and returns without waiting for the GPU (no profiling), so the host encodes the next
     // step while this one runs; queue order keeps every write and copy after the work submitted before it.
     defer = false;
@@ -1102,8 +1124,25 @@ export class Gpu {
             this.allocated -= buffer.size;
         buffer.destroy();
     }
+    // WS-56: bytes written with queue.writeBuffer since the queue last completed. Dawn keeps each write's staging copy
+    // until the queue has submitted and finished, so a load that submits nothing held every byte it uploaded in host
+    // memory (16 GiB for a 16.5 GB model on an NVIDIA host).
+    pendingUploadBytes = 0;
+    uploadsSettling = null;
+    // Once more than `limit` bytes of uploads are pending: flushes the queue and waits for the previous flush only, so
+    // downloads and uploads overlap while at most about 2 x limit of staging is held.
+    async settleUploads(limit = 256 * 1024 * 1024) {
+        if (this.pendingUploadBytes < limit)
+            return;
+        this.pendingUploadBytes = 0;
+        if (this.uploadsSettling)
+            await this.uploadsSettling;
+        this.device.queue.submit([]);
+        this.uploadsSettling = this.device.queue.onSubmittedWorkDone();
+    }
     upload(data) {
         const bytes = data.byteLength;
+        this.pendingUploadBytes += bytes;
         const buffer = this.buffer(bytes);
         const padded = Math.ceil(bytes / 4) * 4;
         if (padded === bytes) {
@@ -1133,6 +1172,21 @@ export class Gpu {
     uniform(values) {
         // values: array of [type, value]; all 4-byte, padded to 16 bytes
         const n = Math.ceil(values.length / 4) * 4;
+        if (this.fastHost && this.pass && this.uniformPool && this.uniformUsed + 256 <= this.uniformLimit && n * 4 <= 256) {
+            // DO-99: straight into the staging copy, without a per-call ArrayBuffer
+            const offset = this.uniformUsed, at = offset >> 2, u = this.uniformU32, f = this.uniformF32;
+            for (let i = 0; i < n; i++) {
+                const v = values[i];
+                if (v === undefined)
+                    u[at + i] = 0;
+                else if (v[0] === "f")
+                    f[at + i] = v[1];
+                else
+                    u[at + i] = v[1];
+            }
+            this.uniformUsed += 256;
+            return { buffer: this.uniformPool, offset, size: n * 4 };
+        }
         const data = new ArrayBuffer(n * 4);
         const u = new Uint32Array(data), f = new Float32Array(data);
         values.forEach(([type, value], i) => { if (type === "f")
@@ -1160,7 +1214,11 @@ export class Gpu {
             this.uniformLimit = 4096 * 256;
             this.uniformPool = this.device.createBuffer({ size: this.uniformLimit, usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST });
             this.uniformStaging = new ArrayBuffer(this.uniformLimit);
+            this.uniformU32 = new Uint32Array(this.uniformStaging);
+            this.uniformF32 = new Float32Array(this.uniformStaging);
         }
+        this.slot = 0;
+        this.lastPipeline = undefined;
         this.uniformUsed = 0;
         this.encoder = this.device.createCommandEncoder();
         const timed = this.profiling && this.device.features.has("timestamp-query");
@@ -1197,6 +1255,42 @@ export class Gpu {
             this.detailBytes.push(buffers.reduce((n, b) => n + ("buffer" in b ? (b.size ?? b.buffer.size - (b.offset ?? 0)) : b.size), 0));
         }
         const pipeline = this.pipeline(name, code);
+        if (this.fastHost && this.hostCache && this.profiling !== "detail") {
+            // DO-99: a decode step repeats the same dispatches; slot k of a submission usually binds what it bound last
+            // time, so compare the bindings directly instead of building the cache key string.
+            const k = this.slot++, last = this.slots[k];
+            if (last && last.pipeline === pipeline && last.refs.length === buffers.length * 3) {
+                let same = true;
+                for (let i = 0, r = last.refs; i < buffers.length; i++) {
+                    const b = buffers[i], isBinding = "buffer" in b;
+                    if (r[3 * i] !== (isBinding ? b.buffer : b) || r[3 * i + 1] !== (isBinding ? b.offset ?? 0 : 0) || r[3 * i + 2] !== (isBinding ? b.size ?? -1 : -1)) {
+                        same = false;
+                        break;
+                    }
+                }
+                if (same) {
+                    this.encodeBound(pipeline, last.bind, groups);
+                    return;
+                }
+            }
+            const bind = this.bindFor(pipeline, buffers);
+            const refs = [];
+            let keep = true;
+            for (const b of buffers) {
+                const isBinding = "buffer" in b, buf = isBinding ? b.buffer : b;
+                if (this.transient.includes(buf)) {
+                    keep = false;
+                    break;
+                }
+                refs.push(buf, isBinding ? b.offset ?? 0 : 0, isBinding ? b.size ?? -1 : -1);
+            }
+            if (keep)
+                this.slots[k] = { pipeline, refs, bind };
+            else
+                this.slots[k] = undefined;
+            this.encodeBound(pipeline, bind, groups);
+            return;
+        }
         const entries = buffers.map((buffer, binding) => ({ binding, resource: "buffer" in buffer ? buffer : { buffer } }));
         let bind, key = "";
         // Only bindings of long-lived buffers are cached: a transient uniform buffer dies at end().
@@ -1216,6 +1310,35 @@ export class Gpu {
             }
         }
         this.pass.setPipeline(pipeline);
+        this.pass.setBindGroup(0, bind);
+        this.pass.dispatchWorkgroups(...groups);
+    }
+    // DO-99: the bind group for these bindings, from the keyed cache when long-lived (as dispatch() without fastHost).
+    bindFor(pipeline, buffers) {
+        const entries = buffers.map((buffer, binding) => ({ binding, resource: "buffer" in buffer ? buffer : { buffer } }));
+        let bind, key = "";
+        if (!entries.some((e) => this.transient.includes(e.resource.buffer))) {
+            key = this.id(pipeline) + ":" + entries.map((e) => {
+                const r = e.resource;
+                return `${this.id(r.buffer)}@${r.offset ?? 0}+${r.size ?? -1}`;
+            }).join(",");
+            bind = this.bindGroups.get(key);
+        }
+        if (!bind) {
+            bind = this.device.createBindGroup({ layout: pipeline.getBindGroupLayout(0), entries });
+            if (key) {
+                if (this.bindGroups.size >= 65536)
+                    this.bindGroups.clear();
+                this.bindGroups.set(key, bind);
+            }
+        }
+        return bind;
+    }
+    encodeBound(pipeline, bind, groups) {
+        if (pipeline !== this.lastPipeline) {
+            this.pass.setPipeline(pipeline);
+            this.lastPipeline = pipeline;
+        }
         this.pass.setBindGroup(0, bind);
         this.pass.dispatchWorkgroups(...groups);
     }

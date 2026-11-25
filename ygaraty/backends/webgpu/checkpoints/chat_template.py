@@ -3,6 +3,27 @@
 import json
 
 
+def _tagged(template, render):
+    """DO-95: Inkling 2's message-token template. Its pieces are read from renderings of the template itself, so a
+    changed effort default or role token shows up here (or fails the consistency check)."""
+    marker = "\u2063USER\u2063"
+    pieces = dict(style="tagged", open="<|content_text|>", close="<|end_message|>",
+                  assistant_end="<|content_model_end_sampling|>", generation="",
+                  roles=dict(system="<|message_system|>", user="<|message_user|>", assistant="<|message_model|>", tool="<|message_tool|>"))
+    one = render([dict(role="user", content=marker)], True)
+    user = f"{pieces['roles']['user']}{pieces['open']}{marker}{pieces['close']}"
+    if not one.endswith(user):
+        raise ValueError("Unexpected Inkling 2 chat template rendering")
+    pieces["first"] = one[: -len(user)]
+    convo = [dict(role="user", content="a"), dict(role="assistant", content="b"), dict(role="user", content="c")]
+    want = pieces["first"] + "".join(
+        f"{pieces['roles'][m['role']]}{pieces['open']}{m['content']}{pieces['close']}"
+        + (pieces["assistant_end"] if m["role"] == "assistant" else "") for m in convo)
+    if render(convo, True) != want:
+        raise ValueError("Inkling 2 chat template differs from the tagged chat format")
+    return pieces
+
+
 def chat_format(template, thinking=False):
     """The ChatML pieces of a checkpoint's own chat template (Jinja, rendered as transformers renders it):
     `first`, what a conversation starts with before the first user message (an empty system block for some
@@ -25,7 +46,9 @@ def chat_format(template, thinking=False):
     env.globals["raise_exception"] = lambda message: (_ for _ in ()).throw(
         ValueError(message)
     )
-    compiled = env.from_string(template)
+    # Inkling 2 marks assistant turns with transformers' `{% generation %}` (assistant-mask) tag: plain Jinja
+    # does not know it, and it changes nothing in the text.
+    compiled = env.from_string(template.replace("{%- generation -%}", "").replace("{%- endgeneration -%}", ""))
     render = lambda messages, generation: compiled.render(  # noqa: E731
         messages=messages,
         add_generation_prompt=generation,
@@ -33,6 +56,8 @@ def chat_format(template, thinking=False):
         bos_token="",
         eos_token="",
     )
+    if "<|message_user|>" in template and "<|content_text|>" in template:
+        return _tagged(template, render)
     marker = "\u2063USER\u2063"
     plain = render([dict(role="user", content=marker)], False)
     prompt = render([dict(role="user", content=marker)], True)

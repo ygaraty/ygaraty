@@ -25,6 +25,10 @@ its chat format. Onboarding a checkpoint means finding its family (`detect`) and
   expert scaled by a sigmoid gate. llama.cpp's legacy layout (see `Qwen3Next`). Loader and NumPy reference
   `qwen3next_gguf.py`; **no stage yet**: `check` (= `admit` + the stage's finding) always reports that, so
   `inspect` never calls it compatible and `load_model` refuses it.
+- `inkling2`: Thinking Machines' Inkling 2 Mini (`inkling2_loop` GGUF from ggml-org): a looped decoder (24 stored
+  layers, 48 visits per token), block attention residuals, attention without RoPE (relative-position bias, sink,
+  output gate, Q/K clips) with short convolutions, and sigmoid-routed experts in every layer (DO-95). Loader and
+  NumPy reference `inkling2_gguf.py`; **no stage yet**, admission only as for `qwen3next`.
 """
 
 import json
@@ -33,6 +37,7 @@ from pathlib import Path
 
 PACKED = {
     "Q4_0",
+    "IQ4_NL",
     "F32",
     "F16",
     "Q4_K",
@@ -1196,12 +1201,200 @@ def _qwen3next_tensor_findings(header, g):
     return out
 
 
+INKLING2_STAGE = "inkling2_gpu.mjs"  # DO-95: Inkling2Stage / Inkling2ContributorStage
+INKLING2_KINDS = {"F32", "Q8_0", "IQ4_NL"}  # what inkling2_gguf's NumPy reference reads
+
+
+class Inkling2(Family):
+    """Inkling 2 Mini (`inkling2_loop` GGUF), as in ggml-org/Inkling-2-Mini-GGUF. The configuration comes from the
+    GGUF header (`inkling2_gguf.config_from_header`); a Hugging Face config, when given, must name the same model.
+    The layout and formulas are in `inkling2_gguf` and research/DO-95.md."""
+
+    def geometry(self, config, header):
+        from ygaraty.backends.webgpu.checkpoints import inkling2_gguf
+
+        c = inkling2_gguf.config_from_header(header)
+        visits = c.visits()
+        full = sum(1 for il, _ in visits if not c.sliding[il])
+        return dict(
+            layers=c.layers,
+            visits=len(visits),
+            hidden=c.hidden,
+            heads=c.heads,
+            kv_heads=c.kv_heads,
+            head_dim=c.head_dim,
+            vocab=c.vocab,
+            vocab_unpadded=c.vocab_unpadded,
+            context=header.get("context_length"),
+            tied_embeddings=False,
+            eps=c.eps,
+            attention_scale=c.head_dim**-0.5,
+            sliding=list(c.sliding),
+            window=c.window,
+            experts=c.experts,
+            top_k=c.top_k,
+            expert_ffn=c.expert_ffn,
+            loop=dict(start=c.loop_start, end=c.loop_end, passes=c.passes, gate_rank=c.gate_rank),
+            # per visit and sequence: the convolution history (float32) of K, V and both branch outputs
+            state_bytes=4 * (c.conv - 1) * (2 * c.kv_heads * c.head_dim + 2 * c.hidden),
+            # per token: K and V of every visit (float32); only `full` visits grow past the window
+            kv_bytes_per_token=4 * 2 * c.kv_heads * c.head_dim * len(visits),
+            full_attention_visits=full,
+            intermediate=c.top_k * 2 * c.expert_ffn,
+        )
+
+    def placement(self, header, workers, *, capacity=4096, chunk=512, budgets=None, wire_bytes=2):
+        """Stages for `workers` contributors with the looped core on one of them (see `loop_placement`)."""
+        from ygaraty.backends.webgpu.checkpoints import inkling2_gguf
+
+        c = inkling2_gguf.config_from_header(header)
+        passes = {il: (c.passes if c.loop_start <= il < c.loop_end else 1) for il in range(c.layers)}
+        kv_row = 4 * 2 * c.kv_heads * c.head_dim
+        conv = 4 * (c.conv - 1) * (2 * c.kv_heads * c.head_dim + 2 * c.hidden)
+        # as Inkling2Stage allocates: sliding visits keep a ring of window + chunk rows, global ones `capacity`
+        rows = lambda il: min(capacity, c.window + chunk) if c.sliding[il] else capacity
+        visit = [passes[il] * (conv + rows(il) * kv_row) for il in range(c.layers)]
+        F, H, K = c.expert_ffn, c.hidden, c.top_k
+        scratch = 4 * chunk * (48 * H + K * (3 * F + H))  # streams, branch buffers and expert slots of one chunk
+        ends = self.endpoint_bytes(header)
+        t = header.tensors
+        head = ends["output"] + ends["output_norm"] + t["output_res_query.weight"].nbytes
+        embedding = ends["embedding"] + t["token_embd_norm.weight"].nbytes
+        return loop_placement(self.layer_bytes(header), loop=(c.loop_start, c.loop_end), res_block=c.res_block,
+                              hidden=H, workers=workers, visit_bytes=visit, embedding_bytes=embedding,
+                              head_bytes=head, scratch_bytes=scratch, budgets=budgets, wire_bytes=wire_bytes)
+
+    def check_splits(self, header, splits):
+        from ygaraty.backends.webgpu.checkpoints import inkling2_gguf
+
+        c = inkling2_gguf.config_from_header(header)
+        return check_loop_splits(splits, (c.loop_start, c.loop_end))
+
+    def check(self, config, header):
+        out = self.admit(config, header)
+        if INKLING2_STAGE is None:
+            out.append(
+                finding(
+                    "error",
+                    "no WebGPU stage runs inkling2 yet (admission only: the artifact was checked, not executed)",
+                )
+            )
+        return out
+
+    def admit(self, config, header):
+        from ygaraty.backends.webgpu.checkpoints import inkling2_gguf
+
+        out = []
+        arch = header.architecture()
+        if arch != inkling2_gguf.ARCHITECTURE:
+            return [finding("error", f"GGUF architecture {arch!r}: need {inkling2_gguf.ARCHITECTURE}")]
+        model_type = (config or {}).get("model_type")
+        if model_type not in (None, "inkling2_loop"):
+            out.append(finding("error", f"config model_type {model_type!r}: need inkling2_loop"))
+        try:
+            c = inkling2_gguf.config_from_header(header)
+        except ValueError as e:
+            return out + [finding("error", str(e))]
+        if not (0 < c.loop_start < c.loop_end <= c.layers) or c.loop_start % c.res_block or c.loop_end % c.res_block:
+            out.append(finding("error", "the loop core must be whole attention-residual blocks inside the layers"))
+        if c.heads % c.kv_heads or len(c.sliding) != c.layers:
+            out.append(finding("error", "inconsistent heads or sliding-window pattern"))
+        kinds = {t.kind for t in header.tensors.values()}
+        if kinds - INKLING2_KINDS:
+            out.append(finding("error", f"tensor types {sorted(kinds - INKLING2_KINDS)} are not read"))
+        if "IQ4_NL" in kinds and "IQ4_NL" not in PACKED:
+            out.append(finding("info", "IQ4_NL experts need the IQ4_NL matrix kernel (not in the WebGPU set yet)"))
+        t = header.tensors
+        for i in range(c.layers):
+            need = ["attn_q", "attn_k", "attn_v", "attn_output", "attn_gate", "attn_rel", "attn_sink_proj",
+                    "ffn_gate_inp", "ffn_gate_up_exps", "ffn_down_exps", "ffn_norm", "ffn_res_query"]
+            need += ["attn_norm"] if c.sliding[i] else ["attn_q_inp_norm", "attn_k_conv_proj"]
+            if c.loop_start <= i < c.loop_end:
+                need += ["loop_msg_query", "loop_q_ctrl_down"]
+            missing = [n for n in need if f"blk.{i}.{n}.weight" not in t]
+            if missing:
+                out.append(finding("error", f"layer {i} lacks {', '.join(missing)}"))
+        return out
+
+
+def loop_placement(
+    layer_bytes,
+    *,
+    loop,
+    res_block,
+    hidden,
+    workers,
+    visit_bytes,
+    embedding_bytes=0,
+    head_bytes=0,
+    scratch_bytes=0,
+    budgets=None,
+    wire_bytes=2,
+):
+    """Contiguous layer stages for a looped model, with the loop core [start, end) on one worker.
+
+    The loop's passes restart from the prelude output and read the previous pass's block streams, so splitting the
+    core would cost a round trip per pass; only boundaries outside (start, end) are allowed. Among those, the
+    stages minimize the largest memory (or, with `budgets` in bytes, the largest fraction of a worker's budget),
+    then the next largest and so on, then the vectors crossing between stages. A cut before layer c carries every attention-residual block stream
+    started before c (layers 0, res_block, ...) plus the current stream: those vectors per token, in `wire_bytes`.
+
+    `layer_bytes[i]`: weights of layer i; `visit_bytes[i]`: per-sequence state of one visit of layer i (KV cache
+    and convolution history; the core's layers are visited `passes` times, counted by the caller in the core's
+    entries); `scratch_bytes`: per-stage activations. Returns splits, stages and transfers."""
+    import itertools
+
+    layers = len(layer_bytes)
+    start, end = loop
+    if not (0 <= start < end <= layers) or start % res_block or end % res_block:
+        raise ValueError("The loop core must be whole residual blocks inside the layers")
+    cuts = [c for c in range(1, layers) if not start < c < end]
+    if not 1 <= workers <= len(cuts) + 1:
+        raise ValueError(f"{workers} workers: a looped model of {layers} layers takes 1 to {len(cuts) + 1}")
+    if budgets is not None and len(budgets) != workers:
+        raise ValueError("One memory budget per worker")
+
+    def vectors(c):
+        return 1 + sum(1 for il in range(c) if il % res_block == 0)
+
+    def stage(a, b, index):
+        weights = sum(layer_bytes[a:b]) + (embedding_bytes if index == 0 else 0) + (head_bytes if b == layers else 0)
+        state = sum(visit_bytes[a:b])
+        return dict(layers=[a, b], loop=a <= start and end <= b, weights=weights, state=state, scratch=scratch_bytes,
+                    total=weights + state + scratch_bytes)
+
+    best = None
+    for chosen in itertools.combinations(cuts, workers - 1):
+        bounds = [0, *chosen, layers]
+        stages = [stage(a, b, i) for i, (a, b) in enumerate(zip(bounds, bounds[1:]))]
+        loads = sorted((s["total"] / (budgets[i] if budgets else 1) for i, s in enumerate(stages)), reverse=True)
+        key = (tuple(loads), sum(vectors(c) for c in chosen))  # fullest worker first, then the next fullest, ...
+        if best is None or key < best[0]:
+            best = (key, bounds, stages)
+    (loads, _), bounds, stages = best
+    load = loads[0]
+    if budgets is not None:
+        for s, budget in zip(stages, budgets):
+            s["budget"] = budget
+        if load > 1:
+            raise ValueError(f"No placement fits: the fullest worker needs {load:.0%} of its budget")
+    transfers = [dict(before_layer=c, vectors=vectors(c), bytes_per_token=vectors(c) * hidden * wire_bytes) for c in bounds[1:-1]]
+    return dict(splits=bounds, stages=stages, transfers=transfers)
+
+
+def check_loop_splits(splits, loop):
+    """Errors for stage boundaries that cut a looped core."""
+    start, end = loop
+    return [f"boundary {c} splits the loop core {start}-{end - 1}: it must stay on one worker" for c in splits if start < c < end]
+
+
 FAMILIES = {
     "qwen35": Qwen35("qwen35", "qwen35_gpu.mjs"),
     "dense": Dense("dense", "dense_gpu.mjs"),
     "kolibri1": Kolibri("kolibri1", "kolibri_gpu.mjs"),
     "qwen3moe": Qwen3Moe("qwen3moe", "kolibri_gpu.mjs"),
     "qwen3next": Qwen3Next("qwen3next", None),
+    "inkling2": Inkling2("inkling2", INKLING2_STAGE),
 }
 
 
@@ -1209,6 +1402,8 @@ def detect(config, header=None):
     """The family that runs this checkpoint (by its config, and its GGUF architecture when given)."""
     arch = header.architecture() if header is not None else None
     text = config.get("text_config", config)
+    if arch == "inkling2_loop" or config.get("model_type") == "inkling2_loop":
+        return FAMILIES["inkling2"]
     if (
         arch == "qwen3next" or text.get("model_type") == "qwen3_next"
     ):  # before qwen35: both have DeltaNet keys
@@ -1243,6 +1438,11 @@ def load_model(gguf, config_path, *, tensor_only=False):
     `validate_webgpu()`)."""
     config = json.loads(Path(config_path).read_text())
     name = detect(config).name
+    if name == "inkling2":
+        raise ValueError(
+            "inkling2 stages are prepared from GGUF headers (preparation.prepare_inkling2_session); its loader and "
+            "NumPy reference are inkling2_gguf.Model (DO-95)"
+        )
     if name == "qwen3next":
         if QWEN3NEXT_STAGE is None:
             raise ValueError(

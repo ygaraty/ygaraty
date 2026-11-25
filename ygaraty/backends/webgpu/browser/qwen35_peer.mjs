@@ -23,9 +23,16 @@ const PIECE = 64 * 1024;
 // of each body goes out in small pieces (more sends, one flight); the rest in PIECE-sized ones, which large
 // transfers need.
 const HEAD_PIECE = 4 * 1024, HEAD_BYTES = 16 * 1024;
-export function pieces(n) {
+// DO-54: `?linkPieces=0` on the contributor link sends each body in PIECE-sized sends from the start (the
+// schedule before WS-26), for the transatlantic comparison.
+const WHOLE = typeof location !== "undefined" && new URLSearchParams(location.search || "").get("linkPieces") === "0";
+// WS-53 test-only fault: `?linkFault=stall:N` makes the N-th message on a link never drain (as if the channel's close
+// event never came) and declares the link dead 50 ms later, as a connection-state drop would.
+const FAULT = (() => { const m = /^stall:(\d+)$/.exec(typeof location !== "undefined" ? new URLSearchParams(location.search || "").get("linkFault") || "" : "");
+  return m ? { stallAt: Number(m[1]) } : null; })();
+export function pieces(n, whole = WHOLE) {
   const out = [];
-  for (let at = 0; at < n;) { const size = Math.min(n - at, at < HEAD_BYTES ? HEAD_PIECE : PIECE); out.push([at, size]); at += size; }
+  for (let at = 0; at < n;) { const size = Math.min(n - at, !whole && at < HEAD_BYTES ? HEAD_PIECE : PIECE); out.push([at, size]); at += size; }
   return out;
 }
 const HIGH = 4 * 1024 * 1024, LOW = 1024 * 1024;  // sender's buffer limits
@@ -49,6 +56,7 @@ export class Peers {
     this.signalChain = Promise.resolve();
     this.locks = new Map();  // peer stage -> the last change to that link: changes run one at a time
     this.seqs = new Map();  // peer stage -> the last sequence number sent to it
+    this.chains = new Map();  // peer stage -> its messages, in order, whatever link (or the relay) carries each (WS-53)
     this.polling = false;
     this.neighbours = [...new Set([(stage + 1) % stages, (stage - 1 + stages) % stages])].filter((p) => p !== stage);
     this.previous = (stage - 1 + stages) % stages;  // the only stage this one takes data from
@@ -155,6 +163,7 @@ export class Peers {
   drop(link, reason) {
     if (link.dead) return;
     link.dropped = link.dropped || reason;
+    this.release(link);
     this.retire(link);
     if (this.links.get(link.peer) === link) this.unlink(link.peer);
     else { link.dead = true; try { link.pc.close(); } catch {} }
@@ -252,10 +261,15 @@ export class Peers {
     }
   }
 
+  // WS-53: sends waiting for a link's buffer to drain give up at once when the link goes, instead of after STALL_MS,
+  // so the messages behind them are not held back.
+  release(link) { for (const done of [...(link.waiters || [])]) done(false); }
+
   // The coordinator says a neighbouring stage lost its browser: that link is closed.
   unlink(peer) {
     const link = this.links.get(peer);
     if (!link) return;
+    this.release(link);
     link.dead = true;
     link.channel = null;
     try { link.pc.close(); } catch {}
@@ -293,28 +307,41 @@ export class Peers {
   // promise resolves to what `fallback` returns.
   // fallback(seq, resent): sends the message through the relay instead; `resent` when the link had taken it
   // but died before the peer acknowledged it.
+  // WS-53: every message to a neighbour goes through here, link or not, so each has a sequence number and waits
+  // its turn on that neighbour's one chain: a message the relay carries can no longer overtake one still waiting
+  // for a link (or the reverse after a relink), and the receiver can put them back in order.
   send(peer, kind, meta, body, fallback) {
-    const link = this.links.get(peer);
     const seq = (this.seqs.get(peer) || 0) + 1;
     this.seqs.set(peer, seq);
     meta = { ...meta, pseq: seq };
     const relay = () => fallback?.(seq, false);
     const bytes = body instanceof ArrayBuffer ? new Uint8Array(body) : ArrayBuffer.isView(body)
       ? new Uint8Array(body.buffer, body.byteOffset, body.byteLength) : new Uint8Array(0);
-    link.chain = link.chain.then(async () => {
-      const ch = link.channel;
-      if (link.dead || !ch || ch.readyState !== "open" || link.pc.connectionState !== "connected") return relay();
+    const run = (this.chains.get(peer) || Promise.resolve()).then(async () => {
+      const link = this.links.get(peer);
+      const ch = link?.channel;
+      if (!link || link.dead || !ch || ch.readyState !== "open" || link.pc.connectionState !== "connected") return relay();
+      if (FAULT && (link.faultCount = (link.faultCount || 0) + 1) === FAULT.stallAt) {
+        setTimeout(() => this.drop(link, "disconnected"), 50);
+        const gone = await new Promise((resolve) => {
+          const done = () => { clearTimeout(timer); link.waiters.delete(done); resolve(); };
+          const timer = setTimeout(done, STALL_MS);
+          (link.waiters ||= new Set()).add(done);
+        });
+        return relay();
+      }
       // Never wait long on a link: a buffer that does not drain means the path stopped delivering, so the
       // link is dropped (closed, so the part already sent can never complete) and the relay sends it.
       const drained = () => ch.bufferedAmount <= HIGH || new Promise((resolve) => {
-        const done = (ok) => { clearTimeout(timer); ch.removeEventListener("bufferedamountlow", low); ch.removeEventListener("close", closed); resolve(ok); };
+        const done = (ok) => { clearTimeout(timer); link.waiters.delete(done); ch.removeEventListener("bufferedamountlow", low); ch.removeEventListener("close", closed); resolve(ok); };
         const low = () => done(true), closed = () => done(false), timer = setTimeout(() => done(false), STALL_MS);
+        (link.waiters ||= new Set()).add(done);
         ch.addEventListener("bufferedamountlow", low); ch.addEventListener("close", closed);
       });
-      if (!(await drained())) { this.drop(link, "stalled"); return relay(); }
+      if (!(await drained()) || link.dead) { this.drop(link, "stalled"); return relay(); }
       ch.send(JSON.stringify({ k: kind, m: meta, n: bytes.byteLength }));
       for (const [at, size] of pieces(bytes.byteLength)) {
-        if (!(await drained())) { this.drop(link, "stalled"); return relay(); }
+        if (!(await drained()) || link.dead) { this.drop(link, "stalled"); return relay(); }
         ch.send(bytes.subarray(at, at + size));
       }
       link.bytesSent += bytes.byteLength;
@@ -322,7 +349,8 @@ export class Peers {
       link.unacked.push({ seq, fallback });  // until the peer says it has it
       return true;
     }).catch(() => relay());
-    return link.chain;
+    this.chains.set(peer, run.catch(() => {}));
+    return run;
   }
 
   // Each link: whether it opened, the selected candidate pair's types (host, srflx, prflx, relay) and
