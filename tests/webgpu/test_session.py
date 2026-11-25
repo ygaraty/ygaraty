@@ -335,6 +335,14 @@ class SessionTests(unittest.IsolatedAsyncioTestCase):
         await stream.aclose()
         self.assertFalse(self.session.handles)
 
+    async def test_deadline_counts_from_the_last_text(self):
+        # Long answers take minutes: only a pause without text fails them.
+        self.f.engine.mode = "slow"
+        self.session.request_timeout = 0.06  # the answer takes over 0.15 s
+        handle = await self.session.admit(request(), self.grant)
+        events = await asyncio.wait_for(collect(handle), 2)
+        self.assertEqual(events[-1].kind, EventKind.COMPLETED)
+
     async def test_same_conversation_name_is_isolated_between_principals(self):
         from unittest.mock import AsyncMock
 

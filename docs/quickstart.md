@@ -9,11 +9,14 @@ storage. No checkpoint directory, cloud credentials or numerical preparation is
 needed. The server keeps only metadata (about 26 MB); each contributor's
 browser downloads its share of the weights directly from Spaces.
 
+`ygaraty models list` shows the supported models, their public bundles and
+validation status, and `ygaraty models info NAME` the GPU memory and download
+each worker needs (see [command line](commands.md)).
 Choose 1, 2, 3 or 4 workers for any model. The examples below use two.
 Before downloading weights, launch calculates and prints GPU RAM per worker
-from the matching Spaces bundle. With the default 4,096-token context and one
-chat slot, recommendations are about 0.78 GB each for Qwen3.5-0.8B, 2.37 GB
-each for S5-Nano or 3.85 GB each for Qwen3.5-9B, including headroom. See [all configurations](public-bundles.md).
+from the matching Spaces bundle. With the default 16,384-token context and one
+chat slot, recommendations are about 0.88 GB each for Qwen3.5-0.8B, 2.65 GB
+each for S5-Nano or 4.12 GB each for Qwen3.5-9B, including headroom. See [all configurations](public-bundles.md).
 
 ## 2. Install and launch
 
@@ -65,9 +68,9 @@ The terminal shows one link to share, what a contributor needs, and a live row
 per worker:
 
 ```text
-  Ygaraty  qwen3.5-0.8b · 1 worker · 4,096-token context · 1 chat at a time
+  Ygaraty  qwen3.5-0.8b · 1 worker · 16,384-token context · 1 chat at a time
 
-  Open this link in Chrome or Edge on a computer with 1.02 GB of free GPU memory:
+  Open this link in Chrome or Edge on a computer with 1.22 GB of free GPU memory:
 
     http://127.0.0.1:8765/#key=…
 
@@ -91,7 +94,9 @@ through a Cloudflare quick tunnel. See
 ## 4. Chat or connect an app
 
 Open the private chat link. It supplies the owner key and shows **Waiting for
-contributors** until the model is ready. `--open-chat` opens it on the server's
+contributors** until the model is ready. A line under the title shows speed,
+tokens and each worker's state; the printed session page shows more.
+`--open-chat` opens it on the server's
 desktop; on a headless server, open the printed link on your own computer.
 
 The **Connect another app** section shows the API base URL and model. Use the

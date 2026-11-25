@@ -206,6 +206,8 @@ class PreparedSession(SessionProtocol):
                 )
             # One stage (DO-51): no links between stages, only the chat browser's link to that contributor.
         self.turn_config = turn
+        # The bundle's output limit: the default and maximum max_tokens.
+        self.max_output = options["generate"]
         self.args = SimpleNamespace(
             out=self.out,
             chat=True,

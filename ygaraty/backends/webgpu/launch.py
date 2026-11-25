@@ -53,6 +53,7 @@ def connection_details(args):
     owner = (args.keys / "owner.key").read_text().strip()
     return {
         "contribute": origin + "/#" + urlencode({"key": contributor}),
+        "session": origin + "/#" + urlencode({"owner": owner}),
         "chat": origin + "/chat#" + urlencode({"key": owner}),
         "api": origin + "/v1",
     }
@@ -120,6 +121,9 @@ async def announce(session, args):
                                 base,
                                 owner,
                                 status=lambda: engine_status(session),
+                                status_bar=False
+                                if getattr(args, "no_status_bar", False)
+                                else None,
                                 **(
                                     {"opener": own_server_opener()}
                                     if secure
@@ -251,6 +255,29 @@ def configure_prepared_memory(
     )
 
 
+def add_common_arguments(parser):
+    """Options launch and serve share beyond the network ones."""
+    parser.add_argument(
+        "--open-status",
+        action="store_true",
+        help="Show the session page's status and statistics without a key "
+        "(default: owner or contributor key required)",
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        help="Read defaults from this TOML file (default: WORKSPACE/"
+        "ygaraty.toml, then ./ygaraty.toml); flags override it",
+    )
+    parser.add_argument(
+        "--save-config",
+        action="store_true",
+        help="Write this command's settings to WORKSPACE/ygaraty.toml so "
+        "'ygaraty launch --workspace WORKSPACE' (or 'ygaraty launch' in that "
+        "directory) repeats it",
+    )
+
+
 def add_parser(commands):
     parser = commands.add_parser(
         "launch", help="Set up a server, share a link and chat"
@@ -279,8 +306,8 @@ def add_parser(commands):
     parser.add_argument(
         "--model",
         "--model-id",
-        default="qwen3.5-9b",
-        help="API model name; known names select preset splits and memory",
+        help="Model: a name from 'ygaraty models list' (downloads its public "
+        "bundle), or the API name for --bundle/--checkpoint/--bundle-url",
     )
     parser.add_argument(
         "--gguf",
@@ -294,8 +321,8 @@ def add_parser(commands):
         "--contributors",
         dest="contributors",
         type=int,
-        required=True,
-        help="Required GPU worker count (public presets support 1, 2, 3 or 4)",
+        help="Required: GPU worker count (public presets support 1, 2, 3 "
+        "or 4)",
     )
     parser.add_argument(
         "--context", type=int, help="Context tokens (checkpoint default: 4096)"
@@ -364,6 +391,19 @@ def add_parser(commands):
         help="Do not open a chat prompt in this terminal once the model "
         "is ready",
     )
+    add_common_arguments(parser)
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="With --prepare-only: print the prepared workspace, bundle, "
+        "keys and links as JSON",
+    )
+    parser.add_argument(
+        "--no-status-bar",
+        action="store_true",
+        help="Do not pin a session status line to the top of the terminal "
+        "chat (also YGARATY_NO_STATUS_BAR=1)",
+    )
     parser.add_argument(
         "--request-log",
         action="store_true",
@@ -376,13 +416,51 @@ def add_parser(commands):
         help="Download public weights here and serve them to contributors "
         "(default: contributors download directly from public storage)",
     )
+    return parser
+
+
+def require_model_and_workers(args, workers_dest):
+    """launch and serve: --model and --num-workers are needed (from flags or
+    the config file); without --model, list the supported models."""
+    if not (args.model or "").strip():
+        from .catalog import catalog
+
+        names = ", ".join(row["model"] for row in catalog())
+        raise ValueError(
+            "--model is required. Supported models: "
+            f"{names} (details: ygaraty models list). With --bundle, "
+            "--checkpoint or --bundle-url, --model is the API model name"
+        )
+    if getattr(args, workers_dest) is None:
+        raise ValueError(
+            "--num-workers is required: how many GPU workers share the model "
+            "(public models: 1–4)"
+        )
 
 
 def run(args):
+    # As given (flags and config file), before preparation fills in paths
+    # and defaults: what --save-config writes.
+    args.given = dict(vars(args))
+    require_model_and_workers(args, "contributors")
+    if getattr(args, "json", False):
+        if not args.prepare_only:
+            raise ValueError("--json needs --prepare-only")
+        # Progress lines go to stderr so stdout holds only the JSON.
+        import contextlib
+
+        with contextlib.redirect_stdout(sys.stderr):
+            prepared = _run(args, quiet_json=True)
+        print(prepared)
+        return 0
+    return _run(args)
+
+
+def _run(args, quiet_json=False):
     from types import SimpleNamespace
 
     from .bundles import inspect_checkpoint, validate_bundle
-    from .cli import initialize, serve
+    from .cli import ensure_keys, serve
     from .networking import resolve_network
 
     route, turn_config = resolve_network(
@@ -397,8 +475,6 @@ def run(args):
         raise ValueError("--memory-gb must be positive")
     if args.context is not None and args.context < 1:
         raise ValueError("--context must be positive")
-    if not args.model.strip():
-        raise ValueError("--model must not be empty")
     contributors = args.contributors
     memory_reports = []  # the estimate per worker, for the launch screen
     if type(contributors) is not int or not 1 <= contributors <= 26:
@@ -440,56 +516,7 @@ def run(args):
         ).command()
     downloaded = args.bundle_url or (not args.bundle and not args.checkpoint)
     if downloaded:
-        from .downloads import PUBLIC_PRESETS, fetch_bundle
-
-        preset = (
-            PUBLIC_PRESETS.get((args.model, contributors))
-            if not args.bundle_url
-            else None
-        )
-        url = args.bundle_url or (preset.url if preset else None)
-        if preset:
-            if args.context is None:
-                args.context = preset.context
-        if not url:
-            raise ValueError(
-                "Public presets support qwen3.5-0.8b/s5-nano/qwen3.5-9b/"
-                "qwen3.8-27b "
-                "with 1–4 workers; "
-                "supply --bundle-url or --checkpoint"
-            )
-        if args.splits is not None or args.generate is not None:
-            raise ValueError(
-                "Published bundle splits/generation are fixed; "
-                "use --checkpoint to rebuild"
-            )
-        from .memory import report_memory
-
-        def configure_memory(data):
-            args.memory_gb = report_memory(
-                data,
-                contributors,
-                args.context,
-                args.slots,
-                args.memory_gb,
-                verbose=False,
-                reports_out=memory_reports,
-            )
-
-        serve_weights = getattr(args, "serve_weights", False)
-        print(
-            f"Checking the {args.model} bundle"
-            + (" and downloading its weights" if serve_weights else "")
-            + "…",
-            flush=True,
-        )
-        args.bundle = fetch_bundle(
-            url,
-            args.workspace / ("model" if serve_weights else "remote-model"),
-            contributors=contributors,
-            on_manifest=configure_memory,
-            weights=serve_weights,
-        )
+        args.bundle = fetch_public_bundle(args, contributors, memory_reports)
     if args.bundle:
         if args.splits is not None or args.generate is not None:
             raise ValueError(
@@ -521,17 +548,7 @@ def run(args):
             host=args.host,
             port=args.port,
         )
-        paths = [
-            launch.keys / name for name in ("owner.key", "contributor.key")
-        ]
-        if not any(path.exists() for path in paths):
-            initialize(launch.keys, quiet=True)
-        elif not all(
-            path.is_file() and path.read_text().strip() for path in paths
-        ):
-            raise ValueError(
-                "Incomplete credentials; refusing to replace existing keys"
-            )
+        ensure_keys(launch.keys)
     else:
         profile = PROFILES.get(args.model)
         local_gguf = None
@@ -641,8 +658,39 @@ def run(args):
     launch.request_log = getattr(args, "request_log", False)
     launch.tls = tls
     launch.no_terminal_chat = getattr(args, "no_terminal_chat", False)
+    launch.no_status_bar = getattr(args, "no_status_bar", False)
+    launch.open_status = getattr(args, "open_status", False)
+    if getattr(args, "save_config", False):
+        from .config import save_config
+
+        given = SimpleNamespace(**dict(args.given, workspace=args.workspace))
+        print(f"Saved settings to {save_config(given, 'launch')}", flush=True)
     launch.announce = True
     if args.prepare_only:
+        if getattr(args, "json", False):
+            import json
+
+            return json.dumps(
+                    dict(
+                        prepared=True,
+                        model=args.model,
+                        workers=contributors,
+                        workspace=str(args.workspace),
+                        bundle=str(launch.bundle),
+                        keys=str(launch.keys),
+                        context_tokens=launch.context,
+                        memory_gb=launch.memory_gb,
+                        memory=[
+                            dict(
+                                worker=row.get("worker"),
+                                recommended_bytes=row.get("recommended"),
+                            )
+                            for row in memory_reports
+                        ],
+                        route=route.value,
+                    ),
+                    indent=2,
+                )
         print(
             "Prepared. Run this command without --prepare-only to start. "
             f"Workspace: {args.workspace}"
@@ -650,3 +698,62 @@ def run(args):
         return 0
     serve(launch)
     return 0
+
+
+def fetch_public_bundle(args, contributors, memory_reports):
+    """A public preset (--model NAME) or --bundle-url, checked and cached in
+    the workspace; sets the context and memory budget. Shared by launch and
+    serve. Returns the local bundle.json path."""
+    from .downloads import PUBLIC_PRESETS, fetch_bundle
+    from .memory import report_memory
+
+    bundle_url = getattr(args, "bundle_url", None)
+    preset = (
+        PUBLIC_PRESETS.get((args.model, contributors))
+        if not bundle_url
+        else None
+    )
+    url = bundle_url or (preset.url if preset else None)
+    if preset and args.context is None:
+        args.context = preset.context
+    if not url:
+        raise ValueError(
+            f"No public bundle for {args.model!r} with {contributors} "
+            "worker(s). Run 'ygaraty models list' for the supported models "
+            "(1–4 workers each), or supply --bundle-url, --bundle or "
+            "--checkpoint"
+        )
+    if (
+        getattr(args, "splits", None) is not None
+        or getattr(args, "generate", None) is not None
+    ):
+        raise ValueError(
+            "Published bundle splits/generation are fixed; "
+            "use --checkpoint to rebuild"
+        )
+
+    def configure_memory(data):
+        args.memory_gb = report_memory(
+            data,
+            contributors,
+            args.context,
+            args.slots,
+            args.memory_gb,
+            verbose=False,
+            reports_out=memory_reports,
+        )
+
+    serve_weights = getattr(args, "serve_weights", False)
+    print(
+        f"Checking the {args.model} bundle"
+        + (" and downloading its weights" if serve_weights else "")
+        + "…",
+        flush=True,
+    )
+    return fetch_bundle(
+        url,
+        args.workspace / ("model" if serve_weights else "remote-model"),
+        contributors=contributors,
+        on_manifest=configure_memory,
+        weights=serve_weights,
+    )

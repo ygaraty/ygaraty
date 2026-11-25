@@ -19,13 +19,15 @@ from .configuration import json_object
 class PublicPreset:
     url: str
     contributors: int
-    context: int = 4096
+    # v2: the v1 weights with a 16,384-token context and 4,096-token output
+    # limit (v1: 4,096 and 256), published by scripts/publish_bundle_limits.py.
+    context: int = 16384
 
 
 PUBLIC_PRESETS = {
     (model, workers): PublicPreset(
         f"https://ygaraty-models.fra1.digitaloceanspaces.com/"
-        f"{model}/prepared/v1/{workers}-workers/bundle.json",
+        f"{model}/prepared/v2/{workers}-workers/bundle.json",
         workers,
     )
     for model in ("qwen3.5-0.8b", "s5-nano", "qwen3.5-9b", "qwen3.8-27b")

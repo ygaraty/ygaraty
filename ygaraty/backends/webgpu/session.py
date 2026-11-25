@@ -27,6 +27,7 @@ from ygaraty.backend_contracts.persistence import (
 )
 
 from .handles import WebGPUHandle
+from .stats import SessionStats
 
 
 def reject(code, message):
@@ -34,7 +35,11 @@ def reject(code, message):
 
 
 class WebGPUSession:
-    request_timeout = 120
+    # Seconds without new text before a request fails. Prefill sends none:
+    # an 11K-token prompt took 89 s on a Radeon 680M (2026-11-25), and slower
+    # GPUs or larger models take longer. Lost workers are caught sooner by
+    # their heartbeats.
+    request_timeout = 600
     revalidate_interval = 1
     close_timeout = 2
 
@@ -56,6 +61,7 @@ class WebGPUSession:
         self._encoding = None
         self._revision = 0
         self._last_state = None
+        self.stats = SessionStats()
 
     def snapshot(self) -> SessionSnapshot:
         state = (
@@ -87,6 +93,20 @@ class WebGPUSession:
             self._revision,
             state,
             capabilities,
+        )
+
+    def details(self):
+        """Model, capacity and request statistics; never keys or addresses."""
+        engine = self.engine
+        stages = getattr(engine, "owner", None)
+        return dict(
+            model=self.spec.model.model_id,
+            context_tokens=getattr(engine, "capacity", None),
+            max_output_tokens=getattr(engine, "max_output", None),
+            workers=len(stages) if isinstance(stages, list) else None,
+            slots=self.config.conversation_slots,
+            route=self.config.route.value,
+            stats=self.stats.summary(),
         )
 
     async def authorize(self, grant):
@@ -162,9 +182,11 @@ class WebGPUSession:
             reject(
                 ErrorCode.CONTEXT_EXCEEDED, "Prompt fills the context window"
             )
-        arguments["max_tokens"] = min(
-            request.max_output_tokens or remaining, remaining
-        )
+        # The bundle's output limit is the default and the maximum;
+        # max_tokens can lower it, and the context window bounds both.
+        limit = getattr(self.engine, "max_output", None)
+        wanted = request.max_output_tokens or limit or remaining
+        arguments["max_tokens"] = min(wanted, limit or wanted, remaining)
         return arguments
 
     async def admit(
@@ -263,6 +285,7 @@ class WebGPUSession:
                 if isinstance(error, asyncio.CancelledError):
                     raise
                 reject(ErrorCode.ACCESS_REVOKED, "Access is no longer valid")
+            self.stats.started(request.request_id)
             handle = WebGPUHandle(self, request, grant, key, arguments)
             self.handles[request.request_id] = handle
             return handle

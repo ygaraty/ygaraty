@@ -33,6 +33,133 @@ def initialize(directory, quiet=False):
         print(f"Created owner.key and contributor.key in {directory}")
 
 
+def ensure_keys(directory):
+    """Create owner and contributor keys once; refuse partial key sets."""
+    paths = [directory / name for name in ("owner.key", "contributor.key")]
+    if not any(path.exists() for path in paths):
+        initialize(directory, quiet=True)
+    elif not all(
+        path.is_file() and path.read_text().strip() for path in paths
+    ):
+        raise ValueError(
+            "Incomplete credentials; refusing to replace existing keys"
+        )
+
+
+def prepare_serve(args):
+    """serve's defaults, as launch chooses them for a prepared bundle.
+
+    The workspace holds keys/ and state/ (default runs/MODEL/N-workers, as
+    launch); --keys and --state-dir still override either. Without
+    --memory-gb, the GPU memory budget is the bundle's recommendation.
+    """
+    from .configuration import json_object
+
+    for name in (
+        "workspace",
+        "keys",
+        "state_dir",
+        "workers",
+        "memory_gb",
+        "public_url",
+        "bundle_url",
+    ):
+        if not hasattr(args, name):
+            setattr(args, name, None)
+    given = dict(vars(args))
+    if not 1 <= args.port <= 65535 or not 1 <= args.slots <= 16:
+        raise ValueError("Require port 1–65535 and slots 1–16")
+    if args.memory_gb is not None and args.memory_gb < 1:
+        raise ValueError("--memory-gb must be positive")
+    if args.bundle is None:
+        # A supported model by name (or --bundle-url), as launch does.
+        from .launch import fetch_public_bundle, require_model_and_workers
+
+        args.model = args.model_id
+        require_model_and_workers(args, "workers")
+        if args.workspace is None:
+            args.workspace = default_workspace(args.model_id, args.workers)
+        args.workspace = Path(args.workspace).resolve()
+        args.bundle = fetch_public_bundle(args, args.workers, [])
+    elif not args.model_id:
+        from .launch import require_model_and_workers
+
+        args.model = None
+        require_model_and_workers(args, "workers")
+    data = json_object(args.bundle.read_bytes())
+    stages = len(data.get("stages") or [])
+    workers = getattr(args, "workers", None)
+    if workers is not None and workers != stages:
+        raise ValueError(
+            f"This bundle has {stages} stage(s); --num-workers must match "
+            "(prepare another bundle with --splits to change it)"
+        )
+    args.workers = stages
+    if args.workspace is None and (
+        args.keys is None or args.state_dir is None
+    ):
+        args.workspace = default_workspace(args.model_id, stages)
+    if args.keys is None:
+        args.keys = args.workspace / "keys"
+        ensure_keys(args.keys)
+    if args.state_dir is None:
+        args.state_dir = args.workspace / "state"
+    if args.memory_gb is None:
+        from .memory import report_memory
+
+        try:
+            args.memory_gb = report_memory(
+                data, stages, args.context, args.slots, None, verbose=False
+            )
+        except (ValueError, KeyError, TypeError):
+            args.memory_gb = 8
+    if getattr(args, "save_config", False):
+        from types import SimpleNamespace
+
+        from .config import save_config
+
+        if args.workspace is None:
+            raise ValueError("--save-config needs a workspace")
+        given["workspace"] = args.workspace
+        path = save_config(SimpleNamespace(**given), "serve")
+        print(f"Saved settings to {path}", flush=True)
+    return args
+
+
+def default_workspace(model, workers):
+    """runs/MODEL/N-workers (YGARATY_WORKSPACE_ROOT replaces runs)."""
+    import re
+
+    name = re.sub(r"[^A-Za-z0-9_.-]", "_", model).strip(".") or "model"
+    return (
+        Path(os.environ.get("YGARATY_WORKSPACE_ROOT", "runs"))
+        / name
+        / f"{workers}-workers"
+    )
+
+
+def print_links(args, out=None):
+    """The links serve prints at startup (launch shows its own screen)."""
+    import sys
+
+    from .launch import connection_details
+
+    links = connection_details(args)
+    lines = [
+        f"Serving {args.model_id} ({args.workers} worker"
+        + ("s" if args.workers != 1 else "")
+        + f", {args.slots} chat"
+        + ("s" if args.slots != 1 else "")
+        + " at a time)",
+        f"  Contributor link (share it): {links['contribute']}",
+        f"  Session page (private): {links['session']}",
+        f"  Web chat (private): {links['chat']}",
+        f"  API: {links['api']} · model {args.model_id} · key in "
+        f"{args.keys / 'owner.key'}",
+    ]
+    print("\n".join(lines), file=out or sys.stdout, flush=True)
+
+
 def session_spec(args):
     from ._legacy.chat_contract import chat_format
     from ._legacy.model_artifacts import local_file
@@ -82,7 +209,11 @@ def serve(args):
         raise ValueError(
             "Install ygaraty-webgpu[server] in this environment"
         ) from error
-    args.route, args.turn_config = resolve_network(args)
+    if not getattr(args, "announce", False):
+        prepare_serve(args)
+    args.route, args.turn_config = resolve_network(
+        args, local_network=not getattr(args, "public_url", None)
+    )
     spec = session_spec(args)
     clock = SystemClock()
     access = LocalAccess(
@@ -96,10 +227,16 @@ def serve(args):
     factory = WebGPUFactory(
         args.bundle, args.state_dir / spec.epoch, turn=args.turn_config
     )
-    app = create_app(factory, spec, services, access)
-    if not getattr(args, "announce", False) or getattr(
-        args, "request_log", False
-    ):
+    app = create_app(
+        factory,
+        spec,
+        services,
+        access,
+        open_status=getattr(args, "open_status", False),
+    )
+    if not getattr(args, "announce", False):
+        print_links(args)
+    elif getattr(args, "request_log", False):
         print(f"Session {spec.session_id}; chat at /chat, contributors at /")
     if getattr(args, "announce", False):
         import asyncio
@@ -238,36 +375,107 @@ def main(argv=None):
         prog="ygaraty",
         description="Public WebGPU coordinator: local bundles and relay",
     )
-    commands = parser.add_subparsers(dest="command", required=True)
+    commands = parser.add_subparsers(
+        dest="command", required=True, metavar="COMMAND"
+    )
     model_parser(commands)
-    from . import bootstrap, contributors, launch
+    from . import bootstrap, catalog, contributors, launch, status_command
 
+    catalog.add_parser(commands)
     bootstrap.add_parser(commands)
-    launch.add_parser(commands)
+    launch_parser = launch.add_parser(commands)
     contributors.add_parser(commands)
     init = commands.add_parser(
         "init", help="Create separate owner and contributor credentials"
     )
     init.add_argument("--directory", type=Path, required=True)
     run = commands.add_parser(
-        "serve", help="Serve one prepared local WebGPU bundle"
+        "serve",
+        help="Run only the server for a model (no console, sharing or chat)",
     )
-    run.add_argument("--bundle", type=Path, required=True)
-    run.add_argument("--model-id", required=True)
-    run.add_argument("--keys", type=Path, required=True)
-    run.add_argument("--state-dir", type=Path, required=True)
-    run.add_argument("--context", type=int)
-    run.add_argument("--memory-gb", type=int, default=8)
-    run.add_argument("--slots", type=int, default=8)
-    run.add_argument("--host", default="127.0.0.1")
-    run.add_argument("--port", type=int, default=8765)
     add_network_arguments(run)
+    source = run.add_mutually_exclusive_group()
+    source.add_argument(
+        "--bundle", type=Path, help="Prepared bundle.json on this machine"
+    )
+    source.add_argument(
+        "--bundle-url", help="Public HTTPS prepared bundle (needs --model)"
+    )
+    run.add_argument(
+        "--model",
+        "--model-id",
+        dest="model_id",
+        help="Model: a name from 'ygaraty models list' (downloads its public "
+        "bundle), or the API name for --bundle/--bundle-url",
+    )
+    run.add_argument(
+        "--workspace",
+        type=Path,
+        help="Keys and state (default: runs/MODEL/N-workers, as launch)",
+    )
+    run.add_argument(
+        "--num-workers",
+        "--workers",
+        "--contributors",
+        dest="workers",
+        type=int,
+        help="GPU worker count: required with a model name or --bundle-url; "
+        "with --bundle, must equal its stage count",
+    )
+    run.add_argument(
+        "--context", type=int, help="Context tokens (default: the bundle's)"
+    )
+    run.add_argument(
+        "--memory-gb",
+        type=int,
+        help="GPU memory cap in GiB (default: the bundle's recommendation)",
+    )
+    run.add_argument(
+        "--slots",
+        type=int,
+        default=1,
+        help="Concurrent conversation slots, 1–16",
+    )
+    run.add_argument("--host", default="127.0.0.1", help="Bind address")
+    run.add_argument("--port", type=int, default=8765)
+    run.add_argument(
+        "--public-url",
+        help="HTTPS origin that contributors reach this server at (for the "
+        "printed links; also keeps --route auto off local-only WebRTC)",
+    )
+    run.add_argument(
+        "--keys",
+        type=Path,
+        help="Credential directory (default: WORKSPACE/keys, created once)",
+    )
+    run.add_argument(
+        "--state-dir",
+        type=Path,
+        help="Session state (default: WORKSPACE/state)",
+    )
+    launch.add_common_arguments(run)
+    status_command.add_parser(commands)
     args = parser.parse_args(argv)
+    if args.command in {"launch", "serve"}:
+        from .config import config_defaults, find_config
+
+        try:
+            path = find_config(args)
+            if path is not None:
+                sub = launch_parser if args.command == "launch" else run
+                sub.set_defaults(**config_defaults(path, sub))
+                args = parser.parse_args(argv)
+        except ValueError as error:
+            fail(args, error)
     try:
         if args.command == "contribute":
             return contributors.run(args)
         if args.command == "launch":
             return launch.run(args)
+        if args.command == "models":
+            return catalog.run(args)
+        if args.command == "status":
+            return status_command.run(args)
         if args.command == "bootstrap":
             return bootstrap.run(args)
         if args.command == "model":
@@ -277,7 +485,22 @@ def main(argv=None):
         else:
             serve(args)
     except (ValueError, OSError, KeyError) as error:
-        parser.error(str(error))
+        fail(args, error)
+    return 0
+
+
+def fail(args, error):
+    """Exit 1 for a failed command (2 stays argparse's usage error); with
+    --json the message is also printed as {"error": ...} on stdout."""
+    import sys
+
+    message = (
+        str(error).strip("'\"") if isinstance(error, KeyError) else str(error)
+    )
+    if getattr(args, "json", False):
+        print(json.dumps({"error": message}))
+    print(f"ygaraty {args.command}: error: {message}", file=sys.stderr)
+    raise SystemExit(1)
 
 
 if __name__ == "__main__":

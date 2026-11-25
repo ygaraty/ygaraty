@@ -33,6 +33,10 @@ class LocalAccess:
     def is_owner(self, token):
         return secrets.compare_digest(token.encode(), self._owner.encode())
 
+    def contributor_credential(self):
+        """For the owner's session page, which shows the link to share."""
+        return self._contributor
+
     def is_contributor(self, token):
         return secrets.compare_digest(
             token.encode(), self._contributor.encode()

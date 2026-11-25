@@ -231,9 +231,8 @@ class Bootstrap:
 
 
 def add_parser(commands):
-    parser = commands.add_parser(
-        "bootstrap", help="Prepare and launch the local WebGPU chat example"
-    )
+    # Deprecated: launch does the same (--checkpoint, --prepare-only).
+    parser = commands.add_parser("bootstrap")
     parser.add_argument("--model", choices=PROFILES, default="qwen3.5-9b")
     parser.add_argument(
         "--num-workers",
@@ -272,6 +271,15 @@ def add_parser(commands):
 
 
 def run(args):
+    import sys
+
+    print(
+        "Note: 'ygaraty bootstrap' is deprecated and will be removed. Use "
+        "'ygaraty launch --checkpoint DIR --model NAME --num-workers N' "
+        "(add --prepare-only to prepare without starting).",
+        file=sys.stderr,
+        flush=True,
+    )
     if args.workspace is None:
         args.workspace = (
             Path("runs") / args.model / f"{args.contributors}-workers"

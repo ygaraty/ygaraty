@@ -2,6 +2,9 @@
 // After each answer it shows the same stats as the terminal chat: time to
 // first token, tokens, decode rate after the first token, and the route.
 const $ = id => document.getElementById(id);
+// The session status bar's formatting is shared with the session page (/).
+let barText = null;
+if ($('session-bar')) import('./session_stats_view.mjs').then(view => { barText = view.barText; }, () => {});
 let messages = [], conversation = crypto.randomUUID(), controller, ready = false, network = null;
 const now = () => performance.now() / 1000;
 const sharedKey = new URLSearchParams(location.hash.slice(1)).get('key');
@@ -42,6 +45,7 @@ async function refreshStatus() {
       if (credential !== $('key').value) return;
       ready = session.state === 'ready';
       network = session.network || null;
+      if (barText && session.details) $('session-bar').textContent = barText(session.details);
       if (!controller) setStatus(ready ? 'Ready' : 'Waiting for workers to open the contributor link…', ready ? 'ready' : '');
       const models = await fetch('/v1/models', {headers, signal: AbortSignal.timeout(5000)});
       if (models.ok && credential === $('key').value) {

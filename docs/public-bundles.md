@@ -4,7 +4,7 @@ These presets download prepared bundles from our public DigitalOcean Spaces
 storage. They need no local checkpoint, cloud credentials or conversion step.
 
 Choose **1, 2, 3 or 4 workers** for any model. `--num-workers` is mandatory
-and selects the matching `MODEL/prepared/v1/N-workers/bundle.json` in Spaces.
+and selects the matching `MODEL/prepared/v2/N-workers/bundle.json` in Spaces.
 The launcher reads that manifest and prints each worker's calculated GPU RAM
 requirement **before downloading weights**.
 
@@ -17,30 +17,44 @@ ygaraty launch --model qwen3.8-27b --num-workers 4 --open-chat
 ygaraty launch --model qwen3.5-9b --num-workers 4 --open-chat
 ```
 
+## Context and output limit
+
+Each conversation holds up to 16,384 tokens, and one answer can be up to 4,096
+tokens long. A 12,000-token prompt still leaves room for the longest answer.
+
+To use less GPU memory, lower the context:
+
+```sh
+ygaraty launch --model s5-nano --num-workers 2 --context 8192
+```
+
+Older Ygaraty versions use the v1 bundles (4,096-token context, 256-token
+answers). The weights are the same.
+
 ## Calculated GPU RAM
 
-At the default 4,096-token context and one chat slot, recommended memory per
+At the default 16,384-token context and one chat slot, recommended memory per
 worker is shown below in decimal GB. Values include planning headroom and are
 rounded for display; startup recalculates from the selected manifest.
 
 | Model | Workers | Recommended GPU RAM for workers 1…N |
 | --- | --- | --- |
-| Qwen3.5-0.8B | 1 | 1.02 GB |
-| Qwen3.5-0.8B | 2 | 0.78 / 0.78 GB |
-| Qwen3.5-0.8B | 3 | 0.69 / 0.44 / 0.70 GB |
-| Qwen3.5-0.8B | 4 | 0.65 / 0.40 / 0.40 / 0.66 GB |
-| S5-Nano | 1 | 3.82 GB |
-| S5-Nano | 2 | 2.37 / 2.37 GB |
-| S5-Nano | 3 | 1.74 / 1.54 / 1.76 GB |
-| S5-Nano | 4 | 1.47 / 1.20 / 1.18 / 1.49 GB |
-| Qwen3.5-9B | 1 | 7.39 GB |
-| Qwen3.5-9B | 2 | 3.85 / 3.84 GB |
-| Qwen3.5-9B | 3 | 2.69 / 2.62 / 2.68 GB |
-| Qwen3.5-9B | 4 | 2.01 / 2.13 / 2.13 / 2.01 GB |
-| Qwen3.8-27B | 1 | 20.86 GB |
-| Qwen3.8-27B | 2 | 10.66 / 10.52 GB |
-| Qwen3.8-27B | 3 | 7.28 / 7.06 / 7.14 GB |
-| Qwen3.8-27B | 4 | 5.33 / 5.64 / 5.38 / 5.44 GB |
+| Qwen3.5-0.8B | 1 | 1.22 GB |
+| Qwen3.5-0.8B | 2 | 0.88 / 0.88 GB |
+| Qwen3.5-0.8B | 3 | 0.77 / 0.52 / 0.77 GB |
+| Qwen3.5-0.8B | 4 | 0.70 / 0.48 / 0.45 / 0.73 GB |
+| S5-Nano | 1 | 4.34 GB |
+| S5-Nano | 2 | 2.64 / 2.65 GB |
+| S5-Nano | 3 | 1.89 / 1.75 / 1.97 GB |
+| S5-Nano | 4 | 1.56 / 1.41 / 1.33 / 1.64 GB |
+| Qwen3.5-9B | 1 | 7.91 GB |
+| Qwen3.5-9B | 2 | 4.12 / 4.11 GB |
+| Qwen3.5-9B | 3 | 2.84 / 2.89 / 2.83 GB |
+| Qwen3.5-9B | 4 | 2.10 / 2.35 / 2.34 / 2.10 GB |
+| Qwen3.8-27B | 1 | 21.87 GB |
+| Qwen3.8-27B | 2 | 11.18 / 11.05 GB |
+| Qwen3.8-27B | 3 | 7.63 / 7.47 / 7.49 GB |
+| Qwen3.8-27B | 4 | 5.55 / 5.99 / 5.67 / 5.73 GB |
 
 Qwen3.8-27B's bundles come from lmstudio-community's `Qwen3.8-27B-Q4_K_M.gguf`
 (revision `5a7da68`, SHA-256 `e00082f7…e520`, Q4_K and Q6_K tensors only) with
@@ -63,8 +77,7 @@ its device self-tests. More slots increase state allocations; `--context` can
 reduce capacity within the prepared bundle's limits. Repacked/speculative
 bundles are not supported by automatic estimation.
 
-All presets have a 256-token generation cap; requests can lower it with
-`max_tokens`. Workspaces are separated by model and worker count, so switching
+Answers are at most 4,096 tokens; requests can lower it with `max_tokens`. Workspaces are separated by model and worker count, so switching
 configurations does not mix artifacts or keys. Run one server at a time unless
 you assign different ports.
 

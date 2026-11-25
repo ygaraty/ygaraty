@@ -1,12 +1,60 @@
 <!doctype html>
-<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>Ygaraty · Contribute</title>
-<style>body{font:17px system-ui;max-width:48rem;margin:4rem auto;padding:1rem;background:#faf9f6;color:#202020}button,input{font:inherit;padding:.6rem}section{border-top:1px solid #ccc;padding-top:1rem}#saved{margin-top:2rem}#saved h2{font-size:1.1rem}progress{width:100%}</style>
-<h1>Contribute your GPU</h1><p>Keep this tab open to help run the model. Click “Accept and contribute” to share your GPU; model loading may take a few minutes.</p>
-<p id="network-policy"><!-- NETWORK_POLICY --></p>
-<form id="credentials"><input id="credential" type="password" autocomplete="off" aria-label="Contributor key" placeholder="Contributor key" required><button>Use key</button></form>
-<section><button id="accept">Accept and contribute</button><p id="contributor-presence">Not contributing</p><h2 id="status">Waiting for you</h2><p id="detail"></p><p id="assignment"></p><p id="serving-status"></p><progress id="weight-progress" max="100" value="0"></progress><p id="weight-progress-label"></p><section id="contributor-network" class="contributor-network" aria-label="Live contributor connections" hidden><strong>Live connections</strong><div data-network-links></div></section></section>
-<section id="saved"><h2>Saved model files</h2><p id="saved-files">Checking saved model files…</p><button type="button" id="clear-saved-files" disabled>Clear saved model files</button></section>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ygaraty · Session</title>
+<style>
+:root{--bg:#faf9f6;--panel:#fff;--text:#202020;--muted:#6b6b6b;--line:#e3e0d8;--accent:#2f5bd3;--good:#2e9d5b;--warn:#b26a00;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#17171a;--panel:#212126;--text:#ececec;--muted:#9a9aa3;--line:#33333a;--accent:#8fb0ff;--good:#5cc98a;--warn:#e0a54a}}
+*{box-sizing:border-box}
+body{font:16px/1.5 system-ui,sans-serif;max-width:52rem;margin:0 auto;padding:1.5rem 1rem 3rem;background:var(--bg);color:var(--text)}
+h1{font-size:1.35rem;margin:0}h2{font-size:1.05rem;margin:0 0 .5rem}
+button,input{font:inherit;padding:.45rem .7rem;border-radius:.45rem;border:1px solid var(--line);background:var(--panel);color:inherit}
+button{cursor:pointer}button:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:.8rem;padding:1rem 1.1rem;margin-top:1rem}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem}
+#session-state{margin-left:auto;font-size:.9rem;color:var(--muted)}
+#session-state::before{content:"";display:inline-block;width:.55rem;height:.55rem;border-radius:50%;background:var(--muted);margin-right:.4rem;vertical-align:.05rem}
+#session-state.ready::before{background:var(--good)}#session-state.waiting::before{background:var(--warn)}
+#session-model{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;margin:.6rem 0 0;color:var(--muted);font-size:.92rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:.6rem;margin-top:.8rem}
+.stat{border:1px solid var(--line);border-radius:.6rem;padding:.55rem .7rem}
+.stat b{display:block;font-size:1.25rem;font-variant-numeric:tabular-nums}
+.stat span{font-size:.8rem;color:var(--muted)}
+.link{display:flex;gap:.4rem;margin:.5rem 0}.link input{flex:1;min-width:0}
+.muted{color:var(--muted);font-size:.9rem}
+#owner[hidden],#join-hint[hidden],#workers-card[hidden],#session-locked[hidden]{display:none}
+table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{text-align:left;padding:.35rem .5rem;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:500}
+.ok{color:var(--good)}.warn{color:var(--warn)}
+section#contribute{margin-top:1rem}
+progress{width:100%}
+#saved h2{font-size:1rem}
+</style>
+<header class="top"><h1>Ygaraty <span id="session-model"></span></h1><span id="session-state" role="status">Connecting…</span></header>
+<div class="card" id="session-card" aria-label="Session" data-open-status="false">
+  <p class="muted" id="session-locked" hidden>Open the session page or contributor link you were given, or enter the contributor key below, to see this session's status.</p>
+  <div class="facts" id="session-facts"></div>
+  <div class="grid" id="session-stats" aria-live="polite"></div>
+  <p class="muted" id="session-network"></p>
+</div>
+<div class="card" id="workers-card" hidden>
+  <h2>Workers</h2>
+  <table id="workers"><thead><tr><th>Worker</th><th>State</th><th>Coordinator</th><th>Links to other workers</th></tr></thead><tbody></tbody></table>
+</div>
+<div class="card" id="owner" hidden>
+  <h2>Share with contributors</h2>
+  <p class="muted">Anyone with this link can join as a worker and will process the prompts sent to this model. Share it only with people you trust.</p>
+  <div class="link"><input id="contributor-link" readonly aria-label="Contributor link"><button type="button" id="copy-contributor">Copy</button></div>
+  <p class="muted"><a id="chat-link" href="/chat">Open the private chat</a></p>
+</div>
+<p class="muted" id="join-hint" hidden>To run part of the model on your GPU, open the contributor link the session owner shared with you, or enter the contributor key below.</p>
+<section class="card" id="contribute">
+<h2>Contribute your GPU</h2><p>Keep this tab open to help run the model. Click “Accept and contribute” to share your GPU; model loading may take a few minutes.</p>
+<p id="network-policy" class="muted"><!-- NETWORK_POLICY --></p>
+<form id="credentials" class="link"><input id="credential" type="password" autocomplete="off" aria-label="Contributor key" placeholder="Contributor key" required><button>Use key</button></form>
+<button id="accept">Accept and contribute</button><p id="contributor-presence">Not contributing</p><h2 id="status">Waiting for you</h2><p id="detail"></p><p id="assignment"></p><p id="serving-status"></p><progress id="weight-progress" max="100" value="0"></progress><p id="weight-progress-label"></p><section id="contributor-network" class="contributor-network" aria-label="Live contributor connections" hidden><strong>Live connections</strong><div data-network-links></div></section>
+</section>
+<section class="card" id="saved"><h2>Saved model files</h2><p id="saved-files">Checking saved model files…</p><button type="button" id="clear-saved-files" disabled>Clear saved model files</button></section>
 <script>if(new URLSearchParams(location.hash.slice(1)).get('key'))document.getElementById('credentials').hidden=true;document.getElementById('credentials').onsubmit=e=>{e.preventDefault();location.hash=new URLSearchParams({key:document.getElementById('credential').value});location.reload();};</script>
+<script type="module" src="/session_status.mjs"></script>
 <script type="module" src="/contributor_cache.mjs"></script>
 <script type="module" src="/qwen35_contributor.mjs"></script></html>

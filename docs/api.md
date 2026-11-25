@@ -77,9 +77,47 @@ start a new conversation. Requests for the same conversation run one at a time.
 ## Readiness and cancellation
 
 `GET /v1/session` with the owner bearer key returns session state and effective
-capacity. Wait for `state: "ready"` before sending. The server returns 503 for
+capacity, plus `details`: the same model and statistics as `/v1/status`. Wait
+for `state: "ready"` before sending.
+
+`GET /v1/status` returns what the session page (`/`) shows. Send the owner or
+the contributor key, or none if the server runs with `--open-status`.
+
+```sh
+curl -H "Authorization: Bearer $OWNER_KEY" http://127.0.0.1:8765/v1/status
+```
+
+```json
+{
+  "model": "s5-nano",
+  "state": "ready",
+  "context_tokens": 16384,
+  "max_output_tokens": 4096,
+  "workers_ready": 2,
+  "workers_required": 2,
+  "workers": [
+    {"stage": "A", "state": "ready", "coordinator": "connected", "route": "relay"},
+    {"stage": "B", "state": "downloading", "percent": 45.0, "coordinator": "connected"}
+  ],
+  "stats": {"total_tokens": 5120, "tokens_per_s": {"average": 14.4}, "ttft_s": {"average": 0.4}}
+}
+```
+
+- `workers[].state`: `waiting`, `joining`, `downloading`, `checking` or `ready`.
+- `workers[].coordinator`: `connected`, or `late` when heartbeats stopped.
+- With several workers, `route` and `links` say how hidden states travel
+  (relay, or WebRTC direct or through TURN, with round-trip time).
+- `stats` counts requests since the server started: tokens, time to first
+  token, decode speed, chats and answers.
+
+It never includes keys, contributor identities or network addresses.
+
+The server returns 503 for
 completion requests while contributors are unavailable, 429 when full, and 401
 for a missing or incorrect owner key. Invalid or unsupported inputs return 400.
+
+Answers stop at the bundle's output limit, `max_output_tokens` (4,096 for the
+public bundles). `max_tokens` can ask for fewer, not more.
 
 Streaming responses include `X-Request-ID`. Cancel a request with
 `POST /v1/requests/{request_id}/cancel`, using the same owner key. Disconnecting

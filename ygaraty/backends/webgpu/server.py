@@ -24,6 +24,7 @@ from ygaraty.backend_contracts.models import Route
 
 from .configuration import WebGPUConfig
 from .http_api import completion, error_status, read_chat, sse
+from .session_view import workers_view
 
 BROWSER = Path(__file__).with_name("browser")
 
@@ -81,7 +82,10 @@ def create_app(
     *,
     transport_factory=None,
     launch_args=None,
+    open_status=False,
 ):
+    """open_status: serve /v1/status without a key (default: owner or
+    contributor key required)."""
     config = WebGPUConfig.from_contract(spec.configuration)
     direct = config.route != Route.RELAY
     worker_secret = secrets.token_bytes(32)
@@ -138,6 +142,13 @@ def create_app(
         openapi_url=None,
     )
 
+    def _is_owner(token):
+        try:
+            access.grant(token)
+        except PermissionError:
+            return False
+        return True
+
     def owner(request):
         try:
             return access.grant(bearer(request))
@@ -161,7 +172,72 @@ def create_app(
         return {
             **asdict(session.snapshot()),
             "network": network_summary(engine_status(session)),
+            "details": public_status(),
         }
+
+    def public_status():
+        from .launch import engine_status
+        from .terminal_chat import network_summary
+
+        session = app.state.session
+        status = engine_status(session) or {}
+        roster = status.get("roster") or {}
+        details = session.details()
+        engine = getattr(session, "engine", None)
+        try:
+            now = engine.contributor_roster().clock()
+        except Exception:  # fakes and engines without a roster
+            now = None
+        workers = workers_view(status, now)
+        # Joined workers that never reported WebRTC links (a runtime without
+        # WebRTC) all use the relay, whatever the route allows.
+        joined = [w for w in workers if w.get("route")]
+        if joined and all(
+            w["route"].startswith("relay (no WebRTC") for w in joined
+        ):
+            network = "relay (workers reported no WebRTC links)"
+        elif roster.get("required") == 1:
+            network = network_summary(status) or "one worker, no links"
+        else:
+            network = network_summary(status)
+        details.update(
+            workers=workers,
+            state=session.snapshot().state.value,
+            workers_required=roster.get("required") or details["workers"],
+            workers_ready=sum(
+                record.get("state") == "active"
+                for record in roster.get("contributors", [])
+            ),
+            workers_joined=len(roster.get("contributors", [])),
+            network=network,
+        )
+        return details
+
+    @app.get("/v1/status")
+    async def status_page_data(request: Request):
+        # Model, readiness, workers and request statistics for the session
+        # page. Owner or contributor key unless the server was started with
+        # an open status page. Never credentials, contributor identities or
+        # network addresses.
+        token = bearer(request)
+        if not open_status and not (
+            access.is_contributor(token) or _is_owner(token)
+        ):
+            raise HTTPException(401, "Owner or contributor key required")
+        return JSONResponse(
+            public_status(), headers={"Cache-Control": "no-store"}
+        )
+
+    @app.get("/v1/session/contributor-key")
+    async def contributor_key(request: Request):
+        # The owner's session page builds the contributor link from it.
+        owner(request)
+        credential = getattr(access, "contributor_credential", None)
+        if credential is None:
+            raise HTTPException(404, "Contributor key not available")
+        return JSONResponse(
+            {"key": credential()}, headers={"Cache-Control": "no-store"}
+        )
 
     @app.get("/v1/models")
     async def models(request: Request):
@@ -285,7 +361,13 @@ def create_app(
             "coordinator relay remains available as fallback.",
         }[config.route]
         page = (BROWSER / "session_contributor.html").read_text()
-        return HTMLResponse(page.replace("<!-- NETWORK_POLICY -->", policy))
+        page = page.replace("<!-- NETWORK_POLICY -->", policy)
+        return HTMLResponse(
+            page.replace(
+                'data-open-status="false"',
+                f'data-open-status="{str(open_status).lower()}"',
+            )
+        )
 
     @app.get("/chat")
     async def chat_page(request: Request):

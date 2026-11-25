@@ -1,7 +1,9 @@
 # Advanced mode
 
-Use `ygaraty launch --num-workers 2` to configure the model and start a foreground server in one
-command. If the installer’s CLI is not on PATH, replace `ygaraty` below with
+Use `ygaraty launch --model NAME --num-workers 2` to configure the model and start a foreground
+server in one command. For the difference between `launch` and `serve`, the
+`models`, `status` commands, saved settings and exit codes, see
+[command line](commands.md). If the installer’s CLI is not on PATH, replace `ygaraty` below with
 `~/.local/share/ygaraty/venv/bin/ygaraty`.
 
 ```sh
@@ -25,13 +27,13 @@ until the backend reports readiness again.
 | --- | --- |
 | `--checkpoint PATH` | Optional local preparation from GGUF/config/tokenizer; otherwise use a public preset. |
 | `--bundle-url URL` | Override the preset with a public HTTPS prepared bundle. |
-| `--num-workers N` | **Required.** Number of GPU workers, 1–26. Public presets support 1, 2, 3 or 4. Prepared bundles must have exactly this stage count; local splits must match it. `--workers` and `--contributors` are aliases. |
+| `--num-workers N` | **Required** (flag or config file). Number of GPU workers, 1–26. Public presets support 1, 2, 3 or 4. Prepared bundles must have exactly this stage count; local splits must match it. `--workers` and `--contributors` are aliases. |
 | `--bundle PATH` | Already-prepared `bundle.json`; skips checkpoint preparation. |
-| `--model NAME` / `--model-id NAME` | API model ID, default `qwen3.5-9b`. Known names select presets; other names inspect the checkpoint and default to a single stage with an 8 GiB budget. |
+| `--model NAME` / `--model-id NAME` | **Required** (flag or config file). A name from `ygaraty models list` downloads that model. With `--bundle`, `--bundle-url` or `--checkpoint`, it is the name apps use in API requests. |
 | `--gguf NAME` | Filename inside the checkpoint, default `model.gguf`; first shard for split GGUF. |
 | `--splits LIST` | Increasing layer boundaries from zero to the model's full layer count; at most 26 stages. Checkpoint preparation only. |
-| `--context N` | Context tokens, default 4096 for public presets and preparation; existing capacity for explicit bundles. |
-| `--generate N` | Prepared maximum output tokens, default 128; must be positive and smaller than context. Checkpoint preparation only. |
+| `--context N` | Context tokens. Default 16384 for public models, the bundle's for `--bundle`, 4096 for `--checkpoint`. |
+| `--generate N` | Longest answer in tokens, default 128; smaller than `--context`. `--checkpoint` only. |
 | `--memory-gb N` | Optional runtime budget override in GiB; must cover the calculated recommendation. Does not change the memory estimate. |
 | `--slots N` | Concurrent conversation slots, 1–16; default 1. More slots need more memory. |
 | `--workspace PATH` | Model, keys and state directory; CLI default `runs/MODEL/N-workers`, installer default `~/.local/share/ygaraty/workspaces/MODEL/N-workers`. |
@@ -46,13 +48,17 @@ until the backend reports readiness again.
 | `--public-url URL` | Use an existing HTTPS endpoint instead of an automatic tunnel. No path, query, fragment or embedded credentials. HTTP is allowed for localhost. Cannot be combined with `--local`. |
 | `--open-chat` | Open private chat in the server machine's default browser. Omit on headless hosts. |
 | `--prepare-only` | Prepare and validate the model and keys, then exit. Computes numerical references. |
-| `--no-terminal-chat` | Do not open the `>` chat prompt in the launch terminal when the model becomes ready. It is skipped automatically when input is not a terminal. After each answer a line shows time to first token, tokens and decode rate (tokens/s after the first token), and the route with WebRTC link state. `/net` shows each link's details, `/reset` starts a new conversation, `/quit` stops the server like Ctrl-C, and Ctrl-D closes only the prompt while the server keeps running. |
+| `--no-terminal-chat` | Do not open the `>` chat prompt in the launch terminal when the model becomes ready. It is skipped automatically when input is not a terminal. After each answer a line shows time to first token, tokens and decode rate (tokens/s after the first token), and the route with WebRTC link state. `/stats` shows the session's tokens, speeds, chats and each worker's state, heartbeat and links, `/net` shows each link's details, `/reset` starts a new conversation, `/quit` stops the server like Ctrl-C, and Ctrl-D closes only the prompt while the server keeps running. |
+| `--open-status` | Show the session page's status, workers and statistics (`/` and `GET /v1/status`) without a key. By default they need the owner or contributor key, which the printed links carry. |
+| `--config FILE` | Read defaults from a TOML file; default `WORKSPACE/ygaraty.toml` when `--workspace` is given, else `./ygaraty.toml`. Flags override it. See [saved settings](commands.md#save-settings-and-restart). |
+| `--save-config` | Write these settings to `WORKSPACE/ygaraty.toml`, so `ygaraty launch --workspace WORKSPACE` repeats them. |
+| `--json` | With `--prepare-only`: print the result as JSON. |
+| `--no-status-bar` | Hide the status line at the top of the terminal chat (tokens, speed, context, chats, workers). `YGARATY_NO_STATUS_BAR=1` does the same. |
 | `--request-log` | Also print HTTP requests and contributor session events. By default the terminal shows the contributor link and one live row per worker until the model is ready; events always go to `state/<session>/session.log`. |
 | `--serve-weights` | Public bundles only. Download all weights to this machine and serve them to contributors. By default the server fetches only metadata (about 26 MB) and each contributor's browser downloads its weights directly from public storage, verifying every piece's SHA-256. |
 
-Both public models support 1–4 workers with one slot and 4,096 context tokens
-by default. Worker count selects the matching Spaces manifest; its split plan
-and 256-token generation cap are preserved. See [memory estimates](public-bundles.md).
+Public models run on 1–4 workers, with 16,384 context tokens and answers of
+up to 4,096 tokens. See [memory per worker](public-bundles.md).
 
 Optional `--checkpoint` preparation has separate profiles: S5-Nano uses two
 16-layer stages, Qwen uses four eight-layer stages, and Qwen3-Coder-30B uses one
@@ -63,6 +69,14 @@ Generation is currently greedy (`temperature=0`, one completion). Sampling,
 tools, images, embeddings and the Responses API are not implemented. Per-request
 `max_tokens` can reduce the output budget. These limitations apply to both
 chat and connected apps.
+
+## Session page and statistics
+
+`/` is the session page: the model, whether the session is ready, each
+worker's state and connectivity, and live request statistics. The web chat and
+the terminal chat show a one-line summary. By default the page's status needs
+the owner or contributor key, which the printed links carry; `--open-status`
+shows it without a key. See [session page and status](commands.md#session-page-and-status).
 
 ## Share over the internet
 

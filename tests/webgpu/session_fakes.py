@@ -1,6 +1,7 @@
 """In-process metadata/fake-stream fixtures; no model or service startup."""
 
 import threading
+import time
 from types import SimpleNamespace
 
 from test_preparation import inputs
@@ -46,7 +47,11 @@ class FakeEngine:
             if self.mode == "uncooperative":
                 self.release.wait(2)
                 return
-            if self.mode == "flood":
+            if self.mode == "slow":  # steady text, longer than the deadline
+                for _ in range(15):
+                    time.sleep(0.01)
+                    yield {"text": "x"}
+            elif self.mode == "flood":
                 for _ in range(2000):
                     if cancel_event.is_set():
                         return

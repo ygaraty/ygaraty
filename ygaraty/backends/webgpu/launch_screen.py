@@ -122,15 +122,22 @@ def ready_lines(args, links, elapsed, terminal_chat, style):
         first += " Type a message below; /help lists commands."
     else:
         first += " Open the web chat link to talk to the model."
-    return [
+    lines = [
         "",
         "  " + first,
         "  " + style.dim("Web chat (private): ") + links["chat"],
+    ]
+    if links.get("session"):
+        lines.append(
+            "  " + style.dim("Session page (private): ") + links["session"]
+        )
+    lines += [
         "  "
         + style.dim("API: ")
         + f"{links['api']} · model {model} · key in {key}",
         "",
     ]
+    return lines
 
 
 class Workers:
