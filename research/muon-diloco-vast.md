@@ -55,7 +55,8 @@ updates are subsequent experiments.
 ## Evidence and cleanup
 
 [Protocols, individual results and reproduction commands](results/muon-diloco-vast/README.md)
-include source hashes and correctness checks. Tested source: DiLoCo branch work
+include source hashes and correctness checks. Tested source: a historical snapshot
+before the DiLoCo merge into `main`,
 based on commit `5441492d12651021ca345715d12d5e536fc3c410`; not a released version.
 
 **Cost: $0.598.** Both experiment rentals were destroyed, no persistent volumes

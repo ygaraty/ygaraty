@@ -1,6 +1,7 @@
 # Browser DiLoCo: public service and recovery checks
 
-Date: 2026-11-19. Implementation: local `feature/public-diloco-training` branch.
+Date: 2026-11-19. Tested implementation: a local snapshot before the DiLoCo merge
+into `main`. These are historical measurements, not a retest of current main.
 This checks the new public training path, including its TypeScript-generated
 browser modules. It does not establish convergence or
 multi-machine speedup.

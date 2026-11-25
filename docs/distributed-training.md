@@ -6,9 +6,9 @@ compiler and WebGPU engine. Choose Adam (default) or Muon with auxiliary Adam;
 the coordinator combines model deltas using outer Nesterov momentum. No PyTorch
 is needed for Ygaraty training; PyTorch is used only for independent comparisons.
 
-This guide describes `feature/public-diloco-training`, including the GPU-resident
-executor and coordinator optimizations. It is research code, not a claim about
-the main-branch installer release. See [measured results](#measured-results) and
+This guide describes experimental training on `main`, including the GPU-resident
+executor and coordinator optimizations. Install from a current source checkout;
+historical benchmark results identify their own tested snapshots. See [measured results](#measured-results) and
 [implementation reference](../ygaraty/training/README.md) for scope and code locations.
 
 [Start a session](#start-a-browser-session) · [How rounds work](#how-a-diloco-round-works) ·
