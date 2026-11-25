@@ -4,20 +4,21 @@
 
 [Documentation](https://ygaraty.github.io/ygaraty/)
 
-**Ygaraty is an open-source project working toward seamless use of heterogeneous
-compute clusters.** Our goal is to bring different GPUs, devices and networks
-together so people can run and build models with the compute they already have.
-Launch, share a link, and put contributed GPUs to work.
+**Ygaraty is an open-source framework for distributed computation.** We aim to
+provide the building blocks for any kind of mathematical computation to run
+across heterogeneous devices and networks, with compute contributed by one
+person or many collaborators.
 
-Today, Ygaraty compiles a computation into a distribution plan and runs it across
-browser or native WebGPU workers. **Inference is verified**: chat from your
-terminal, browser, or an OpenAI-compatible app or SDK. [TESTED.md](TESTED.md)
-records measured runs and what remains unverified.
+Our compiler, analyzer, Tape and execution engine turn that goal into reusable
+pieces for describing, planning and running computations. **Today, Ygaraty
+supports inference with or without distribution** through browser or native
+WebGPU workers. Chat from your terminal, browser, or an OpenAI-compatible app
+or SDK. [TESTED.md](TESTED.md) records measured configurations and limitations.
 
-**[Training is ongoing open research](#training-diloco-open-research)**, focused on DiLoCo and our own distributed
-compute compiler and execution engine. We are exploring how to train across
-heterogeneous devices and networks. Follow our [public list of experiments](research/README.md#reports)
-for methods, results and limitations, and help reproduce or extend the work.
+**[Distributed training is ongoing open research](#training-diloco-open-research)**,
+including DiLoCo and experiments with our compiler and execution engine. Follow
+our [public experiments](research/README.md#reports) for methods, results and
+limitations, and help reproduce or extend the work.
 
 We build in the open: compiler, analyzer, runtime, tape, training code and
 [research](research/README.md). Bring an experiment, a new backend, a benchmark,
