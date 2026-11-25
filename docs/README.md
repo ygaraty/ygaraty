@@ -5,7 +5,7 @@ The user guide starts at [index.md](index.md). This is a standalone MyST project
 internal engineering notes in the relevant source-folder READMEs.
 
 ```sh
-npm install --global mystmd@1.8.2
+npm install --global mystmd@1.14.0
 cd docs
 myst start
 BASE_URL=/ygaraty myst build --html --strict

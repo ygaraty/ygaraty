@@ -24,8 +24,8 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - run: npm install --global mystmd@1.8.2
+          node-version: '24'
+      - run: npm install --global mystmd@1.14.0
       - run: myst build --html --strict
         working-directory: docs
         env:
