@@ -6,6 +6,7 @@ usage() {
     cat <<'HELP'
 Usage: install.sh --num-workers N [launch options]
        install.sh --install-only
+       install.sh --update
 
 Install the public server and prepare/launch a WebGPU chat coordinator.
 Requires Python 3.12+ with venv/pip and Git. Public sharing needs cloudflared.
@@ -22,8 +23,8 @@ Environment:
   YGARATY_SOURCE_DIR   Install an existing public checkout instead of downloading
   PYTHON              Python executable (default: python3)
 
-Reruns reuse the installed environment. Use a different installation directory
-for another version. No sudo, shell profile edits, or background service setup.
+Reruns reuse the installed environment. Use --update to install latest main
+(or YGARATY_REF) while preserving workspaces. Stop running servers first. No sudo, shell profile edits, or background service setup.
 HELP
 }
 fail() { printf 'ygaraty: %s\n' "$*" >&2; exit 1; }
@@ -32,6 +33,26 @@ main() {
     case "${1:-}" in
         -h|--help) usage; return ;;
     esac
+    if [[ "${1:-}" == --update ]]; then
+        [[ $# == 1 ]] || fail '--update takes no other arguments; select a version with YGARATY_REF'
+        local update_root=${YGARATY_INSTALL_DIR:-"$HOME/.local/share/ygaraty"}
+        [[ "$update_root" == /* ]] || fail 'YGARATY_INSTALL_DIR must be an absolute path'
+        [[ -f "$update_root/.installed" && -x "$update_root/venv/bin/python" ]] || fail 'No complete installation to update'
+        local update_ref=${YGARATY_REF:-main}
+        [[ "$update_ref" != -* && -n "$update_ref" ]] || fail 'Invalid update ref'
+        local update_tmp
+        update_tmp=$(mktemp -d)
+        trap 'rm -rf -- "$update_tmp"' EXIT
+        git init -q "$update_tmp/source"
+        git -C "$update_tmp/source" remote add origin https://github.com/ygaraty/ygaraty.git
+        git -C "$update_tmp/source" fetch --depth 1 origin "$update_ref"
+        git -C "$update_tmp/source" checkout -q --detach FETCH_HEAD
+        "$update_root/venv/bin/python" "$update_tmp/source/ygaraty/update.py" \
+            --install-dir "$update_root" --ref "$update_ref"
+        rm -rf -- "$update_tmp"
+        trap - EXIT
+        return
+    fi
     local install_only=false
     if [[ "${1:-}" == --install-only ]]; then
         [[ $# == 1 ]] || fail '--install-only takes no other arguments'

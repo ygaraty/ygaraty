@@ -118,3 +118,4 @@ jobs:
           bash install.sh --install-only
           test ! -e "$HOME/.zshrc"
           test ! -e "$HOME/.bashrc"
+          python tools/test_update_installation.py "$HOME/.local/share/ygaraty"
