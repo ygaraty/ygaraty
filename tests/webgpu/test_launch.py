@@ -273,7 +273,7 @@ class LaunchTests(unittest.TestCase):
             with (
                 self.subTest(model=model, workers=workers),
                 patch(
-                    "ygaraty.backends.webgpu.downloads.fetch_bundle",
+                    "ygaraty.backends.webgpu.downloads.fetch_workspace_bundle",
                     side_effect=lambda url, output, **kw: (
                         kw["on_manifest"](
                             bundle(workers, max_positions=16384)
@@ -331,7 +331,7 @@ class LaunchTests(unittest.TestCase):
 
     def test_preset_cannot_silently_select_the_wrong_worker_count(self):
         with (
-            patch("ygaraty.backends.webgpu.downloads.fetch_bundle") as fetch,
+            patch("ygaraty.backends.webgpu.downloads.fetch_workspace_bundle") as fetch,
             contextlib.redirect_stderr(io.StringIO()),
             self.assertRaises(SystemExit),
         ):

@@ -10,7 +10,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 from urllib.error import HTTPError
 
-from ygaraty.backends.webgpu.downloads import fetch_bundle, open_public, public_url
+from ygaraty.backends.webgpu.downloads import fetch_bundle, fetch_workspace_bundle, open_public, public_url
 
 URL = "https://models.example/model/bundle.json"
 
@@ -71,6 +71,55 @@ class DownloadTests(unittest.TestCase):
         return io.BytesIO(
             self.artifacts[url.removeprefix("https://models.example/model/")]
         )
+
+    def test_workspace_upgrade_preserves_old_models_keys_and_state(self):
+        for weights in (True, False):
+            output = self.output.parent / ("model" if weights else "remote-model")
+            old = fetch_workspace_bundle(URL, output, opener=self.opener, weights=weights)
+            snapshot = {str(p.relative_to(output)): p.read_bytes() for p in output.rglob("*") if p.is_file()}
+            state = output.parent / "state"
+            state.mkdir(exist_ok=True)
+            (state / "session.json").write_bytes(b"session data")
+            keys = output.parent / "keys"
+            keys.mkdir(exist_ok=True)
+            (keys / "owner.key").write_bytes(b"test key")
+            new_url = URL.replace("model/", "model-v2/")
+            def new_opener(url):
+                return self.opener(url.replace("model-v2/", "model/"))
+            new = fetch_workspace_bundle(new_url, output, opener=new_opener, weights=weights)
+            self.assertNotEqual(old, new)
+            self.assertIn(".bundle-cache", str(new))
+            self.assertEqual(snapshot, {str(p.relative_to(output)): p.read_bytes() for p in output.rglob("*") if p.is_file()})
+            self.assertEqual((state / "session.json").read_bytes(), b"session data")
+            self.assertEqual((keys / "owner.key").read_bytes(), b"test key")
+            def offline(url):
+                raise AssertionError("Cache reuse must not download")
+            self.assertEqual(fetch_workspace_bundle(new_url, output, opener=offline, weights=weights), new)
+            self.assertEqual(fetch_workspace_bundle(URL, output, opener=offline, weights=weights), old)
+            # A selected cache still enforces its pinned hashes.
+            (new.parent / ".remote-bundle.json").write_bytes(b"tampered")
+            with self.assertRaisesRegex(ValueError, "manifest changed"):
+                fetch_workspace_bundle(new_url, output, opener=offline, weights=weights)
+
+    def test_failed_upgrade_keeps_old_cache_and_can_retry(self):
+        old = fetch_workspace_bundle(URL, self.output, opener=self.opener)
+        before = old.read_bytes()
+        new_url = URL.replace("model/", "v2/")
+        def broken(url):
+            if url.endswith("weight.bin"):
+                return io.BytesIO(b"invalid")
+            return self.opener(url.replace("v2/", "model/"))
+        with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
+            fetch_workspace_bundle(new_url, self.output, opener=broken)
+        self.assertEqual(old.read_bytes(), before)
+        self.assertFalse(list(self.output.parent.rglob(".bundle-download-*")))
+        new = fetch_workspace_bundle(new_url, self.output, opener=lambda url: self.opener(url.replace("v2/", "model/")))
+        self.assertTrue(new.exists())
+
+    def test_first_workspace_download_failure_is_not_published(self):
+        with self.assertRaises(KeyError):
+            fetch_workspace_bundle(URL, self.output, opener=lambda url: (_ for _ in ()).throw(KeyError("offline")))
+        self.assertFalse(self.output.exists())
 
     def test_fetch_converts_only_storage_and_reuses_cache_without_network(
         self,
