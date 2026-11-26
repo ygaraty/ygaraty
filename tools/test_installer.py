@@ -99,6 +99,24 @@ for name in ('python', 'ygaraty'):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('Installed version is', result.stderr)
 
+    def test_update_bootstraps_old_install_without_changing_data(self):
+        import json
+        result = self.run_installer('--install-only')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        data = self.root / 'workspaces' / 'checkpoint.json'
+        data.parent.mkdir()
+        data.write_text('keep me')
+        git = self.base / 'git'
+        git.write_text('#!/bin/sh\nexit 0\n')
+        git.chmod(0o755)
+        self.env['PATH'] = str(self.base) + os.pathsep + self.env['PATH']
+        result = self.run_installer('--update', pipe=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        calls = [json.loads(line) for line in self.log.read_text().splitlines()]
+        self.assertIn('--install-dir', calls[-1])
+        self.assertEqual(calls[-1][-2:], ['--ref', 'main'])
+        self.assertEqual(data.read_text(), 'keep me')
+
     def test_help_does_not_install(self):
         result = self.run_installer('--help')
         self.assertEqual(result.returncode, 0)

@@ -164,7 +164,7 @@ class BootstrapTests(unittest.TestCase):
         self.serve.assert_not_called()
 
     def test_default_public_url_dry_run_never_downloads(self):
-        with patch("ygaraty.backends.webgpu.downloads.fetch_bundle") as download:
+        with patch("ygaraty.backends.webgpu.downloads.fetch_workspace_bundle") as download:
             self.assertEqual(
                 main(["bootstrap", "--num-workers", "2", "--dry-run"]), 0
             )
@@ -174,7 +174,7 @@ class BootstrapTests(unittest.TestCase):
     def test_default_public_bundle_reaches_existing_local_host(self):
         bundle = self.root / "downloaded/bundle.json"
         with patch(
-            "ygaraty.backends.webgpu.downloads.fetch_bundle", return_value=bundle
+            "ygaraty.backends.webgpu.downloads.fetch_workspace_bundle", return_value=bundle
         ) as download:
             self.assertEqual(
                 main(
@@ -195,7 +195,7 @@ class BootstrapTests(unittest.TestCase):
 
     def test_public_access_failure_does_not_create_keys_or_serve(self):
         with patch(
-            "ygaraty.backends.webgpu.downloads.fetch_bundle",
+            "ygaraty.backends.webgpu.downloads.fetch_workspace_bundle",
             side_effect=ValueError("HTTP 403"),
         ):
             with self.assertRaises(SystemExit):
