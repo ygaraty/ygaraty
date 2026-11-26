@@ -1,0 +1,12 @@
+W1126 18:26:15.308000 6965 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1126 18:26:15.309000 6965 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1126 18:26:15.309000 6965 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+FlashInfer kernels are disabled: flashinfer-cubin is not installed and nvcc (CUDA_HOME, CUDA_PATH, PATH or /usr/local/cuda) or ninja (PATH) is missing. Set CUDA_HOME to a CUDA toolkit and put ninja on PATH, or run `vllm download-kernels`.
+=== Cubin Wheel Install ===
+FlashInfer version: 0.7.2.post1
+Wheel index: https://flashinfer.ai/whl
+Requirement: flashinfer-cubin==0.7.2.post1
+Command: /workspace/coder/venv/bin/python3 -m pip install --upgrade --no-deps --index-url https://flashinfer.ai/whl flashinfer-cubin==0.7.2.post1
+Looking in indexes: https://flashinfer.ai/whl
+Collecting flashinfer-cubin==0.7.2.post1
+  Downloading https://github.com/flashinfer-ai/flashinfer/releases/download/v0.7.2.post1/flashinfer_cubin-0.7.2.post1-py3-none-any.whl (1671.1 MB)

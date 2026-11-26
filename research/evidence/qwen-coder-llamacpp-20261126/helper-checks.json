@@ -1,0 +1,10 @@
+{
+  "offline_tests": "4 passed",
+  "files": {
+    "tools/benchmark_coder_backends.py": "9f9bb69e4bef263cde81f1bb3f67fb8041d6645d3f2607f4d55706243a1a5b92",
+    "tools/setup_coder_benchmark.sh": "c4994c37952e4b17a324396d209ad75c1b924c657b8d99b0c4c7c17004d11f71",
+    "tools/summarize_coder_backends.py": "aa569f866d195f9a93a2b75133e80f57398e216bc3e27e21fafbb9b026a7646b",
+    "tests/test_coder_sse.py": "b622f80fa909fca7dbe1d135e882e4acbe6ebe1d1a784737c8e7f3a0b8e4ef26",
+    "tests/test_coder_summary.py": "6e5c30cb81e322b10b1c3e6c0d5a404add713607f46935fe9ffb4c8ca9a8b54d"
+  }
+}

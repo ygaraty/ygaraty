@@ -1,0 +1,12 @@
+0.00.137.278 I srv  llama_server: initializing ...
+0.00.137.291 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.139.813 I srv    load_model: loading model '/workspace/coder/model.gguf'
+0.00.334.669 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.03.921.283 E ggml_backend_cuda_buffer_type_alloc_buffer: allocating 24576.00 MiB on device 0: cudaMalloc failed: out of memory
+0.03.921.292 E ggml_backend_buft_alloc_buffer_n_default: failed to allocate CUDA0 buffer of size 25769803776
+0.03.922.622 E llama_init_from_model: failed to initialize the context: failed to allocate buffer for kv cache
+0.03.922.630 E cmn  common_init_: failed to create context with model '/workspace/coder/model.gguf'
+0.03.922.633 E cmn  common_init_: failed to create context with model '/workspace/coder/model.gguf'
+0.03.922.637 E srv    load_model: failed to create_context with model '/workspace/coder/model.gguf'
+0.03.922.639 I srv    operator(): operator(): cleaning up before exit...
+0.04.007.072 E srv  server_run_i: exiting due to model loading error

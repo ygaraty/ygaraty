@@ -1,0 +1,12 @@
+{
+  "checked_at": 1795720480.573697,
+  "a100_delete_exit": 0,
+  "remaining_experiment_instances": 0,
+  "inventory": "paginated Vast v1",
+  "storage": "Only instance-local disk allocated; deleted with instances",
+  "rtx4090": {
+    "checked_at": 1795716296.346407,
+    "delete_exit": 0,
+    "remaining_instances": 0
+  }
+}

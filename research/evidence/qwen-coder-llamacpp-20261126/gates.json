@@ -1,0 +1,3172 @@
+[
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 43.70522130699828,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "4096",
+      "-np",
+      "1",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 35.63532051094808,
+      "ttft_seconds": 25.757475124904886,
+      "decode_tokens_per_second": 0.10123665241945785
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "auth",
+    "passed": true,
+    "response": {
+      "status": 401,
+      "error": "HTTPError",
+      "detail": "HTTP Error 401: Unauthorized",
+      "seconds": 0.0015489840880036354
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "tool",
+    "stream": false,
+    "passed": true,
+    "response": {
+      "text": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "lookup_ticket",
+            "arguments": "{\"ticket_id\":\"KAA-42\"}"
+          },
+          "id": "b2eoiSTFEZqc4FOm3PmHBhKkyzm6jHTQ"
+        }
+      ],
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 308,
+        "total_tokens": 336,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "tool_calls",
+      "chunks": null,
+      "status": 200,
+      "seconds": 8.059556322172284,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "tool_followup",
+    "stream": false,
+    "passed": true,
+    "response": {
+      "text": "FIX-73",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 5,
+        "prompt_tokens": 96,
+        "total_tokens": 101,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": null,
+      "status": 200,
+      "seconds": 0.09017506311647594,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "tool",
+    "stream": true,
+    "passed": true,
+    "response": {
+      "text": "",
+      "tool_calls": [
+        {
+          "id": "TsJZx0PXjaWwkXButMK2nulfDlOTctzN",
+          "type": "function",
+          "function": {
+            "name": "lookup_ticket",
+            "arguments": "{\"ticket_id\":\"KAA-42\"}"
+          }
+        }
+      ],
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 308,
+        "total_tokens": 336,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "tool_calls",
+      "chunks": 0,
+      "status": 200,
+      "seconds": 0.2741353160236031,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "tool_followup",
+    "stream": true,
+    "passed": true,
+    "response": {
+      "text": "FIX-73",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 5,
+        "prompt_tokens": 96,
+        "total_tokens": 101,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 4,
+      "status": 200,
+      "seconds": 0.08145466493442655,
+      "ttft_seconds": 0.05120389792136848,
+      "decode_tokens_per_second": 132.2280522101591
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "correctness",
+    "stream": false,
+    "passed": false,
+    "response": {
+      "text": "10",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 35,
+        "total_tokens": 38,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": null,
+      "status": 200,
+      "seconds": 0.0501234931871295,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "correctness",
+    "stream": true,
+    "passed": false,
+    "response": {
+      "text": "10",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 35,
+        "total_tokens": 38,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 2,
+      "status": 200,
+      "seconds": 0.04612222802825272,
+      "ttft_seconds": 0.029162151040509343,
+      "decode_tokens_per_second": 117.92399300105477
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "cancel_followup",
+    "passed": true,
+    "response": {
+      "text": "OK",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.0480615608394146,
+      "ttft_seconds": 0.037877107970416546,
+      "decode_tokens_per_second": 98.18887797537427
+    },
+    "gpu_reclamation_verified": false
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "known_quality_failure",
+    "passed": false,
+    "note": "Exact terse generator-expression fixture returns 10 instead of 38; performance is exploratory, not a release validation."
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 2,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 3.669958648039028,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "8192",
+      "-np",
+      "2",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 2,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.14895264292135835,
+      "ttft_seconds": 0.11578571796417236,
+      "decode_tokens_per_second": 30.150518967039144
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 4,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 3.622311631916091,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "16384",
+      "-np",
+      "4",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 4,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.1492576808668673,
+      "ttft_seconds": 0.11670621205121279,
+      "decode_tokens_per_second": 30.72057994258877
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 3.5256889790762216,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "32768",
+      "-np",
+      "8",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.14783819601871073,
+      "ttft_seconds": 0.11463742004707456,
+      "decode_tokens_per_second": 30.119777948994688
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 1,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 3.593858059030026,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "16384",
+      "-np",
+      "1",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 1,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.14992310688830912,
+      "ttft_seconds": 0.11719566700048745,
+      "decode_tokens_per_second": 30.555399488247584
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 2,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 3.5926842191256583,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "32768",
+      "-np",
+      "2",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 2,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.1494434850756079,
+      "ttft_seconds": 0.1166849141009152,
+      "decode_tokens_per_second": 30.526362116727856
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 4,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 3.6083238502033055,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "65536",
+      "-np",
+      "4",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 4,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.1501694389153272,
+      "ttft_seconds": 0.11691165901720524,
+      "decode_tokens_per_second": 30.06815256650578
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 3.625160597031936,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "131072",
+      "-np",
+      "8",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.15021823882125318,
+      "ttft_seconds": 0.11641367897391319,
+      "decode_tokens_per_second": 29.58180803169629
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 1,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 3.6158385949674994,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "32768",
+      "-np",
+      "1",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 1,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.14894094108603895,
+      "ttft_seconds": 0.11600755294784904,
+      "decode_tokens_per_second": 30.364321939909644
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 2,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.6329006620217115,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "65536",
+      "-np",
+      "2",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 2,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.15074931690469384,
+      "ttft_seconds": 0.11708500189706683,
+      "decode_tokens_per_second": 29.705045231826023
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 4,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.613637736998498,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "131072",
+      "-np",
+      "4",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 4,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.15158992796204984,
+      "ttft_seconds": 0.11826290981844068,
+      "decode_tokens_per_second": 30.00568474775957
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.609480469953269,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "262144",
+      "-np",
+      "8",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.1499885010998696,
+      "ttft_seconds": 0.11712820013053715,
+      "decode_tokens_per_second": 30.431857606333864
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 45.06562881497666,
+    "command": [
+      "/workspace/coder/venv/bin/vllm",
+      "serve",
+      "/workspace/coder/bf16",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--served-model-name",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--dtype",
+      "bfloat16",
+      "--max-model-len",
+      "32768",
+      "--max-num-seqs",
+      "8",
+      "--gpu-memory-utilization",
+      "0.90",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser",
+      "qwen3_coder",
+      "--enforce-eager",
+      "--no-enable-prefix-caching"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 2.1282931989990175,
+      "ttft_seconds": 2.079861446050927,
+      "decode_tokens_per_second": 20.6476111048842
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "auth",
+    "passed": true,
+    "response": {
+      "status": 401,
+      "error": "HTTPError",
+      "detail": "HTTP Error 401: Unauthorized",
+      "seconds": 0.0018543428741395473
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "tool",
+    "stream": false,
+    "passed": true,
+    "response": {
+      "text": "",
+      "tool_calls": [
+        {
+          "id": "chatcmpl-tool-b17e740405082e77",
+          "type": "function",
+          "function": {
+            "name": "lookup_ticket",
+            "arguments": "{\"ticket_id\": \"KAA-42\"}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 308,
+        "total_tokens": 336,
+        "completion_tokens": 28,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      },
+      "done": true,
+      "finish_reason": "tool_calls",
+      "chunks": null,
+      "status": 200,
+      "seconds": 2.174090932821855,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "tool_followup",
+    "stream": false,
+    "passed": true,
+    "response": {
+      "text": "FIX-73",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 96,
+        "total_tokens": 101,
+        "completion_tokens": 5,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": null,
+      "status": 200,
+      "seconds": 1.1117297210730612,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "tool",
+    "stream": true,
+    "passed": true,
+    "response": {
+      "text": "",
+      "tool_calls": [
+        {
+          "id": "chatcmpl-tool-a2d5cd6fad9fac98",
+          "type": "function",
+          "function": {
+            "name": "lookup_ticket",
+            "arguments": "{\"ticket_id\": \"KAA-42\"}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 308,
+        "total_tokens": 336,
+        "completion_tokens": 28
+      },
+      "done": true,
+      "finish_reason": "tool_calls",
+      "chunks": 0,
+      "status": 200,
+      "seconds": 1.4525535269640386,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "tool_followup",
+    "stream": true,
+    "passed": true,
+    "response": {
+      "text": "FIX-73",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 96,
+        "total_tokens": 101,
+        "completion_tokens": 5
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 4,
+      "status": 200,
+      "seconds": 0.302032204112038,
+      "ttft_seconds": 0.10793883306905627,
+      "decode_tokens_per_second": 20.6086378865263
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "correctness",
+    "stream": false,
+    "passed": false,
+    "response": {
+      "text": "10",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 38,
+        "completion_tokens": 3,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": null,
+      "status": 200,
+      "seconds": 1.0510905759874731,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "correctness",
+    "stream": true,
+    "passed": false,
+    "response": {
+      "text": "10",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 38,
+        "completion_tokens": 3
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 2,
+      "status": 200,
+      "seconds": 0.2101993691176176,
+      "ttft_seconds": 0.11161311017349362,
+      "decode_tokens_per_second": 20.286802860970166
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cancel_followup",
+    "passed": true,
+    "response": {
+      "text": "OK",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.1965418520849198,
+      "ttft_seconds": 0.14721641200594604,
+      "decode_tokens_per_second": 20.27351400005604
+    },
+    "gpu_reclamation_verified": false
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "known_quality_failure",
+    "passed": false,
+    "note": "Exact terse generator-expression fixture returns 10 instead of 38; performance is exploratory, not a release validation."
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 2,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.157199403969571,
+      "ttft_seconds": 0.10934473806992173,
+      "decode_tokens_per_second": 20.896603940292668
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 4,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.1546698440797627,
+      "ttft_seconds": 0.10667002899572253,
+      "decode_tokens_per_second": 20.833413592305646
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 8,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.15412331698462367,
+      "ttft_seconds": 0.10591094894334674,
+      "decode_tokens_per_second": 20.741565714918874
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 8,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cell_stopped_after_failure"
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 16384,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.15330269210971892,
+      "ttft_seconds": 0.10530778300017118,
+      "decode_tokens_per_second": 20.83554315557747
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 16384,
+    "concurrency": 2,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.15742419403977692,
+      "ttft_seconds": 0.10888179112225771,
+      "decode_tokens_per_second": 20.60054591238817
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 16384,
+    "concurrency": 4,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.16278528096154332,
+      "ttft_seconds": 0.11374631314538419,
+      "decode_tokens_per_second": 20.391946334369702
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 16384,
+    "concurrency": 8,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.15671343612484634,
+      "ttft_seconds": 0.1084941599983722,
+      "decode_tokens_per_second": 20.73859419575491
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.16159152006730437,
+      "ttft_seconds": 0.112038565101102,
+      "decode_tokens_per_second": 20.180431231236373
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 2,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.16568280197679996,
+      "ttft_seconds": 0.11682946095243096,
+      "decode_tokens_per_second": 20.469429091885047
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 4,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.1613204798195511,
+      "ttft_seconds": 0.11107873194850981,
+      "decode_tokens_per_second": 19.90376613820769
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 8,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.15659604803659022,
+      "ttft_seconds": 0.10796582093462348,
+      "decode_tokens_per_second": 20.563342176116574
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 82.06252994714305,
+    "command": [
+      "/workspace/coder/venv/bin/vllm",
+      "serve",
+      "/workspace/coder/bf16",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--served-model-name",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--dtype",
+      "bfloat16",
+      "--max-model-len",
+      "32768",
+      "--max-num-seqs",
+      "8",
+      "--gpu-memory-utilization",
+      "0.90",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser",
+      "qwen3_coder",
+      "--no-enable-prefix-caching"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04632099997252226,
+      "ttft_seconds": 0.037572585977613926,
+      "decode_tokens_per_second": 114.30643320972354
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "auth",
+    "passed": true,
+    "response": {
+      "status": 401,
+      "error": "HTTPError",
+      "detail": "HTTP Error 401: Unauthorized",
+      "seconds": 0.0011289648246020079
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "tool",
+    "stream": false,
+    "passed": true,
+    "response": {
+      "text": "",
+      "tool_calls": [
+        {
+          "id": "chatcmpl-tool-8b71aa793da7a1a3",
+          "type": "function",
+          "function": {
+            "name": "lookup_ticket",
+            "arguments": "{\"ticket_id\": \"KAA-42\"}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 308,
+        "total_tokens": 336,
+        "completion_tokens": 28,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      },
+      "done": true,
+      "finish_reason": "tool_calls",
+      "chunks": null,
+      "status": 200,
+      "seconds": 1.0001286019105464,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "tool_followup",
+    "stream": false,
+    "passed": true,
+    "response": {
+      "text": "FIX-73",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 96,
+        "total_tokens": 101,
+        "completion_tokens": 5,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": null,
+      "status": 200,
+      "seconds": 0.8711948599666357,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "tool",
+    "stream": true,
+    "passed": true,
+    "response": {
+      "text": "",
+      "tool_calls": [
+        {
+          "id": "chatcmpl-tool-9bae9f8bc0332e9f",
+          "type": "function",
+          "function": {
+            "name": "lookup_ticket",
+            "arguments": "{\"ticket_id\": \"KAA-42\"}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 308,
+        "total_tokens": 336,
+        "completion_tokens": 28
+      },
+      "done": true,
+      "finish_reason": "tool_calls",
+      "chunks": 0,
+      "status": 200,
+      "seconds": 0.26619956898503006,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "tool_followup",
+    "stream": true,
+    "passed": true,
+    "response": {
+      "text": "FIX-73",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 96,
+        "total_tokens": 101,
+        "completion_tokens": 5
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 4,
+      "status": 200,
+      "seconds": 0.10176384286023676,
+      "ttft_seconds": 0.07222212385386229,
+      "decode_tokens_per_second": 135.40173471749847
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "correctness",
+    "stream": false,
+    "passed": false,
+    "response": {
+      "text": "10",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 38,
+        "completion_tokens": 3,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": null,
+      "status": 200,
+      "seconds": 0.921616004081443,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "correctness",
+    "stream": true,
+    "passed": false,
+    "response": {
+      "text": "10",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 38,
+        "completion_tokens": 3
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 2,
+      "status": 200,
+      "seconds": 0.0688442480750382,
+      "ttft_seconds": 0.054331747116521,
+      "decode_tokens_per_second": 137.81222173330687
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cancel_followup",
+    "passed": true,
+    "response": {
+      "text": "OK",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.03862932207994163,
+      "ttft_seconds": 0.03113880194723606,
+      "decode_tokens_per_second": 133.50207759722034
+    },
+    "gpu_reclamation_verified": false
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "known_quality_failure",
+    "passed": false,
+    "note": "Exact terse generator-expression fixture returns 10 instead of 38; performance is exploratory, not a release validation."
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 8,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.03970974707044661,
+      "ttft_seconds": 0.033203674014657736,
+      "decode_tokens_per_second": 153.702547054899
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 4096,
+    "concurrency": 8,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cell_stopped_after_failure"
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 51.050610250094905,
+    "command": [
+      "/workspace/coder/venv/bin/vllm",
+      "serve",
+      "/workspace/coder/bf16",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--served-model-name",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--dtype",
+      "bfloat16",
+      "--max-model-len",
+      "32768",
+      "--max-num-seqs",
+      "8",
+      "--gpu-memory-utilization",
+      "0.90",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser",
+      "qwen3_coder",
+      "--no-enable-prefix-caching"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 16384,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.05284049385227263,
+      "ttft_seconds": 0.04510526591911912,
+      "decode_tokens_per_second": 129.27867267025943
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 16384,
+    "concurrency": 2,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04661555006168783,
+      "ttft_seconds": 0.040672254050150514,
+      "decode_tokens_per_second": 168.25680532464958
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 16384,
+    "concurrency": 4,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04900115984492004,
+      "ttft_seconds": 0.04362700181081891,
+      "decode_tokens_per_second": 186.07565941578383
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 16384,
+    "concurrency": 8,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04694731789641082,
+      "ttft_seconds": 0.04125972208566964,
+      "decode_tokens_per_second": 175.82121396732722
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 1,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.048397972946986556,
+      "ttft_seconds": 0.04240218689665198,
+      "decode_tokens_per_second": 166.78380309187295
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 2,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04924167995341122,
+      "ttft_seconds": 0.043420752976089716,
+      "decode_tokens_per_second": 171.79394345540288
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 4,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.051572840893641114,
+      "ttft_seconds": 0.045897713862359524,
+      "decode_tokens_per_second": 176.2075094509689
+    }
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "kind": "budget_stop",
+    "context": 32768,
+    "concurrency": 8
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 45.04484558803961,
+    "command": [
+      "/workspace/coder/venv/bin/vllm",
+      "serve",
+      "/workspace/coder/bf16",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--served-model-name",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--dtype",
+      "bfloat16",
+      "--max-model-len",
+      "32768",
+      "--max-num-seqs",
+      "8",
+      "--gpu-memory-utilization",
+      "0.90",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser",
+      "qwen3_coder",
+      "--no-enable-prefix-caching"
+    ]
+  },
+  {
+    "host": "a100",
+    "variant": "vllm-cudagraph",
+    "engine": "vllm",
+    "context": 32768,
+    "concurrency": 8,
+    "engine_context": 32768,
+    "engine_max_sequences": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "completion_tokens": 2
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.061793813947588205,
+      "ttft_seconds": 0.0540306530892849,
+      "decode_tokens_per_second": 128.81351014779267
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.945006516005378,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "4096",
+      "-np",
+      "1",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.044837289009592496,
+      "ttft_seconds": 0.03497797700401861,
+      "decode_tokens_per_second": 101.42695549493291
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "auth",
+    "passed": true,
+    "response": {
+      "status": 401,
+      "error": "HTTPError",
+      "detail": "HTTP Error 401: Unauthorized",
+      "seconds": 0.0005720670014852658
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "tool",
+    "stream": false,
+    "passed": true,
+    "response": {
+      "text": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "lookup_ticket",
+            "arguments": "{\"ticket_id\":\"KAA-42\"}"
+          },
+          "id": "4ID64EYkuprODuvajZfOq0hKyWhenGg8"
+        }
+      ],
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 308,
+        "total_tokens": 336,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "tool_calls",
+      "chunks": null,
+      "status": 200,
+      "seconds": 0.26219188200775534,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "tool_followup",
+    "stream": false,
+    "passed": true,
+    "response": {
+      "text": "FIX-73",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 5,
+        "prompt_tokens": 96,
+        "total_tokens": 101,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": null,
+      "status": 200,
+      "seconds": 0.06931249098852277,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "tool",
+    "stream": true,
+    "passed": true,
+    "response": {
+      "text": "",
+      "tool_calls": [
+        {
+          "id": "ubMjuUaCWCCoF6vgUkRzxCMRwIQR6vyS",
+          "type": "function",
+          "function": {
+            "name": "lookup_ticket",
+            "arguments": "{\"ticket_id\":\"KAA-42\"}"
+          }
+        }
+      ],
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 308,
+        "total_tokens": 336,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "tool_calls",
+      "chunks": 0,
+      "status": 200,
+      "seconds": 0.20366451400332153,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "tool_followup",
+    "stream": true,
+    "passed": true,
+    "response": {
+      "text": "FIX-73",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 5,
+        "prompt_tokens": 96,
+        "total_tokens": 101,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 4,
+      "status": 200,
+      "seconds": 0.06909715100482572,
+      "ttft_seconds": 0.0445454340078868,
+      "decode_tokens_per_second": 162.92139570111186
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "correctness",
+    "stream": false,
+    "passed": false,
+    "response": {
+      "text": "10",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 35,
+        "total_tokens": 38,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": null,
+      "status": 200,
+      "seconds": 0.04034452300402336,
+      "ttft_seconds": null,
+      "decode_tokens_per_second": null
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "correctness",
+    "stream": true,
+    "passed": false,
+    "response": {
+      "text": "10",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 35,
+        "total_tokens": 38,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 2,
+      "status": 200,
+      "seconds": 0.03448545100400224,
+      "ttft_seconds": 0.021102384009282105,
+      "decode_tokens_per_second": 149.44257551643702
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "cancel_followup",
+    "passed": true,
+    "response": {
+      "text": "OK",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.03755380099755712,
+      "ttft_seconds": 0.029718453995883465,
+      "decode_tokens_per_second": 127.62676621550992
+    },
+    "gpu_reclamation_verified": false
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 1,
+    "kind": "known_quality_failure",
+    "passed": false,
+    "note": "Exact terse generator-expression fixture returns 10 instead of 38; performance is exploratory, not a release validation."
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 2,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.899020326003665,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "8192",
+      "-np",
+      "2",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 2,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04337853699689731,
+      "ttft_seconds": 0.03341151100175921,
+      "decode_tokens_per_second": 100.3308309306907
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 4,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.884522365988232,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "16384",
+      "-np",
+      "4",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 4,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04415287799201906,
+      "ttft_seconds": 0.034214425992104225,
+      "decode_tokens_per_second": 100.61929161690065
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.820692000997951,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "32768",
+      "-np",
+      "8",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 4096,
+    "concurrency": 8,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04255204698711168,
+      "ttft_seconds": 0.03289038999355398,
+      "decode_tokens_per_second": 103.50191490618954
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 1,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.806736707992968,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "16384",
+      "-np",
+      "1",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 1,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04288812399317976,
+      "ttft_seconds": 0.033314453990897164,
+      "decode_tokens_per_second": 104.45315116998763
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 2,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.939820767001947,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "32768",
+      "-np",
+      "2",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 2,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04379915600293316,
+      "ttft_seconds": 0.03367203500238247,
+      "decode_tokens_per_second": 98.74474689752621
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 4,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.843113858994911,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "65536",
+      "-np",
+      "4",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 4,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04325015199719928,
+      "ttft_seconds": 0.03355130599811673,
+      "decode_tokens_per_second": 103.10504982702001
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 16384,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": false,
+    "seconds": 4.89055471100437,
+    "exit_code": 1
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 1,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.841276063001715,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "32768",
+      "-np",
+      "1",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 1,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04205359400657471,
+      "ttft_seconds": 0.03241383100976236,
+      "decode_tokens_per_second": 103.73699024868942
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 2,
+    "kind": "startup",
+    "passed": true,
+    "load_seconds": 4.903778173000319,
+    "command": [
+      "/workspace/coder/llama/llama-b12432/llama-server",
+      "-m",
+      "/workspace/coder/model.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8799",
+      "--alias",
+      "qwen3-coder-30b",
+      "--api-key",
+      "<local-key>",
+      "--device",
+      "CUDA0",
+      "-ngl",
+      "99",
+      "--fit",
+      "off",
+      "--no-cache-prompt",
+      "-c",
+      "65536",
+      "-np",
+      "2",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--cache-reuse",
+      "0"
+    ]
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 2,
+    "kind": "cold_request",
+    "response": {
+      "text": "READY",
+      "tool_calls": [],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 12,
+        "total_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "done": true,
+      "finish_reason": "stop",
+      "chunks": 1,
+      "status": 200,
+      "seconds": 0.04367340600583702,
+      "ttft_seconds": 0.03361424501053989,
+      "decode_tokens_per_second": 99.41186948568779
+    }
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 4,
+    "kind": "startup",
+    "passed": false,
+    "seconds": 4.916776452999329,
+    "exit_code": 1
+  },
+  {
+    "host": "rtx4090",
+    "variant": "llama",
+    "engine": "llama",
+    "context": 32768,
+    "concurrency": 8,
+    "kind": "startup",
+    "passed": false,
+    "seconds": 4.912968764008838,
+    "exit_code": 1
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "observed_at": 1795720503.366884,
+  "currency": "USD",
+  "source": "Vast per-instance charges after deletion",
+  "final_invoice": false,
+  "note": "Provider ledger snapshot; provider may post delayed adjustments.",
+  "hosts": {
+    "rtx4090": {
+      "provider_recorded_usd": 0.244,
+      "items": [
+        {
+          "type": "gpu",
+          "amount_usd": 0.173,
+          "description": "0.393 hours at $0.440/hour"
+        },
+        {
+          "type": "disk",
+          "amount_usd": 0.018,
+          "description": "0.404 hours at $0.044/hour"
+        },
+        {
+          "type": "bwd",
+          "amount_usd": 0.051,
+          "description": "19.6 GB Downloaded at $0.003/GB"
+        },
+        {
+          "type": "bwu",
+          "amount_usd": 0.002,
+          "description": "0.5 GB Uploaded at $0.004/GB"
+        }
+      ]
+    },
+    "a100": {
+      "provider_recorded_usd": 3.017,
+      "items": [
+        {
+          "type": "gpu",
+          "amount_usd": 1.81,
+          "description": "1.417 hours at $1.277/hour"
+        },
+        {
+          "type": "disk",
+          "amount_usd": 0.163,
+          "description": "1.427 hours at $0.114/hour"
+        },
+        {
+          "type": "bwd",
+          "amount_usd": 1.039,
+          "description": "77.9 GB Downloaded at $0.013/GB"
+        },
+        {
+          "type": "bwu",
+          "amount_usd": 0.005,
+          "description": "0.4 GB Uploaded at $0.013/GB"
+        }
+      ]
+    }
+  },
+  "total_recorded_usd": 3.261
+}

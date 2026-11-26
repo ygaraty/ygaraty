@@ -1,0 +1,12 @@
+{
+  "public_commit": "bbb5bd606326d70c5c57333ee380850ff10d05b9",
+  "llama_commit": "21fa9c043f0e4f574b36cd06cff4b4bce64ec76f",
+  "llama_tag": "b12432",
+  "gguf_revision": "ef85c7f175f00be8af4e1de0c14e59ce7e5d0db3",
+  "source_revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+  "files": {
+    "benchmark_coder_backends.py": "cf26af391e047ec99120ba931ca249fbfd8a49e878956264eadec11e259f7cc2",
+    "setup_coder_benchmark.sh": "f8e58c4ad650ed90ce9d128cee13f9d7de304798771efa10a74ee1ae05898cd0",
+    "corpus.txt": "944a13626b3257dc5b2181d65e794cf7a44a0f78021f1c1281745b7128def5b4"
+  }
+}

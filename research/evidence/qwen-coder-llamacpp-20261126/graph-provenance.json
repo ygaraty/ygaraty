@@ -1,0 +1,39 @@
+{
+  "purpose": "Optional 4K CUDA-graph subset",
+  "benchmark_sha256": "d8197e494298ad3f47391bb4e7e66a17a78a76b624405e7623088d6e2c47f7f5",
+  "environment": {
+    "VLLM_USE_FLASHINFER_SAMPLER": "0"
+  },
+  "contexts": [
+    4096
+  ],
+  "concurrency": [
+    1,
+    8
+  ],
+  "additional_run": {
+    "contexts": [
+      16384,
+      32768
+    ],
+    "concurrency": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "benchmark_seconds": 480,
+    "same_rental": true
+  },
+  "final_cell": {
+    "contexts": [
+      32768
+    ],
+    "concurrency": [
+      8
+    ],
+    "benchmark_seconds": 330,
+    "process_timeout_seconds": 360,
+    "same_rental": true
+  }
+}
