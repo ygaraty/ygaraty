@@ -18,6 +18,8 @@ The backend never needs an ORM model, billing service or provider credential.
 | `lifecycle` | Revocation scope and cancellation receipts |
 | `protocols` | Backend factory/session/handle and injected host ports |
 | `registry` | Explicit factory registration and selection |
+| `contributors` | The contributor port: join, heartbeat, backend calls, leave, roster |
+| `testing` | Conformance checks every backend runs against its own factory |
 | `persistence` | Durable metadata records, terminal transitions and storage interfaces |
 
 Import types from their owning modules. The package root exports
@@ -68,6 +70,50 @@ The host injects three narrow ports through `RuntimeServices`: `Clock`,
 `AccessPolicy` and `RequestLedger`. Clocks separate wall-time expiry from monotonic
 deadlines. Artifact resolution and telemetry ports will be designed with the first
 real adapter, without adding generic service locators to this boundary.
+
+## Contributors
+
+Most backends run their model work on contributors: rented GPUs or volunteer
+browsers that join a session. The host (Ygaraty's own server, or Kaa) owns
+transport, authentication and slot reservations. The backend owns everything
+inside a contributor call. A session that uses contributors also implements
+`contributors()`, returning a `ContributorPort`; `contributor_port(session)`
+returns it, or `None` for a self-contained backend.
+
+| Step | Port method | Host route (Kaa) |
+| --- | --- | --- |
+| Take a reserved slot | `join(JoinTicket)` → `JoinReply` | `POST /api/join` |
+| Stay alive, report loading | `heartbeat(id, payload)` → bool | `POST /api/heartbeat` |
+| Backend operation (ready, claim work, send a result, ...) | `call(id, name, payload)` | `POST /api/NAME`, or `GET /api/recv` |
+| Leave | `leave(id, reason)` | `POST /api/leave` |
+| Show and persist slots | `roster()` → `RosterEntry` tuple | session status |
+| Drop silent contributors | `expire()` | every few seconds |
+
+Payloads are JSON-object bytes of at most 1 MiB; the host never decodes or edits
+them. `operations()` lists a backend's call names, so a host needs one set of
+routes for every backend. Rejections raise `ContributorError` with a fault:
+`invalid` (400), `unsupported` (403), `not_ready` (409) or `gone` (410: join
+again). The port is synchronous because hosts call it from request threads; each
+method returns within a few seconds.
+
+## Conformance
+
+Each backend runs the shared checks against its own factory, with fakes:
+
+```python
+from unittest import IsolatedAsyncioTestCase
+from ygaraty.backend_contracts.testing import BackendConformance, assert_stream
+
+class MyBackendConformance(BackendConformance, IsolatedAsyncioTestCase):
+    def make_factory(self): ...
+    def make_spec(self): ...
+    def make_services(self): ...
+```
+
+They check discovery without resources, strict configuration validation,
+snapshots, idempotent close and the contributor port's rules. Pass chat streams in
+a backend's own tests through `assert_stream`, which requires one valid,
+terminated event sequence. WebGPU (this repository) and Kaa's vLLM backend run it.
 
 ## Authentication and admission
 
