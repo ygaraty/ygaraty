@@ -28,7 +28,7 @@ include = ["ygaraty", "ygaraty.*"]
 
 [tool.setuptools.package-data]
 "*" = ["README.md", "py.typed"]
-"ygaraty.backends.webgpu" = ["browser/*.mts", "browser/*.mjs", "browser/*.js", "browser/*.html", "browser/*.css", "browser/README.md", "contributors/*.sh", "contributors/README.md"]
+"ygaraty.backends.webgpu" = ["models.toml", "browser/*.mts", "browser/*.mjs", "browser/*.js", "browser/*.html", "browser/*.css", "browser/README.md", "contributors/*.sh", "contributors/README.md"]
 
 [tool.ruff]
 target-version = "py312"

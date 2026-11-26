@@ -18,57 +18,19 @@ class ModelProfile:
     validation: str
 
 
-PROFILES = {
-    "s5-nano": ModelProfile(
-        "s5-nano",
-        "qwen35",
-        32,
-        (0, 16, 32),
-        3,
-        "research/103-fast-sessions-rollout-rerun.md",
-        "Two-stage execution measured; 3 GiB device acceptance pending",
-    ),
-    "qwen3.5-0.8b": ModelProfile(
-        "qwen3.5-0.8b",
-        "qwen35",
-        24,
-        (0, 12, 24),
-        1,
-        "Greedy tokens match the transformers reference (2026-11-15)",
-        "1/2/4-worker WebGPU runs with headless contributors; "
-        "browser and device variety pending",
-    ),
-    "qwen3.5-9b": ModelProfile(
-        "qwen3.5-9b",
-        "qwen35",
-        32,
-        (0, 8, 16, 24, 32),
-        4,
-        "research/092-qwen35-webgpu-four-contributors.md",
-        "Measured four-contributor WebGPU run; extracted host still pending",
-    ),
-    "qwen3.8-27b": ModelProfile(
-        "qwen3.8-27b",
-        "qwen35",
-        64,
-        (0, 33, 64),
-        10,
-        "Greedy answers match llama.cpp on the same Q4_K_M weights until "
-        "near-tied tokens (2026-11-16)",
-        "1/2/4-worker WebGPU runs on one RTX 3090 with headless Chrome; "
-        "multi-machine networks pending",
-    ),
-    "qwen3-coder-30b": ModelProfile(
-        "qwen3-coder-30b",
-        "qwen3moe",
-        48,
-        (0, 48),
-        32,
-        "research/DO-80.md",
-        "Partial: whole-model hidden-state gate; "
-        "multi-worker/tool gates pending",
-    ),
-}
+def _profiles():
+    from .model_registry import load
+
+    return {
+        name: ModelProfile(
+            name, r.family, r.layers, r.splits, r.memory_gb, r.evidence, r.validation
+        )
+        for name, r in load().models.items()
+    }
+
+
+# Read from the committed models.toml (see model_registry).
+PROFILES = _profiles()
 
 
 @dataclass(frozen=True, slots=True)

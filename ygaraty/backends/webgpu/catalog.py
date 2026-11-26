@@ -1,4 +1,4 @@
-"""`ygaraty models list`: the models this release supports, from one place.
+"""`ygaraty models list`: the models this release supports, from models.toml.
 
 Supported means a published prepared bundle (launch downloads it with
 --model NAME --num-workers N) plus a model profile with its validation
@@ -27,6 +27,9 @@ def catalog(include_experimental=False):
                 public_bundle_workers=workers,
                 default_splits=list(profile.splits),
                 context_tokens=PUBLIC_PRESETS[(name, workers[0])].context
+                if workers
+                else None,
+                output_tokens=PUBLIC_PRESETS[(name, workers[0])].output
                 if workers
                 else None,
                 validation=profile.validation,

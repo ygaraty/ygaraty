@@ -132,12 +132,16 @@ class SessionSnapshot:
     revision: int
     state: SessionState
     capabilities: EffectiveCapabilities | None = None
+    # Short human-readable reason for UNAVAILABLE/FAILED, safe to show users.
+    detail: str | None = None
 
     def __post_init__(self) -> None:
         text(self.session_id, "session_id")
         text(self.epoch, "epoch")
         integer(self.revision, "revision")
         member(self.state, SessionState)
+        if self.detail is not None:
+            text(self.detail, "detail", 500)
         if self.capabilities is not None and not isinstance(
             self.capabilities, EffectiveCapabilities
         ):

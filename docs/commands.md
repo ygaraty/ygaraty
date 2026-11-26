@@ -66,6 +66,12 @@ ygaraty models info s5-nano    # needs per worker for 1–4 workers
 ygaraty models info qwen3.5-9b --context 8192 --slots 2
 ```
 
+The list comes from one committed file,
+[`models.toml`](../ygaraty/backends/webgpu/models.toml): each model's profile and,
+if published, its bundle versions, worker counts, context and output limit. To
+add a model or change a limit, change that file in a pull request. It is
+Ygaraty's own list; hosted services such as Kaa keep separate registries.
+
 `launch` and `serve` need `--model`; without it they list the supported models
 and stop. With `--bundle`, `--bundle-url` or `--checkpoint`, `--model` is the
 name apps use in API requests.
